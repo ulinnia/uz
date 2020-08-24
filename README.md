@@ -9,6 +9,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/sh/master/termux
 
 #### 彩虹猫
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rraayy246/sh/master/PopTartCat.gif" alt="Nyan Cat">
+</p>
+
 daniwell
 
 cdhsmcq 彩虹猫

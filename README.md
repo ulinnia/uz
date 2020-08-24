@@ -4,5 +4,5 @@
 
 ```shell
 pkg install curl
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/sh/master/termux.sh)"
 ```

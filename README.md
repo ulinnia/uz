@@ -25,7 +25,7 @@ cdhsmcq 彩虹猫
 
 作者。
 
-* 东尼·博赞/Tony Buzan
+* 东尼·博赞 / Tony Buzan
 * daniwell
 * 新房昭之
 * 入间人间

@@ -17,7 +17,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/sh/master/termux
 
 daniwell
 
-cdhsmcq 彩虹猫
+cdhsmcq 彩虹猫 
+[W](http://www.nyan.cat/)
+[W](https://www.webcitation.org/6AX4J3pMz?url=http://www.prguitarman.com/index.php?id=348)
+[W](https://www.youtube.com/watch?v=QH2-TGUlwu4)
 
 aidn.jp [W](https://aidn.jp/)
 

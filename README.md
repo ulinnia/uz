@@ -21,7 +21,7 @@ cdhsmcq 彩虹猫
 
 [aidn.jp](https://aidn.jp/)
 
-### 神作
+### 神作 ###
 
 作者。
 

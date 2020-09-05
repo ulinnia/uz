@@ -17,12 +17,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/sh/master/termux
 
 daniwell
 
-cdhsmcq 彩虹猫 
+cdhsmcq 彩虹猫
 [W](http://www.nyan.cat/)
 [W](https://www.webcitation.org/6AX4J3pMz?url=http://www.prguitarman.com/index.php?id=348)
 [W](https://www.youtube.com/watch?v=QH2-TGUlwu4)
 
-aidn.jp [W](https://aidn.jp/)
+aidn.jp
+[W](https://aidn.jp/)
 
 ### 神作 ###
 
@@ -68,6 +69,7 @@ aidn.jp [W](https://aidn.jp/)
 游戏。
 
 * supertux
+[W](https://www.supertux.org/)
 * 侠盗猎车手圣安地列斯
 * 迷室系列
 * 爱丽斯的精神审判
@@ -75,6 +77,7 @@ aidn.jp [W](https://aidn.jp/)
 * 我在七年后等着你
 * 刺激战场
 * 心跳文学部
+[W](https://ddlc.moe/)
 * APEX英雄
 
 设备。
@@ -85,3 +88,4 @@ aidn.jp [W](https://aidn.jp/)
 输入法。
 
 * 小鹤音形
+[W](https://www.flypy.com/)

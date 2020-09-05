@@ -19,7 +19,7 @@ daniwell
 
 cdhsmcq 彩虹猫
 
-[aidn.jp](https://aidn.jp/)
+aidn.jp [W](https://aidn.jp/)
 
 ### 神作 ###
 

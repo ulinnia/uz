@@ -126,3 +126,5 @@ aidn.jp
 [W](https://handbrake.fr/)
 * (视频编辑器) Shotcut
 [W](https://shotcut.org/)
+* (音频编辑器) Audacity
+[W](https://www.audacityteam.org/)

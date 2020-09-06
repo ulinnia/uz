@@ -91,12 +91,21 @@ aidn.jp
 
 软件。
 
+自由软件 - GNU工程
+[W](https://www.gnu.org/philosophy/free-sw.zh-cn.html)
+
+* (英文字体) Ubuntu font
+[W](https://design.ubuntu.com/font/)
 * (浏览器) Firefox 火狐
 [W](https://www.mozilla.org/zh-CN/firefox/)
 * (影音播放器) VLC
 [W](https://www.videolan.org/index.zh.html)
+* (办公室套件) LibreOffice
+[W](https://zh-cn.libreoffice.org/)
 * (输入法) 小鹤音形
 [W](https://www.flypy.com/)
 * (安卓文件管理) MiXplorer
 [W](https://mixplorer.com/)
 * (安卓音乐播放器) Vinyl Music Player
+* (文档编辑器) Vim
+[W](https://www.vim.org/)

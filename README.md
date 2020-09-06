@@ -93,7 +93,6 @@ aidn.jp
 
 * 自由软件 - GNU工程
 [W](https://www.gnu.org/philosophy/free-sw.zh-cn.html)
-
 * (英文字体) Ubuntu font
 [W](https://design.ubuntu.com/font/)
 * (浏览器) Firefox 火狐

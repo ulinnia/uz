@@ -101,7 +101,7 @@ aidn.jp
 * (影音播放器) VLC
 [W](https://www.videolan.org/index.zh.html)
 * (办公室套件) LibreOffice
-[W](https://zh-cn.libreoffice.org/)
+[W](https://www.libreoffice.org/)
 * (数据压缩) 7-Zip
 [W](https://www.7-zip.org/)
 * (输入法) 小鹤音形
@@ -113,3 +113,9 @@ aidn.jp
 [W](https://www.vim.org/)
 * (制作系统启动盘) Rufus
 [W](https://rufus.ie/)
+* (位图图像编辑器) GIMP
+[W](https://www.gimp.org/)
+* (矢量图形编辑器) Inkscape
+[W](https://inkscape.org/)
+* (三维动画制作软件) Blender
+[W](https://www.blender.org/)

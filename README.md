@@ -121,5 +121,5 @@ aidn.jp
 [W](https://www.blender.org/)
 * (视频文件转码器) HandBrake
 [W](https://handbrake.fr/)
-* (视频编辑应用程序) Shotcut
+* (视频编辑) Shotcut
 [W](https://shotcut.org/)

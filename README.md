@@ -100,8 +100,6 @@ aidn.jp
 [W](https://www.mozilla.org/zh-CN/firefox/)
 * (影音播放器) VLC
 [W](https://www.videolan.org/index.zh.html)
-* (办公室套件) LibreOffice
-[W](https://www.libreoffice.org/)
 * (数据压缩) 7-Zip
 [W](https://www.7-zip.org/)
 * (输入法) 小鹤音形
@@ -112,7 +110,10 @@ aidn.jp
 * (文档编辑器) Vim
 [W](https://www.vim.org/)
 
+不常用的软件。
 
+* (办公室套件) LibreOffice
+[W](https://www.libreoffice.org/)
 * (制作系统启动盘) Rufus
 [W](https://rufus.ie/)
 * (位图图像编辑器) GIMP

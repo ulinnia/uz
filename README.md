@@ -74,7 +74,7 @@ aidn.jp
 * supertux
 [W](https://www.supertux.org/)
 * 侠盗猎车手圣安地列斯
-* 迷室系列
+* The Room 迷室系列
 * 爱丽斯的精神审判
 * 四目神
 * 我在七年后等着你

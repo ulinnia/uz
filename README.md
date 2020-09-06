@@ -32,17 +32,17 @@ aidn.jp
 
 作者。
 
-* 东尼·博赞 / Tony Buzan
 * daniwell
 * 新房昭之
 * 入间人间
+* 东尼·博赞 / Tony Buzan
 
 动漫。
 
 * 化物语
 * 伪物语
-* 高分少女
 * 少女终末旅行
+* 高分少女
 
 电影。
 
@@ -51,8 +51,8 @@ aidn.jp
 
 漫画。
 
-* 说谎的男孩和坏掉的女孩
 * 吞噬人间
+* 说谎的男孩和坏掉的女孩
 
 音乐。
 
@@ -91,12 +91,12 @@ aidn.jp
 
 软件。
 
-* (输入法) 小鹤音形
-[W](https://www.flypy.com/)
-* (影音播放器) VLC
-[W](https://www.videolan.org/index.zh.html)
-* (安卓文件管理) MiXplorer
-[W](https://mixplorer.com/)
 * (浏览器) Firefox 火狐
 [W](https://www.mozilla.org/zh-CN/firefox/)
+* (影音播放器) VLC
+[W](https://www.videolan.org/index.zh.html)
+* (输入法) 小鹤音形
+[W](https://www.flypy.com/)
+* (安卓文件管理) MiXplorer
+[W](https://mixplorer.com/)
 * (安卓音乐播放器) Vinyl Music Player

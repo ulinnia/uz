@@ -1,15 +1,16 @@
 # sh
 
-### Termux ###
+### Termux配置 ###
 
-快速配置Termux
 
 ```shell
 pkg install curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/sh/master/termux.sh)"
 ```
 
+
 ### 彩虹猫 ###
+
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/rraayy246/sh/master/PopTartCat.gif" alt="Nyan Cat">
@@ -25,7 +26,9 @@ cdhsmcq 彩虹猫
 aidn.jp
 [W](https://aidn.jp/)
 
+
 ### 神作 ###
+
 
 作者。
 
@@ -80,12 +83,18 @@ aidn.jp
 [W](https://ddlc.moe/)
 * APEX英雄
 
-设备。
+硬件。
 
 * (人体工学键盘) kinesis advantage 2
 * (轨迹球) Kensington Pro Fit® Ergo
 
-输入法。
+软件。
 
-* 小鹤音形
+* (输入法) 小鹤音形
 [W](https://www.flypy.com/)
+* (影音播放器) VLC
+[W](https://www.videolan.org/index.zh.html)
+* (安卓文件管理) MiXplorer
+[W](https://mixplorer.com/)
+* (浏览器) Firefox 火狐
+[W](https://www.mozilla.org/zh-CN/firefox/)

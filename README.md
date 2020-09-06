@@ -99,3 +99,4 @@ aidn.jp
 [W](https://mixplorer.com/)
 * (浏览器) Firefox 火狐
 [W](https://www.mozilla.org/zh-CN/firefox/)
+* (安卓音乐播放器) Vinyl Music Player

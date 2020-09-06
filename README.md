@@ -107,6 +107,8 @@ aidn.jp
 * (安卓文件管理) MiXplorer
 [W](https://mixplorer.com/)
 * (安卓音乐播放器) Vinyl Music Player
+* (安卓终端) Termux
+[W](https://termux.com/)
 * (文档编辑器) Vim
 [W](https://www.vim.org/)
 

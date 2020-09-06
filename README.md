@@ -117,5 +117,9 @@ aidn.jp
 [W](https://www.gimp.org/)
 * (矢量图形编辑器) Inkscape
 [W](https://inkscape.org/)
-* (三维动画制作软件) Blender
+* (三维动画制作) Blender
 [W](https://www.blender.org/)
+* (视频文件转码器) HandBrake
+[W](https://handbrake.fr/)
+* (视频编辑应用程序) Shotcut
+[W](https://shotcut.org/)

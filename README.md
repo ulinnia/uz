@@ -91,7 +91,7 @@ aidn.jp
 
 软件。
 
-自由软件 - GNU工程
+* 自由软件 - GNU工程
 [W](https://www.gnu.org/philosophy/free-sw.zh-cn.html)
 
 * (英文字体) Ubuntu font

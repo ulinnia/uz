@@ -102,6 +102,8 @@ aidn.jp
 [W](https://www.videolan.org/index.zh.html)
 * (办公室套件) LibreOffice
 [W](https://zh-cn.libreoffice.org/)
+* (数据压缩) 7-Zip
+[W](https://www.7-zip.org/)
 * (输入法) 小鹤音形
 [W](https://www.flypy.com/)
 * (安卓文件管理) MiXplorer
@@ -109,3 +111,5 @@ aidn.jp
 * (安卓音乐播放器) Vinyl Music Player
 * (文档编辑器) Vim
 [W](https://www.vim.org/)
+* (制作系统启动盘) Rufus
+[W](https://rufus.ie/)

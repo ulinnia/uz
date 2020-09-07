@@ -123,7 +123,7 @@ aidn.jp
 [W](https://inkscape.org/)
 * (三维动画制作) Blender
 [W](https://www.blender.org/)
-* (视频文件转码器) HandBrake
+* (视频转码器) HandBrake
 [W](https://handbrake.fr/)
 * (视频编辑器) Shotcut
 [W](https://shotcut.org/)

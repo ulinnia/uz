@@ -80,7 +80,7 @@ aidn.jp
 * 我在七年后等着你
 * 刺激战场
 * BanG Dream! 少女乐团派对
-* 心跳文学部
+* DDLC 心跳文学部
 [W](https://ddlc.moe/)
 * APEX英雄
 

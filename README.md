@@ -83,6 +83,7 @@ aidn.jp
 * DDLC 心跳文学部
 [W](https://ddlc.moe/)
 * APEX英雄
+* 泰坦天降2
 
 硬件。
 

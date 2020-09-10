@@ -1,6 +1,6 @@
 # UZ
 
-(Termux配置)[#Termux配置]
+[Termux配置](#Termux配置)
 
 ### 彩虹猫 ###
 

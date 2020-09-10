@@ -1,13 +1,6 @@
 # UZ
 
-### Termux配置 ###
-
-
-```shell
-pkg install curl
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
-```
-
+(Termux配置)[#Termux配置]
 
 ### 彩虹猫 ###
 
@@ -27,7 +20,7 @@ aidn.jp
 [W](https://aidn.jp/)
 
 
-### 神作 ###
+## 神作 ##
 
 
 作者。
@@ -130,3 +123,14 @@ aidn.jp
 [W](https://shotcut.org/)
 * (音频编辑器) Audacity
 [W](https://www.audacityteam.org/)
+
+
+## 解释 ##
+
+### Termux配置 ###
+
+
+```shell
+pkg install curl
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
+```

@@ -2,22 +2,12 @@
 
 [Termux配置](#Termux配置)
 
-### 彩虹猫 ###
-
+[彩虹猫](#彩虹猫)
 
 <p align="center">
   <img src="PopTartCat.gif" alt="Nyan Cat">
 </p>
 
-daniwell
-
-cdhsmcq 彩虹猫
-[W](http://www.nyan.cat/)
-[W](https://www.webcitation.org/6AX4J3pMz?url=http://www.prguitarman.com/index.php?id=348)
-[W](https://www.youtube.com/watch?v=QH2-TGUlwu4)
-
-aidn.jp
-[W](https://aidn.jp/)
 
 
 ## 神作 ##
@@ -126,6 +116,17 @@ aidn.jp
 
 
 ## 解释 ##
+
+### 彩虹猫 ###
+
+daniwell
+
+cdhsmcq 彩虹猫
+[W](http://www.nyan.cat/)
+[W](https://www.webcitation.org/6AX4J3pMz?url=http://www.prguitarman.com/index.php?id=348)
+[W](https://www.youtube.com/watch?v=QH2-TGUlwu4)
+
+<aidn.jp>
 
 ### Termux配置 ###
 

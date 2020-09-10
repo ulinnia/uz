@@ -3,7 +3,7 @@
 ### Termux配置 ###
 
 
-```shell
+```json
 pkg install curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
 ```

@@ -1,17 +1,15 @@
 # UZ
 
-[Termux配置](#Termux配置)
-
-[彩虹猫](#彩虹猫)
 
 <p align="center">
   <img src="PopTartCat.gif" alt="Nyan Cat">
 </p>
 
+[彩虹猫](#彩虹猫)
+[Termux配置](#Termux配置)
 
 
 ## 神作 ##
-
 
 作者。
 
@@ -117,6 +115,7 @@
 
 ## 解释 ##
 
+
 ### 彩虹猫 ###
 
 daniwell
@@ -127,6 +126,7 @@ cdhsmcq 彩虹猫
 [W](https://www.youtube.com/watch?v=QH2-TGUlwu4)
 
 aidn.jp [W](https://aidn.jp/)
+
 
 ### Termux配置 ###
 

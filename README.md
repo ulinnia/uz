@@ -5,8 +5,8 @@
   <img src="PopTartCat.gif" alt="Nyan Cat">
 </p>
 
-[彩虹猫](#彩虹猫)
-[Termux配置](#Termux配置)
+- [彩虹猫](#彩虹猫)
+- [Termux配置](#Termux配置)
 
 
 ## 神作 ##

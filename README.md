@@ -13,10 +13,10 @@
 
 作者。
 
-- daniwell [T](#)
-- 新房昭之 [T](#)
-- 入间人间 [T](#)
-- 东尼·博赞 / Tony Buzan [T](#)
+- daniwell [T](#daniwell)
+- 新房昭之 [T](#新房昭之)
+- 入间人间 [T](#入间人间)
+- 东尼·博赞 / Tony Buzan [T](#东尼·博赞)
 
 动漫。
 
@@ -130,8 +130,16 @@ aidn.jp [W](https://aidn.jp/)
 
 ### Termux配置 ###
 
-
 ```shell
 pkg install curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
 ```
+
+
+### daniwell ###
+
+
+### 新房昭之 ###
+
+
+### 入间人间 ###

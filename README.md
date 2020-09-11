@@ -16,7 +16,7 @@
 - daniwell [T](#daniwell)
 - 新房昭之 [T](#新房昭之)
 - 入间人间 [T](#入间人间)
-- 东尼·博赞 / Tony Buzan [T](#东尼·博赞)
+- 东尼·博赞 [T](#东尼·博赞)
 
 动漫。
 
@@ -143,3 +143,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux
 
 
 ### 入间人间 ###
+
+
+### 东尼·博赞 ###
+外文名: Tony·Buzan
+

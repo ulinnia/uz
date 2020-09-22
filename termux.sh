@@ -26,7 +26,7 @@ chsh -s zsh
 echo "set nu\nsyntax on\nset ignorecase\nset smartcase" > "$HOME/.vimrc"
 
 #软连接aidn。
-if [ -e "$HOME/storage/shared/A/Y/aidn" ]; then
+if [[ -e "$HOME/storage/shared/A/Y/aidn" ]]; then
  ln -s $HOME/storage/shared/A/Y/aidn $HOME/aidn
 fi
 #安装Ubuntu字体。

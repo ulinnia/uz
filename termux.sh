@@ -26,7 +26,9 @@ chsh -s zsh
 echo "set nu\nsyntax on\nset ignorecase\nset smartcase" > "$HOME/.vimrc"
 
 #软连接aidn。
-ln -s $HOME/storage/shared/A/Y/aidn $HOME/aidn
+if [ -e "$HOME/storage/shared/A/Y/aidn" ]; then
+ ln -s $HOME/storage/shared/A/Y/aidn $HOME/aidn
+fi
 #安装Ubuntu字体。
 curl -fsLo $HOME/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 

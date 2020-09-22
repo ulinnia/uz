@@ -23,7 +23,7 @@ echo "source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "$HO
 chsh -s zsh
 
 #vim设定：显示行号，语法高亮，大小写混搜。
-echo "set nu\nsyntax on\nset ignorecase\nset smartcase" > "$HOME/.vimrc"
+echo -e "set nu\nsyntax on\nset ignorecase\nset smartcase" > "$HOME/.vimrc"
 
 #软连接aidn。
 if [ -e "$HOME/storage/shared/A/Y/aidn" ]; then ln -s $HOME/storage/shared/A/Y/aidn $HOME/aidn; fi

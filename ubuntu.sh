@@ -11,3 +11,4 @@ locale-gen
 apt update
 apt upgrade
 apt install vim fcitx fcitx-rime
+apt autoremove

@@ -11,7 +11,7 @@ locale-gen
 #安装常用软件
 apt update
 apt upgrade
-apt install vim fcitx fcitx-rime wget curl p7zip
+apt install vim fcitx fcitx-rime wget curl p7zip-full
 apt autoremove
 
 #CAPS改为CTRL

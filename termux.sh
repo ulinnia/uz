@@ -4,7 +4,8 @@
 termux-setup-storage
 
 #下载常用软件。
-pkg update
+pkg update -y
+pkg upgrade -y
 pkg install -y man vim curl wget git tree zsh
 
 #安装oh-my-zsh。

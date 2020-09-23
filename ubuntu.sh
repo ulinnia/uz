@@ -24,3 +24,7 @@ if [ -e "$HOME/下载" ]; then dl="下载"; else dl="Download"; fi
 wget http://ys-j.ys168.com/116124311/TTv6jFq712X632VHKLHL/小鹤音形Rime平台鼠须管for%20macOS.zip -O $HOME/${dl}/hrime.zip
 7z x $HOME/${dl}/hrime.zip -o$HOME/${dl}
 cp -rf $HOME/${dl}/小鹤音形Rime平台鼠须管for\ macOS/rime $HOME/.config/fcitx
+echo "请将默认的输入工具由iBus切换为fcitx"
+im-config -s fcitx
+
+reboot

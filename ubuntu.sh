@@ -19,4 +19,5 @@ sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 
 #安装小鹤音形
 #到http://flypy.ys168.com/下载小鹤音形挂接第三方之MacOS文件到本地，将上述文件解压，将文件夹下的rime文件夹复制到~/.config/fcitx/下，若已存在rime文件夹，先将其删除；最后命令行输入im-config，将默认的输入工具由iBus切换为fcitx，再重启。这时候就能用control+space来切换到rime了
-curl -fsLo $HOME/下载/hrime.zip --create-dirs http://ys-j.ys168.com/116124311/TTv6jFq712X632VHKLHL/小鹤音形Rime平台鼠须管for%20macOS.zip
+if [ -e "$HOME/下载/" ]; then dl="下载"; else dl="Download"; fi
+curl -fsLo $HOME/${dl}/hrime.zip --create-dirs http://ys-j.ys168.com/116124311/TTv6jFq712X632VHKLHL/小鹤音形Rime平台鼠须管for%20macOS.zip

@@ -133,7 +133,7 @@ aidn.jp [W](https://aidn.jp/)
 
 ```shell
 pkg install curl
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
+sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/termux.sh)"
 ```
 
 
@@ -141,7 +141,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux
 
 ```shell
 apt install curl
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
+sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/ubuntu.sh)"
 ```
 
 

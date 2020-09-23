@@ -26,6 +26,12 @@ cp -rf $HOME/${dl}/小鹤音形Rime平台鼠须管for\ macOS/rime $HOME/.config/
 rm -rf $HOME/${dl}/小鹤音形Rime平台鼠须管for\ macOS
 rm -f $HOME/${dl}/hrime.zip
 im-config -s fcitx
+
 #用control+space来切换到rime
+read -p "重启后，用control+space来切换到rime，请按任意键以重启，(n/N)停止:" choice
+if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
+    echo "脚本已停止"
+    exit 1
+fi
 
 reboot

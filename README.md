@@ -7,6 +7,7 @@
 
 - [彩虹猫](#彩虹猫)
 - [Termux配置](#Termux配置)
+- [Ubuntu配置](#Ubuntu配置)
 
 
 ## 神作 ##
@@ -129,6 +130,14 @@ aidn.jp [W](https://aidn.jp/)
 
 
 ### Termux配置 ###
+
+```shell
+pkg install curl
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
+```
+
+
+### Ubuntu配置 ###
 
 ```shell
 pkg install curl

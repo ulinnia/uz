@@ -19,11 +19,12 @@ sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 
 #安装小鹤音形
 exit
-if [ -e "$HOME/下载" ]; then dl="下载"; else dl="Download"; fi
-wget http://ys-j.ys168.com/116124311/TTv6jFq712X632VHKLHL/小鹤音形Rime平台鼠须管for%20macOS.zip -O $HOME/${dl}/hrime.zip
-7z x $HOME/${dl}/hrime.zip -o$HOME/${dl}
-cp -rf $HOME/${dl}/小鹤音形Rime平台鼠须管for\ macOS/rime $HOME/.config/fcitx
-rm -rf $HOME/${dl}/小鹤音形Rime平台鼠须管for\ macOS $HOME/${dl}/hrime.zip
+if [ -e "~/下载" ]; then dl="下载"; else dl="Download"; fi
+link=https://github.com/Caffreyfans/flypy-install/raw/master/rime.zip
+wget ${link} -O ~/${dl}/hrime.zip
+7z x ~/${dl}/hrime.zip -o~/${dl}
+cp -rf ~/${dl}/小鹤音形Rime平台鼠须管for\ macOS/rime ~/.config/fcitx
+rm -rf ~/${dl}/小鹤音形Rime平台鼠须管for\ macOS ~/${dl}/hrime.zip
 im-config -s fcitx
 
 #用control+space来切换到rime

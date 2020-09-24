@@ -9,27 +9,27 @@ pkg upgrade -y
 pkg install -y man vim curl wget git tree zsh
 
 #安装oh-my-zsh。
-git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh --depth 1 #浅克隆
-cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1 #浅克隆
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 #换成amuse主题。
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="amuse"/' $HOME/.zshrc
+sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="amuse"/' ~/.zshrc
 #开启zsh自动更新。
-echo "DISABLE_UPDATE_PROMPT=true" >> "$HOME/.zshrc"
+echo "DISABLE_UPDATE_PROMPT=true" >> "~/.zshrc"
 
 #安装zsh语法高亮。
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting --depth 1
-echo "source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "$HOME/.zshrc"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting --depth 1
+echo "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "~/.zshrc"
 
 #设zsh为默认shell
 chsh -s zsh
 
 #vim设定：显示行号，语法高亮，大小写混搜。
-echo -e "set nu\nsyntax on\nset ignorecase\nset smartcase" > "$HOME/.vimrc"
+echo -e "set nu\nsyntax on\nset ignorecase\nset smartcase" > "~/.vimrc"
 
 #软连接aidn。
-if [ -e "$HOME/storage/shared/A/Y/aidn" ]; then ln -s $HOME/storage/shared/A/Y/aidn $HOME/aidn; fi
+if [ -e "~/storage/shared/A/Y/aidn" ]; then ln -s ~/storage/shared/A/Y/aidn ~/aidn; fi
 #安装Ubuntu字体。
-curl -fsLo $HOME/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
+curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 
 #应用设定。
 termux-reload-settings

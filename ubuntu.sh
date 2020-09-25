@@ -2,7 +2,6 @@
 
 #解决中文乱码
 echo "以下命令需要超级用户权限。"
-sudo su
 apt install -y `check-language-support -l zh-hans`
 echo -e "LANG=\"zh_CN.UTF-16\"\nLANGUAGE=\"zh_CN:zh:en_US:en\"" >> "/etc/environment"
 echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-16 UTF-16\nzh_CN.GBK GBK" >> "/var/lib/locales/supported.d/local"

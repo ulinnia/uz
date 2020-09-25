@@ -140,7 +140,7 @@ sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/termux.sh)"
 ### Ubuntu配置 ###
 
 ```shell
-apt install curl
+sudo apt install -y curl
 sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/ubuntu.sh)"
 ```
 

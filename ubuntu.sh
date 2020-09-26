@@ -24,7 +24,8 @@ wget ${link} -O hrime.zip
 7z x hrime.zip
 cp -Rf 小鹤音形Rime平台鼠须管for\ macOS/rime ~/.config/fcitx
 rm -rf 小鹤音形Rime平台鼠须管for\ macOS hrime.zip
-echo "please switch to fcitx, enter" choice
+fcitx-remote -r
+echo "请在下个视窗切换成fcitx, enter" choice
 im-config
 
 #用control+space来切换到rime

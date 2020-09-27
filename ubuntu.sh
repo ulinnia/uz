@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 
+sudo apt install libgcc-s1:i386
 #安装常用软件
 sudo apt update -y
 sudo apt upgrade -y

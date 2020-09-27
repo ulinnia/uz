@@ -6,7 +6,7 @@ termux-setup-storage
 #下载常用软件。
 pkg update -y
 pkg upgrade -y
-pkg install -y man vim curl wget git tree zsh
+pkg install -y curl git man tree vim wget zsh
 
 #安装oh-my-zsh。
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1 #浅克隆

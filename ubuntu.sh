@@ -5,7 +5,7 @@
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install -y curl fcitx fcitx-rime git vim wget p7zip-full gnome-tweaks chrome-gnome-shell
-sudo apt autoremove -ygnome-tweaks 
+sudo apt autoremove -y
 
 #CAPS改为CTRL
 sudo sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard

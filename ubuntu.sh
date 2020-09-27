@@ -19,7 +19,7 @@ wget ${link} -O hrime.zip
 cp -Rf 小鹤音形Rime平台鼠须管for\ macOS/rime ~/.config/fcitx
 rm -rf 小鹤音形Rime平台鼠须管for\ macOS hrime.zip
 fcitx-remote -r
-echo "请在下个视窗切换成fcitx, enter" choice
+read -p "请在下个视窗切换成fcitx, enter"
 im-config
 
 #GNOME扩展启用

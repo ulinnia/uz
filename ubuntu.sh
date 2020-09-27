@@ -19,13 +19,13 @@ wget ${link} -O hrime.zip
 cp -Rf 小鹤音形Rime平台鼠须管for\ macOS/rime ~/.config/fcitx
 rm -rf 小鹤音形Rime平台鼠须管for\ macOS hrime.zip
 fcitx-remote -r
-read -p "请在下个视窗切换成fcitx, enter"
+read -p "请在下个视窗切换成fcitx。enter"
 im-config
 
 #GNOME扩展启用
-read -p "进入扩展页面启用 User Themes 扩展，enter"
+read -p "进入扩展页面启用 User Themes 扩展。enter"
 firefox https://extensions.gnome.org/extension/19/user-themes/
-read -p "打开 GNOME 调整工具（优化），进入“外观”部分，就可以看到 shell 主题的选项，现在只需要把它启用就可以了。"
+read -p "打开 GNOME 调整工具（优化），进入“外观”部分，就可以看到 shell 主题的选项，现在只需要把它启用就可以了。enter"
 
 
 #用control+space来切换到rime

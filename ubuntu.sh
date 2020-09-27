@@ -4,8 +4,8 @@
 #安装常用软件
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y vim fcitx fcitx-rime wget curl p7zip-full git
-sudo apt autoremove -y
+sudo apt install -y curl fcitx fcitx-rime git wget vim p7zip-full gnome-tweaks chrome-gnome-shell
+sudo apt autoremove -ygnome-tweaks 
 
 #CAPS改为CTRL
 sudo sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard

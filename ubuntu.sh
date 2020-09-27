@@ -5,7 +5,7 @@ sudo apt install libgcc-s1:i386
 #安装常用软件
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y curl fcitx fcitx-rime git vim wget p7zip-full gnome-tweaks chrome-gnome-shell
+sudo apt install -y curl fcitx fcitx-rime git vim wget wine p7zip-full gnome-tweaks chrome-gnome-shell
 sudo apt autoremove -y
 
 #CAPS改为CTRL

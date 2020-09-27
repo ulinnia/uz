@@ -1,23 +1,16 @@
 #!/usr/bin/env bash
 
-#解决中文乱码
-echo "以下命令需要超级用户权限。"
-apt install -y `check-language-support -l zh-hans`
-echo -e "LANG=\"zh_CN.UTF-16\"\nLANGUAGE=\"zh_CN:zh:en_US:en\"" >> "/etc/environment"
-echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8\nzh_CN.GBK GBK" >> "/var/lib/locales/supported.d/local"
-locale-gen
 
 #安装常用软件
-apt update -y
-apt upgrade -y
-apt install -y vim fcitx fcitx-rime wget curl p7zip-full
-apt autoremove -y
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y vim fcitx fcitx-rime wget curl p7zip-full git
+sudo apt autoremove -y
 
 #CAPS改为CTRL
-sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
+sudo sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 
 #安装小鹤音形
-exit
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
 link=https://github.com/rraayy246/UZ/raw/master/flypy.zip
 wget ${link} -O hrime.zip

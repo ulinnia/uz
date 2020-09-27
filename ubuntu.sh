@@ -4,7 +4,7 @@
 #安装常用软件
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y curl fcitx fcitx-rime git vim wget p7zip-full gnome-tweaks chrome-gnome-shell
+sudo apt install -y curl fcitx fcitx-rime git vim wget p7zip-full gnome-tweaks
 sudo apt autoremove -ygnome-tweaks 
 
 #CAPS改为CTRL

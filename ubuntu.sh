@@ -27,13 +27,13 @@ firefox https://extensions.gnome.org/extension/19/user-themes/
 read -p "打开GNOME调整工具（优化），进入“外观”部分，就可以看到shell主题的选项，现在只需要把它启用就可以了。enter"
 
 #游戏
-read -p "有玩游戏的需求吗，按Y确认" choice
+read -p "有玩游戏的需求吗？[y/*]" choice
 if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
  sudo dpkg --add-architecture i386
  sudo add-apt-repository -y ppa:lutris-team/lutris
  sudo apt update -y
  sudo apt install -y lutris steam 
- read -p "你是N卡还是A卡？" choice
+ read -p "你是N卡还是A卡？[n/*]" choice
  if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
   sudo add-apt-repository -y ppa:graphics-drivers/ppa
   sudo apt update -y
@@ -51,12 +51,12 @@ if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
  ver=focal
  sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ ${ver} main'
  sudo apt update -y
- sudo apt install --install-recommends wine-staging -y
+ sudo apt install --install-recommends winehq-staging -y
  sudo install -y libgnutls30:i386 libldap-2.4-2:i386 libgpg-error0:i386 libxml2:i386 libasound2-plugins:i386 libsdl2-2.0-0:i386 libfreetype6:i386 libdbus-1-3:i386 libsqlite3-0:i386
 fi
 
 #用control+space来切换到rime
-read -p "重启后，用control+space来切换到rime，请按任意键以重启，(n/N)停止:" choice
+read -p "重启后，用control+space来切换到rime。[*/n]" choice
 if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
  echo "脚本已停止"
  exit 1

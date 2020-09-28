@@ -36,14 +36,23 @@ if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
  read -p "你是N卡还是A卡？" choice
  if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
   sudo add-apt-repository -y ppa:graphics-drivers/ppa
-  sudo apt install -y nvidia-driver-450 libvulkan1 libvulkan1:i386
   sudo apt update -y
+#https://github.com/lutris/docs/blob/master/InstallingDrivers.md
+  sudo apt install -y nvidia-driver-450 libvulkan1 libvulkan1:i386
  else
   sudo add-apt-repository -y ppa:kisak/kisak-mesa
   sudo apt update && sudo apt upgrade -y
   sudo apt install libgl1-mesa-dri:i386
   sudo apt install mesa-vulkan-drivers mesa-vulkan-drivers:i386
  fi
+ wget -nc https://dl.winehq.org/wine-builds/winehq.key
+ sudo apt-key add winehq.key
+#https://github.com/lutris/docs/blob/master/WineDependencies.md
+ ver=focal
+ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ ${ver} main'
+ sudo apt update -y
+ sudo apt install --install-recommends wine-staging -y
+ sudo install -y libgnutls30:i386 libldap-2.4-2:i386 libgpg-error0:i386 libxml2:i386 libasound2-plugins:i386 libsdl2-2.0-0:i386 libfreetype6:i386 libdbus-1-3:i386 libsqlite3-0:i386
 fi
 
 #用control+space来切换到rime

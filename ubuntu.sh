@@ -3,8 +3,7 @@
 #解决Ubuntu 20.04安装程序崩溃
 sudo apt install libgcc-s1:i386
 #安装常用软件
-sudo apt update -y
-sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl fcitx fcitx-rime git vim wget wine p7zip-full gnome-tweaks chrome-gnome-shell
 sudo apt autoremove -y
 

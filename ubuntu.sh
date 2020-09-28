@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-
+#解决 Ubuntu 20.04 安装程序崩溃
 sudo apt install libgcc-s1:i386
 #安装常用软件
 sudo apt update -y

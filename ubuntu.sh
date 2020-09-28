@@ -14,10 +14,10 @@ sudo sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 #安装小鹤音形
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
 link=https://github.com/rraayy246/UZ/raw/master/flypy.zip
-wget ${link} -O hrime.zip
-7z x hrime.zip
+wget ${link} -O flypy.zip
+7z x flypy.zip
 cp -Rf 小鹤音形Rime平台鼠须管for\ macOS/rime ~/.config/fcitx
-rm -rf 小鹤音形Rime平台鼠须管for\ macOS hrime.zip
+rm -rf 小鹤音形Rime平台鼠须管for\ macOS flypy.zip
 fcitx-remote -r
 read -p "请在下个视窗切换成fcitx。enter"
 im-config

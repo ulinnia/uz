@@ -27,6 +27,13 @@ read -p "进入扩展页面启用User Themes扩展。enter"
 firefox https://extensions.gnome.org/extension/19/user-themes/
 read -p "打开GNOME调整工具（优化），进入“外观”部分，就可以看到shell主题的选项，现在只需要把它启用就可以了。enter"
 
+#游戏
+read -p "有玩游戏的需求吗，按Y确认" choice
+if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
+    sudo add-apt-repository ppa:lutris-team/lutris
+    sudo apt update
+    sudo apt install lutris steam
+fi
 
 #用control+space来切换到rime
 read -p "重启后，用control+space来切换到rime，请按任意键以重启，(n/N)停止:" choice

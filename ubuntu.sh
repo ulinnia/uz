@@ -29,16 +29,29 @@ read -p "打开GNOME调整工具（优化），进入“外观”部分，就可
 #游戏
 read -p "有玩游戏的需求吗，按Y确认" choice
 if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
-    sudo add-apt-repository -y ppa:lutris-team/lutris ppa:graphics-drivers/ppa
-    sudo apt update -y
-    sudo apt install -y lutris steam
+ sudo add-apt-repository -y ppa:lutris-team/lutris
+ sudo apt update -y
+ sudo apt install -y lutris steam
+ read -p "你是N卡还是A卡？" choice
+ if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
+  sudo add-apt-repository -y ppa:graphics-drivers/ppa
+  sudo apt install -y nvidia-driver-450 libvulkan1 libvulkan1:i386
+  sudo dpkg --add-architecture i386
+  sudo apt update
+ else
+  sudo add-apt-repository -y ppa:kisak/kisak-mesa
+  sudo dpkg --add-architecture i386
+  sudo apt update && sudo apt upgrade -y
+  sudo apt install libgl1-mesa-dri:i386
+  sudo apt install mesa-vulkan-drivers mesa-vulkan-drivers:i386
+ fi
 fi
 
 #用control+space来切换到rime
 read -p "重启后，用control+space来切换到rime，请按任意键以重启，(n/N)停止:" choice
 if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
-    echo "脚本已停止"
-    exit 1
+ echo "脚本已停止"
+ exit 1
 fi
 
 reboot

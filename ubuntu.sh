@@ -66,6 +66,6 @@ read -p "重启后，用control+space来切换到rime。[*/n]" choice
 if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
  echo "脚本已停止"
  exit 1
+else
+ reboot
 fi
-
-reboot

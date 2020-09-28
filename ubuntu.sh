@@ -32,7 +32,9 @@ if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
  sudo dpkg --add-architecture i386
  sudo add-apt-repository -y ppa:lutris-team/lutris
  sudo apt update -y
- sudo apt install -y lutris steam 
+ sudo apt install -y lutris steam
+ read -p "打开steam，settings，steam play，选择enable steam play，下面选单选择proton。enter"
+ steam
  read -p "你是N卡还是A卡？[n/*]" choice
  if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then
   sudo add-apt-repository -y ppa:graphics-drivers/ppa
@@ -53,6 +55,7 @@ if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
  sudo apt update -y
  sudo apt install --install-recommends winehq-staging -y
  sudo install -y libgnutls30:i386 libldap-2.4-2:i386 libgpg-error0:i386 libxml2:i386 libasound2-plugins:i386 libsdl2-2.0-0:i386 libfreetype6:i386 libdbus-1-3:i386 libsqlite3-0:i386
+ read -p "打开lutris，选项，首选项，系统选项，显示高级选项，在命令前缀输入gamemoderun，保存。enter"
 fi
 
 #用control+space来切换到rime

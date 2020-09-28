@@ -29,7 +29,7 @@ read -p "打开GNOME调整工具（优化），进入“外观”部分，就可
 #游戏
 read -p "有玩游戏的需求吗，按Y确认" choice
 if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
-    sudo add-apt-repository -y ppa:lutris-team/lutris
+    sudo add-apt-repository -y ppa:lutris-team/lutris sudo ppa:graphics-drivers/ppa
     sudo apt update -y
     sudo apt install -y lutris steam
 fi

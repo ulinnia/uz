@@ -33,7 +33,9 @@ if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
  sudo add-apt-repository -y ppa:lutris-team/lutris
  sudo apt update -y
  sudo apt install -y lutris steam
- read -p "打开steam，settings，steam play，选择enable steam play，下面选单选择proton。enter"
+ read -p "打开steam，设置，steam play，启用 steam play，下面选单选择Proton。enter"
+ steam
+ read -p "打开steam，库，选择要玩的游戏右键，属性，设置启动选项，输入gamemoderun %command%，enter"
  steam
  read -p "你是N卡还是A卡？[n/*]" choice
  if [[ $choice = "n" ]]||[[ $choice = "N" ]]; then

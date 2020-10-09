@@ -9,6 +9,8 @@ sudo apt autoremove -y
 
 #CAPS改为CTRL
 sudo sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
+read -p "进入键盘设定页面确定更改。enter" choice
+sudo dpkg-reconfigure keyboard-configuration
 
 #安装小鹤音形
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip

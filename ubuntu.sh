@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #解决Ubuntu 20.04安装程序崩溃
-sudo apt install libgcc-s1:i386
+sudo apt install -y libgcc-s1:i386
 #安装常用软件
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl fcitx fcitx-rime git vim wget wine p7zip-full gnome-tweaks chrome-gnome-shell
@@ -29,7 +29,7 @@ gnome-tweaks
 
 #游戏
 read -p "有玩游戏的需求吗？[y/*]" choice
-if [[ $choice = "y" ]]||[[ $choice = "Y" ]]; then
+if [ $choice = "y" ]||[ $choice = "Y" ]; then
  sudo dpkg --add-architecture i386
  sudo add-apt-repository -y ppa:lutris-team/lutris
  sudo apt update -y

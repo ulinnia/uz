@@ -28,7 +28,8 @@ chsh -s zsh
 
 #vim设定：显示行号，语法高亮，大小写混搜。
 if [ "$(grep "set nu" ~/.vimrc)" == "" ]; then
-echo -e "set nu\nsyntax on\nset ignorecase\nset smartcase" > "~/.vimrc"
+ echo -e "set nu\nsyntax on\nset ignorecase\nset smartcase" > "~/.vimrc"
+fi
 
 #软连接aidn。
 if [ -e "~/storage/shared/A/Y/aidn" ]; then ln -s ~/storage/shared/A/Y/aidn ~/aidn; fi

@@ -20,8 +20,9 @@ fi
 
 #安装zsh语法高亮。
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting --depth 1
-if [ "$(grep "" ~/)" == "" ]; then
-echo "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "~/.zshrc"
+if [ "$(grep "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ~/.zshrc)" == "" ]; then
+ echo "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "~/.zshrc"
+fi
 
 #设zsh为默认shell
 chsh -s zsh

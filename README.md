@@ -126,7 +126,7 @@ cdhsmcq 彩虹猫
 [W](https://www.webcitation.org/6AX4J3pMz?url=http://www.prguitarman.com/index.php?id=348)
 [W](https://www.youtube.com/watch?v=QH2-TGUlwu4)
 
-aidn.jp [W](https://aidn.jp/)
+[aidn.jp](https://aidn.jp/)
 
 
 ### Termux配置 ###

@@ -84,4 +84,26 @@ mkswap /dev/nvme0n1p3
 swapon /dev/nvme0n1p3
 ```
 
+## 挂载文件系统
+
+```shell
+mount /dev/nvme0n1p2 /mnt
+mkdir /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
+```
+
+配置 pacman mirror 镜像源
+
+```shell
+vim /etc/pacman.d/mirrorlist
+```
+
+找到标有China的镜像源，normal模式下按下dd可以剪切光标下的行，按gg回到文件首，按P（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
+
+更新mirror数据库
+
+```shell
+pacman -Syy
+```
+
 

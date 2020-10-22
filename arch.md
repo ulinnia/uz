@@ -65,6 +65,23 @@ fdisk /dev/nvme0n1
 
 ## 磁盘格式化
 
+格式化 EFI System 分区
 
+```shell
+mkfs.fat -F32 /dev/nvme0n1p1
+```
+
+格式化 Linux root 分区
+
+```shell
+mkfs.btrfs -f /dev/nvme0n1p2
+```
+
+格式化 Linux swap 分区
+
+```shell
+mkswap /dev/nvme0n1p3
+swapon /dev/nvme0n1p3
+```
 
 

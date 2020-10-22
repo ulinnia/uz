@@ -1,5 +1,7 @@
 # Arch Linux (UEFI with GPT) 安装
 
+### 检查网络时间
+
 测试网络
 
 ```shell
@@ -11,6 +13,8 @@ ping www.163.com
 ```shell
 timedatectl set-ntp true
 ```
+
+### 磁盘分区
 
 查看磁盘
 

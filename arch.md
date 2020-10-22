@@ -106,4 +106,22 @@ vim /etc/pacman.d/mirrorlist
 pacman -Syy
 ```
 
+安装 Arch 和 Package Group
+
+```shell
+pacstrap /mnt base base-devel linux linux-firmware
+```
+
+生成 fstab 文件
+
+```shell
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+切换至安装好的 Arch
+
+```shell
+arch-chroot /mnt
+```
+
 

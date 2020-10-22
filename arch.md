@@ -28,6 +28,7 @@ fdisk -l
 fdisk /dev/nvme0n1
 ```
 
+nvme0n1是固态硬盘，sda是普通硬盘
 1. 输入 g，新建 GPT 分区表
 2. 输入 w，保存修改，这个操作会抹掉磁盘所有数据，慎重
 
@@ -122,6 +123,29 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 ```shell
 arch-chroot /mnt
+```
+
+## 本地化
+
+```shell
+pacman -S amd-ucode dhcpcd efibootmgr grub os-prober vim
+```
+
+amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
+
+```shell
+vim /etc/locale.gen
+```
+修改本地化信息，移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
+
+生成本地化信息
+
+```shell
+locale-gen
+```
+
+```shell
+echo LANG=en_US.UTF-8 > /etc/locale.conf
 ```
 
 

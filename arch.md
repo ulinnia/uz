@@ -16,7 +16,7 @@ timedatectl set-ntp true
 
 ## 磁盘分区
 
-查看磁盘
+查看磁盘设备
 
 ```shell
 fdisk -l
@@ -63,6 +63,8 @@ fdisk /dev/nvme0n1
 4. 保存新建的分区
     1. 输入 w
 
-## 格式化磁盘
+## 磁盘格式化
+
+
 
 

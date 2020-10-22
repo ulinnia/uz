@@ -1,8 +1,10 @@
 # Arch Linux (UEFI with GPT) 安装
 
-## 测试网络
+测试网络
 
+```shell
 ping www.163.com
+```
 
 ## 更新系统时间
 

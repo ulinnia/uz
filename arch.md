@@ -1,6 +1,6 @@
 # Arch Linux (UEFI with GPT) 安装
 
-### 检查网络时间
+## 检查网络时间
 
 测试网络
 
@@ -14,7 +14,7 @@ ping www.163.com
 timedatectl set-ntp true
 ```
 
-### 磁盘分区
+## 磁盘分区
 
 查看磁盘
 
@@ -62,5 +62,7 @@ fdisk /dev/nvme0n1
     7. 输入 24，使用 Linux root (x86-64) 类型
 4. 保存新建的分区
     1. 输入 w
+
+## 格式化磁盘
 
 

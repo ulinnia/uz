@@ -199,10 +199,12 @@ arch-chroot /mnt
 安装必要软件
 
 ```shell
-pacman -S amd-ucode dhcpcd efibootmgr grub os-prober vim
+pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim
 ```
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
+
+因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs
 
 设置时区
 

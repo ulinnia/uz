@@ -2,7 +2,7 @@
 
 ## 检查网络时间
 
-测试网络
+测试网络是否可用，安装过程中需要用到网络
 
 ```shell
 ping www.163.com
@@ -28,7 +28,11 @@ fdisk -l
 fdisk /dev/nvme0n1
 ```
 
+
+我要把系统安装在nvme0n1这个硬盘中
+
 nvme0n1是固态硬盘，sda是普通硬盘
+
 1. 输入 g，新建 GPT 分区表
 2. 输入 w，保存修改，这个操作会抹掉磁盘所有数据，慎重
 
@@ -66,13 +70,13 @@ fdisk /dev/nvme0n1
 
 ## 磁盘格式化
 
-格式化 EFI System 分区
+格式化 EFI System 分区为 fat32 格式
 
 ```shell
 mkfs.fat -F32 /dev/nvme0n1p1
 ```
 
-格式化 Linux root 分区
+格式化 Linux root 分区为 brtfs 格式
 
 ```shell
 mkfs.btrfs -f /dev/nvme0n1p2

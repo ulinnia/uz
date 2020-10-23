@@ -46,10 +46,21 @@ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync
 
 ## 检查网络时间
 
-测试网络是否可用，安装过程中需要用到网络
+查看连接
+
+```shell
+ip link
+```
+
+对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：
 
 ```shell
 dhcpcd
+```
+
+测试网络是否可用，安装过程中需要用到网络
+
+```shell
 ping www.163.com
 ```
 
@@ -121,6 +132,16 @@ fdisk /dev/nvme0n1
 mkfs.fat -F32 /dev/nvme0n1p1
 ```
 
+如果格式化失败，可能是磁盘设备存在 Device Mapper
+    - 显示 dm 状态
+```shell
+dmsetup status
+```
+    - 删除 dm
+```shell
+dmsetup remove <dev-id>
+```
+
 格式化 Linux root 分区为 brtfs 格式
 
 ```shell
@@ -184,12 +205,11 @@ pacman -S amd-ucode dhcpcd efibootmgr grub os-prober vim
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
-开启时间自动同步
+设置时区
 
 ```shell
-timedatectl set-ntp true
-timedatectl set-timezone Asia/Shanghai
-hwclock --systohc
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc --utc
 ```
 
 修改本地化信息
@@ -250,6 +270,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ```shell
 exit  #退出 chroot 环境
+umount -R /mnt
 reboot
 ```
 

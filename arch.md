@@ -1,10 +1,55 @@
 # Arch Linux (UEFI with GPT) 安装
 
+## 下载 Arch Linux 镜像
+
+<https://www.archlinux.org/download/>
+
+验证镜像完整性
+
+```shell
+md5 archlinux.iso
+```
+
+将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
+
+## 镜像写入 U 盘
+
+查看设备
+
+```shell
+sudo fdisk -l
+```
+
+/dev/sdx是我的U盘设备，umount U盘
+
+```shell
+sudo umount /dev/sdx*
+```
+
+格式化U盘
+
+```shell
+sudo mkfs.vfat /dev/sdx –I
+```
+
+镜像写入 U 盘
+
+```shell
+dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync
+```
+
+## 从 U 盘启动 Arch live 环境
+
+在 UEFI BIOS 中设置启动磁盘为刚刚写入 Arch 系统的 U 盘。
+
+进入 U 盘的启动引导程序后，选择第一项：Arch Linux archiso x86_64 UEFI CD
+
 ## 检查网络时间
 
 测试网络是否可用，安装过程中需要用到网络
 
 ```shell
+dhcpcd
 ping www.163.com
 ```
 

@@ -271,7 +271,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ```shell
 exit  #退出 chroot 环境
-umount -R /mnt
+umount -R /mnt #手动卸载被挂载的分区
 reboot
 ```
 

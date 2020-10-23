@@ -135,7 +135,7 @@ cdhsmcq 彩虹猫
 [安装arch](arch.md)
 
 ```shell
-sudo apt install -y curl
+sudo pacman -S curl
 sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
 ```
 

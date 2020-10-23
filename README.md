@@ -6,8 +6,8 @@
 </p>
 
 - [彩虹猫](#彩虹猫)
+- [Arch配置](#Arch配置)
 - [Termux配置](#Termux配置)
-- [Ubuntu配置](#Ubuntu配置)
 
 
 ## 神作 ##
@@ -130,18 +130,20 @@ cdhsmcq 彩虹猫
 [aidn.jp](https://aidn.jp/)
 
 
+### Arch配置 ###
+
+[安装arch](arch.md)
+
+```shell
+sudo apt install -y curl
+sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
+```
+
+
 ### Termux配置 ###
 
 ```shell
 pkg install curl
 sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/termux.sh)"
-```
-
-
-### Ubuntu配置 ###
-
-```shell
-sudo apt install -y curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/ubuntu.sh)"
 ```
 

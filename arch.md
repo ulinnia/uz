@@ -132,15 +132,11 @@ fdisk /dev/nvme0n1
 mkfs.fat -F32 /dev/nvme0n1p1
 ```
 
-如果格式化失败，可能是磁盘设备存在 Device Mapper
+如果格式化失败，可能是磁盘设备存在 Device Mapper：
 
-显示 dm 状态
 ```shell
-dmsetup status
-```
-删除 dm
-```shell
-dmsetup remove <dev-id>
+dmsetup status #显示 dm 状态
+dmsetup remove <dev-id> #删除 dm
 ```
 
 格式化 Linux root 分区为 brtfs 格式

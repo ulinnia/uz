@@ -131,16 +131,28 @@ arch-chroot /mnt
 
 ## 本地化
 
+安装必要软件
+
 ```shell
 pacman -S amd-ucode dhcpcd efibootmgr grub os-prober vim
 ```
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
+开启时间自动同步
+
+```shell
+timedatectl set-ntp true
+timedatectl set-timezone Asia/Shanghai
+hwclock --systohc
+```
+
+修改本地化信息
+
 ```shell
 vim /etc/locale.gen
 ```
-修改本地化信息，移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
+移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
 生成本地化信息
 
@@ -152,4 +164,47 @@ locale-gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ```
 
+修改主机名为 myhostname
+
+```shell
+echo myhostname > /etc/hostname
+```
+
+```shell
+vim /etc/hosts
+```
+
+编辑hosts，加入以下字串（myhostname 替换为主机名）
+
+```shell
+127.0.0.1 localhost
+::1    localhost
+127.0.1.1 myhostname.localdomain myhostname
+```
+
+设置dhcpcd自启动
+
+```shell
+systemctl enable dhcpcd
+```
+
+修改root密码
+
+```shell
+passwd
+```
+
+安装GRUB引导程序
+
+```shell
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+重新启动
+
+```shell
+exit  #退出 chroot 环境
+reboot
+```
 

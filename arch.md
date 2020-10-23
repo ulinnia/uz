@@ -222,6 +222,8 @@ vim /etc/locale.gen
 locale-gen
 ```
 
+将系统 locale 设置为en_US.UTF-8
+
 ```shell
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ```
@@ -232,11 +234,13 @@ echo LANG=en_US.UTF-8 > /etc/locale.conf
 echo myhostname > /etc/hostname
 ```
 
+编辑hosts
+
 ```shell
 vim /etc/hosts
 ```
 
-编辑hosts，加入以下字串（myhostname 替换为主机名）
+加入以下字串（myhostname 替换为主机名）
 
 ```shell
 127.0.0.1 localhost

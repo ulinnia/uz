@@ -133,11 +133,12 @@ mkfs.fat -F32 /dev/nvme0n1p1
 ```
 
 如果格式化失败，可能是磁盘设备存在 Device Mapper
-    - 显示 dm 状态
+
+显示 dm 状态
 ```shell
 dmsetup status
 ```
-    - 删除 dm
+删除 dm
 ```shell
 dmsetup remove <dev-id>
 ```

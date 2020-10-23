@@ -58,6 +58,8 @@ ip link
 dhcpcd
 ```
 
+无线网络请使用 iwctl
+
 测试网络是否可用，安装过程中需要用到网络
 
 ```shell

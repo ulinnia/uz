@@ -12,7 +12,7 @@
 
 `sudo fdisk -l` 查看设备
 
-`sudo umount /dev/sdx*` /dev/sdx是我的U盘设备，umount U盘
+`sudo umount /dev/sdx*` /dev/sdx是我的U盘设备，umount U盘。
 
 `sudo mkfs.vfat /dev/sdx –I` 格式化U盘
 
@@ -122,7 +122,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
-因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs
+因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs。
 
 `ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时间标准为UTC
 
@@ -170,5 +170,17 @@ reboot
 ## 搭建桌面环境
 
 `useradd -m yourusername` 创建新用户
+
+`passwd yourusername` 设置登陆密码
+
+`vim /etc/sudoers` 编辑sudo权限
+
+复制一行root ALL=(ALL) ALL, 并替换其中的root为新用户名，保存并退出。
+
+`exit` 退出root用户，并登陆新创建的用户。
+
+`sudo pacman -S alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput curl git p7zip tree vlc wget zsh` 安装声卡、显卡、xorg、触摸板及常用程序
+
+
 
 

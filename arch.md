@@ -124,20 +124,12 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs
 
-设置时区 `ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` `hwclock --systohc --utc`
+设置时区 `ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时间标准为UTC `hwclock --systohc --utc`
 
-修改本地化信息
-
-```shell
-vim /etc/locale.gen
-```
+修改本地化信息 `vim /etc/locale.gen`
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
-生成本地化信息
-
-```shell
-locale-gen
-```
+生成本地化信息 `locale-gen`
 
 将系统 locale 设置为en_US.UTF-8
 

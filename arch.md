@@ -26,45 +26,21 @@
 
 ## 检查网络时间
 
-查看连接
+查看连接 `ip link`
 
-```shell
-ip link
-```
-
-对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：
-
-```shell
-dhcpcd
-```
+对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：`dhcpcd`
 
 无线网络请使用 wifi-menu
 
-测试网络是否可用，安装过程中需要用到网络
+测试网络是否可用，安装过程中需要用到网络 `ping www.163.com`
 
-```shell
-ping www.163.com
-```
-
-更新系统时间
-
-```shell
-timedatectl set-ntp true
-```
+更新系统时间 `timedatectl set-ntp true`
 
 ## 磁盘分区
 
-查看磁盘设备
+查看磁盘设备 `fdisk -l`
 
-```shell
-fdisk -l
-```
-
-新建分区表
-
-```shell
-fdisk /dev/nvme0n1
-```
+新建分区表 `fdisk /dev/nvme0n1`
 
 
 我要把系统安装在nvme0n1这个硬盘中
@@ -74,11 +50,7 @@ nvme0n1是固态硬盘，sda是普通硬盘
 1. 输入 g，新建 GPT 分区表
 2. 输入 w，保存修改，这个操作会抹掉磁盘所有数据，慎重
 
-分区创建
-
-```shell
-fdisk /dev/nvme0n1
-```
+分区创建 `fdisk /dev/nvme0n1`
 
 1. 新建 EFI System 分区
     1. 输入 n
@@ -108,18 +80,10 @@ fdisk /dev/nvme0n1
 
 ## 磁盘格式化
 
-格式化 EFI System 分区为 fat32 格式
+格式化 EFI System 分区为 fat32 格式 `mkfs.fat -F32 /dev/nvme0n1p1`
 
-```shell
-mkfs.fat -F32 /dev/nvme0n1p1
-```
-
-如果格式化失败，可能是磁盘设备存在 Device Mapper：
-
-```shell
-dmsetup status #显示 dm 状态
-dmsetup remove <dev-id> #删除 dm
-```
+如果格式化失败，可能是磁盘设备存在 Device Mapper：```dmsetup status #显示 dm 状态
+dmsetup remove <dev-id> #删除 dm```
 
 格式化 Linux root 分区为 brtfs 格式
 

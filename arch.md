@@ -82,8 +82,11 @@ nvme0n1是固态硬盘，sda是普通硬盘
 
 格式化 EFI System 分区为 fat32 格式 `mkfs.fat -F32 /dev/nvme0n1p1`
 
-如果格式化失败，可能是磁盘设备存在 Device Mapper：```dmsetup status #显示 dm 状态
-dmsetup remove <dev-id> #删除 dm```
+如果格式化失败，可能是磁盘设备存在 Device Mapper：
+```shell
+dmsetup status #显示 dm 状态
+dmsetup remove <dev-id> #删除 dm
+```
 
 格式化 Linux root 分区为 brtfs 格式
 

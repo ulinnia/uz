@@ -127,27 +127,16 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 设置时区 `ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时间标准为UTC `hwclock --systohc --utc`
 
 修改本地化信息 `vim /etc/locale.gen`
+
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
 生成本地化信息 `locale-gen`
 
-将系统 locale 设置为en_US.UTF-8
+将系统 locale 设置为en_US.UTF-8 `echo LANG=en_US.UTF-8 > /etc/locale.conf`
 
-```shell
-echo LANG=en_US.UTF-8 > /etc/locale.conf
-```
+修改主机名为 myhostname `echo myhostname > /etc/hostname`
 
-修改主机名为 myhostname
-
-```shell
-echo myhostname > /etc/hostname
-```
-
-编辑hosts
-
-```shell
-vim /etc/hosts
-```
+编辑hosts `vim /etc/hosts`
 
 加入以下字串（myhostname 替换为主机名）
 
@@ -157,17 +146,9 @@ vim /etc/hosts
 127.0.1.1 myhostname.localdomain myhostname
 ```
 
-设置dhcpcd自启动
+设置dhcpcd自启动 `systemctl enable dhcpcd`
 
-```shell
-systemctl enable dhcpcd
-```
-
-修改root密码
-
-```shell
-passwd
-```
+修改root密码 `passwd`
 
 安装GRUB引导程序
 

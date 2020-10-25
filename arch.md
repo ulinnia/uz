@@ -4,13 +4,13 @@
 
 <https://www.archlinux.org/download/>
 
-验证镜像完整性``md5 archlinux.iso``
+验证镜像完整性 ``md5 archlinux.iso``
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 
 ## 镜像写入 U 盘
 
-查看设备``sudo fdisk -l``
+查看设备 `sudo fdisk -l`
 
 /dev/sdx是我的U盘设备，umount U盘``sudo umount /dev/sdx*``
 

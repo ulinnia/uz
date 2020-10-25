@@ -88,14 +88,9 @@ dmsetup status #显示 dm 状态
 dmsetup remove <dev-id> #删除 dm
 ```
 
-格式化 Linux root 分区为 brtfs 格式
-
-```shell
-mkfs.btrfs -f /dev/nvme0n1p2
-```
+格式化 Linux root 分区为 brtfs 格式 `mkfs.btrfs -f /dev/nvme0n1p2`
 
 格式化 Linux swap 分区
-
 ```shell
 mkswap /dev/nvme0n1p3
 swapon /dev/nvme0n1p3
@@ -109,56 +104,27 @@ mkdir /mnt/boot
 mount /dev/nvme0n1p1 /mnt/boot
 ```
 
-配置 pacman mirror 镜像源
-
-```shell
-vim /etc/pacman.d/mirrorlist
-```
+配置 pacman mirror 镜像源 `vim /etc/pacman.d/mirrorlist`
 
 找到标有China的镜像源，normal模式下按下dd可以剪切光标下的行，按gg回到文件首，按P（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
 
-更新mirror数据库
+更新mirror数据库 `pacman -Syy`
 
-```shell
-pacman -Syy
-```
+安装 Arch 和 Package Group `pacstrap /mnt base base-devel linux linux-firmware`
 
-安装 Arch 和 Package Group
+生成 fstab 文件 `genfstab -U /mnt >> /mnt/etc/fstab`
 
-```shell
-pacstrap /mnt base base-devel linux linux-firmware
-```
-
-生成 fstab 文件
-
-```shell
-genfstab -U /mnt >> /mnt/etc/fstab
-```
-
-切换至安装好的 Arch
-
-```shell
-arch-chroot /mnt
-```
+切换至安装好的 Arch `arch-chroot /mnt`
 
 ## 本地化
 
-安装必要软件
-
-```shell
-pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim
-```
+安装必要软件 `pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim`
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs
 
-设置时区
-
-```shell
-ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-hwclock --systohc --utc
-```
+设置时区 `ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` `hwclock --systohc --utc`
 
 修改本地化信息
 

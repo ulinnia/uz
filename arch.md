@@ -4,19 +4,19 @@
 
 <https://www.archlinux.org/download/>
 
-验证镜像完整性 `md5 archlinux.iso`
+`md5 archlinux.iso` 验证镜像完整性
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 
 ## 镜像写入 U 盘
 
-查看设备 `sudo fdisk -l`
+`sudo fdisk -l` 查看设备
 
-/dev/sdx是我的U盘设备，umount U盘 `sudo umount /dev/sdx*`
+`sudo umount /dev/sdx*` /dev/sdx是我的U盘设备，umount U盘
 
-格式化U盘 `sudo mkfs.vfat /dev/sdx –I`
+`sudo mkfs.vfat /dev/sdx –I` 格式化U盘
 
-镜像写入 U 盘 `dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync`
+`dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync` 镜像写入 U 盘
 
 ## 从 U 盘启动 Arch live 环境
 
@@ -26,21 +26,21 @@
 
 ## 检查网络时间
 
-查看连接 `ip link`
+`ip link` 查看连接
 
 对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：`dhcpcd`
 
 无线网络请使用 wifi-menu
 
-测试网络是否可用，安装过程中需要用到网络 `ping www.163.com`
+`ping www.163.com` 测试网络是否可用，安装过程中需要用到网络
 
-更新系统时间 `timedatectl set-ntp true`
+`timedatectl set-ntp true` 更新系统时间
 
 ## 磁盘分区
 
-查看磁盘设备 `fdisk -l`
+`fdisk -l` 查看磁盘设备
 
-新建分区表 `fdisk /dev/nvme0n1`
+`fdisk /dev/nvme0n1` 新建分区表
 
 
 我要把系统安装在nvme0n1这个硬盘中
@@ -50,7 +50,7 @@ nvme0n1是固态硬盘，sda是普通硬盘
 1. 输入 g，新建 GPT 分区表
 2. 输入 w，保存修改，这个操作会抹掉磁盘所有数据，慎重
 
-分区创建 `fdisk /dev/nvme0n1`
+`fdisk /dev/nvme0n1` 分区创建
 
 1. 新建 EFI System 分区
     1. 输入 n
@@ -80,7 +80,7 @@ nvme0n1是固态硬盘，sda是普通硬盘
 
 ## 磁盘格式化
 
-格式化 EFI System 分区为 fat32 格式 `mkfs.fat -F32 /dev/nvme0n1p1`
+`mkfs.fat -F32 /dev/nvme0n1p1` 格式化 EFI System 分区为 fat32 格式
 
 如果格式化失败，可能是磁盘设备存在 Device Mapper：
 ```shell
@@ -88,7 +88,7 @@ dmsetup status #显示 dm 状态
 dmsetup remove <dev-id> #删除 dm
 ```
 
-格式化 Linux root 分区为 brtfs 格式 `mkfs.btrfs -f /dev/nvme0n1p2`
+`mkfs.btrfs -f /dev/nvme0n1p2` 格式化 Linux root 分区为 brtfs 格式
 
 格式化 Linux swap 分区
 ```shell
@@ -104,39 +104,39 @@ mkdir /mnt/boot
 mount /dev/nvme0n1p1 /mnt/boot
 ```
 
-配置 pacman mirror 镜像源 `vim /etc/pacman.d/mirrorlist`
+`vim /etc/pacman.d/mirrorlist` 配置 pacman mirror 镜像源
 
 找到标有China的镜像源，normal模式下按下dd可以剪切光标下的行，按gg回到文件首，按P（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
 
-更新mirror数据库 `pacman -Syy`
+`pacman -Syy` 更新mirror数据库
 
-安装 Arch 和 Package Group `pacstrap /mnt base base-devel linux linux-firmware`
+`pacstrap /mnt base base-devel linux linux-firmware` 安装 Arch 和 Package Group
 
-生成 fstab 文件 `genfstab -U /mnt >> /mnt/etc/fstab`
+`genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
-切换至安装好的 Arch `arch-chroot /mnt`
+`arch-chroot /mnt` 切换至安装好的 Arch
 
 ## 本地化
 
-安装必要软件 `pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim`
+`pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim` 安装必要软件
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs
 
-设置时区 `ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时间标准为UTC `hwclock --systohc --utc`
+`ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时间标准为UTC `hwclock --systohc --utc` 设置时区
 
-修改本地化信息 `vim /etc/locale.gen`
+`vim /etc/locale.gen` 修改本地化信息
 
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
-生成本地化信息 `locale-gen`
+`locale-gen` 生成本地化信息
 
-将系统 locale 设置为en_US.UTF-8 `echo LANG=en_US.UTF-8 > /etc/locale.conf`
+`echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统 locale 设置为en_US.UTF-8
 
-修改主机名为 myhostname `echo myhostname > /etc/hostname`
+`echo myhostname > /etc/hostname` 修改主机名为 myhostname
 
-编辑hosts `vim /etc/hosts`
+`vim /etc/hosts` 编辑hosts
 
 加入以下字串（myhostname 替换为主机名）
 
@@ -146,9 +146,9 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 127.0.1.1 myhostname.localdomain myhostname
 ```
 
-设置dhcpcd自启动 `systemctl enable dhcpcd`
+`systemctl enable dhcpcd` 设置dhcpcd自启动
 
-修改root密码 `passwd`
+`passwd` 修改root密码
 
 安装GRUB引导程序
 
@@ -164,4 +164,9 @@ exit  #退出 chroot 环境
 umount -R /mnt #手动卸载被挂载的分区
 reboot
 ```
+
+## 搭建桌面环境
+
+`useradd -m yourusername` 创建新用户
+
 

@@ -179,8 +179,9 @@ reboot
 
 `exit` 退出root用户，并登陆新创建的用户。
 
-`sudo pacman -S alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput curl git p7zip tree vlc wget zsh` 安装声卡、显卡、xorg、触摸板及常用程序
+快速配置：
 
-
-
-
+```shell
+sudo pacman -S curl
+sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
+```

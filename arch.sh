@@ -16,10 +16,8 @@ if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xpro
 fi
 
 #注解无效命令
-sed -i 's/twm &/#twm &/' ~/.xinitrc
-sed -i 's/xclock -geometry/#xclock -geometry/' ~/.xinitrc
-sed -i 's/xterm -geometry/#xterm -geometry/g' ~/.xinitrc
-sed -i 's/exec xterm -geometry/#exec xterm -geometry/' ~/.xinitrc
+sed -e 's/twm &/#twm &/' -e 's/xclock -geometry/#xclock -geometry/' -e 's/xterm -geometry/#xterm -geometry/g' -e 's/exec xterm -geometry/#exec xterm -geometry/' ~/.xinitrc
 
-
+if​ [ ​"​$(​grep ​"exec startx​​"​ ​~/.bash_profile)​"​ ​==​ ​"​"​ ]​;​ ​then
+ 
 

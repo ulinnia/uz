@@ -9,6 +9,11 @@ wget ${link}conf/xinitrc -O ~/.xinitrc
 wget ${link}conf/i3 -O ~/.config/i3/config
 wget ${link}conf/urxvt -O ~/.Xresources
 
+#自启动
+systemctl enable {NetworkManager,tlp,NetworkManager-dispatcher}
+systemctl disable {dhcpcd,netctl}
+systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
+
 #注解无效命令
 sed '/twm &/,/exec xterm -geometry/s/^/#/' ~/.xinitrc
 

@@ -10,9 +10,16 @@ cp -f /etc/X11/xinit/xinitrc ~/.xinitrc
 #设置中文界面
 ​sed -i '2i\export LANGUAGE=zh_CN:en_US' ~/.xinitrc
 
-​​if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xprofile)​"​ ​==​ ​"​"​ ]​;​ ​then
+​​#设定fcitx参数
+if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xprofile)​"​ ​==​ ​"​"​ ]​;​ ​then
  echo -e "export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=\"@im=fcitx\"" > "~/.xprofile"
 fi
+
+#注解无效命令
+sed -i 's/twm &/#twm &/' ~/.xinitrc
+sed -i 's/xclock -geometry/#xclock -geometry/' ~/.xinitrc
+sed -i 's/xterm -geometry/#xterm -geometry/g' ~/.xinitrc
+sed -i 's/exec xterm -geometry/#exec xterm -geometry/' ~/.xinitrc
 
 
 

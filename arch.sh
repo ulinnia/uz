@@ -18,7 +18,16 @@ fi
 #注解无效命令
 sed -e 's/twm &/#twm &/' -e 's/xclock -geometry/#xclock -geometry/' -e 's/xterm -geometry/#xterm -geometry/g' -e 's/exec xterm -geometry/#exec xterm -geometry/' ~/.xinitrc
 
+#startx自启
 if​ [ ​"​$(​grep ​"exec startx​​"​ ​~/.bash_profile)​"​ ​==​ ​"​"​ ]​;​ ​then
  echo -e "if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > "~/.bash_profile"
 fi
+
+#加上archlinuxcn源
+sudo echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" > "/etc/pacman.conf"
+sudo pacman -Syy
+sudo pacman -S archlinuxcn-keyring
+
+#修改yay源
+yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 

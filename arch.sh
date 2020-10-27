@@ -19,7 +19,7 @@ if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xpro
 fi
 
 #注解无效命令
-sed '/twm &/,/exec xterm -geometry/s/#/' ~/.xinitrc
+sed '/twm &/,/exec xterm -geometry/s/^/#/' ~/.xinitrc
 
 #startx自启
 if​ [ ​"​$(​grep ​"exec startx​​"​ ​~/.bash_profile)​"​ ​==​ ​"​"​ ]​;​ ​then

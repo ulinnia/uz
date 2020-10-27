@@ -20,6 +20,7 @@
 # ------------------------------------------------------------------------------
 # tlp - Parameters for power saving
 
+#为了防止Btrfs格式文件系统损坏
 SATA_LINKPWR_ON_BAT=max_performance
 
 # Set to 0 to disable, 1 to enable TLP.

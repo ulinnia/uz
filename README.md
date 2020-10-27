@@ -132,7 +132,7 @@ cdhsmcq 彩虹猫
 
 ### Arch配置 ###
 
-[安装arch](arch.md)
+请先[安装arch](arch.md)
 
 ```shell
 sudo pacman -S curl

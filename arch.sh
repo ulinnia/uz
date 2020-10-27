@@ -12,6 +12,8 @@ cp -f /etc/X11/xinit/xinitrc ~/.xinitrc
 
 #配置i3
 cp -f /etc/i3/config ~/.config/i3/config
+#火狐快捷键
+sed '/bindsym $mod+Return/a\bindsym $mod+Shift+f exec firefox' ~/.config/i3/config
 
 ​​#设定fcitx参数
 if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xprofile)​"​ ​==​ ​"​"​ ]​;​ ​then

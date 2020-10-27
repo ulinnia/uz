@@ -11,7 +11,7 @@ cp -f /etc/X11/xinit/xinitrc ~/.xinitrc
 ​sed -i '2i\export LANGUAGE=zh_CN:en_US' ~/.xinitrc
 
 ​​if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xprofile)​"​ ​==​ ​"​"​ ]​;​ ​then
- echo -e "export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=\"@im=fcitx\"" ~/.xprofile
+ echo -e "export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=\"@im=fcitx\"" > "~/.xprofile"
 fi
 
 

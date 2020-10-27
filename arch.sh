@@ -5,4 +5,8 @@ sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86
 
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 ​if​ [ ​"​$(​grep ​"​exec i3​"​ ​~​/.xinitrc)​"​ ​==​ ​"​"​ ]​;​ ​then
-sed -i '$a exec i3' ~/.xinitrc
+ sed -i '$a exec i3' ~/.xinitrc
+fi
+​if​ [ ​"​$(​grep ​"​export LANGUAGE=zh_CN:en_US"​ ​~​/.xinitrc)​"​ ​==​ ​"​"​ ]​;​ ​then
+ sed -i '2i\export LANGUAGE=zh_CN:en_US' ~/.xinitrc
+fi

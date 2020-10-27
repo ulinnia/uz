@@ -3,13 +3,11 @@
 #更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、feh、dmenu及常用程序
 sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu-git curl firefox git p7zip tree vlc wget
 
-#配置xinit
-link=https://github.com/rraayy246/UZ/raw/master/conf/xinitrc
-wget ${link} -O ~/.xinitrc
-
-#配置i3
-link=https://github.com/rraayy246/UZ/raw/master/conf/i3
-wget ${link} -O ~/.config/i3/config
+#配置xinit、i3u、rxvt
+link=https://github.com/rraayy246/UZ/raw/master/
+wget ${link}conf/xinitrc -O ~/.xinitrc
+wget ${link}conf/i3 -O ~/.config/i3/config
+wget ${link}conf/urxvt -O ~/.Xresources
 
 #注解无效命令
 sed '/twm &/,/exec xterm -geometry/s/^/#/' ~/.xinitrc
@@ -28,8 +26,7 @@ sudo pacman -S archlinuxcn-keyring
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
 #安装小鹤音形
-link=https://github.com/rraayy246/UZ/raw/master/flypy.zip
-wget ${link} -O flypy.zip
+wget ${link}flypy.zip -O flypy.zip
 7z x flypy.zip
 cp -Rf "小鹤音形Rime平台鼠须管for macOS/rime" ~/.config/fcitx
 rm -rf "小鹤音形Rime平台鼠须管for macOS" flypy.zip

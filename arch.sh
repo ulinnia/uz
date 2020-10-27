@@ -4,4 +4,5 @@
 sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu-git curl firefox git p7zip tree vlc wget
 
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
-sed -i '$a exec i3'
+​if​ [ ​"​$(​grep ​"​exec i3​"​ ​~​/.xinitrc)​"​ ​==​ ​"​"​ ]​;​ ​then
+sed -i '$a exec i3' ~/.xinitrc

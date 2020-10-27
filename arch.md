@@ -179,7 +179,7 @@ reboot
 
 `exit` 退出root用户，并登陆新创建的用户。
 
-快速配置：
+## 快速配置
 
 ```shell
 sudo pacman -S curl

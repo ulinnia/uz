@@ -36,3 +36,11 @@ sudo pacman -S archlinuxcn-keyring
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
+#安装小鹤音形
+​link=https://github.com/rraayy246/UZ/raw/master/flypy.zip
+​wget ​${link}​ -O flypy.zip
+​7z x flypy.zip
+​cp -Rf ​"​小鹤音形Rime平台鼠须管for macOS/rime​"​ ​~​/.config/fcitx
+​rm -rf ​"​小鹤音形Rime平台鼠须管for macOS​"​ flypy.zip
+
+

@@ -4,18 +4,18 @@
 sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu-git curl firefox git p7zip tree vlc wget
 
 #配置xinit
-​link=https://github.com/rraayy246/UZ/raw/master/xinitrc
-​wget ​${link}​ -O ~/.xinitrc
+link=https://github.com/rraayy246/UZ/raw/master/xinitrc
+wget ${link} -O ~/.xinitrc
 
 #配置i3
-​link=https://github.com/rraayy246/UZ/raw/master/i3
-​wget ​${link}​ -O ~/.config/i3/config
+link=https://github.com/rraayy246/UZ/raw/master/i3
+wget ${link} -O ~/.config/i3/config
 
 #注解无效命令
 sed '/twm &/,/exec xterm -geometry/s/^/#/' ~/.xinitrc
 
 #startx自启
-if​ [ ​"​$(​grep ​"exec startx​​"​ ​~/.bash_profile)​"​ ​==​ ​"​"​ ]​;​ ​then
+if [ "$(grep "exec startx" ~/.bash_profile)" == "" ]; then
  echo -e "if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > "~/.bash_profile"
 fi
 
@@ -28,9 +28,9 @@ sudo pacman -S archlinuxcn-keyring
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
 #安装小鹤音形
-​link=https://github.com/rraayy246/UZ/raw/master/flypy.zip
-​wget ​${link}​ -O flypy.zip
-​7z x flypy.zip
-​cp -Rf ​"​小鹤音形Rime平台鼠须管for macOS/rime​"​ ​~​/.config/fcitx
-​rm -rf ​"​小鹤音形Rime平台鼠须管for macOS​"​ flypy.zip
+link=https://github.com/rraayy246/UZ/raw/master/flypy.zip
+wget ${link} -O flypy.zip
+7z x flypy.zip
+cp -Rf "小鹤音形Rime平台鼠须管for macOS/rime" ~/.config/fcitx
+rm -rf "小鹤音形Rime平台鼠须管for macOS" flypy.zip
 rm ~/.config/fcitx/rime/default.yaml && fcitx-remote -r

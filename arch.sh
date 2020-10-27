@@ -10,13 +10,16 @@ cp -f /etc/X11/xinit/xinitrc ~/.xinitrc
 #设置中文界面
 ​sed -i '2i\export LANGUAGE=zh_CN:en_US' ~/.xinitrc
 
+#配置i3
+cp -f /etc/i3/config ~/.config/i3/config
+
 ​​#设定fcitx参数
 if​ [ ​"​$(​grep ​"export GTK_IM_MODULE=fcitx​​"​ ​~/.xprofile)​"​ ​==​ ​"​"​ ]​;​ ​then
  echo -e "export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=\"@im=fcitx\"" > "~/.xprofile"
 fi
 
 #注解无效命令
-sed -e 's/twm &/#twm &/' -e 's/xclock -geometry/#xclock -geometry/' -e 's/xterm -geometry/#xterm -geometry/g' -e 's/exec xterm -geometry/#exec xterm -geometry/' ~/.xinitrc
+sed '/twm &/,/exec xterm -geometry/s/#/' ~/.xinitrc
 
 #startx自启
 if​ [ ​"​$(​grep ​"exec startx​​"​ ​~/.bash_profile)​"​ ​==​ ​"​"​ ]​;​ ​then

@@ -4,11 +4,11 @@
 sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu-git curl firefox git p7zip tree vlc wget
 
 #配置xinit
-link=https://github.com/rraayy246/UZ/raw/master/xinitrc
+link=https://github.com/rraayy246/UZ/raw/master/conf/xinitrc
 wget ${link} -O ~/.xinitrc
 
 #配置i3
-link=https://github.com/rraayy246/UZ/raw/master/i3
+link=https://github.com/rraayy246/UZ/raw/master/conf/i3
 wget ${link} -O ~/.config/i3/config
 
 #注解无效命令

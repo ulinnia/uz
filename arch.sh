@@ -19,5 +19,6 @@ fi
 sed -e 's/twm &/#twm &/' -e 's/xclock -geometry/#xclock -geometry/' -e 's/xterm -geometry/#xterm -geometry/g' -e 's/exec xterm -geometry/#exec xterm -geometry/' ~/.xinitrc
 
 if​ [ ​"​$(​grep ​"exec startx​​"​ ​~/.bash_profile)​"​ ​==​ ​"​"​ ]​;​ ​then
- 
+ echo -e "if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > "~/.bash_profile"
+fi
 

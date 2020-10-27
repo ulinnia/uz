@@ -8,7 +8,7 @@ sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf8
 ​wget ​${link}​ -O ~/.xinitrc
 
 #配置i3
-​link=https://github.com/rraayy246/UZ/raw/master/i3.conf
+​link=https://github.com/rraayy246/UZ/raw/master/i3
 ​wget ​${link}​ -O ~/.config/i3/config
 
 #注解无效命令

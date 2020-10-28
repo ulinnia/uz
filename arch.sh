@@ -6,8 +6,8 @@ if [ "$USER" == "root"  ]; then
 fi
 
 #更新系统并安装声卡、显卡、触摸板驱动
-sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-input-libinput fcitx-config
-sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime #字体、输入法
+sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-input-libinput
+sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config #字体、输入法
 sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode #图形界面
 sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN networkmanager p7zip ranger tree vlc wget yay zsh
 

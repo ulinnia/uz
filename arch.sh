@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ "$USER" == "root"]; then
+ echo "请先退出root用户，并登陆新创建的用户。"
+ exit 1
+fi
+
 #更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、feh、dmenu及常用程序
 sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu networkmanager curl firefox git gvim libreoffice-zh-CN p7zip tree vlc wget
 

@@ -8,7 +8,10 @@ fi
 #更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、feh、dmenu及常用程序
 sudo -Syu
 echo -e "\n\n\n" | sudo pacman -S xorg fcitx-im libreoffice-zh-CN
-sudo pacman -S {alsa-utils,pulseaudio-alsa,xorg-xinit,xf86-input-libinput,noto-fonts-cjk,ttf-ubuntu-font-family,fcitx-rime,fcitx-config,rxvt-unicode,i3,yay,feh,dmenu,networkmanager,blueman,curl,firefox,git,gvim,p7zip,ranger,tree,vlc,wget,zsh}
+sudo pacman -S alsa-utils pulseaudio-alsa xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-rime
+sudo pacman -S fcitx-config rxvt-unicode i3 yay feh dmenu networkmanager
+sudo pacman -S blueman curl firefox git gvim p7zip ranger
+sudo pacman -S tree vlc wget zsh
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save

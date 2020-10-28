@@ -1,5 +1,5 @@
-set nu #显示行号
-syntax on #语法高亮
-set ignorecase #默认大小写混搜
-set smartcase #大写字母不混搜
-filetype indent on #智能缩排
+set nu "显示行号
+syntax on "语法高亮
+set ignorecase "默认大小写混搜
+set smartcase "大写字母不混搜
+filetype indent on "智能缩排

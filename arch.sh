@@ -40,6 +40,6 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 wget ${link}flypy.7z -O ~/flypy.7z
 7z x ~/flypy.7z
 cp -Rf ~/rime ~/.config/fcitx
-rm -rf "~/rime" "~/flypy.7z" "~/.config/fcitx/rime/default.yaml"
+rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 fcitx-remote -r
 

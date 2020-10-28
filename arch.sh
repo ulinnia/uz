@@ -37,8 +37,8 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
 #安装小鹤音形
 wget ${link}flypy.zip -O ~/flypy.zip
-7z x ~/flypy.zip
-cp -Rf "~/小鹤音形Rime平台鼠须管for macOS/rime" ~/.config/fcitx
-rm -rf "~/小鹤音形Rime平台鼠须管for macOS" ~/flypy.zip
+7z x ~/flypy.zip
+cp -Rf "~/小鹤音形Rime平台鼠须管for macOS/rime" ~/.config/fcitx
+rm -rf "~/小鹤音形Rime平台鼠须管for macOS" ~/flypy.zip
 rm ~/.config/fcitx/rime/default.yaml && fcitx-remote -r
 

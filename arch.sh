@@ -10,7 +10,7 @@ sudo -Syu
 echo -e "\n\n\n" | sudo pacman -S xorg fcitx-im libreoffice-zh-CN
 echo -e "\n" | sudo pacman -S alsa-utils pulseaudio-alsa xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-rime
 echo -e "\n" | sudo pacman -S fcitx-config rxvt-unicode i3 yay feh dmenu networkmanager
-echo -e "\n" | sudo pacman -S blueman curl firefox git gvim p7zip ranger
+echo -e "Y\n\n" | sudo pacman -S blueman curl firefox git gvim p7zip ranger
 echo -e "\n" | sudo pacman -S tree vlc wget zsh
 
 #修改yay源

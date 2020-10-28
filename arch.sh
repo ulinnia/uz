@@ -13,7 +13,7 @@ link=https://github.com/rraayy246/UZ/raw/master/
 wget ${link}conf/xinitrc -O ~/.xinitrc
 wget ${link}conf/i3 -O ~/.config/i3/config
 wget ${link}conf/urxvt -O ~/.Xresources
-wget ${link}conf/tlp -O /etc/tlp.conf
+sudo wget ${link}conf/tlp -O /etc/tlp.conf
 
 #自启动
 systemctl enable {NetworkManager,tlp,NetworkManager-dispatcher}

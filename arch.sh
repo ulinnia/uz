@@ -8,10 +8,13 @@ fi
 #更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、feh、dmenu及常用程序
 echo -e "\n\n\n" | sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu networkmanager blueman curl firefox git gvim libreoffice-zh-CN p7zip tree vlc wget zsh
 
+#修改yay源
+yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
+
 #更改默认shell
 sudo sed '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+yay -S oh-my-zsh-git
 
 #配置xinit、i3u、rxvt、tlp、vim、zsh
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
@@ -34,9 +37,6 @@ if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
  sudo pacman -Syy
  echo -e "\n" | sudo pacman -S archlinuxcn-keyring
 fi
-
-#修改yay源
-yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
 #安装小鹤音形
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip

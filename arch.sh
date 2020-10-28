@@ -31,8 +31,8 @@ sudo systemctl disable {dhcpcd,netctl}
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 #startx自启
-if [ "$(grep "exec startx" ~/.bash_profile)" == "" ]; then
- echo -e "if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > "~/.bash_profile"
+if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
+ echo -e "if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > "~/.zprofile"
 fi
 
 #加上archlinuxcn源

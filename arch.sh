@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $USER == oot]; then
+if [[ "$USER" == "root" ]]; then
  echo "请先退出root用户，并登陆新创建的用户。"
  exit 1
 fi

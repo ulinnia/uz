@@ -16,9 +16,9 @@ wget ${link}conf/urxvt -O ~/.Xresources
 sudo wget ${link}conf/tlp -O /etc/tlp.conf
 
 #自启动
-systemctl enable {NetworkManager,tlp,NetworkManager-dispatcher}
-systemctl disable {dhcpcd,netctl}
-systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
+sudo systemctl enable {NetworkManager,tlp,NetworkManager-dispatcher}
+sudo systemctl disable {dhcpcd,netctl}
+sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 #注解无效命令
 sed '/twm &/,/exec xterm -geometry/s/^/#/' ~/.xinitrc

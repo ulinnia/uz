@@ -12,7 +12,7 @@ echo -e "\n\n\n" | sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa 
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
 #更改默认shell
-sudo sed '/home/s/bash/zsh/' /etc/passwd
+sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 yay -S oh-my-zsh-git
 

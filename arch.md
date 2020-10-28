@@ -169,6 +169,8 @@ reboot
 
 ## 搭建桌面环境
 
+以root登入
+
 `useradd -m yourusername` 创建新用户
 
 `passwd yourusername` 设置登陆密码

@@ -1,1 +1,4 @@
-
+set nu
+syntax on
+set ignorecase
+set smartcase

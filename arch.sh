@@ -28,7 +28,7 @@ fi
 #加上archlinuxcn源
 sudo echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" > "/etc/pacman.conf"
 sudo pacman -Syy
-sudo pacman -S archlinuxcn-keyring
+echo -e "\n" | sudo pacman -S archlinuxcn-keyring
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save

@@ -6,7 +6,7 @@ if [ "$USER" == "root"  ]; then
 fi
 
 #更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、feh、dmenu及常用程序
-sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu networkmanager blueman curl firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget zsh
+echo -e "\n\n\n" | sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay feh dmenu networkmanager blueman curl firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget zsh
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
@@ -36,11 +36,11 @@ if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
 fi
 
 #加上archlinuxcn源
-#if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
-# echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" | sudo tee -a /etc/pacman.conf
-# sudo pacman -Syy
-# echo -e "\n" | sudo pacman -S archlinuxcn-keyring
-#fi
+if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
+ echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
+ sudo pacman -Syy
+ echo -e "\n" | sudo pacman -S archlinuxcn-keyring
+fi
 
 #安装小鹤音形
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip

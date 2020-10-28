@@ -27,7 +27,7 @@ fi
 
 #加上archlinuxcn源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
- echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" | /etc/pacman.conf
+ echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" | sudo tee -a /etc/pacman.conf
  sudo pacman -Syy
  echo -e "\n" | sudo pacman -S archlinuxcn-keyring
 fi

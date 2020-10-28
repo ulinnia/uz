@@ -32,7 +32,7 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 #startx自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
- echo -e "if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > ~/.zprofile
+ echo "exec startx" > ~/.zprofile
 fi
 
 #加上archlinuxcn源

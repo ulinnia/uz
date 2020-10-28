@@ -39,3 +39,4 @@ wget ${link}flypy.zip -O ~/flypy.zip
 cp -Rf "~/小鹤音形Rime平台鼠须管for macOS/rime" ~/.config/fcitx
 rm -rf "~/小鹤音形Rime平台鼠须管for macOS" ~/flypy.zip
 rm ~/.config/fcitx/rime/default.yaml && fcitx-remote -r
+

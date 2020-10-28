@@ -20,9 +20,6 @@ sudo systemctl enable {NetworkManager,tlp,NetworkManager-dispatcher}
 sudo systemctl disable {dhcpcd,netctl}
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
-#注解无效命令
-sed '/twm &/,/exec xterm -geometry/s/^/#/' ~/.xinitrc
-
 #startx自启
 if [ "$(grep "exec startx" ~/.bash_profile)" == "" ]; then
  echo -e "if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then\n exec startx\nfi" > "~/.bash_profile"

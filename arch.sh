@@ -5,7 +5,7 @@ if [ "$USER" == "root"  ]; then
  exit 1
 fi
 
-#更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、feh、dmenu及常用程序
+#更新系统并安装声卡、显卡、xorg、触摸板、字体、fcitx、urxvt、i3、yay、dmenu及常用程序
 sudo -Syu
 sudo pacman -Syu alsa-utils pulseaudio-alsa xorg xorg-xinit xf86-input-libinput noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-config rxvt-unicode i3 yay dmenu
 sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN networkmanager p7zip ranger tree vlc wget zsh

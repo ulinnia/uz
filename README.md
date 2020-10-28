@@ -136,7 +136,7 @@ cdhsmcq 彩虹猫
 
 ```shell
 sudo pacman -S curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/arch.sh)"
 ```
 
 
@@ -144,6 +144,6 @@ sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
 
 ```shell
 pkg install curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/termux.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rraayy246/UZ/master/termux.sh)"
 ```
 

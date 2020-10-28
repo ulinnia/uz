@@ -118,7 +118,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 ## 本地化
 
-`pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim` 安装必要软件
+`pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober gvim` 安装必要软件
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 

@@ -10,12 +10,12 @@ echo -e "\n\n\n" | sudo pacman -Syyu alsa-utils pulseaudio-alsa xf86-video-vesa 
 
 #更改默认shell
 sudo sed '/home/s/bash/zsh/' /etc/passwd
+#安装ohmyzsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-#配置xinit、i3u、rxvt、tlp
+#配置xinit、i3u、rxvt、tlp、vim、zsh
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
-wget ${link}conf/xinitrc -O ~/.xinitrc
-wget ${link}conf/i3 -O ~/.config/i3/config
-wget ${link}conf/urxvt -O ~/.Xresources
+wget ${link}conf/{xinitrc -O ~/.xinitrc,i3 -O ~/.config/i3/config,urxvt -O ~/.Xresources,vimrc -O ~/.vimrc,zshrc -O ~/.zshrc}
 sudo wget ${link}conf/tlp -O /etc/tlp.conf
 
 #自启动

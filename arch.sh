@@ -26,9 +26,11 @@ if [ "$(grep "exec startx" ~/.bash_profile)" == "" ]; then
 fi
 
 #加上archlinuxcn源
-echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" | /etc/pacman.conf
-sudo pacman -Syy
-echo -e "\n" | sudo pacman -S archlinuxcn-keyring
+if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
+ echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" | /etc/pacman.conf
+ sudo pacman -Syy
+ echo -e "\n" | sudo pacman -S archlinuxcn-keyring
+fi
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save

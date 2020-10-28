@@ -26,7 +26,7 @@ if [ "$(grep "exec startx" ~/.bash_profile)" == "" ]; then
 fi
 
 #加上archlinuxcn源
-sudo echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" > "/etc/pacman.conf"
+sudo echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" >> "/etc/pacman.conf"
 sudo pacman -Syy
 echo -e "\n" | sudo pacman -S archlinuxcn-keyring
 

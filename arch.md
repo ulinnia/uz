@@ -145,7 +145,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 ```shell
 127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	ray.localdomain ray
+127.0.1.1	myhostname.localdomain myhostname
 ```
 
 `systemctl enable dhcpcd` 设置dhcpcd自启动

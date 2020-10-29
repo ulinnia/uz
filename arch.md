@@ -10,6 +10,8 @@
 
 ## 镜像写入 U 盘
 
+windows 用户请使用 rufus
+
 `sudo fdisk -l` 查看设备
 
 `sudo umount /dev/sdx*` /dev/sdx是我的U盘设备，umount U盘。

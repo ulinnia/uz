@@ -134,7 +134,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
-按 `x` 删除当前光标所在处的字符，按`u` 撤消最后执行的命令，`:wq` 命令保存文件并退出。
+按 `x` 删除当前光标所在处的字符，按 `u` 撤消最后执行的命令，`:wq` 命令保存文件并退出。
 
 `locale-gen` 生成本地化信息
 

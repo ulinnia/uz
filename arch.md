@@ -84,11 +84,7 @@ nvme0n1是固态硬盘，sda是普通硬盘
 
 `mkfs.fat -F32 /dev/nvme0n1p1` 格式化 EFI System 分区为 fat32 格式
 
-如果格式化失败，可能是磁盘设备存在 Device Mapper：
-```shell
-dmsetup status #显示 dm 状态
-dmsetup remove <dev-id> #删除 dm
-```
+如果格式化失败，可能是磁盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
 `mkfs.btrfs -f /dev/nvme0n1p2` 格式化 Linux root 分区为 brtfs 格式
 
@@ -117,6 +113,8 @@ mount /dev/nvme0n1p1 /mnt/boot
 `pacstrap /mnt base base-devel linux linux-firmware` 安装 Arch 和 Package Group
 
 `genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
+
+检查fstab文件 `cat /mnt/etc/fstab`
 
 `arch-chroot /mnt` 切换至安装好的 Arch
 

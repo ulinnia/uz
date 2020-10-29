@@ -9,7 +9,7 @@ fi
 sudo pacman -Syu btrfs-progs systemd-swap
 sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
 sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-configtool #字体、输入法
-sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager #图形界面
+sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
 sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget yay zsh
 
 #修改yay源

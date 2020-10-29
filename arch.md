@@ -80,12 +80,6 @@ nvme0n1是固态硬盘，sda是普通硬盘
 
 `mkfs.btrfs -f /dev/nvme0n1p2` 格式化 Linux root 分区为 brtfs 格式
 
-格式化 Linux swap 分区
-```shell
-mkswap /dev/nvme0n1p3
-swapon /dev/nvme0n1p3
-```
-
 ## 挂载文件系统
 
 ```shell

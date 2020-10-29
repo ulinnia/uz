@@ -182,4 +182,4 @@ bar {
         status_command i3status
 }
 
-exec fcitx
+exec --no-startup-id fcitx

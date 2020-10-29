@@ -172,6 +172,7 @@ mode "resize" {
         # 退出'resize'模式，返回默认的模式
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
 }
 
 # 关机、锁定、重启

@@ -104,7 +104,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 `vim /etc/pacman.d/mirrorlist` 配置 pacman mirror 镜像源
 
-找到标有China的镜像源，normal模式下按下 `dd` 可以剪切光标下的行，按 `gg` 回到文件首，按 `P`（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
+找到标有China的镜像源，命令模式下按下 `dd` 可以剪切光标下的行，按 `gg` 回到文件首，按 `P`（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
 
 最后记得用 `:wq` 命令保存文件并退出。
 

@@ -5,7 +5,9 @@ if [ "$USER" == "root"  ]; then
  exit 1
 fi
 
-if [ -e "/swapfile" ]
+if [ ! -d "/swapfile" ]; then
+ 
+fi
 
 #更新系统并安装声卡、显卡、触摸板驱动
 sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-input-libinput

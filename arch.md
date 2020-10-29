@@ -32,7 +32,7 @@ windows 用户请使用 rufus
 
 对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：`dhcpcd`
 
-无线网络请使用 wifi-menu
+无线网络请使用 `wifi-menu`
 
 `ping www.163.com` 测试网络是否可用，安装过程中需要用到网络
 

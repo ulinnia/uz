@@ -20,14 +20,15 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 echo -e "\n\n" | yay -S oh-my-zsh-git
 
-#配置xinit、i3、urxvt、tlp、vim、zsh
+#配置tlp、swap、xinit、i3、urxvt、vim、zsh
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
+sudo wget ${link}conf/tlp -O /etc/tlp.conf
+sudo wget ${link}conf/swap -O /etc/systemd/swap.conf
 wget ${link}conf/xinitrc -O ~/.xinitrc
 wget ${link}conf/i3 -O ~/.config/i3/config
 wget ${link}conf/urxvt -O ~/.Xresources
 wget ${link}conf/vimrc -O ~/.vimrc
 wget ${link}conf/zshrc -O ~/.zshrc
-sudo wget ${link}conf/tlp -O /etc/tlp.conf
 
 #自启动
 sudo systemctl enable {tlp,systemd-swap,NetworkManager,NetworkManager-dispatcher}

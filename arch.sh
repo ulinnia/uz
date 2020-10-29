@@ -5,12 +5,9 @@ if [ "$USER" == "root"  ]; then
  exit 1
 fi
 
-if [ ! -d "/swapfile" ]; then
- 
-fi
-
-#更新系统并安装声卡、显卡、触摸板驱动
-sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-input-libinput
+#更新系统并安装系统级软件
+sudo pacman -Syu btrfs-progs systemd-swap
+sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
 sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-configtool #字体、输入法
 sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager #图形界面
 sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget yay zsh
@@ -23,7 +20,7 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 echo -e "\n\n" | yay -S oh-my-zsh-git
 
-#配置xinit、i3u、rxvt、tlp、vim、zsh
+#配置xinit、i3、urxvt、tlp、vim、zsh
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 wget ${link}conf/xinitrc -O ~/.xinitrc
 wget ${link}conf/i3 -O ~/.config/i3/config
@@ -33,7 +30,7 @@ wget ${link}conf/zshrc -O ~/.zshrc
 sudo wget ${link}conf/tlp -O /etc/tlp.conf
 
 #自启动
-sudo systemctl enable {NetworkManager,tlp,NetworkManager-dispatcher}
+sudo systemctl enable {tlp,systemd-swap,NetworkManager,NetworkManager-dispatcher}
 sudo systemctl disable {dhcpcd,netctl}
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 

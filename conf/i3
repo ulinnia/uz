@@ -145,28 +145,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-#===volume control===
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2dB- unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-
-#===power manager===
-set $mode_system select: 上锁(L) 退出(E) 重启(R) 关机(O) 离开(Esc)
-bindsym $mod+o mode "$mode_system"
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock -c '#000000', mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
-    bindsym Escape mode "default"
-}
-
-# i3lock
-mode "i3lock: Return to lock/Escape to Cancel" {
-    bindsym Return mode "default" exec i3lock -I 600 -i ~/Pictures/lock.jpg
-    bindsym Escape mode "default"
-}
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -206,4 +184,3 @@ bar {
         status_command i3status
 }
 
-exec --no-startup-id fcitx

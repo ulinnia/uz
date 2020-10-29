@@ -5,6 +5,8 @@ if [ "$USER" == "root"  ]; then
  exit 1
 fi
 
+if [ -e "/swapfile" ]
+
 #更新系统并安装声卡、显卡、触摸板驱动
 sudo pacman -Syu alsa-utils pulseaudio-alsa xf86-input-libinput
 sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-configtool #字体、输入法

@@ -174,8 +174,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
-
 # 关机、锁定、重启
 bindsym $mod+o mode "$mode_system"
 set $mode_system '(l)上锁儿, (e)退出, (u)切换用户, (s)挂起儿, (h)过冬, (r)重启, (Shift+s)ShutDown'

@@ -32,6 +32,7 @@ wget ${link}conf/vimrc -O ~/.vimrc
 wget ${link}conf/zshrc -O ~/.zshrc
 
 #自启动
+sudo NetworkManager
 sudo systemctl enable {tlp,systemd-swap,NetworkManager}
 sudo systemctl disable {dhcpcd,netctl}
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}

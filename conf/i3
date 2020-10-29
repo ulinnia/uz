@@ -178,6 +178,18 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
+# 关机、锁定、重启
+bindsym $mod+o mode "$mode_system"
+set $mode_system '(r)重启, (s)关机'
+mode "$mode_system" {
+
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+    
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {

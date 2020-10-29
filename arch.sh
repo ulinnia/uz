@@ -10,8 +10,7 @@ echo -e "\n" | sudo pacman -Syu btrfs-progs systemd-swap
 echo -e "\n" | sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
 echo -e "\n\n" | sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-configtool #字体、输入法
 echo -e "\n\n\n" | sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
-echo -e "\n" | sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN
-echo -e "\n" | sudo pacman -S p7zip ranger tree vlc wget yay zsh
+echo -e "\n" | sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget yay zsh
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save

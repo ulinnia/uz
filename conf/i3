@@ -58,6 +58,33 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+#---bar---
+
+bar {
+#    status_command i3status -c ~/.config/i3/i3status.conf
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+
+    position top
+    mode hide
+    workspace_buttons yes
+    #output eDP1
+    #tray_output primary
+    tray_padding 0
+    separator_symbol "|"
+
+    colors {
+    background #285477
+    statusline #dedede
+    separator #2d2d2d
+    focused_workspace #636e88 #285de7 #dedfdg
+    active_workspace #556677 #234567 #56ef67
+    inactive_workspace #636d72 #2d2d2d #dedede
+    urgent_workspace #ffffff #900000 #d23d32
+    }
+
+#height 30
+}
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -144,6 +171,28 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+
+#===volume control===
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2dB- unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
+
+#===power manager===
+set $mode_system select: lock(L) exit(E) reboot(R) poweroff(O) cancel(Esc)
+bindsym $mod+o mode "$mode_system"
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock -c '#000000', mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym Escape mode "default"
+}
+
+# i3lock
+mode "i3lock: Return to lock/Escape to Cancel" {
+    bindsym Return mode "default" exec i3lock -I 600 -i ~/Pictures/lock.jpg
+    bindsym Escape mode "default"
+}
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

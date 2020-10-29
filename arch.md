@@ -132,7 +132,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `vim /etc/locale.gen` 修改本地化信息
 
-移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
+移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。按 `x` 删除当前光标所在处的字符，`:wq` 命令保存文件并退出。
 
 `locale-gen` 生成本地化信息
 
@@ -149,6 +149,8 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 ::1		localhost
 127.0.1.1	myhostname.localdomain myhostname
 ```
+
+按 `i` 切换到输入模式，按 `ESC` 回到命令模式，`:wq` 命令保存文件并退出。
 
 `systemctl enable dhcpcd` 设置dhcpcd自启动
 

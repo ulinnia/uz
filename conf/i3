@@ -176,6 +176,23 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# 关机、锁定、重启
+bindsym $mod+o mode "$mode_system"
+set $mode_system '(l)上锁儿, (e)退出, (u)切换用户, (s)挂起儿, (h)过冬, (r)重启, (Shift+s)ShutDown'
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {

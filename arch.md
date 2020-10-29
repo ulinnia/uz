@@ -165,6 +165,8 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+检查grub文件 `vim /boot/grub/grub.cfg`
+
 重新启动
 
 ```shell

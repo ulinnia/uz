@@ -6,10 +6,10 @@ if [ "$USER" == "root"  ]; then
 fi
 
 #更新系统并安装系统级软件
-echo -e "\n" | sudo pacman -Syu btrfs-progs systemd-swap
-echo -e "\n" | sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
-echo -e "\n\n" | sudo pacman -S noto-fonts-cjk ttf-ubuntu-font-family fcitx-im fcitx-rime fcitx-configtool #字体、输入法
-echo -e "\n\n\n" | sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
+sudo pacman -Syu btrfs-progs systemd-swap
+sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
+sudo pacman -S noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei fcitx-im fcitx-rime fcitx-configtool #输入法、字体
+sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
 sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget yay zsh
 
 #修改yay源

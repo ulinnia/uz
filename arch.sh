@@ -56,4 +56,12 @@ sudo systemctl enable {tlp,systemd-swap,NetworkManager}
 sudo systemctl disable {dhcpcd,netctl}
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
+​read​ -p ​"​安装 steam 吗？[y/*]​"​ choice
+​if​ [ ​"​$choice​"​ ​=​ ​"​y​"​ ]​||​[ ​"​$choice​"​ ​=​ ​"​Y​"​ ]​;​ ​then
+ if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
+  echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
+  sudo pacman -Syy
+ fi
+ sudo pacman -S ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl nvidia-setting
+
 

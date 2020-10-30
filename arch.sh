@@ -30,12 +30,6 @@ wget ${link}conf/urxvt -O ~/.Xresources
 wget ${link}conf/vimrc -O ~/.vimrc
 wget ${link}conf/zshrc -O ~/.zshrc
 
-#自启动
-sudo NetworkManager
-sudo systemctl enable {tlp,systemd-swap,NetworkManager}
-sudo systemctl disable {dhcpcd,netctl}
-sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
-
 #startx自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
  echo "exec startx" > ~/.zprofile
@@ -55,4 +49,11 @@ wget ${link}flypy.7z -O ~/flypy.7z
 cp -Rf ~/rime ~/.config/fcitx
 rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 fcitx-remote -r
+
+#自启动
+sudo NetworkManager
+sudo systemctl enable {tlp,systemd-swap,NetworkManager}
+sudo systemctl disable {dhcpcd,netctl}
+sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
+
 

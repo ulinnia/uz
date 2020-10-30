@@ -63,5 +63,5 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
   sudo pacman -Syy
  fi
  sudo pacman -S ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl nvidia-setting
-
+fi
 

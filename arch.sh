@@ -20,7 +20,7 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 echo -e "\n\n" | yay -S oh-my-zsh-git
 
-#配置tlp、swap、xinit、i3、urxvt、vim、zsh、键盘
+#配置tlp、swap、xinit、i3、urxvt、vim、zsh、CAPS CTRL 对调
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}conf/tlp -O /etc/tlp.conf
 sudo wget ${link}conf/swap -O /etc/systemd/swap.conf

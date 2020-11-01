@@ -65,4 +65,4 @@ URxvt.saveLines:        8192
 
 ! Fix font space
 ! any larger than -1 I dont like
-URxvt*letterSpace: -1
+URxvt*letterSpace: 0

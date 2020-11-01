@@ -57,9 +57,9 @@ URxvt.depth: 0
 URxvt.intensityStyles:  false
 ! Turn it on here... (then boldFont)
 URxvt.allow_bold:       false                     
-URxvt.font:             xft:Ubuntu Mono:style=Regular:pixelsize=17,xft:WenQuanYi Micro Hei Mono:style=Regular:pixelsize=16
+URxvt.font:             xft:Ubuntu Mono:style=Regular:pixelsize=25
 ! ... but put this on Regular, else the ls output is overly fat
-URxvt.boldFont:         xft:Ubuntu Mono:style=Bold:pixelsize=17,xft:WenQuanYi Micro Hei Mono:style=Bold:pixelsize=16
+URxvt.boldFont:         xft:Ubuntu Mono:style=Bold:pixelsize=25
 URxvt.saveLines:        8192
 
 

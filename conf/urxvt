@@ -23,7 +23,7 @@ URxvt.color14:Cyan2
 URxvt.color15:Gray95
 
 !!URL操作
-URxvt.urlLauncher:chromium
+URxvt.urlLauncher:firefox
 URxvt.matcher.button:1
 Urxvt.perl-ext-common:matcher
 

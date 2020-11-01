@@ -10,7 +10,8 @@ sudo pacman -Syu btrfs-progs systemd-swap
 sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
 sudo pacman -S noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei fcitx-im fcitx-rime fcitx-configtool #输入法、字体
 sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
-sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN p7zip ranger tree vlc wget yay zsh
+sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN
+sudo pacman -S p7zip ranger tree vlc wget yay zsh
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
@@ -58,7 +59,7 @@ sudo systemctl disable {dhcpcd,netctl}
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 read -p "安装 steam 吗？[y/*]" choice
-if [ "$choice" = "y" ]||[ "$choice" = "Y" ]; then
+if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then
  if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
   echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
   sudo pacman -Syy

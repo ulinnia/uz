@@ -5,7 +5,7 @@ URxvt.preeditType:Root
 URxvt.inputMethod:fcitx
 
 !!颜色设置
-URxvt.depth:32
+URxvt.depth:0
 
 !!中括号内数表示透明度
 URxvt.inheritPixmap:true
@@ -46,6 +46,23 @@ URxvt.saveLines:3000
 URxvt.borderLess:False
 
 !!字体设置
-Xft.dpi:96
-URxvt.font:xft:Source Code Pro:antialias=True:pixelsize=18,xft:Ubuntu:pixelsize=18
-URxvt.boldfont:xft:Source Code Pro:antialias=True:pixelsize=18,xft:Ubuntu:pixelsize=18
+Xft.dpi:                    96
+Xft.antialias:              true
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
+
+URxvt.depth: 0
+
+URxvt.intensityStyles:  false                                       
+! Turn it on here... (then boldFont)
+URxvt.allow_bold:       false                                        
+URxvt.font:             xft:Ubuntu Mono:style=Regular:pixelsize=17
+! ... but put this on Regular, else the ls output is overly fat
+URxvt.boldFont:         xft:Ubuntu Mono:style=Bold:pixelsize=17  
+URxvt.saveLines:        8192
+
+
+! Fix font space
+! any larger than -1 I dont like
+URxvt*letterSpace: -2

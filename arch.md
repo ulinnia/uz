@@ -126,16 +126,16 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统 locale 设置为en_US.UTF-8
 
-`echo myhostname > /etc/hostname` 修改主机名为 myhostname
+`echo 主机名 > /etc/hostname` 修改主机名
 
 `vim /etc/hosts` 编辑hosts
 
-加入以下字串（myhostname 替换为主机名）
+加入以下字串
 
 ```shell
 127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	myhostname.localdomain myhostname
+127.0.1.1	主机名.localdomain 主机名
 ```
 
 按 `i` 切换到输入模式，按 `ESC` 回到命令模式，`:wq` 命令保存文件并退出。
@@ -165,9 +165,9 @@ reboot
 
 以root登入
 
-`useradd -m yourusername` 创建新用户
+`useradd -m 用户名` 创建新用户
 
-`passwd yourusername` 设置登陆密码
+`passwd 用户名` 设置登陆密码
 
 `vim /etc/sudoers` 编辑sudo权限
 

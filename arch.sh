@@ -6,12 +6,12 @@ if [ "$USER" == "root"  ]; then
 fi
 
 #更新系统并安装系统级软件
-sudo pacman -Syu btrfs-progs systemd-swap
-sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
-sudo pacman -S noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei fcitx-im fcitx-rime fcitx-configtool #输入法、字体
-sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
-sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN
-sudo pacman -S p7zip ranger tree vlc wget yay zsh
+echo -e "\n" | sudo pacman -Syu btrfs-progs systemd-swap
+echo -e "\n" | sudo pacman -S alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
+echo -e "\n\n" | sudo pacman -S noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei fcitx-im fcitx-rime fcitx-configtool #输入法、字体
+echo -e "\n\n\n" | sudo pacman -S xorg xorg-xinit i3 dmenu rxvt-unicode networkmanager network-manager-applet #图形界面
+echo -e "\n\n" | sudo pacman -S blueman curl feh firefox git gvim libreoffice-zh-CN
+echo -e "\n" | sudo pacman -S p7zip ranger tree vlc wget yay zsh
 
 #修改yay源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save

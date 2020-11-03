@@ -62,6 +62,6 @@ read -p "安装 steam 吗？[y/*]" choice
 if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then
  sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
  sudo pacman -Syy
- sudo pacman -S ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl
+ echo -e "\n" | sudo pacman -S ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl
 fi
 

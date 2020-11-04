@@ -106,7 +106,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 ## 本地化
 
-`pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober gvim` 安装必要软件
+`pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober neovim` 安装必要软件
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
@@ -116,7 +116,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `hwclock --systohc --utc` 设置时间标准为UTC
 
-`vim /etc/locale.gen` 修改本地化信息
+`nvim /etc/locale.gen` 修改本地化信息
 
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
@@ -128,7 +128,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `echo 主机名 > /etc/hostname` 修改主机名
 
-`vim /etc/hosts` 编辑hosts
+`nvim /etc/hosts` 编辑hosts
 
 加入以下字串
 
@@ -151,7 +151,7 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-检查grub文件 `vim /boot/grub/grub.cfg`
+检查grub文件 `nvim /boot/grub/grub.cfg`
 
 重新启动
 
@@ -169,7 +169,7 @@ reboot
 
 `passwd 用户名` 设置登陆密码
 
-`vim /etc/sudoers` 编辑sudo权限
+`nvim /etc/sudoers` 编辑sudo权限
 
 复制一行root ALL=(ALL) ALL, 并替换其中的root为新用户名，`:wq!` 强制保存并退出。
 

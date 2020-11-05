@@ -59,7 +59,7 @@ fcitx-remote -r
 #自启动
 sudo NetworkManager
 sudo systemctl enable {tlp,systemd-swap,NetworkManager}
-sudo systemctl disable {dhcpcd,netctl}
+sudo systemctl disable dhcpcd
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 read -p "安装 steam 吗？[y/*]" choice

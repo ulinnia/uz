@@ -186,9 +186,9 @@ mode "$mode_system" {
 
     bindsym j exec --no-startup-id systemctl poweroff, mode "default"
     bindsym i exec --no-startup-id systemctl reboot, mode "default"
-    bindsym g exec --no-startup-id i3lock && systemctl suspend, mode "default"
-    bindsym x exec --no-startup-id i3lock && systemctl hibernate, mode "default"
-    bindsym s exec --no-startup-id i3lock, mode "default"
+    bindsym g exec --no-startup-id i3lock -i ~/.config/i3/hw.png && systemctl suspend, mode "default"
+    bindsym x exec --no-startup-id i3lock -i ~/.config/i3/hw.png && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id i3lock -i ~/.config/i3/hw.png, mode "default"
     bindsym d exec --no-startup-id i3-msg exit, mode "default"
     
     bindsym Return mode "default"

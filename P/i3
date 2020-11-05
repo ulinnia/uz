@@ -181,11 +181,15 @@ mode "resize" {
 
 # 关机、锁定、重启
 bindsym $mod+o mode "$mode_system"
-set $mode_system '(r)重启, (s)关机'
+set $mode_system 'j关机，i重启，g挂起，x休眠，s锁屏，d登出'
 mode "$mode_system" {
 
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym j exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym i exec --no-startup-id systemctl reboot, mode "default"
+    bindsym g exec --no-startup-id i3lock && systemctl suspend, mode "default"
+    bindsym x exec --no-startup-id i3lock && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id i3lock, mode "default"
+    bindsym d exec --no-startup-id i3-msg exit, mode "default"
     
     bindsym Return mode "default"
     bindsym Escape mode "default"

@@ -50,7 +50,7 @@ fi
 
 #安装小鹤音形
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
-wget ${link}flypy.7z -O ~/flypy.7z
+wget ${link}P/flypy.7z -O ~/flypy.7z
 7z x ~/flypy.7z
 cp -Rf ~/rime ~/.config/fcitx
 rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml

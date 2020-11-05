@@ -24,7 +24,7 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 echo -e "\n\n" | yay -S oh-my-zsh-git
 
-#配置tlp、swap、xinit、i3、urxvt、nvim、zsh、CAPS CTRL 对调
+#配置tlp、swap、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}P/tlp -O /etc/tlp.conf
 sudo wget ${link}P/swap -O /etc/systemd/swap.conf
@@ -34,6 +34,8 @@ wget ${link}P/urxvt -O ~/.Xresources
 mkdir ~/.config/nvim && wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc
 wget ${link}P/xmodmap -O ~/.Xmodmap
+wget ${link}P/hw.png -O ~/.config/i3/hw.png
+i3lock -i ~/.config/i3/hw.png
 
 #startx自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then

@@ -23,14 +23,14 @@ echo -e "\n\n" | yay -S oh-my-zsh-git
 
 #配置tlp、swap、xinit、i3、urxvt、nvim、zsh、CAPS CTRL 对调
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
-sudo wget ${link}conf/tlp -O /etc/tlp.conf
-sudo wget ${link}conf/swap -O /etc/systemd/swap.conf
-wget ${link}conf/xinitrc -O ~/.xinitrc
-wget ${link}conf/i3 -O ~/.config/i3/config
-wget ${link}conf/urxvt -O ~/.Xresources
-wget ${link}conf/nvim -O ~/.config/nvim/init.vim
-wget ${link}conf/zshrc -O ~/.zshrc
-wget ${link}conf/xmodmap -O ~/.Xmodmap
+sudo wget ${link}P/tlp -O /etc/tlp.conf
+sudo wget ${link}P/swap -O /etc/systemd/swap.conf
+wget ${link}P/xinitrc -O ~/.xinitrc
+wget ${link}P/i3 -O ~/.config/i3/config
+wget ${link}P/urxvt -O ~/.Xresources
+wget ${link}P/nvim -O ~/.config/nvim/init.vim
+wget ${link}P/zshrc -O ~/.zshrc
+wget ${link}P/xmodmap -O ~/.Xmodmap
 
 #startx自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then

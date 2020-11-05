@@ -35,7 +35,6 @@ mkdir ~/.config/nvim && wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc
 wget ${link}P/xmodmap -O ~/.Xmodmap
 wget ${link}P/hw.png -O ~/.config/i3/hw.png
-i3lock -i ~/.config/i3/hw.png
 
 #startx自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then

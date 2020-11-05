@@ -31,7 +31,7 @@ sudo wget ${link}P/swap -O /etc/systemd/swap.conf
 wget ${link}P/xinitrc -O ~/.xinitrc
 wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/urxvt -O ~/.Xresources
-wget ${link}P/nvim -O ~/.config/nvim/init.vim
+mkdir ~/.config/nvim && wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc
 wget ${link}P/xmodmap -O ~/.Xmodmap
 

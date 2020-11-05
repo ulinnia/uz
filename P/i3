@@ -153,6 +153,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+# screen off | sleep | shutdown(time unit: seconds)
+exec --no-startup-id xset dpms 300 600
+
 # 按下$mod+r进入'resize'模式
 bindsym $mod+r mode "resize"
 # 定义‘resize'模式

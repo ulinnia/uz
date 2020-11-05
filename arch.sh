@@ -57,8 +57,8 @@ rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 fcitx-remote -r
 
 #自启动
-sudo NetworkManager
-sudo systemctl enable {tlp,systemd-swap,NetworkManager}
+sudo systemctl start {NetworkManager,systemd-swap,tlp}
+sudo systemctl enable {NetworkManager,systemd-swap,tlp}
 sudo systemctl disable dhcpcd
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 

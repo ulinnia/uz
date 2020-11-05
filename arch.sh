@@ -13,7 +13,7 @@ echo -e "\n" | sudo pacman -S fcitx-im fcitx-rime fcitx-configtool #输入法
 echo -e "\n" | sudo pacman -S xorg xorg-xinit i3 dmenu #图形界面
 echo -e "\n" | sudo pacman -S feh network-manager-applet rxvt-unicode xss-lock #图形挂件
 echo -e "\n" | sudo pacman -S curl firefox git wget yay #网络工具
-echo -e "\n" | sudo pacman -S neovim p7zip ranger zsh #必要工具
+echo -e "\n" | sudo pacman -S neovim p7zip ranger tlp tlp-rdw zsh #必要工具
 echo -e "\n" | sudo pacman -S blueman libreoffice-zh-CN tree vlc #其他工具
 
 #修改yay源

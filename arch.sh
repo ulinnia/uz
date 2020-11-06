@@ -44,7 +44,7 @@ fi
 #加上archlinuxcn源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
  echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
- sudo pacman -S --noconfirm archlinuxcn-keyring
+ sudo pacman -Syy --noconfirm archlinuxcn-keyring
 fi
 
 #安装小鹤音形

@@ -6,7 +6,7 @@ if [ "$USER" == "root"  ]; then
 fi
 
 #更新系统并安装系统级软件
-sudo pacman -Syu --noconfirm btrfs-progs networkmanager systemd-swap
+sudo pacman -Syu --noconfirm btrfs-progs networkmanager
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei #字体
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool #输入法
@@ -24,10 +24,9 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
-#配置tlp、swap、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
+#配置tlp、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}P/tlp -O /etc/tlp.conf
-sudo wget ${link}P/swap -O /etc/systemd/swap.conf
 wget ${link}P/xinitrc -O ~/.xinitrc
 wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/urxvt -O ~/.Xresources

@@ -152,7 +152,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # screen off | sleep | shutdown(time unit: seconds)
-exec --no-startup-id xset dpms 300 600
+exec --no-startup-id xset dpms 60
 
 # 按下$mod+r进入'resize'模式
 bindsym $mod+r mode "resize"

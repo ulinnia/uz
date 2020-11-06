@@ -22,7 +22,7 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 #更改默认shell
 sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
-echo -e "\n\n" | yay -S oh-my-zsh-git
+yay -S --noconfirm oh-my-zsh-git
 
 #配置tlp、swap、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/

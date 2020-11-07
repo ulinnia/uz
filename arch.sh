@@ -75,6 +75,8 @@ if [ ! -e "/swap" ]; then
  sudo mkinitcpio -P
 fi
 
+sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
+
 read -p "安装 steam 吗？[y/*]" choice
 if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then
  sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf

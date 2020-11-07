@@ -67,6 +67,8 @@ if [ ! -e "/swap" ]; then
  echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf && sudo sysctl -p
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
+ offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0:"){print $9} }')
+ echo "$((offset/4096))" | sudo tee /sys/power/resume_offset
  echo "/swap" | sudo tee /sys/power/resume
 fi
 

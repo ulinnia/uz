@@ -7,14 +7,14 @@ fi
 
 # 更新系统并安装系统级软件
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
-sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
+sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput # 声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei #字体
-sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool #输入法
-sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu #图形界面
-sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock #图形挂件
-sudo pacman -S --noconfirm curl firefox git wget yay #网络工具
-sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh #必要工具
-sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc #其他工具
+sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool # 输入法
+sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu # 图形界面
+sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock # 图形挂件
+sudo pacman -S --noconfirm curl firefox git wget yay # 网络工具
+sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh # 必要工具
+sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc vim # 其他工具
 
 # 修改 yay 源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save

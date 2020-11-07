@@ -5,13 +5,6 @@ if [ "$USER" == "root"  ]; then
  exit 1
 fi
 
-#创建交换文件
-sudo fallocate -l 4G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
-
 #更新系统并安装系统级软件
 sudo pacman -Syu --noconfirm btrfs-progs networkmanager
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
@@ -65,6 +58,13 @@ fcitx-remote -r
 sudo systemctl enable --now {NetworkManager,NetworkManager-dispatcher,tlp}
 sudo systemctl disable dhcpcd
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
+
+#创建交换文件
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
 
 read -p "安装 steam 吗？[y/*]" choice
 if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then

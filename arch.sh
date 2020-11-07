@@ -61,6 +61,7 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 #创建交换文件
 sudo fallocate -l 4G /swapfile
+sudo chattr +C /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile

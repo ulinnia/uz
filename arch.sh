@@ -6,7 +6,7 @@ if [ "$USER" == "root"  ]; then
 fi
 
 # 更新系统并安装系统级软件
-sudo pacman -Syu --noconfirm btrfs-progs networkmanager
+sudo pacman -Syu btrfs-progs networkmanager
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput #声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei #字体
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool #输入法

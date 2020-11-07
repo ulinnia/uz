@@ -67,6 +67,7 @@ if [ ! -e "/swap" ]; then
  echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf && sudo sysctl -p
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
+ echo "/swap" | sudo tee /sys/power/resume
 fi
 
 read -p "安装 steam 吗？[y/*]" choice

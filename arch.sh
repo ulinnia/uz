@@ -59,6 +59,13 @@ sudo systemctl enable --now {NetworkManager,NetworkManager-dispatcher,tlp}
 sudo systemctl disable dhcpcd
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
+#创建交换文件
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+swapon /swapfile
+echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
+
 read -p "安装 steam 吗？[y/*]" choice
 if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then
  sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf

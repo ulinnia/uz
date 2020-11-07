@@ -65,7 +65,7 @@ if [ ! -e "/swap" ]; then
  sudo fallocate -l 4G /swap
  sudo chmod 600 /swap && sudo mkswap /swap && sudo swapon /swap
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
- echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf && sudo sysctl -p
+ echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf && sudo sysctl -p
 
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c

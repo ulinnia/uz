@@ -73,12 +73,12 @@ if [ ! -e "/swap" ]; then
  offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
  sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=/resume_offset=$((offset/4096))/" /etc/default/grub
  rm ~/btrfs_map_physical*
- sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
- sudo grub-mkconfig -o /boot/grub/grub.cfg
 
  sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf
  sudo mkinitcpio -P
 fi
+sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 read -p "安装 steam 吗？[y/*]" choice
 if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then

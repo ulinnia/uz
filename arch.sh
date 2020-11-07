@@ -72,6 +72,7 @@ if [ ! -e "/swap" ]; then
  echo "$(lsblk | awk '{ if($7=="/"){print $2} }')" | sudo tee /sys/power/resume
  rm ~/btrfs_map_physical*
  sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf
+ sudo mkinitcpio -P
 fi
 
 read -p "安装 steam 吗？[y/*]" choice

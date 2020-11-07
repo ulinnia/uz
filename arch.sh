@@ -48,8 +48,7 @@ fi
 
 #安装小鹤音形
 #到http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
-wget ${link}P/flypy.7z -O ~/flypy.7z
-7z x ~/flypy.7z
+wget ${link}P/flypy.7z -O ~/flypy.7z && 7z x ~/flypy.7z
 cp -Rf ~/rime ~/.config/fcitx
 rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 fcitx-remote -r
@@ -61,17 +60,13 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 #创建交换文件
 if [ ! -e "/swap" ]; then
-sudo touch /swap
-sudo chattr +C /swap
-sudo fallocate -l 4G /swap
-sudo chmod 600 /swap
-sudo mkswap /swap
-sudo swapon /swap
-echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
-echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf
-sudo sysctl -p
-wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
-gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
+ sudo touch /swap && sudo chattr +C /swap
+ sudo fallocate -l 4G /swap
+ sudo chmod 600 /swap && sudo mkswap /swap && sudo swapon /swap
+ echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
+ echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf && sudo sysctl -p
+ wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
+ gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
 fi
 
 read -p "安装 steam 吗？[y/*]" choice

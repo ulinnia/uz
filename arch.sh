@@ -67,7 +67,8 @@ sudo chmod 600 /swap
 sudo mkswap /swap
 sudo swapon /swap
 echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
-echo "10" | sudo tee /proc/sys/vm/swappiness
+echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf
+sudo sysctl -p
 
 read -p "安装 steam 吗？[y/*]" choice
 if [ "$choice" = "y" ]||[ "$choice" = "Y" ];then

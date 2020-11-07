@@ -66,14 +66,14 @@ if [ ! -e "/swap" ]; then
  sudo chmod 600 /swap && sudo mkswap /swap && sudo swapon /swap
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
  echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf && sudo sysctl -p
-
+#设定内核参数
  sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/nvme0n1p2/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
  offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
  sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=/resume_offset=$((offset/4096))/" /etc/default/grub
  rm ~/btrfs_map_physical*
-
+#添加resume钩子
  sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf
  sudo mkinitcpio -P
 fi

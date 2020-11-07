@@ -70,6 +70,7 @@ if [ ! -e "/swap" ]; then
  offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0:"){print $9} }')
  echo "$((offset/4096))" | sudo tee /sys/power/resume_offset
  echo "/swap" | sudo tee /sys/power/resume
+ rm ~/btrfs_map_physical*
 fi
 
 read -p "安装 steam 吗？[y/*]" choice

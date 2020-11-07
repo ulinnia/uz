@@ -70,7 +70,7 @@ if [ ! -e "/swap" ]; then
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
  offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
- sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=$((offset/4096))/" /etc/default/grub
+ sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=/resume_offset=$((offset/4096))/" /etc/default/grub
  rm ~/btrfs_map_physical*
 
  sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf

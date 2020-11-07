@@ -71,6 +71,7 @@ if [ ! -e "/swap" ]; then
  echo "$((offset/4096))" | sudo tee /sys/power/resume_offset
  echo "$(lsblk | awk '{ if($7=="/"){print $2} }')" | sudo tee /sys/power/resume
  rm ~/btrfs_map_physical*
+ sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf
 fi
 
 read -p "安装 steam 吗？[y/*]" choice

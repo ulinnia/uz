@@ -24,9 +24,10 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 #安装ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
-#配置tlp、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
+#配置grub、tlp、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}P/tlp -O /etc/tlp.conf
+sudo wget ${link}P/grub -O /etc/default/grub
 wget ${link}P/xinitrc -O ~/.xinitrc
 wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/urxvt -O ~/.Xresources
@@ -65,12 +66,13 @@ if [ ! -e "/swap" ]; then
  sudo chmod 600 /swap && sudo mkswap /swap && sudo swapon /swap
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
  echo "vm.swappiness = 10" | sudo tee /etc/sysctl.conf && sudo sysctl -p
+
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
  offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
- echo "$((offset/4096))" | sudo tee /sys/power/resume_offset
- echo "$(lsblk | awk '{ if($7=="/"){print $2} }')" | sudo tee /sys/power/resume
+ sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=$((offset/4096))/" /etc/default/grub
  rm ~/btrfs_map_physical*
+
  sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf
  sudo mkinitcpio -P
 fi

@@ -19,8 +19,12 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
 # 更改默认 shell
 sudo sed -i '/home/s/bash/zsh/' /etc/passwd
+
 # 安装 ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
+
+# 安装 SpaceVim
+curl -sLf https://spacevim.org/cn/install.sh | bash
 
 # 配置 grub、tlp、init、i3、spacevim，urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
@@ -86,9 +90,6 @@ sudo pacman -Syy --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl
 
 # 下载 vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-# 安装 SpaceVim
-curl -sLf https://spacevim.org/cn/install.sh | bash
 
 # 手动执行
 echo "请手动执行 fcitx-configtool 修改输入法。"

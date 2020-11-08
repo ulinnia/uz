@@ -67,7 +67,7 @@ if [ ! -e "/swap" ]; then
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
  echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf && sudo sysctl -p
 # 设定内核参数
- sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\w*/resume=$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
+ sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
  wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
  gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
  offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')

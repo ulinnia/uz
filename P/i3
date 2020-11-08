@@ -18,9 +18,9 @@ exec --no-startup-id feh --bg-scale ~/.config/i3/hw.png
 # 窗口标题的字体。除非在下面的 bar {} 块中使用了不同的字体，否则该栏也将使用该字体。
 font pango:Ubuntu 8
 
-# xss-lock，nm-applet 和 pactl 的组合是一个受欢迎的选择，因此此处以它们为例。 根据需要进行修改。
+# xss-lock，nm-applet 和 pactl 的组合是一个受欢迎的选择，因此此处以它们为例。根据需要进行修改。
 
-# xss-lock 会获取已登录的挂起禁止锁定，并将在挂起之前使用 i3lock 锁定屏幕。 使用 loginctl lock-session 锁定屏幕。
+# xss-lock 会获取已登录的挂起禁止锁定，并将在挂起之前使用 i3lock 锁定屏幕。使用 loginctl lock-session 锁定屏幕。
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/.config/i3/hw.png
 
 # NetworkManager 是在 Linux 上管理无线网络的最流行方法，nm-applet 是它的与桌面环境无关的系统任务栏GUI。

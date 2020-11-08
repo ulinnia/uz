@@ -11,7 +11,7 @@
 
 set $mod Mod4
 
-#===autostart parograms===
+# 软件自启
 exec --no-startup-id fcitx
 exec --no-startup-id feh --bg-scale ~/.config/i3/hw.png
 
@@ -34,7 +34,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/.con
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
+# 使用 pactl 调整 PulseAudio 中的音量。
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
@@ -44,12 +44,12 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
+# 应用快捷键
 bindsym $mod+Return exec --no-startup-id urxvt
 
 bindsym $mod+Shift+f exec firefox
 
-# kill focused window
+# 关闭焦点视窗
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
@@ -59,48 +59,48 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-# change focus
+# 改变焦点
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# alternatively, you can use the cursor keys:
+# 改变焦点方案2
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
+# 移动焦点视窗
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
-# alternatively, you can use the cursor keys:
+# 移动焦点视窗方案2
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# 水平分割
 bindsym $mod+h split h
 
-# split in vertical orientation
+# 垂直分割
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
+# 焦点视窗进入全屏模式
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
+# 更改容器布局（堆叠，选项卡式，切换拆分）
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+# 切换平铺/浮动
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
+# 在平铺/浮动窗口之间切换焦点
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
@@ -151,7 +151,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# screen off | sleep | shutdown(time unit: seconds)
+# 屏幕关闭 | 睡觉 | 关机（时间单位：秒）
 exec --no-startup-id xset dpms 60
 
 # 按下$mod+r进入'resize'模式
@@ -180,7 +180,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-# 关机、挂起、锁屏
+# 电源管理
 bindsym $mod+o mode "$mode_system"
 set $mode_system 'j关机，i重启，g挂起，x休眠，s锁屏，d登出'
 mode "$mode_system" {

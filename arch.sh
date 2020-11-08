@@ -31,7 +31,7 @@ sudo wget ${link}P/grub -O /etc/default/grub
 wget ${link}P/xinitrc -O ~/.xinitrc
 wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/urxvt -O ~/.Xresources
-mkdir ~/.config/nvim && wget ${link}P/nvim -O ~/.config/nvim/init.vim
+mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc
 wget ${link}P/xmodmap -O ~/.Xmodmap
 wget ${link}P/hw.png -O ~/.config/i3/hw.png
@@ -59,11 +59,14 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 # 创建交换文件
 if [ ! -e "/swap" ]; then
-sudo touch /swap && sudo chattr +C /swap
+sudo touch /swap; sudo chattr +C /swap
 sudo fallocate -l 4G /swap
-sudo chmod 600 /swap && sudo mkswap /swap && sudo swapon /swap
+sudo chmod 600 /swap; sudo mkswap /swap; sudo swapon /swap; fi
+
+if [ "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" == "" ]; then
 echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
-echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf && sudo sysctl -p
+echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p; fi
+
 # 设定内核参数
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
 wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
@@ -71,10 +74,11 @@ gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
 offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset=$((offset/4096))/" /etc/default/grub
 rm ~/btrfs_map_physical*
+
 # 添加 resume 钩子
-sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf
-sudo mkinitcpio -P
-fi
+if [ "$(grep "udev resume" /etc/mkinitcpio.conf)" == "" ]; then
+sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
+
 sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 

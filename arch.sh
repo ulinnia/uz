@@ -4,6 +4,7 @@ if [ "$USER" == "root"  ]; then
 echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 
 # 更新系统并安装系统级软件
+sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput # 声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei #字体
@@ -13,6 +14,7 @@ sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock # �
 sudo pacman -S --noconfirm curl firefox git wget yay # 网络工具
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh # 必要工具
 sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc vim # 其他工具
+sudo pacman -S --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl steam # 安装 steam
 
 # 修改 yay 源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
@@ -23,8 +25,8 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
-# 安装 SpaceVim
-curl -sLf https://spacevim.org/cn/install.sh | bash
+# 安装 vim-plug
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # 配置 grub、tlp、init、i3、spacevim，urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
@@ -34,7 +36,7 @@ wget ${link}P/xinitrc -O ~/.xinitrc
 mkdir ~/.config/i3; wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/space -O ~/.SpaceVim.d/init.toml
 wget ${link}P/urxvt -O ~/.Xresources
-#mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
+mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc
 wget ${link}P/xmodmap -O ~/.Xmodmap
 wget ${link}P/hw.png -O ~/.config/i3/hw.png
@@ -83,13 +85,6 @@ sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -
 
 sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-# 安装 steam
-sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
-sudo pacman -Syy --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl steam
-
-# 下载 vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # 手动执行
 echo "请手动执行 fcitx-configtool 修改输入法。"

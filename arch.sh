@@ -89,4 +89,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 # 安装 SpaceVim
 curl -sLf https://spacevim.org/cn/install.sh | bash
 
+# 手动执行
+echo "请手动执行 fcitx-configtool 修改输入法。"
+
 

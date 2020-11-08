@@ -25,9 +25,6 @@ yay -S --noconfirm oh-my-zsh-git
 
 # 安装 SpaceVim
 curl -sLf https://spacevim.org/cn/install.sh | bash
-# Docker 支持
-docker pull spacevim/spacevim
-docker run -it --rm spacevim/spacevim nvim
 
 # 配置 grub、tlp、init、i3、spacevim，urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/

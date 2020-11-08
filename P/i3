@@ -151,8 +151,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# 屏幕关闭 | 睡觉 | 关机（时间单位：秒）
-exec --no-startup-id xset dpms 60
+# 屏幕关闭 | 锁屏 | 关机（时间单位：秒）
+exec --no-startup-id xset dpms 60 65
 
 # 按下$mod+r进入'resize'模式
 bindsym $mod+r mode "resize"

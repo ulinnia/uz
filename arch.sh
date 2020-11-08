@@ -22,12 +22,13 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
-# 配置 grub、tlp、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
+# 配置 grub、tlp、init、i3、spacevim，urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}P/tlp -O /etc/tlp.conf
 sudo wget ${link}P/grub -O /etc/default/grub
 wget ${link}P/xinitrc -O ~/.xinitrc
 mkdir ~/.config/i3; wget ${link}P/i3 -O ~/.config/i3/config
+wget ${link}P/space -O ~/.SpaceVim.d/init.toml
 wget ${link}P/urxvt -O ~/.Xresources
 mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc

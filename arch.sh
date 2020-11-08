@@ -27,7 +27,7 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}P/tlp -O /etc/tlp.conf
 sudo wget ${link}P/grub -O /etc/default/grub
 wget ${link}P/xinitrc -O ~/.xinitrc
-wget ${link}P/i3 -O ~/.config/i3/config
+mkdir ~/.config/i3; wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/urxvt -O ~/.Xresources
 mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc

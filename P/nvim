@@ -4,7 +4,7 @@ set ignorecase "默认大小写混搜
 set smartcase "大写字母不混搜
 filetype indent on "智能缩排
 
-call plug#begin('~/.config/nvim/iajm')
+call plug#begin('~/.vim/iajm')
 
 
 call plug#end()

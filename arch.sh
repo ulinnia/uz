@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$USER" == "root"  ]; then
- echo "请先退出root用户，并登陆新创建的用户。"
- exit 1
-fi
+echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 
 # 更新系统并安装系统级软件
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager

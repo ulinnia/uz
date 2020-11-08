@@ -38,14 +38,12 @@ wget ${link}P/hw.png -O ~/.config/i3/hw.png
 
 # startx 自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
- echo "exec startx" > ~/.zprofile
-fi
+echo "exec startx" > ~/.zprofile; fi
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
- echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
- sudo pacman -Syy --noconfirm archlinuxcn-keyring
-fi
+echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
+sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
 
 # 安装小鹤音形
 # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip

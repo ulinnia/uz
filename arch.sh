@@ -28,13 +28,12 @@ yay -S --noconfirm oh-my-zsh-git
 # 安装 vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# 配置 grub、tlp、init、i3、spacevim，urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
+# 配置 grub、tlp、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget ${link}P/grub -O /etc/default/grub
 sudo wget ${link}P/tlp -O /etc/tlp.conf
 wget ${link}P/xinitrc -O ~/.xinitrc
 mkdir ~/.config/i3; wget ${link}P/i3 -O ~/.config/i3/config
-wget ${link}P/space -O ~/.SpaceVim.d/init.toml
 wget ${link}P/urxvt -O ~/.Xresources
 mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc

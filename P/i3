@@ -41,7 +41,7 @@ bindsym $mod+Return exec --no-startup-id urxvt
 
 bindsym $mod+Shift+f exec firefox
 
-# 关闭焦点容器
+# 关闭焦点窗口
 bindsym $mod+Shift+q kill
 
 # 启动 dmenu（程序启动器）
@@ -61,7 +61,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# 移动焦点容器
+# 移动焦点窗口
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up

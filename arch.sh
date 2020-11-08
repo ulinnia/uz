@@ -57,8 +57,7 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
 # 创建交换文件
 if [ ! -e "/swap" ]; then
-sudo touch /swap; sudo chattr +C /swap
-sudo fallocate -l 4G /swap
+sudo touch /swap; sudo chattr +C /swap; sudo fallocate -l 4G /swap
 sudo chmod 600 /swap; sudo mkswap /swap; sudo swapon /swap; fi
 
 if [ "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" == "" ]; then

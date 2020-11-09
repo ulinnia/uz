@@ -87,6 +87,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # 安装 nodejs
 curl -sL install-node.now.sh/lts | sudo sh
+echo -e "y\n" | sudo sh -c "$(install-node.now.sh/lts)"
 
 # 手动执行
 echo -e "\n请手动执行 fcitx-configtool 修改输入法。\n进入nvim,使用命令 :PlugInstall 安装插件。"

@@ -10,7 +10,7 @@ Plug 'preservim/nerdcommenter'
 call plug#end()
 
 " ======= 基础设置 ========
-set nu " 显示行号
+set relativenumber " 启用相对行号
 syntax on " 语法高亮
 set ignorecase " 默认大小写混搜
 set smartcase " 大写字母不混搜

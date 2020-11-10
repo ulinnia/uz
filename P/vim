@@ -6,6 +6,7 @@ syntax on " 语法高亮
 set ignorecase " 默认大小写混搜
 set smartcase " 大写字母不混搜
 set magic " 设置魔术
+set showmatch " 显示括号匹配
 filetype indent on " 智能缩排
 
 "设置文件编码"

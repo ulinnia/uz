@@ -8,11 +8,10 @@ set smartcase " 大写字母不混搜
 filetype indent on " 智能缩排
 
 "设置编码"
-set encoding=utf-8
-set fencs=utf-8,utf-16
-
+set enc=utf-8
+set fenc=utf-8
 "设置文件编码"
-set fileencodings=utf-8
+set fencs=utf-8,utf-16
 
 "设置终端编码"
 set termencoding=utf-8

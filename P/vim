@@ -30,9 +30,6 @@ set fencs=utf-8,utf-16 " 解码猜测顺序 fileencodings
 set langmenu=zh_CN.UTF-8
 set helplang=cn
 
-'让vimrc配置变更立即生效'
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
 " ======= vim-plug 插件管理 =======
 call plug#begin('~/.config/nvim/iajm')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

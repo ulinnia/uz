@@ -1,35 +1,46 @@
 #!/usr/bin/env bash
 
+# root 用户不建议使用此脚本
 if [ "$USER" == "root"  ]; then
 echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 
-# 更新系统并安装系统级软件
+# 增加 multilib 源
 sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
+# 更新系统并安装 btrfs 管理和联网管理软件
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
-sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput # 声卡、显卡、触摸板驱动
-sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei #字体
-sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool # 输入法
-sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu # 图形界面
-sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock # 图形挂件
-sudo pacman -S --noconfirm curl firefox git wget yay # 网络工具
-sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh # 必要工具
-sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc vim # 其他工具
-sudo pacman -S --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl steam # 安装 steam
+# 安装声卡、显卡、触摸板驱动
+sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput
+# 安装字体
+sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei
+# 安装小企鹅输入法
+sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
+# 安装图形界面和 i3
+sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu
+# 安装图形挂件
+sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock
+# 安装其他网络工具
+sudo pacman -S --noconfirm curl firefox git wget yay
+# 安装必要工具
+sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
+# 安装其他工具
+sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc vim
+# 安装 steam
+sudo pacman -S --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl steam
 
 # 修改 yay 源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
-# 更改默认 shell
+# 更改默认 shell 为 zsh
 sudo sed -i '/home/s/bash/zsh/' /etc/passwd
-
 # 安装 ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
 # 安装 vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# 配置 grub、tlp、init、i3、urxvt、nvim、zsh、CAPS CTRL 对调、壁纸
+# 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
+# 下载配置文件
 sudo wget ${link}P/grub -O /etc/default/grub
 sudo wget ${link}P/tlp -O /etc/tlp.conf
 wget ${link}P/xinitrc -O ~/.xinitrc

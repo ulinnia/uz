@@ -41,15 +41,15 @@ yay -S --noconfirm oh-my-zsh-git
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
-sudo wget ${link}P/grub -O /etc/default/grub
-sudo wget ${link}P/tlp -O /etc/tlp.conf
-wget ${link}P/xinitrc -O ~/.xinitrc
-mkdir ~/.config/i3; wget ${link}P/i3 -O ~/.config/i3/config
-wget ${link}P/urxvt -O ~/.Xresources
-mkdir ~/.config/nvim; wget ${link}P/vim -O ~/.config/nvim/init.vim
-wget ${link}P/zshrc -O ~/.zshrc
-wget ${link}P/xmodmap -O ~/.Xmodmap
-wget ${link}P/hw.png -O ~/.config/i3/hw.png
+sudo wget -q ${link}P/grub -O /etc/default/grub
+sudo wget -q ${link}P/tlp -O /etc/tlp.conf
+wget -q ${link}P/xinitrc -O ~/.xinitrc
+mkdir ~/.config/i3; wget -q ${link}P/i3 -O ~/.config/i3/config
+wget -q ${link}P/urxvt -O ~/.Xresources
+mkdir ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim
+wget -q ${link}P/zshrc -O ~/.zshrc
+wget -q ${link}P/xmodmap -O ~/.Xmodmap
+wget -q ${link}P/hw.png -O ~/.config/i3/hw.png
 
 # startx 自启
 if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
@@ -64,7 +64,7 @@ sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
 # ======= 安装小鹤音形 =======
 # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
 # 下载小鹤配置包
-wget ${link}P/flypy.7z -O ~/flypy.7z
+wget -q ${link}P/flypy.7z -O ~/flypy.7z
 # 解压配置包
 7z x ~/flypy.7z -o ~/.config/fcitx
 # 删除压缩包
@@ -96,7 +96,7 @@ echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p; fi
 # 设置 resume 参数
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
 # 下载 btrfs_map_physical 工具
-wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
+wget -q "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
 # 编译 btrfs_map_physical 工具
 gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
 # 使用 btrfs_map_physical 提取 resume_offset 值

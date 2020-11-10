@@ -58,13 +58,18 @@ echo "exec startx" > ~/.zprofile; fi
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
 echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
+# 导入 GPG key
 sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
 
 # ======= 安装小鹤音形 =======
 # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
-wget ${link}P/flypy.7z -O ~/flypy.7z; 7z x ~/flypy.7z
-cp -Rf ~/rime ~/.config/fcitx
-rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
+# 下载小鹤配置包
+wget ${link}P/flypy.7z -O ~/flypy.7z
+# 解压配置包
+7z x ~/flypy.7z -o ~/.config/fcitx
+# 删除压缩包
+rm -rf ~/flypy.7z ~/.config/fcitx/rime/default.yaml
+# 重新加载 fcitx 配置
 fcitx-remote -r
 
 # ======= 自启动 =======

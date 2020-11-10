@@ -4,6 +4,7 @@
 if [ "$USER" == "root"  ]; then
 echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 
+#======= 下载软件 =======
 # 增加 multilib 源
 sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理和联网管理软件
@@ -35,9 +36,6 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
-# 安装 vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
@@ -60,19 +58,19 @@ if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
 echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
 sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
 
-# 安装小鹤音形
+# ======= 安装小鹤音形 =======
 # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
 wget ${link}P/flypy.7z -O ~/flypy.7z; 7z x ~/flypy.7z
 cp -Rf ~/rime ~/.config/fcitx
 rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 fcitx-remote -r
 
-# 自启动
+# ======= 自启动 =======
 sudo systemctl enable --now {NetworkManager,NetworkManager-dispatcher,tlp}
 sudo systemctl disable dhcpcd
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 
-# 创建交换文件
+# ======= 创建交换文件 =======
 if [ ! -e "/swap" ]; then
 sudo touch /swap; sudo chattr +C /swap; sudo fallocate -l 4G /swap
 sudo chmod 600 /swap; sudo mkswap /swap; sudo swapon /swap; fi
@@ -96,12 +94,16 @@ sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -
 sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
+#======= vim 插件管理 =======
+# 安装 vim-plug
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 # 安装 nodejs
 curl -sL install-node.now.sh/lts | sudo sh
 
 vim -u NONE -c "PlugInstall" -c q
 
-# 手动执行
+# ======= 手动执行 =======
 echo -e "\n请手动执行 fcitx-configtool 修改输入法。\n进入nvim,使用命令 :PlugInstall 安装插件。"
 
 

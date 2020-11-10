@@ -33,7 +33,7 @@ URxvt.scrollBar_floating:False
 URxvt.scrollstyle:plain
 
 !!滚屏设置
-URxvt.mouseWheelScrollPage:True
+URxvt.mouseWheelScrollPage:False
 URxvt.scrollTtyOutput:False
 URxvt.scrollWithBuffer:True
 URxvt.scrollTtyKeypress:True

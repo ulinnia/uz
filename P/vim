@@ -9,10 +9,10 @@ set magic " 设置魔术
 filetype indent on " 智能缩排
 
 "设置文件编码"
-set encoding=utf-8 " 内部编码
+set enc=utf-8 " 内部编码 encoding
 set termencoding=utf-8 " 显示编码
-set fileencoding=utf-8 " 新文件编码
-set fileencodings=utf-8,utf-16 " 解码猜测顺序
+set fenc=utf-8 " 新文件编码 fileencoding
+set fencs=utf-8,utf-16 " 解码猜测顺序 fileencodings
 
 "设置语言编码"
 set langmenu=zh_CN.UTF-8

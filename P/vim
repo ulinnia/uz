@@ -5,6 +5,7 @@ set relativenumber " 启用相对行号
 syntax on " 语法高亮
 set ignorecase " 默认大小写混搜
 set smartcase " 大写字母不混搜
+set magic " 使用魔术
 filetype indent on " 智能缩排
 
 "设置文件编码"

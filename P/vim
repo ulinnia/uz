@@ -1,11 +1,11 @@
 
 " ======= 基础设置 ========
-set number " 启用绝对行号
-set relativenumber " 启用相对行号
+set nu " 启用绝对行号 number
+set rnu " 启用相对行号 relativenumber
 syntax on " 语法高亮
 set ignorecase " 默认大小写混搜
 set smartcase " 大写字母不混搜
-set magic " 使用魔术
+set magic " 设置魔术
 filetype indent on " 智能缩排
 
 "设置文件编码"

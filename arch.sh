@@ -4,7 +4,7 @@
 if [ "$USER" == "root"  ]; then
 echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 
-#======= 下载软件 =======
+# ======= 下载软件 =======
 # 增加 multilib 源
 sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理和联网管理软件
@@ -94,7 +94,7 @@ sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -
 sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-#======= vim 插件管理 =======
+# ======= vim 插件管理 =======
 # 安装 vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 

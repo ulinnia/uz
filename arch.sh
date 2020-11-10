@@ -20,7 +20,7 @@ sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu
 # 安装图形挂件
 sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock
 # 安装其他网络工具
-sudo pacman -S --noconfirm curl firefox git wget yay
+sudo pacman -S --noconfirm curl firefox-i18n-zh-cn git wget yay
 # 安装必要工具
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
 # 安装其他工具

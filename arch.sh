@@ -81,7 +81,7 @@ sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 if [ ! -e "/swap" ]; then
 sudo touch /swap # 创建空白文件
 sudo chattr +C /swap # 修改档案属性 不执行写入时复制（COW）
-sudo fallocate -l 4G /swap # 创建空洞文件
+sudo fallocate -l 4G /swap # 创建4G空洞文件
 sudo chmod 600 /swap # 修改文件读写执行权限
 sudo mkswap /swap # 格式化交换文件
 sudo swapon /swap; fi # 启用交换文件

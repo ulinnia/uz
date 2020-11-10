@@ -28,6 +28,7 @@ sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc vim
 # 安装 steam
 sudo pacman -S --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl steam
 
+# ======= 设定 zsh =======
 # 修改 yay 源
 yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
@@ -36,6 +37,7 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh
 yay -S --noconfirm oh-my-zsh-git
 
+# ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件

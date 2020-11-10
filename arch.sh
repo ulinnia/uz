@@ -86,23 +86,33 @@ sudo chmod 600 /swap # 修改文件读写执行权限
 sudo mkswap /swap # 格式化交换文件
 sudo swapon /swap; fi # 启用交换文件
 
+# 挂载交换文件
 if [ "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" == "" ]; then
 echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
+# 最大限度使用物理内存；生效
 echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p; fi
 
-# 设定内核参数
+# 设置内核参数
+# 设置 resume 参数
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
+# 下载 btrfs_map_physical 工具
 wget "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
+# 编译 btrfs_map_physical 工具
 gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
+# 使用 btrfs_map_physical 提取 resume_offset 值
 offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
+# 设置 resume_offset 参数
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset=$((offset/4096))/" /etc/default/grub
+# 删除 btrfs_map_physical 工具
 rm ~/btrfs_map_physical*
 
-# 添加 resume 钩子
+# 添加 resume 钩子；重新生成 initramfs 镜像
 if [ "$(grep "udev resume" /etc/mkinitcpio.conf)" == "" ]; then
 sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
 
+# 设置 grub 超时为1秒
 sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
+# 更新 grub 配置
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # ======= vim 插件管理 =======
@@ -112,6 +122,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 # 安装 nodejs
 curl -sL install-node.now.sh/lts | sudo sh
 
+# 插件下载
 vim -u NONE -c "PlugInstall" -c q
 
 # ======= 手动执行 =======

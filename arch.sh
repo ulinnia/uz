@@ -35,7 +35,7 @@ sudo wget ${link}P/tlp -O /etc/tlp.conf
 wget ${link}P/xinitrc -O ~/.xinitrc
 mkdir ~/.config/i3; wget ${link}P/i3 -O ~/.config/i3/config
 wget ${link}P/urxvt -O ~/.Xresources
-mkdir ~/.config/nvim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
+mkdir ~/.config/vim; wget ${link}P/nvim -O ~/.config/nvim/init.vim
 wget ${link}P/zshrc -O ~/.zshrc
 wget ${link}P/xmodmap -O ~/.Xmodmap
 wget ${link}P/hw.png -O ~/.config/i3/hw.png

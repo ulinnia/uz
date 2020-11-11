@@ -98,6 +98,7 @@ plugins=(git)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias up="sudo pacman -Syu"
 alias vi="nvim"
+alias ra="ranger"
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

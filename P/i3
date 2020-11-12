@@ -9,6 +9,7 @@
 #
 # 请参阅 https://i3wm.org/docs/userguide.html 以获得完整参考！
 
+# 定义 $mod 键为 Win 键
 set $mod Mod4
 
 # ======= 软件自启 =======

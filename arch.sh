@@ -18,7 +18,7 @@ sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3
 sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu
 # 安装图形挂件
-sudo pacman -S --noconfirm feh network-manager-applet rxvt-unicode xss-lock
+sudo pacman -S --noconfirm compton feh network-manager-applet rxvt-unicode xss-lock
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox-i18n-zh-cn git wget yay
 # 安装必要工具

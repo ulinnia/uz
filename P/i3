@@ -15,12 +15,10 @@ set $mod Mod4
 # ======= 软件自启 =======
 # 输入法
 exec --no-startup-id fcitx
-# 指定壁纸
-exec --no-startup-id feh --bg-scale ~/.config/i3/hw.png
 # 启用窗口透明
 exec --no-startup-id compton -b
 # 随机选择壁纸
-#exec --no-startup-id feh --randomize --bg-scale ~/A/P/p
+exec --no-startup-id feh --randomize --bg-scale ~/A/P/p
 
 # 窗口标题的字体。除非在下面的 bar {} 块中使用了不同的字体，否则该栏也将使用该字体。
 font pango:Ubuntu 8

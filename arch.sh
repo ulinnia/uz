@@ -105,15 +105,12 @@ offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset=$((offset/4096))/" /etc/default/grub
 # 删除 btrfs_map_physical 工具
 rm ~/btrfs_map_physical*
+# 更新 grub 配置
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # 添加 resume 钩子；重新生成 initramfs 镜像
 if [ "$(grep "udev resume" /etc/mkinitcpio.conf)" == "" ]; then
 sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
-
-# 设置 grub 超时为1秒
-sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/" /etc/default/grub
-# 更新 grub 配置
-sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # ======= vim 插件管理 =======
 # 安装 vim-plug

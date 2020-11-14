@@ -3,10 +3,17 @@
 #连接内部存储。
 termux-setup-storage
 
-#下载常用软件。
-pkg update -y
-pkg upgrade -y
-pkg install -y curl git man tree vim wget zsh
+# ======= 安装 Arch 系统 =======
+pkg install proot git bsdtar
+git clone https://github.com/sdrausty/TermuxArch
+cd TermuxArch
+bash setupTermuxArch.sh
+bash TermuxArch/setupTermuxArch.sh
+vi /etc/pacman.d/mirrorlist
+pacman -Syy
+pacman -S jdk8-openjdk
+
+pacman -S curl man nvim tree wget zsh
 
 #安装oh-my-zsh。
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1 #浅克隆
@@ -28,9 +35,6 @@ fi
 chsh -s zsh
 
 #vim设定：显示行号，语法高亮，大小写混搜。
-if [ "$(grep "set nu" ~/.vimrc)" == "" ]; then
- echo -e "set nu\nsyntax on\nset ignorecase\nset smartcase" > "~/.vimrc"
-fi
 
 #软连接aidn。
 if [ -e "~/storage/shared/A/Y/aidn" ]; then ln -s ~/storage/shared/A/Y/aidn ~/aidn; fi

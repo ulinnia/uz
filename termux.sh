@@ -5,9 +5,8 @@ termux-setup-storage
 
 # ======= 安装 Arch 系统 =======
 pkg install proot git bsdtar
+cd ~
 git clone https://github.com/sdrausty/TermuxArch
-cd TermuxArch
-bash setupTermuxArch.sh
 bash TermuxArch/setupTermuxArch.sh
 vi /etc/pacman.d/mirrorlist
 pacman -Syy

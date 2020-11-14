@@ -4,13 +4,13 @@
 termux-setup-storage
 
 # ======= 安装 Arch 系统 =======
-pkg install proot git bsdtar
+pkg install -y proot git bsdtar
 cd ~
 git clone https://github.com/sdrausty/TermuxArch
 bash TermuxArch/setupTermuxArch.sh
 pacman -Syy
 
-pacman -S curl man nvim tree wget zsh
+pacman -S --noconfirm curl man nvim tree wget zsh
 
 #安装oh-my-zsh。
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1 #浅克隆

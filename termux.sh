@@ -8,9 +8,7 @@ pkg install proot git bsdtar
 cd ~
 git clone https://github.com/sdrausty/TermuxArch
 bash TermuxArch/setupTermuxArch.sh
-vi /etc/pacman.d/mirrorlist
 pacman -Syy
-pacman -S jdk8-openjdk
 
 pacman -S curl man nvim tree wget zsh
 

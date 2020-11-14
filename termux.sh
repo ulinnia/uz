@@ -9,12 +9,6 @@ pkg install -y curl git man nvim tree wget zsh
 # 安装 oh-my-zsh。
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1 #浅克隆
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-# 换成 amuse 主题。
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="amuse"/' ~/.zshrc
-# 开启 zsh 自动更新。
-if [ "$(grep "DISABLE_UPDATE_PROMPT=true" ~/.zshrc)" == "" ]; then
- echo "DISABLE_UPDATE_PROMPT=true" >> "~/.zshrc"
-fi
 
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址

@@ -4,7 +4,7 @@
 termux-setup-storage
 
 # 安装软件
-pkg install -y curl git man nvim tree wget zsh
+pkg install -y curl git man neovim tree wget zsh
 
 # 安装 oh-my-zsh。
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1 #浅克隆

@@ -46,7 +46,7 @@ sudo wget -q ${link}P/tlp -O /etc/tlp.conf
 wget -q ${link}P/hjbl -O ~/.zprofile
 wget -q ${link}P/zsh -O ~/.zshrc
 mkdir -p ~/.config/sway; wget -q ${link}P/sway -O ~/.config/sway/config
-mkdir -p ~/.config/vsdr; wget -q ${link}P/alacritty -O ~/.config/alacritty/alacritty.yml
+mkdir -p ~/.config/alacritty; wget -q ${link}P/vsdr -O ~/.config/alacritty/alacritty.yml
 mkdir -p ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim
 
 # 加上 archlinuxcn 源

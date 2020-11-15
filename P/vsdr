@@ -27,6 +27,13 @@ colors:
     cyan:    '0x00ffff'
     white:   '0xffffff'
 
+# ======= 滚动 =======
+scrolling:
+  # 回滚缓冲区中的最大行数
+  history: 10000
+  # 滚动距离乘数
+  multiplier: 7
+
 # ======= 字体 =======
 # 字体设置为等宽字体，可以用命令 fc-list 查看你系统的字体
 font:

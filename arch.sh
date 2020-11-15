@@ -10,7 +10,7 @@ sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理和联网管理软件
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
 # 安装声卡、显卡、触摸板驱动
-sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput
+sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-video-nouveau xf86-input-libinput
 # 安装字体
 sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family wqy-zenhei
 # 安装小企鹅输入法

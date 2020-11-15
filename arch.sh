@@ -16,9 +16,9 @@ sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family 
 # 安装小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3
-sudo pacman -S --noconfirm dmenu wayland sway
+sudo pacman -S --noconfirm dmenu wayland sway swaylock
 # 安装图形挂件
-sudo pacman -S --noconfirm alacritty network-manager-applet qt5-wayland swayidle swaylock
+sudo pacman -S --noconfirm alacritty network-manager-applet qt5-wayland swaybg swayidle 
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox-i18n-zh-cn git wget yay
 # 安装必要工具
@@ -42,12 +42,11 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget -q ${link}P/grub -O /etc/default/grub
 sudo wget -q ${link}P/tlp -O /etc/tlp.conf
 wget -q ${link}P/hjbl -O ~/.zprofile
-#mkdir ~/.config/i3; wget -q ${link}P/i3 -O ~/.config/i3/config
+mkdir -p ~/.config/sway; wget -q ${link}P/sway -O ~/.config/sway/config
 #wget -q ${link}P/urxvt -O ~/.Xresources
 mkdir -p ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim
 wget -q ${link}P/zshrc -O ~/.zshrc
 #wget -q ${link}P/xmodmap -O ~/.Xmodmap
-#wget -q ${link}P/hw.png -O ~/.config/i3/hw.png
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

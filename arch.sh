@@ -41,6 +41,7 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
 sudo wget -q ${link}P/grub -O /etc/default/grub
 sudo wget -q ${link}P/tlp -O /etc/tlp.conf
+mkdir -p ~/.config/environment.d; wget -q ${link}P/hjbl -O ~/.config/environment.d//envvars.conf
 #mkdir ~/.config/i3; wget -q ${link}P/i3 -O ~/.config/i3/config
 #wget -q ${link}P/urxvt -O ~/.Xresources
 mkdir ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim

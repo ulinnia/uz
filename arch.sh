@@ -49,10 +49,6 @@ wget -q ${link}P/zshrc -O ~/.zshrc
 #wget -q ${link}P/xmodmap -O ~/.Xmodmap
 #wget -q ${link}P/hw.png -O ~/.config/i3/hw.png
 
-# sway 自启
-#if [ "$(grep "exec sway" ~/.zprofile)" == "" ]; then
-#echo "exec sway" > ~/.zprofile; fi
-
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
 echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf

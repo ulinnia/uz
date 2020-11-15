@@ -25,3 +25,29 @@ colors:
     magenta: '0xff00ff'
     cyan:    '0x00ffff'
     white:   '0xffffff'
+
+# 字体设置为等宽字体，可以用命令 fc-list 查看你系统的字体
+font:
+  size: 13
+
+  normal:
+    family: Ubuntu Mono
+    style: Regular
+
+  bold:
+    family: Ubuntu Mono
+    style: Bold
+
+  italic:
+    family: Ubuntu Mono
+    style: Italic
+
+  bold_italic:
+    family: Ubuntu Mono
+    style: Bold Italic
+
+# 原来tabspaces是8
+tabspaces: 4
+
+# 背景不透明度
+background_opacity: 0.8

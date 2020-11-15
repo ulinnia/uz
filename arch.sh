@@ -16,7 +16,7 @@ sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family 
 # 安装小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3
-sudo pacman -S --noconfirm dmenu wayland sway swaylock
+sudo pacman -S --noconfirm dmenu wayland sway swaylock xorg-server-xwayland
 # 安装图形挂件
 sudo pacman -S --noconfirm alacritty network-manager-applet qt5-wayland swaybg swayidle 
 # 安装其他网络工具

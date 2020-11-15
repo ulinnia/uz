@@ -18,15 +18,13 @@ sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3
 sudo pacman -S --noconfirm dmenu wayland sway
 # 安装图形挂件
-sudo pacman -S --noconfirm alacritty network-manager-applet swayidle swaylock
+sudo pacman -S --noconfirm alacritty network-manager-applet qt5-wayland swayidle swaylock
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox-i18n-zh-cn git wget yay
 # 安装必要工具
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
 # 安装其他工具
 sudo pacman -S --noconfirm blueman libreoffice-zh-CN tree vlc vim
-# 安装 steam
-sudo pacman -S --noconfirm ttf-liberation wqy-zenhei nvidia lib32-nvidia-libgl steam
 
 # ======= 设定 zsh =======
 # 修改 yay 源

@@ -60,7 +60,7 @@ sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
 # 下载小鹤配置包
 wget -nv ${link}P/flypy.7z -O ~/flypy.7z
 # 解压配置包
-7z x -ao ~/flypy.7z -o~/.config/fcitx
+7z x ~/flypy.7z -o~/.config/fcitx
 # 删除压缩包
 rm -rf ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 # 重新加载 fcitx 配置

@@ -44,11 +44,10 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget -q ${link}P/grub -O /etc/default/grub
 sudo wget -q ${link}P/tlp -O /etc/tlp.conf
 wget -q ${link}P/hjbl -O ~/.zprofile
+wget -q ${link}P/zsh -O ~/.zshrc
 mkdir -p ~/.config/sway; wget -q ${link}P/sway -O ~/.config/sway/config
-#wget -q ${link}P/urxvt -O ~/.Xresources
+mkdir -p ~/.config/vsdr; wget -q ${link}P/alacritty -O ~/.config/alacritty/alacritty.yml
 mkdir -p ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim
-wget -q ${link}P/zshrc -O ~/.zshrc
-#wget -q ${link}P/xmodmap -O ~/.Xmodmap
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

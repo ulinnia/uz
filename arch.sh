@@ -16,9 +16,9 @@ sudo pacman -S --noconfirm noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family 
 # 安装小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3
-sudo pacman -S --noconfirm xorg xorg-xinit i3 dmenu
+sudo pacman -S --noconfirm dmenu wayland sway
 # 安装图形挂件
-sudo pacman -S --noconfirm compton feh network-manager-applet rxvt-unicode xss-lock
+sudo pacman -S --noconfirm alacritty network-manager-applet swayidle swaylock
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox-i18n-zh-cn git wget yay
 # 安装必要工具
@@ -43,17 +43,16 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
 sudo wget -q ${link}P/grub -O /etc/default/grub
 sudo wget -q ${link}P/tlp -O /etc/tlp.conf
-wget -q ${link}P/xinitrc -O ~/.xinitrc
-mkdir ~/.config/i3; wget -q ${link}P/i3 -O ~/.config/i3/config
-wget -q ${link}P/urxvt -O ~/.Xresources
+#mkdir ~/.config/i3; wget -q ${link}P/i3 -O ~/.config/i3/config
+#wget -q ${link}P/urxvt -O ~/.Xresources
 mkdir ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim
 wget -q ${link}P/zshrc -O ~/.zshrc
-wget -q ${link}P/xmodmap -O ~/.Xmodmap
-wget -q ${link}P/hw.png -O ~/.config/i3/hw.png
+#wget -q ${link}P/xmodmap -O ~/.Xmodmap
+#wget -q ${link}P/hw.png -O ~/.config/i3/hw.png
 
 # startx 自启
-if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
-echo "exec startx" > ~/.zprofile; fi
+#if [ "$(grep "exec startx" ~/.zprofile)" == "" ]; then
+#echo "exec startx" > ~/.zprofile; fi
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

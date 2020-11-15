@@ -41,13 +41,13 @@ yay -S --noconfirm oh-my-zsh-git
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
-sudo wget -q ${link}P/grub -O /etc/default/grub
-sudo wget -q ${link}P/tlp -O /etc/tlp.conf
-wget -q ${link}P/hjbl -O ~/.zprofile
-wget -q ${link}P/zsh -O ~/.zshrc
-mkdir -p ~/.config/sway; wget -q ${link}P/sway -O ~/.config/sway/config
-mkdir -p ~/.config/alacritty; wget -q ${link}P/vsdr -O ~/.config/alacritty/alacritty.yml
-mkdir -p ~/.config/nvim; wget -q ${link}P/vim -O ~/.config/nvim/init.vim
+sudo wget -nv ${link}P/grub -O /etc/default/grub
+sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
+wget -nv ${link}P/hjbl -O ~/.zprofile
+wget -nv ${link}P/zsh -O ~/.zshrc
+wget -nv -x ${link}P/sway -O ~/.config/sway/config
+wget -nv -x ${link}P/vsdr -O ~/.config/alacritty/alacritty.yml
+wget -nv -x ${link}P/vim -O ~/.config/nvim/init.vim
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
@@ -58,7 +58,7 @@ sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
 # ======= 安装小鹤音形 =======
 # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
 # 下载小鹤配置包
-wget -q ${link}P/flypy.7z -O ~/flypy.7z
+wget -nv ${link}P/flypy.7z -O ~/flypy.7z
 # 解压配置包
 7z x ~/flypy.7z -o ~/.config/fcitx
 # 删除压缩包
@@ -90,7 +90,7 @@ echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p; fi
 # 设置 resume 参数
 sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
 # 下载 btrfs_map_physical 工具
-wget -q "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
+wget -nv "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
 # 编译 btrfs_map_physical 工具
 gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
 # 使用 btrfs_map_physical 提取 resume_offset 值

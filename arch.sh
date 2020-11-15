@@ -20,7 +20,7 @@ sudo pacman -S --noconfirm dmenu wayland sway swaylock xorg-server-xwayland
 # 安装图形挂件
 sudo pacman -S --noconfirm alacritty network-manager-applet qt5-wayland swaybg swayidle 
 # 安装其他网络工具
-sudo pacman -S --noconfirm curl firefox-i18n-zh-cn git wget yay
+sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 安装必要工具
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
 # 安装其他工具

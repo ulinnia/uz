@@ -117,7 +117,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 curl -sL install-node.now.sh/lts | sudo sh
 
 # 插件下载
-nvim +PluginInstall +qall
+nvim +PlugInstall +qall
 
 # ======= 手动执行 =======
 echo -e "\n请手动执行 fcitx-configtool 修改输入法。\n进入nvim,使用命令 :PlugInstall 安装插件。"

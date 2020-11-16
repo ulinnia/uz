@@ -214,7 +214,7 @@ bindsym $mod+o mode "dygl"
 bar {
     position top
 
-    status_command waybar
+    swaybar_command waybar
     
 }
 

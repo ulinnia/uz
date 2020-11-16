@@ -194,8 +194,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # 电源管理
-set $dygl 'j关机，i重启，g挂起，x休眠，s锁屏，d登出'
-mode "dygl" {
+mode "j关机，i重启，g挂起，x休眠，s锁屏，d登出" {
 
     bindsym j exec --no-startup-id systemctl poweroff, mode "default"
     bindsym i exec --no-startup-id systemctl reboot, mode "default"
@@ -207,7 +206,7 @@ mode "dygl" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+o mode "dygl"
+bindsym $mod+o mode "j关机，i重启，g挂起，x休眠，s锁屏，d登出"
 
 # 状态栏：
 # 阅读 `man 5 sway-bar` ，了解有关此部分的更多信息。

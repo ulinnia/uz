@@ -25,53 +25,47 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 
 ### 空闲配置
 exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -f -c 000000'
+      timeout 300 'swaylock -f -c 000000' \
+      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+      before-sleep 'swaylock -f -c 000000'
 
 # 闲置300秒钟后，这将锁定屏幕，然后在300秒钟后关闭显示器，并在恢复后重新打开屏幕。它还可以在计算机进入睡眠状态之前锁定屏幕。
 
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+### 输入配置
+input "2:14:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
 
-### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
+# 您可以通过运行以下命令获取输入的名称：swaymsg -t get_inputs
+# 阅读 `man 5 sway-input` 以获取有关此部分的更多信息。
+
+### 按键绑定
+# 基本：
+    # 启动终端
     bindsym $mod+Return exec $term
 
-    # 火狐
+    # 启动火狐
     bindsym $mod+Shift+f exec firefox
 
-    # Kill focused window
+    # 关闭聚焦窗口
     bindsym $mod+Shift+q kill
 
-    # Start your launcher
+    # 启动启动器
     bindsym $mod+d exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
+    # 按住$mod和鼠标左键拖动浮动窗口。
+    # 用鼠标右键+$mod调整大小。
+    # 它也适用于非浮动窗口。
+    # 将 normal 改为 inverse ，以使用鼠标左键调整大小，并使用鼠标右键拖动。
     floating_modifier $mod normal
 
-    # Reload the configuration file
+    # 重新加载配置文件
     bindsym $mod+Shift+c reload
 
-    # Exit sway (logs you out of your Wayland session)
+    # 退出（退出您的Wayland会话）
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:

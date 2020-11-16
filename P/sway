@@ -214,8 +214,17 @@ bindsym $mod+o mode "dygl"
 bar {
     position top
 
-    swaybar_command waybar
-    
+    # 请记住，此配置文件的当前目录为 $HOME
+    status_command while ~/.config/sway/status.sh; do sleep 1; done
+
+    # https://i3wm.org/docs/userguide.html#_colors
+    colors {
+        # 状态栏的文字颜色
+        statusline #ebdbb2
+
+        # 状态栏的背景色
+        background #000000
+    }
 }
 
 include /etc/sway/config.d/*

@@ -18,7 +18,7 @@ sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3
 sudo pacman -S --noconfirm dmenu wayland sway swaylock xorg-server-xwayland
 # 安装图形挂件
-sudo pacman -S --noconfirm alacritty network-manager-applet qt5-wayland swaybg swayidle 
+sudo pacman -S --noconfirm alacritty qt5-wayland swaybg swayidle 
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 安装必要工具

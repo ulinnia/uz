@@ -197,7 +197,7 @@ bar {
 
     # 当status_command将新行打印到stdout时，swaybar将更新。
     # 默认值仅显示当前日期和时间。
-    status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+    status_command while date +'%Y-%m-%d %H:%M:%S %a'; do sleep 1; done
 
     colors {
         statusline #ffffff

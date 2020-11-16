@@ -8,7 +8,7 @@ export LC_CTYPE=en_US.UTF-8
 # 输入法设定
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
+export XMODIFIERS="@im=fcitx"
 
 # 控制键替换大写锁定键
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps

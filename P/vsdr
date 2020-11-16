@@ -71,3 +71,8 @@ tabspaces: 4
 
 # 背景不透明度
 background_opacity: 0.8
+
+# 复制粘贴快捷键
+key_bindings:
+  - { key: V,        mods: Control|Shift,           action: Paste            }
+  - { key: C,        mods: Control|Shift,           action: Copy             }

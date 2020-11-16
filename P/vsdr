@@ -12,7 +12,7 @@ colors:
 
   # 正常颜色
   normal:
-    black:   '#000000'
+    black:   '#282828'
     red:     '#cc241d'
     green:   '#98971a'
     yellow:  '#d79921'

@@ -3,23 +3,22 @@
 # 将其复制到 ~/.config/sway/config 并根据自己的喜好进行编辑。
 #
 # 阅读 `man 5 sway` 以获取完整参考。
-### Variables
+### 变数
 #
-# Logo key. Use Mod1 for Alt.
+# 超级键。Alt键为Mod1，Win键为Mod4。
 set $mod Mod4
-# Home row direction keys, like vim
+# 主行方向键，如vim
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
+# 首选终端仿真器
 set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
+# 首选应用启动器
+# 注意：将最终命令传递给swaymsg，以便可以在运行该命令的原始工作空间上打开结果窗口。
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
-### Output configuration
+### 输出配置
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill

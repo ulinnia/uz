@@ -32,7 +32,7 @@ exec swayidle -w \
          timeout 65 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
 
-# 闲置300秒钟后，这将锁定屏幕，然后在300秒钟后关闭显示器，并在恢复后重新打开屏幕。它还可以在计算机进入睡眠状态之前锁定屏幕。
+# 闲置60秒钟后，这将锁定屏幕，然后再5秒钟后关闭显示器，并在恢复后重新打开屏幕。它还可以在计算机进入睡眠状态之前锁定屏幕。
 
 ### 自启
 # 输入法

@@ -1,9 +1,8 @@
-# sway
+# sway 默认配置
 #
-# Copy this to ~/.config/sway/config and edit it to your liking.
+# 将其复制到 ~/.config/sway/config 并根据自己的喜好进行编辑。
 #
-# Read `man 5 sway` for a complete reference.
-
+# 阅读 `man 5 sway` 以获取完整参考。
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.

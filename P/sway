@@ -196,7 +196,7 @@ mode "dygl" {
 
     bindsym j exec --no-startup-id systemctl poweroff, mode "default"
     bindsym i exec --no-startup-id systemctl reboot, mode "default"
-    bindsym g exec --no-startup-id swaylock -f -c 000000 && systemctl suspend, mode "default"
+    bindsym g exec --no-startup-id systemctl suspend, mode "default"
     bindsym x exec --no-startup-id systemctl hibernate, mode "default"
     bindsym s exec --no-startup-id swaylock -f -c 000000, mode "default"
     bindsym d exec --no-startup-id swaymsg exit, mode "default"

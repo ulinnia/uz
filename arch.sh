@@ -113,13 +113,13 @@ sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -
 # 安装 vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# 安装 nodejs
-curl -sL install-node.now.sh/lts | sudo sh
-
 # 插件下载
 nvim +PlugInstall +qall
 
+# 安装 nodejs
+curl -sL install-node.now.sh/lts | sudo sh
+
 # ======= 手动执行 =======
-echo -e "\n请手动执行 fcitx-configtool 修改输入法。\n进入nvim,使用命令 :PlugInstall 安装插件。"
+echo -e "\n请手动执行 fcitx-configtool 修改输入法。"
 
 

@@ -1,20 +1,18 @@
-# The Sway configuration file in ~/.config/sway/config calls this script.
-# You should see changes to the status bar after saving this script.
-# If not, do "killall swaybar" and $mod+Shift+c to reload the configuration.
-
+# ~/.config/sway/config中的Sway配置文件将调用此脚本。
+# 保存此脚本后，应该会看到状态栏的更改。
+# 如果没有，执行“killall swaybar”和$mod+Shift+c重新加载配置。
 # Produces "21 days", for example
 uptime_formatted=$(uptime | cut -d ',' -f1  | cut -d ' ' -f4,5)
 
-# The abbreviated weekday (e.g., "Sat"), followed by the ISO-formatted date
-# like 2018-10-06 and the time (e.g., 14:01)
+# ISO格式的日期（例如2018-10-06）和时间（例如14:01:01），然后是缩写的星期（0到7）
 date_formatted=$(date +"%F，%T，%w")
 
-# Get the Linux version but remove the "-1-ARCH" part
+# 获取Linux版本，但删除“-1-ARCH”部分
 linux_version=$(uname -r | cut -d '-' -f1)
 
-# Returns the battery status: "Full", "Discharging", or "Charging".
+# 返回电池状态：“已满”，“正在放电”或“正在充电”。
 battery_status=$(cat /sys/class/power_supply/BAT0/status)
 
-# Emojis and characters for the status bar
+# 状态栏的表情符号和字符
 # 💎 💻 💡 🔌 ⚡ 📁 \|
 echo $uptime_formatted ↑ $linux_version 🐧 $battery_status 🔋 $date_formatted

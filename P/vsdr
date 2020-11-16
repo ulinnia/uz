@@ -60,11 +60,11 @@ font:
     family: Ubuntu Mono
     style: Bold Italic
 
-# Offset is the extra space around each character. `offset.y` can be thought of
-  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
-  #offset:
-  #  x: 0
-  #  y: 0
+  # 偏移量是每个字符周围的多余空间。
+  # `offset.y` 可以被认为是改变行距，而 `offset.x` 可以被认为是改变字母间距。
+  offset:
+    x: 0
+    y: 0
 
 # 原来tabspaces是8
 tabspaces: 4

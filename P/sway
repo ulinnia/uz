@@ -212,6 +212,12 @@ bindsym $mod+o mode "dygl"
 # 状态栏：
 # 阅读 `man 5 sway-bar` ，了解有关此部分的更多信息。
 bar {
+    # 隐藏模式
+    mode hide
+    hidden_state hide
+    modifier $mod
+
+    # 顶部显示
     position top
 
     # 请记住，此配置文件的当前目录为 $HOME

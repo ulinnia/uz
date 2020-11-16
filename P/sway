@@ -138,52 +138,48 @@ input "2:14:SynPS/2_Synaptics_TouchPad" {
 
     # 将焦点移到父容器
     bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
 
-    # Move the currently focused window to the scratchpad
+# 便笺：
+    # Sway有一个“便签本”，这是一个装窗口的袋子。
+    # 您可以将窗口发送到那里，稍后再取回。
+
+    # 将当前聚焦的窗口移到暂存器
     bindsym $mod+Shift+minus move scratchpad
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
+    # 显示下一个暂存器窗口或隐藏聚焦的暂存器窗口。
+    # 如果有多个暂存器窗口，则此命令会循环浏览它们。
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+
+# 调整容器大小：
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
+    # 左会缩小容器的宽度
+    # 右会增加容器的宽度
+    # 向上将收缩容器的高度
+    # 向下将增加容器的高度
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
+    # 同上，带方向键
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
 
-    # Return to default mode
+    # 返回默认模式
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+# 状态栏：
+# 阅读 `man 5 swing-bar` ，了解有关此部分的更多信息。
 bar {
     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
+    # 当status_command将新行打印到stdout时，swaybar将更新。
+    # 默认值仅显示当前日期和时间。
     status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
 
     colors {

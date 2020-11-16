@@ -63,6 +63,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Start a terminal
     bindsym $mod+Return exec $term
 
+    # 火狐
+    bindsym $mod+Shift+f exec firefox
+
     # Kill focused window
     bindsym $mod+Shift+q kill
 

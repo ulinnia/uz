@@ -12,7 +12,7 @@ echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
 # 安装声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-video-nouveau xf86-input-libinput
 # 安装字体
-sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-liberation ttf-ubuntu-font-family wqy-zenhei
+sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family wqy-zenhei
 # 安装小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 # 安装图形界面和 i3

@@ -19,9 +19,10 @@ set $term alacritty
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 ### 输出配置
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# 随机壁纸
+set $wallpapers_path $HOME/A/P/b
+output * bg `find $wallpapers_path -type f | shuf -n 1` fill
+
 #
 # Example configuration:
 #

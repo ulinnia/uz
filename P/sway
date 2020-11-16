@@ -210,7 +210,7 @@ mode "dygl" {
 bindsym $mod+o mode "dygl"
 
 # 状态栏：
-# 阅读 `man 5 swing-bar` ，了解有关此部分的更多信息。
+# 阅读 `man 5 sway-bar` ，了解有关此部分的更多信息。
 bar {
     position top
 

@@ -221,7 +221,7 @@ bar {
     position top
 
     # 请记住，此配置文件的当前目录为 $HOME
-    status_command while ~/.config/sway/vtl.sh; do sleep 1; done
+    status_command while sh ~/.config/sway/vtl.sh; do sleep 1; done
 
     # https://i3wm.org/docs/userguide.html#_colors
     colors {

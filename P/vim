@@ -2,8 +2,12 @@
 " ======= 基础设置 ========
 set autoread " 侦测外部修改
 set background=dark " 设定背景颜色
+set laststatus=2 " 总是显示状态烂
+set listchars=tab:>-,trail:- " 显示空格和tab键
 set magic " 设置魔术
 set nocompatible " 非 vi 相容模式
+set paste " 设置粘贴模式
+set ruler " 显示光标位置
 set showmatch " 显示括号匹配
 
 set noerrorbells " 关闭错误响铃
@@ -12,6 +16,7 @@ set novisualbell " 关闭错误闪屏
 set backspace=2 " 增强删除
 set tabstop=4 " tab 宽度
 set shiftwidth=4 " 自动缩进字元数
+set autoindent " 继承前一行的缩进方式，适用于多行注释
 
 set nu " 启用绝对行号 number
 set rnu " 启用相对行号 relativenumber
@@ -23,7 +28,7 @@ set history=1000 " 历史指令数
 set incsearch " 未完全输入检索
 
 syntax on " 语法高亮
-filetype plugin indent on " 侦测文件 插件 缩进
+filetype plugin indent on " 打开文件类型检测
 
 "设置文件编码"
 set enc=utf-8 " 内部编码 encoding

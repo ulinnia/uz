@@ -90,10 +90,11 @@ plugins=(git)
 # 别名示例
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias up="sudo pacman -Syu"
-alias vi="nvim"
-alias ra="ranger"
-alias nm="nm-connection-editor"
+alias up='sudo pacman -Syu'
+alias la='ls -a'
+alias vi='nvim'
+alias ra='ranger'
+alias nm='nm-connection-editor'
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

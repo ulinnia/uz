@@ -5,7 +5,7 @@
 # The abbreviated weekday (e.g., "Sat"), followed by the ISO-formatted date
 # like 2018-10-06 and the time (e.g., 14:01). Check `man date` on how to format
 # time and date.
-date_formatted=$(date +"%F，%T，%w")
+date_formatted=$(date +"%F | %T | %w")
 
 # "upower --enumerate | grep 'BAT'" gets the battery name (e.g.,
 # "/org/freedesktop/UPower/devices/battery_BAT0") from all power devices.
@@ -48,4 +48,4 @@ loadavg_1min=$(cat /proc/loadavg | awk -F ' ' '{print $1}')
 # Audio: 🔈 🔊 🎧 🎶 🎵 🎤
 # Separators: \| ❘ ❙ ❚
 # Misc: 🐧 💎 💻 💡 ⭐ 📁 ↑ ↓ ✉ ✅ ❎
-echo "$audio_volume | 🏋 $loadavg_1min | $battery_pluggedin $battery_charge | $date_formatted"
+echo "| $audio_volume | 🏋 $loadavg_1min | $battery_pluggedin $battery_charge | $date_formatted |"

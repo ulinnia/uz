@@ -6,7 +6,7 @@ set t_Co=256 " 启用256色
 
 " 突出显示行列
 "set cursorline " 突出显示当前行
-set cursorcolumn " 突出显示当前列
+"set cursorcolumn " 突出显示当前列
 
 " 行号
 set number " 启用绝对行号

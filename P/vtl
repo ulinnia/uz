@@ -29,8 +29,8 @@ awk '{print $2}')
 # Adapted from https://bbs.archlinux.org/viewtopic.php?id=89648
 audio_volume=$(amixer -M get Master |\
 awk '/Left/&&/\[/ {print $6=="[off]" ?\
-$4" 🔇": \
-$4" 🔉"}' |\
+$5" 🔇": \
+$5" 🔉"}' |\
 tr -d [])
 
 # Additional emojis and characters for the status bar:

@@ -25,7 +25,7 @@ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
 # 安装其他工具
 sudo pacman -S --noconfirm blueman libreoffice-zh-CN libmtp tree vlc vim
-sudo pacman -S --noconfirm playerctl brightnessctl upower
+sudo pacman -S --noconfirm playerctl brightnessctl upower pamixer
 # 安裝 steam
 sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 

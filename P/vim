@@ -25,16 +25,17 @@ set wrap " 自动折行
 set linebreak " 不在单词内部折行
 set wrapmargin=2 " 指定折行处与编辑窗口的右边缘之间空出的字符数
 
-" 折叠
-set foldenable " 开始折叠
-set foldmethod=syntax " 设置语法折叠
-set foldcolumn=0 " 设置折叠区域的宽度
-setlocal foldlevel=1 " 设置折叠层数为
-" set foldclose=all " 设置为自动关闭折叠
-
 " 光标位置
 set scrolloff=5 " 垂直滚动时，光标距离顶部/底部的位置（单位：行）
 set sidescrolloff=15 " 水平滚动时，光标距离行首或行尾的位置（单位：字符）。该配置在不折行时比较有用。
+
+" 括号
+set showmatch " 插入括号时，短暂地跳转到匹配的对应括号
+set matchtime=2 " 短暂跳转到匹配括号的时间
+
+" 空格
+set listchars=tab:>-,trail:- " 显示空格和tab键
+set list " 只显示行尾空格
 
 " 缩进、退格
 set expandtab " tab键转空格
@@ -44,13 +45,12 @@ set softtabstop=4 " 使得按退格键时可以一次删掉 4 个空格
 set autoindent " 继承前一行的缩进方式，适用于多行注释
 set backspace=indent,eol,start " 不设定在插入状态无法用退格键和 Delete 键删除回车符
 
-" 括号
-set showmatch " 插入括号时，短暂地跳转到匹配的对应括号
-set matchtime=2 " 短暂跳转到匹配括号的时间
-
-" 空格
-set listchars=tab:>-,trail:- " 显示空格和tab键
-set list " 只显示行尾空格
+" 折叠
+set foldenable " 开始折叠
+set foldmethod=syntax " 设置语法折叠
+set foldcolumn=0 " 设置折叠区域的宽度
+setlocal foldlevel=1 " 设置折叠层数为
+" set foldclose=all " 设置为自动关闭折叠
 
 " 编辑
 set paste " 设置粘贴模式

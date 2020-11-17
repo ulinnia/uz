@@ -15,10 +15,16 @@ date_formatted=$(date "+%a %F %T")
 # identifiers. i3 and sway convert the newline between battery state and
 # the charge percentage automatically to a space, producing a result like
 # "charging 59%" or "fully-charged 100%".
-battery_info=$(upower --show-info $(upower --enumerate |\
-grep 'BAT') |\
-egrep "state|percentage" |\
-awk '{print $2}')
+
+battery_charge=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "percentage" | awk '{print $2}')
+battery_status=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "state" | awk '{print $2}')
+
+if [ $battery_status = "discharging" ];
+then
+    battery_pluggedin='⚠'
+else
+    battery_pluggedin='⚡'
+fi
 
 # "amixer -M" gets the mapped volume for evaluating the percentage which
 # is more natural to the human ear according to "man amixer".
@@ -27,15 +33,19 @@ awk '{print $2}')
 # is muted or not.
 # "tr -d []" removes brackets around the volume.
 # Adapted from https://bbs.archlinux.org/viewtopic.php?id=89648
+
 audio_volume=$(amixer -M get Master |\
 awk '/Left/&&/\[/ {print $6=="[off]" ?\
-$5" 🔇": \
-$5" 🔉"}' |\
+"🔇 "$5: \
+"🔉 "$5}' |\
 tr -d [])
+
+# 1分钟内系统负载
+loadavg_1min=$(cat /proc/loadavg | awk -F ' ' '{print $1}')
 
 # Additional emojis and characters for the status bar:
 # Electricity: ⚡ ↯ ⭍ 🔌
 # Audio: 🔈 🔊 🎧 🎶 🎵 🎤
 # Separators: \| ❘ ❙ ❚
 # Misc: 🐧 💎 💻 💡 ⭐ 📁 ↑ ↓ ✉ ✅ ❎
-echo $audio_volume $battery_info 🔋 $date_formatted
+echo $audio_volume | 🏋 $loadavg_5min | $battery_pluggedin $battery_charge | $date_formatted

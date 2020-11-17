@@ -56,7 +56,7 @@ set list " 只显示行尾空格
 set paste " 设置粘贴模式
 set autoread " 当文件在外部被修改时，自动更新该文件
 set autochdir " 自动切换当前目录为当前文件所在的目录
-set spell spelllang=en_us " 英语单词拼写检查
+"set spell spelllang=en_us " 英语单词拼写检查
 
 " 搜索
 set history=1000 " 历史指令数

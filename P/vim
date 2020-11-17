@@ -1,23 +1,24 @@
 
 " ======= 基础设置 ========
-set nu " 启用绝对行号 number
-set rnu " 启用相对行号 relativenumber
-syntax on " 语法高亮
-set ic " 默认大小写混搜 ignorecase
-set smartcase " 大写字母不混搜
-set magic " 设置魔术
-set showmatch " 显示括号匹配
-set nocompatible " 非 vi 相容模式
-set tabstop=4 " tab 宽度
-set shiftwidth=4 " 自动缩进字元数
+set autoread " 侦测外部修改
 set background=dark " 设定背景颜色
-set incsearch " 未完全输入检索
 set backspace=2 " 增强删除
 set history=1000 " 历史指令数
-set autoread " 侦测外部修改
+set incsearch " 未完全输入检索
+set ic " 默认大小写混搜 ignorecase
+set magic " 设置魔术
+set nu " 启用绝对行号 number
+set nocompatible " 非 vi 相容模式
 set noerrorbells " 关闭错误响铃
 set novisualbell " 关闭错误闪屏
+set rnu " 启用相对行号 relativenumber
+set shiftwidth=4 " 自动缩进字元数
+set showmatch " 显示括号匹配
+set smartcase " 大写字母不混搜
 set showcmd " 显示输入命令
+set tabstop=4 " tab 宽度
+
+syntax on " 语法高亮
 filetype plugin indent on " 侦测文件 插件 缩进
 
 "设置文件编码"

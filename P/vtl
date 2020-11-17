@@ -1,10 +1,8 @@
-# The Sway configuration file in ~/.config/sway/config calls this script.
-# You should see changes to the status bar after saving this script.
-# If not, do "killall swaybar" and $mod+Shift+c to reload the configuration.
+# ~/.config/sway/config中的Sway配置文件将调用此脚本。
+# 保存此脚本后，应该会看到状态栏的更改。
+# 如果没有，执行“killall swaybar”和$mod+Shift+c重新加载配置。
 
-# The abbreviated weekday (e.g., "Sat"), followed by the ISO-formatted date
-# like 2018-10-06 and the time (e.g., 14:01). Check `man date` on how to format
-# time and date.
+# 日期，时间，星期
 date_formatted=$(date +"📅 %F 🕒 %T ⭐ %w")
 
 # "upower --enumerate | grep 'BAT'" gets the battery name (e.g.,

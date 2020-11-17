@@ -17,6 +17,7 @@ date_formatted=$(date +"📅 %F 🕒 %T ⭐ %w")
 battery_charge=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "percentage" | awk '{print $2}')
 battery_status=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "state" | awk '{print $2}')
 
+# 充电状态文字转为图标
 if [ $battery_status = "discharging" ];
 then
     battery_pluggedin='⚠'

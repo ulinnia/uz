@@ -63,7 +63,7 @@ set autochdir " 自动切换当前目录为当前文件所在的目录
 " 搜索
 set history=1000 " 历史指令数
 set hlsearch " 搜索时高亮显示被找到的文本
-set incsearch " 输入一个字符马上自动匹配
+set incsearch " 实时搜索
 set nowrapscan " 禁止在搜索到文件两端时重新搜索
 set ignorecase smartcase " 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感
 
@@ -83,6 +83,7 @@ set novisualbell " 关闭使用可视响铃代替呼叫
 set t_vb= " 置空错误铃声的终端代码
 
 " 备份、交换文件
+set autowrite " 自动保存
 set nobackup " 不创建备份文件
 set noswapfile " 不创建交换文件
 set undofile " 保留撤销历史

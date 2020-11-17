@@ -15,17 +15,18 @@ sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-video-nouveau xf86-in
 sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
 # 安装小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
-# 安装图形界面和 i3
+# 安装图形界面和 sway
 sudo pacman -S --noconfirm dmenu wayland sway swaylock xorg-server-xwayland
 # 安装图形挂件
-sudo pacman -S --noconfirm alacritty qt5-wayland swaybg swayidle 
+sudo pacman -S --noconfirm alacritty qt5-wayland swaybg swayidle
+# 安装音量、亮度、状态栏工具
+sudo pacman -S --noconfirm playerctl brightnessctl upower
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 安装必要工具
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
 # 安装其他工具
 sudo pacman -S --noconfirm blueman libreoffice-zh-CN libmtp tree vlc vim
-sudo pacman -S --noconfirm playerctl brightnessctl upower
 # 安裝 steam
 sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 

@@ -28,7 +28,7 @@ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 sudo pacman -S --noconfirm neovim nnn p7zip zsh
 # nnn 预览视频缩略图、模糊搜索、图片、媒体信息、网页
 #sudo pacman -S --noconfirm ffmpegthumbnailer fzf imv mediainfo w3m
-sudo pacman -S --noconfirm fzf mpv sxiv zathura xdotool
+sudo pacman -S --noconfirm fzf mpv sxiv rxvt-unicode xdotool zathura
 # 蓝牙、mtp
 sudo pacman -S --noconfirm blueman libmtp
 # 其他工具
@@ -43,8 +43,7 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 # 更改默认 shell 为 zsh
 sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh，安装 jmtpfs
-yay -S --noconfirm oh-my-zsh-git jmtpfs\
-    tabbed st
+yay -S --noconfirm oh-my-zsh-git jmtpfs tabbed
 
 # 安装 nnn 插件
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
@@ -61,6 +60,7 @@ sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
 wget -nv ${link}P/hjbl -O ~/.zprofile
 wget -nv ${link}P/zshenv -O ~/.zshenv
 wget -nv ${link}P/zshrc -O ~/.zshrc
+wget -nv ${link}P/urxvt -O ~/.Xresources
 wget -nv -x ${link}P/sway -O ~/.config/sway/config
 wget -nv -x ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
 wget -nv -x ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml

@@ -27,6 +27,7 @@ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 sudo pacman -S --noconfirm neovim p7zip ranger tlp tlp-rdw zsh
 # 安装其他工具
 sudo pacman -S --noconfirm blueman libreoffice-zh-CN libmtp tree vlc vim
+sudo pacman -S --noconfirm nodejs
 # 安裝 steam
 sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 
@@ -116,9 +117,6 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # 插件下载
 nvim +PlugInstall +qall
-
-# 安装 nodejs
-curl -sL install-node.now.sh/lts | sudo sh
 
 # ======= 手动执行 =======
 echo -e "\n请手动执行 fcitx-configtool 修改输入法。"

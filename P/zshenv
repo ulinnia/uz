@@ -1,4 +1,4 @@
 export NNN_BMS='a:~/A;x:~/xxzd;j:~'
 export NNN_PLUG='i:imgview;p:preview-tui;f:fzcd'
 export NNN_SEL='/tmp/.sel'
-export NNN_FIGO='/tmp/nnn.fifo'
+export NNN_FIFO='/tmp/nnn.fifo'

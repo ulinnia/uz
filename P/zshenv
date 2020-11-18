@@ -1,1 +1,2 @@
-export NNN_BMS='x:~/xxzd;j:~'
+export NNN_BMS='a:~/A;x:~/xxzd;j:~'
+export NNN_PLUG='i:imgview'

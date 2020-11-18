@@ -49,6 +49,7 @@ curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | s
 
 # 修正 imgview 脚本错误
 sed -i 's/imvr/imv/g' ~/.config/nnn/plugins/imgview
+sed -i 's/xterm/alacritty/g' ~/.config/nnn/plugins/preview-tui
 
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址

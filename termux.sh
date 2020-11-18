@@ -14,8 +14,8 @@ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
-wget -nv -x ${link}P/vim -O ~/.config/nvim/init.vim
-wget -q ${link}P/zshrc -O ~/.zshrc
+wget -nv -x ${link}P/vim.vim -O ~/.config/nvim/init.vim
+wget -nv ${link}P/zshrc -O ~/.zshrc
 
 # 安装 zsh 语法高亮。
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting --depth 1

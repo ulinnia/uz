@@ -44,6 +44,9 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh，安装 jmtpfs
 yay -S --noconfirm oh-my-zsh-git jmtpfs
 
+# 安装 nnn 插件
+curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
+
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/

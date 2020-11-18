@@ -20,15 +20,16 @@ sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
 sudo pacman -S --noconfirm wayland sway swaybg swayidle swaylock xorg-server-xwayland
 # 安装图形挂件
 sudo pacman -S --noconfirm alacritty dmenu qt5-wayland
-# 安装音量、亮度、电源工具
+# 安装播放控制、亮度控制、电源工具
 sudo pacman -S --noconfirm playerctl brightnessctl upower
 # 安装其他网络工具
 sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 安装必要工具
 sudo pacman -S --noconfirm neovim p7zip ranger zsh
+# 安装蓝牙、mtp
+sudo pacman -S --noconfirm blueman libmtp
 # 安装其他工具
-sudo pacman -S --noconfirm blueman libreoffice-zh-CN libmtp tree vlc vim
-sudo pacman -S --noconfirm nodejs
+sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
 # 安裝 steam
 sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 

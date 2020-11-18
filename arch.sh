@@ -46,7 +46,7 @@ yay -S --noconfirm oh-my-zsh-git jmtpfs
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
-sudo wget -nv ${link}P/grub.cfg -O /etc/default/grub
+sudo wget -nv ${link}P/grub -O /etc/default/grub
 sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
 wget -nv ${link}P/hjbl -O ~/.zprofile
 wget -nv ${link}P/zshrc -O ~/.zshrc

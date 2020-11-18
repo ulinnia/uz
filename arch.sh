@@ -10,27 +10,29 @@ sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 sudo sed -i "/#Color/s/#//" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理、网络管理器、tlp
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
-# 安装声卡、触摸板、显卡驱动
+# 声卡、触摸板、显卡驱动
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput xf86-video-nouveau
-# 安装繁简中日韩、emoji、Ubuntu字体
+# 繁简中日韩、emoji、Ubuntu字体
 sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
-# 安装小企鹅输入法
+# 小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
-# 安装显示服务器和 sway
+# 显示服务器和 sway
 sudo pacman -S --noconfirm wayland sway swaybg swayidle swaylock xorg-server-xwayland
-# 安装图形挂件
+# 图形挂件
 sudo pacman -S --noconfirm alacritty dmenu qt5-wayland
-# 安装播放控制、亮度控制、电源工具
+# 播放控制、亮度控制、电源工具
 sudo pacman -S --noconfirm playerctl brightnessctl upower
-# 安装其他网络工具
+# 其他网络工具
 sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
-# 安装必要工具
+# 必要工具
 sudo pacman -S --noconfirm neovim p7zip ranger zsh
-# 安装蓝牙、mtp
+# ranger 预览图片、高亮、网页、
+sudo pacman -S --noconfirm ffmpegthumbnailer highlight w3m
+# 蓝牙、mtp
 sudo pacman -S --noconfirm blueman libmtp
-# 安装其他工具
+# 其他工具
 sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
-# 安裝 steam
+# steam
 sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 
 # ======= 设定 zsh =======

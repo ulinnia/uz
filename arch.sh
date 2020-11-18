@@ -60,7 +60,6 @@ sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
 wget -nv ${link}P/hjbl -O ~/.zprofile
 wget -nv ${link}P/zshenv -O ~/.zshenv
 wget -nv ${link}P/zshrc -O ~/.zshrc
-wget -nv ${link}P/urxvt -O ~/.Xresources
 wget -nv -x ${link}P/sway -O ~/.config/sway/config
 wget -nv -x ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
 wget -nv -x ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml

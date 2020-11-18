@@ -111,7 +111,7 @@ set undodir=~/.config/nvim/.undo//
 map <silent>  \rr :!gcc  -Wall -g  %  -lm -o  %:r<CR> :!./%:r<CR> " \rr: 编译并运行当前文件的对应程序
 
 " ======= vim-plug 插件管理 =======
-call plug#begin('~/.config/nvim/iajm')
+call plug#begin('~/.config/nvim/plug')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }

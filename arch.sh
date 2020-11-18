@@ -8,7 +8,7 @@ echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 # 增加 multilib 源
 sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 sudo sed -i "/#Color/s/#//" /etc/pacman.conf
-# 更新系统并安装 btrfs 管理和联网管理软件
+# 更新系统并安装 btrfs 管理和网络管理器
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
 # 安装声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-video-nouveau xf86-input-libinput

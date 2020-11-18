@@ -54,3 +54,4 @@ URxvt.borderLess:False
 !!字体设置
 Xft.dpi:96
 Xft.antialias: true
+URxvt.font: xft:monaco:size=13

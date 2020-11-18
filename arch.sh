@@ -12,7 +12,7 @@ sudo sed -i "/#Color/s/#//" /etc/pacman.conf
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager
 # 安装声卡、显卡、触摸板驱动
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-video-nouveau xf86-input-libinput
-# 安装字体
+# 安装繁简中日韩、emoji、Ubuntu字体
 sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
 # 安装小企鹅输入法
 sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool

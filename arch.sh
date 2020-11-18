@@ -27,7 +27,8 @@ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 必要工具
 sudo pacman -S --noconfirm neovim nnn p7zip zsh
 # nnn 预览视频缩略图、模糊搜索、图片、媒体信息、网页
-sudo pacman -S --noconfirm ffmpegthumbnailer fzf imv mediainfo w3m
+#sudo pacman -S --noconfirm ffmpegthumbnailer fzf imv mediainfo w3m
+sudo pacman -S --noconfirm mpv sxiv zathura xdotool
 # 蓝牙、mtp
 sudo pacman -S --noconfirm blueman libmtp
 # 其他工具
@@ -42,7 +43,8 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 # 更改默认 shell 为 zsh
 sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh，安装 jmtpfs
-yay -S --noconfirm oh-my-zsh-git jmtpfs
+yay -S --noconfirm oh-my-zsh-git jmtpfs\
+    tabbed st
 
 # 安装 nnn 插件
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh

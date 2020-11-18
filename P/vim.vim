@@ -20,10 +20,10 @@ set showmode " 在底部显示，当前处于命令模式还是插入模式
 set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ " 设置在状态行显示的信息
 
 " 折行
-set textwidth=80 " 设置行宽
 set wrap " 自动折行
+set textwidth=80 " 设置行宽
 set linebreak " 不在单词内部折行
-set wrapmargin=2 " 指定折行处与编辑窗口的右边缘之间空出的字符数
+"set wrapmargin=2 " 指定折行处与编辑窗口的右边缘之间空出的字符数
 
 " 光标位置
 set scrolloff=5 " 垂直滚动时，光标距离顶部/底部的位置（单位：行）

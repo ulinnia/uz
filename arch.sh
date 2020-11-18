@@ -49,9 +49,8 @@ yay -S --noconfirm oh-my-zsh-git jmtpfs\
 # 安装 nnn 插件
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
 
-# 修正 imgview 脚本错误
-sed -i 's/imvr/imv/g' ~/.config/nnn/plugins/imgview
-sed -i 's/xterm/alacritty/g' ~/.config/nnn/plugins/preview-tui
+# 修正 nnn 脚本错误
+sed -i '/EDITOR/s/vi/nvim/' ~/.config/nnn/plugins/nuke
 
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址

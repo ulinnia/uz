@@ -51,6 +51,7 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 sudo wget -nv ${link}P/grub -O /etc/default/grub
 sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
 wget -nv ${link}P/hjbl -O ~/.zprofile
+wget -nv ${link}P/zshenv -O ~/.zshenv
 wget -nv ${link}P/zshrc -O ~/.zshrc
 wget -nv -x ${link}P/sway -O ~/.config/sway/config
 wget -nv -x ${link}P/vtl.sh -O ~/.config/sway/vtl.sh

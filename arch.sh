@@ -25,9 +25,9 @@ sudo pacman -S --noconfirm playerctl brightnessctl upower
 # 其他网络工具
 sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 必要工具
-sudo pacman -S --noconfirm neovim p7zip ranger zsh
-# ranger 预览视频缩略图、高亮、图片、媒体信息、开放文档、网页
-sudo pacman -S --noconfirm ffmpegthumbnailer highlight libcaca mediainfo odt2txt w3m
+sudo pacman -S --noconfirm neovim nnn p7zip zsh
+# nnn 预览视频缩略图、图片、媒体信息、网页
+sudo pacman -S --noconfirm ffmpegthumbnailer imv mediainfo w3m
 # 蓝牙、mtp
 sudo pacman -S --noconfirm blueman libmtp
 # 其他工具

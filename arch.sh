@@ -4,18 +4,20 @@
 if [ "$USER" == "root"  ]; then
 echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 
+# 判断显卡驱动
+if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then
+gpu=xf86-video-amdgpu
+elif [ "$(lspci -vnn | grep -i "vga.*nvidia.*geforce")" ]; then
+gpu=xf86-video-nouveau; fi
+
 # ======= 下载软件 =======
 # 增加 multilib 源
 sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
 sudo sed -i "/#Color/s/#//" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理、网络管理器、tlp
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
-# 声卡、触摸板驱动
-sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput
-# 超微显卡驱动
-#sudo pacman -S --noconfirm xf86-video-amdgpu
-# 英伟达显卡驱动
-sudo pacman -S --noconfirm xf86-video-nouveau
+# 声卡、触摸板、显卡驱动
+sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput ${gpu}
 # 繁简中日韩、emoji、Ubuntu字体
 sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
 # 小企鹅输入法

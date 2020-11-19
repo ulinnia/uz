@@ -59,7 +59,7 @@ wget -nv ${link}P/sway -O ~/.config/sway/config
 wget -nv ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
 wget -nv ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
 wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
-wget -nv ${link}P/yulj.sh -O ~/.config/nnn/plugins/yulj
+wget -nv ${link}P/yulj -O ~/.config/nnn/plugins/yulj
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

@@ -67,7 +67,7 @@ nnn-preview ()
     (umask 077; mkfifo "$NNN_FIFO")
 
     # Preview command
-    preview_cmd="/path/to/preview_cmd.sh"
+    preview_cmd="sh ~/.config/nnn/plugins/yulj"
 
     # Use `tmux` split as preview
     if [ -e "${TMUX%%,*}" ]; then

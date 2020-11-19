@@ -14,7 +14,7 @@ echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
 sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput
 # 超微显卡驱动
 #sudo pacman -S --noconfirm xf86-video-amdgpu
-# 英伟达显卡驱
+# 英伟达显卡驱动
 sudo pacman -S --noconfirm xf86-video-nouveau
 # 繁简中日韩、emoji、Ubuntu字体
 sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family

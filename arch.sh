@@ -48,7 +48,7 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 # 更改默认 shell 为 zsh
 sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh，安装 jmtpfs
-yay -S --noconfirm oh-my-zsh-git jmtpfs tabbed
+yay -S --noconfirm oh-my-zsh-git jmtpfs
 
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址

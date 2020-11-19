@@ -27,8 +27,7 @@ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 必要工具
 sudo pacman -S --noconfirm neovim nnn p7zip zsh
 # nnn 预览视频缩略图、模糊搜索、图片、媒体信息、网页
-#sudo pacman -S --noconfirm ffmpegthumbnailer fzf imv mediainfo w3m
-sudo pacman -S --noconfirm fzf mpv sxiv rxvt-unicode xdotool zathura
+sudo pacman -S --noconfirm ffmpegthumbnailer fzf imv mediainfo w3m
 # 蓝牙、mtp
 sudo pacman -S --noconfirm blueman libmtp
 # 其他工具
@@ -45,12 +44,6 @@ sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 # 安装 ohmyzsh，安装 jmtpfs
 yay -S --noconfirm oh-my-zsh-git jmtpfs tabbed
 
-# 安装 nnn 插件
-curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
-
-# 修正 nnn 脚本错误
-sed -i '/EDITOR/s/vi/nvim/' ~/.config/nnn/plugins/nuke
-
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
@@ -64,6 +57,7 @@ wget -nv -x ${link}P/sway -O ~/.config/sway/config
 wget -nv -x ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
 wget -nv -x ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
 wget -nv -x ${link}P/vim.vim -O ~/.config/nvim/init.vim
+wget -nv -x ${link}P/yulj.sh -O ~/.config/nnn/plugins/yulj
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

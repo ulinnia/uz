@@ -55,6 +55,7 @@ yay -S --noconfirm oh-my-zsh-git jmtpfs
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 创建目录
 mkdir -p ~/.config/{sway,alacritty,nvim}
+mkdir ~/{xxzd,gz}
 # 下载配置文件
 sudo wget -nv ${link}P/grub -O /etc/default/grub
 sudo wget -nv ${link}P/tlp -O /etc/tlp.conf

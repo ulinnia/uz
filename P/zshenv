@@ -1,4 +1,1 @@
 export NNN_BMS='a:~/A;x:~/xxzd;j:~;g:~/gz'
-export NNN_PLUG='y:yulj;f:fzcd'
-export NNN_SEL='/tmp/.sel'
-export NNN_FIFO='/tmp/nnn.fifo'

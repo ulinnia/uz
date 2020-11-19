@@ -26,8 +26,8 @@ sudo pacman -S --noconfirm playerctl brightnessctl upower
 sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 # 必要工具
 sudo pacman -S --noconfirm neovim nnn p7zip zsh
-# nnn 预览视频缩略图、模糊搜索、图片、媒体信息、网页
-sudo pacman -S --noconfirm ffmpegthumbnailer fzf imv mediainfo w3m
+# 模糊搜索、图片
+sudo pacman -S --noconfirm fzf imv
 # 蓝牙、mtp
 sudo pacman -S --noconfirm blueman libmtp
 # 其他工具
@@ -48,7 +48,7 @@ yay -S --noconfirm oh-my-zsh-git jmtpfs tabbed
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 创建目录
-mkdir -p ~/.config/{sway,alacritty,nvim,nnn/plugins}
+mkdir -p ~/.config/{sway,alacritty,nvim}
 # 下载配置文件
 sudo wget -nv ${link}P/grub -O /etc/default/grub
 sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
@@ -59,7 +59,6 @@ wget -nv ${link}P/sway -O ~/.config/sway/config
 wget -nv ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
 wget -nv ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
 wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
-wget -nv ${link}P/yulj -O ~/.config/nnn/plugins/yulj
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

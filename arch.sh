@@ -47,17 +47,19 @@ yay -S --noconfirm oh-my-zsh-git jmtpfs tabbed
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
+# 创建目录
+mkdir -p ~/.config/{sway,alacritty,nvim,nnn/plugins}
 # 下载配置文件
 sudo wget -nv ${link}P/grub -O /etc/default/grub
 sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
 wget -nv ${link}P/hjbl -O ~/.zprofile
 wget -nv ${link}P/zshenv -O ~/.zshenv
 wget -nv ${link}P/zshrc -O ~/.zshrc
-wget -nv -x ${link}P/sway -O ~/.config/sway/config
-wget -nv -x ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
-wget -nv -x ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
-wget -nv -x ${link}P/vim.vim -O ~/.config/nvim/init.vim
-wget -nv -x ${link}P/yulj.sh -O ~/.config/nnn/plugins/yulj
+wget -nv ${link}P/sway -O ~/.config/sway/config
+wget -nv ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
+wget -nv ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
+wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
+wget -nv ${link}P/yulj.sh -O ~/.config/nnn/plugins/yulj
 
 # 加上 archlinuxcn 源
 if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then

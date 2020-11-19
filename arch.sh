@@ -33,7 +33,7 @@ sudo pacman -S --noconfirm blueman libmtp
 # 其他工具
 sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
 # steam
-sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
+#sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 
 # ======= 设定 zsh =======
 # 修改 yay 源

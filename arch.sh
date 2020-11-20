@@ -54,7 +54,7 @@ yay -S --noconfirm oh-my-zsh-git jmtpfs
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 创建目录
-mkdir -p ~/.config/{sway,alacritty,nvim}
+mkdir -p ~/.config/{alacritty,fcitx,nvim,sway}
 mkdir ~/{xxzd,gz}
 # 下载配置文件
 sudo wget -nv ${link}P/grub -O /etc/default/grub

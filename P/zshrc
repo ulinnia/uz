@@ -90,6 +90,8 @@ plugins=(git)
 # 别名示例
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias fu='fusermount -u ~/gz'
 alias la='ls -a'
 alias nn='nnn'
 alias nm='nm-connection-editor'

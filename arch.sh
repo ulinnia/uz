@@ -12,8 +12,8 @@ gpu=xf86-video-nouveau; fi
 
 # ======= 下载软件 =======
 # 增加 multilib 源
-sudo sed -i "/\[multilib\]/,+1s/#//g" /etc/pacman.conf
-sudo sed -i "/#Color/s/#//" /etc/pacman.conf
+sudo sed -i "/^\[multilib\]/,+1s/#//g" /etc/pacman.conf
+sudo sed -i "/^#Color/s/#//" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理、网络管理器、tlp
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
 # 声卡、触摸板、显卡驱动
@@ -68,7 +68,7 @@ wget -nv ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
 wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
 
 # 加上 archlinuxcn 源
-if [ "$(grep "archlinuxcn" /etc/pacman.conf)" == "" ]; then
+if [ ! "$(grep "archlinuxcn" /etc/pacman.conf)" ]; then
 echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
 # 导入 GPG key
 sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
@@ -100,14 +100,14 @@ sudo mkswap /swap # 格式化交换文件
 sudo swapon /swap; fi # 启用交换文件
 
 # 挂载交换文件
-if [ "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" == "" ]; then
+if [ ! "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" ]; then
 echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
 # 最大限度使用物理内存；生效
 echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p; fi
 
 # 设置内核参数
 # 设置 resume 参数
-sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
+sudo sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
 # 下载 btrfs_map_physical 工具
 wget -nv "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
 # 编译 btrfs_map_physical 工具
@@ -115,15 +115,15 @@ gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
 # 使用 btrfs_map_physical 提取 resume_offset 值
 offset=$(sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
 # 设置 resume_offset 参数
-sudo sed -i "/GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset=$((offset/4096))/" /etc/default/grub
+sudo sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset=$((offset/4096))/" /etc/default/grub
 # 删除 btrfs_map_physical 工具
 rm ~/btrfs_map_physical*
 # 更新 grub 配置
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # 添加 resume 钩子；重新生成 initramfs 镜像
-if [ "$(grep "udev resume" /etc/mkinitcpio.conf)" == "" ]; then
-sudo sed -i "/HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
+if [ ! "$(grep "udev resume" /etc/mkinitcpio.conf)" ]; then
+sudo sed -i "/^HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
 
 # ======= vim 插件管理 =======
 # 安装 vim-plug

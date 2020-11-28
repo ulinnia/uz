@@ -18,7 +18,7 @@ wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
 wget -nv ${link}P/zshrc -O ~/.zshrc
 
 # 注释 nvim 配置 plug 插件
-sed -i "/^call plug#begin/^call plug#end/s/^[^#]/#&/" ~/.config/nvim/init.vim
+sed -i "/^call plug#begin/,/^call plug#end/s/^[^#]/#&/" ~/.config/nvim/init.vim
 
 # 设 zsh 为默认 shell
 chsh -s zsh

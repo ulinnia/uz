@@ -18,7 +18,7 @@ wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
 wget -nv ${link}P/zshrc -O ~/.zshrc
 
 # 修改安装路径
-sed -i "/^ZSH=/s/.*/export ZSH=$HOME\/.oh-my-zsh/" ~/.zshrc
+sed -i "/^ZSH=/s/.*/export ZSH=~\/.oh-my-zsh/" ~/.zshrc
 
 # 注释 nvim plug 配置
 sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim

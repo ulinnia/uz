@@ -12,7 +12,7 @@ gpu=xf86-video-nouveau; fi
 
 # ======= 下载软件 =======
 # 增加 multilib 源
-sudo sed -i "/^\[multilib\]/,+1s/^#//g" /etc/pacman.conf
+sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
 sudo sed -i "/^#Color/s/^#//" /etc/pacman.conf
 # 更新系统并安装 btrfs 管理、网络管理器、tlp
 echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw

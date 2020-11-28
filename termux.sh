@@ -13,6 +13,7 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
 # 用变数代替我的 github 仓库网址
 link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 # 下载配置文件
+mkdir -p ~/.config/nvim
 wget -nv -x ${link}P/vim.vim -O ~/.config/nvim/init.vim
 wget -nv ${link}P/zshrc -O ~/.zshrc
 

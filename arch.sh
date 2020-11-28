@@ -123,7 +123,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # 添加 resume 钩子；重新生成 initramfs 镜像
 if [ ! "$(grep "udev resume" /etc/mkinitcpio.conf)" ]; then
-sudo sed -i "/^HOOKS/s/udev/udev resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
+sudo sed -i "/^HOOKS/s/udev/& resume/" /etc/mkinitcpio.conf; sudo mkinitcpio -P; fi
 
 # ======= vim 插件管理 =======
 # 安装 vim-plug

@@ -1,6 +1,7 @@
 
 " ======= 基础设置 ========
 " 显示
+colorscheme gruvbox " 设定 gruvbox 主题
 set background=dark " 设定背景颜色
 set t_Co=256 " 启用256色
 
@@ -111,6 +112,6 @@ set undodir=~/.config/nvim/.undo//
 
 " ======= vim-plug 插件管理 =======
 call plug#begin('~/.config/nvim/plug')
-
+Plug 'morhetz/gruvbox'
 call plug#end()
 

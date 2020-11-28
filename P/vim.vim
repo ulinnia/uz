@@ -3,7 +3,7 @@
 " 显示
 colorscheme gruvbox " 设定 gruvbox 主题
 set background=dark " 设定背景颜色
-set t_Co=256 " 启用256色
+set termguicolors " 开启真彩色
 
 " 突出显示行列
 "set cursorline " 突出显示当前行

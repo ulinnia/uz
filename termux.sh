@@ -20,11 +20,14 @@ wget -nv ${link}P/zshrc -O ~/.zshrc
 # 修改安装路径
 sed -i "/^ZSH=/s/.*/export ZSH=~\/.oh-my-zsh/" ~/.zshrc
 
-# 注释 nvim plug 配置
-sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
-
 # 设 zsh 为默认 shell
 chsh -s zsh
+
+# nvim 注释 plug 配置
+sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
+
+# nvim 安装 gruvbox 主题
+git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
 
 # 软连接 aidn。
 if [ -e "~/storage/shared/A/B/aidn" ]; then ln -s ~/storage/shared/A/B/aidn ~/aidn; fi

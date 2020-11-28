@@ -27,7 +27,7 @@ chsh -s zsh
 sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 
 # nvim 安装 gruvbox 主题
-git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
+git clone https://github.com/morhetz/gruvbox.git ~/.config/nvim/plug --depth 1
 
 # 软连接 aidn。
 if [ -e "~/storage/shared/A/B/aidn" ]; then ln -s ~/storage/shared/A/B/aidn ~/aidn; fi

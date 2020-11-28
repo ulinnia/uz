@@ -21,7 +21,7 @@ wget -nv ${link}P/zshrc -O ~/.zshrc
 sed -i "/^ZSH=/s/.*/export ZSH=$HOME\/.oh-my-zsh/" ~/.zshrc
 
 # 注释 nvim plug 配置
-sed -i "/^call plug#begin/,$s/^[^"]/"&/" ~/.config/nvim/init.vim
+sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 
 # 设 zsh 为默认 shell
 chsh -s zsh

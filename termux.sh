@@ -7,7 +7,7 @@ termux-setup-storage
 pkg install -y curl git man neovim tree wget zsh
 
 # 安装 oh-my-zsh。
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 # ======= 配置文件 =======
 # 用变数代替我的 github 仓库网址

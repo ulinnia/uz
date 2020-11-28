@@ -26,9 +26,6 @@ chsh -s zsh
 # nvim 注释 plug 配置
 sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 
-# nvim 安装 gruvbox 主题
-git clone https://github.com/morhetz/gruvbox.git ~/.config/nvim/plug/start/gruvbox --depth 1
-
 # 软连接 aidn。
 if [ -e "~/storage/shared/A/B/aidn" ]; then ln -s ~/storage/shared/A/B/aidn ~/aidn; fi
 #安装Ubuntu字体。

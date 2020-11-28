@@ -16,11 +16,6 @@ link=https://raw.githubusercontent.com/rraayy246/UZ/master/
 wget -nv -x ${link}P/vim.vim -O ~/.config/nvim/init.vim
 wget -nv ${link}P/zshrc -O ~/.zshrc
 
-# 安装 zsh 语法高亮。
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting --depth 1
-if [ ! "$(grep "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ~/.zshrc)" ]; then
-echo "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "~/.zshrc"; fi
-
 # 设 zsh 为默认 shell
 chsh -s zsh
 

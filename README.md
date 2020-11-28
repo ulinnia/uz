@@ -144,7 +144,7 @@ sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
 ### Termux配置 ###
 
 ```shell
-pkg install curl
+pkg install -y curl
 sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/termux.sh)"
 ```
 

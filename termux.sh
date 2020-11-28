@@ -19,14 +19,14 @@ wget -nv ${link}P/zshrc -O ~/.zshrc
 
 # 安装 zsh 语法高亮。
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting --depth 1
-if [ "$(grep "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ~/.zshrc)" == "" ]; then
+if [ ! "$(grep "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ~/.zshrc)" ]; then
 echo "source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "~/.zshrc"; fi
 
 # 设 zsh 为默认 shell
 chsh -s zsh
 
 # 软连接 aidn。
-if [ -e "~/storage/shared/A/Y/aidn" ]; then ln -s ~/storage/shared/A/Y/aidn ~/aidn; fi
+if [ ! -e "~/storage/shared/A/Y/aidn" ]; then ln -s ~/storage/shared/A/Y/aidn ~/aidn; fi
 #安装Ubuntu字体。
 curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 

@@ -27,7 +27,7 @@ chsh -s zsh
 sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 
 # 软连接 aidn。
-if [ -e "~/storage/shared/A/B/aidn" ]; then ln -s ~/storage/shared/A/B/aidn ~/aidn; fi
+if [ -e "$HOME/storage/shared/A/B/aidn" ]; then ln -s ~/storage/shared/A/B/aidn ~/aidn; fi
 #安装Ubuntu字体。
 curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 

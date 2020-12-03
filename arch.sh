@@ -34,8 +34,8 @@ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
 sudo pacman -S --noconfirm neovim nnn p7zip zsh
 # 模糊搜索、图片
 sudo pacman -S --noconfirm fzf imv
-# 蓝牙、mtp
-sudo pacman -S --noconfirm blueman libmtp
+# mtp、蓝牙
+sudo pacman -S --noconfirm libmtp pulseaudio-bluetooth bluez-utils
 # 其他工具
 sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
 # steam

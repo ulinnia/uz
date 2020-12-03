@@ -73,6 +73,8 @@
 
 - (人体工学键盘) kinesis advantage 2
 - (轨迹球) Kensington Pro Fit® Ergo
+- (折叠爪刀) FX-599-XTS
+- (耳机) 韶音AS800
 
 软件。
 

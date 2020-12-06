@@ -86,7 +86,7 @@ rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
 fcitx-remote -r
 
 # ======= 自启动 =======
-sudo systemctl enable --now {NetworkManager,NetworkManager-dispatcher,tlp}
+sudo systemctl enable --now {bluetooth,NetworkManager,NetworkManager-dispatcher,tlp}
 sudo systemctl disable dhcpcd
 sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 

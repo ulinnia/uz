@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
 # root 用户不建议使用此脚本
-if [ "$USER" == "root"  ]; then
-echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
+f_root_yshu() {
+ if [ "$USER" == "root"  ]; then
+ echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
+}
+
+f_root_yshu
 
 # 判断显卡驱动
 if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then

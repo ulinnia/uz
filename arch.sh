@@ -6,8 +6,6 @@ f_root_yh() {
  echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 }
 
-f_root_yh
-
 # 判断显卡驱动
 pd_xk() {
  if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then
@@ -15,9 +13,8 @@ pd_xk() {
  elif [ "$(lspci -vnn | grep -i "vga.*nvidia.*geforce")" ]; then
  gpu=xf86-video-nouveau; fi
 }
-pd_xk
 
-# ======= 下载软件 =======
+# 下载软件
 xz_rj() {
  # 增加 multilib 源
  sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
@@ -49,7 +46,6 @@ xz_rj() {
  # steam
  #sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 }
-xz_rj
 
 # ======= 设定 zsh =======
 # 修改 yay 源
@@ -145,4 +141,6 @@ nvim +PlugInstall +qall
 # ======= 手动执行 =======
 echo -e "\n请手动执行 fcitx-configtool 修改输入法。"
 
-
+f_root_yh
+pd_xk
+xz_rj

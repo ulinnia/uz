@@ -130,7 +130,9 @@ ij_jhwj() {
 gz_jhwj() {
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
  # 最大限度使用物理内存；生效
- echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p
+ echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf
+ # 更新 sysctl 配置
+ sudo sysctl -p
 }
 
 # 设置内核参数

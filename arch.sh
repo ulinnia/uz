@@ -191,19 +191,23 @@ wztx() {
 }
 
 # ======= 主程序 =======
-if [ "$USER" == "root"  ]; then
- g_yh
-fi
+yx_vix() {
+ if [ "$USER" == "root"  ]; then
+  g_yh
+ fi
 
-pd_xk
-pac_pv
-pac_av
-yay_pv
-yay_av
-uv_zsh
-xz_pvwj
-av_xhyx
-zqd_gl
-jl_jhwj
-vim_ij
-wztx
+ pd_xk
+ pac_pv
+ pac_av
+ yay_pv
+ yay_av
+ uv_zsh
+ xz_pvwj
+ av_xhyx
+ zqd_gl
+ jl_jhwj
+ vim_ij
+ wztx
+}
+
+yx_vix

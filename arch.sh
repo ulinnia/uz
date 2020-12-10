@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # root 用户不建议使用此脚本
-f_g_yh() {
- if [ "$USER" == "root"  ]; then
-  echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
+g_yh() {
+ echo "请先退出root用户，并登陆新创建的用户。"
+ exit 1
 }
 
 # 判断显卡驱动
@@ -11,7 +11,8 @@ pd_xk() {
  if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then
   gpu=xf86-video-amdgpu
  elif [ "$(lspci -vnn | grep -i "vga.*nvidia.*geforce")" ]; then
-  gpu=xf86-video-nouveau; fi
+  gpu=xf86-video-nouveau
+ fi
 }
 
 # 修改 pacman 配置
@@ -24,11 +25,12 @@ pac_pv() {
  if [ ! "$(grep "archlinuxcn" /etc/pacman.conf)" ]; then
   echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
   # 导入 GPG key
-  sudo pacman -Syy --noconfirm archlinuxcn-keyring; fi
+  sudo pacman -Syy --noconfirm archlinuxcn-keyring
+ fi
 }
 
 # pacman 安装软件
-pac_xz() {
+pac_av() {
  # 更新系统并安装 btrfs 管理、网络管理器、tlp
  echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
  # 声卡、触摸板、显卡驱动
@@ -63,7 +65,7 @@ yay_pv() {
 }
 
 # yay 安装软件
-yay_xz() {
+yay_av() {
  # 安装 ohmyzsh、jmtpfs
  yay -S --noconfirm oh-my-zsh-git jmtpfs
 }
@@ -116,21 +118,19 @@ zqd_gl() {
 
 # 创建交换文件
 ij_jhwj() {
-if [ ! -e "/swap" ]; then
  sudo touch /swap # 创建空白文件
  sudo chattr +C /swap # 修改档案属性 不执行写入时复制（COW）
  sudo fallocate -l 4G /swap # 创建4G空洞文件
  sudo chmod 600 /swap # 修改文件读写执行权限
  sudo mkswap /swap # 格式化交换文件
- sudo swapon /swap; fi # 启用交换文件
+ sudo swapon /swap # 启用交换文件
 }
 
 # 挂载交换文件
 gz_jhwj() {
-if [ ! "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" ]; then
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
  # 最大限度使用物理内存；生效
- echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p; fi
+ echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf; sudo sysctl -p
 }
 
 # 设置内核参数
@@ -153,10 +153,26 @@ uv_nhcu() {
 
 # 添加 resume 钩子
 tj_gz() {
-if [ ! "$(grep "udev resume" /etc/mkinitcpio.conf)" ]; then
  sudo sed -i "/^HOOKS/s/udev/& resume/" /etc/mkinitcpio.conf
  # 重新生成 initramfs 镜像
- sudo mkinitcpio -P; fi
+ sudo mkinitcpio -P
+}
+
+# 建立交换文件
+jl_jhwj() {
+ if [ ! -e "/swap" ]; then
+  ij_jhwj
+ fi
+
+ if [ ! "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" ]; then
+  gz_jhwj
+ fi
+
+ uv_nhcu
+
+ if [ ! "$(grep "udev resume" /etc/mkinitcpio.conf)" ]; then
+  tj_gz
+ fi
 }
 
 # vim 插件
@@ -172,4 +188,20 @@ wztx() {
  echo -e "\n请手动执行 fcitx-configtool 修改输入法。"
 }
 
+# ======= 主程序 =======
+if [ "$USER" == "root"  ]; then
+ g_yh
+fi
 
+pd_xk
+pac_pv
+pac_av
+yay_pv
+yay_av
+uv_zsh
+xz_pvwj
+av_xhyx
+zqd_gl
+jl_jhwj
+vim_ij
+wztx

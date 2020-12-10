@@ -1,49 +1,55 @@
 #!/usr/bin/env bash
 
 # root 用户不建议使用此脚本
-f_root_yshu() {
+fw_root_yshu() {
  if [ "$USER" == "root"  ]; then
  echo "请先退出root用户，并登陆新创建的用户。"; exit 1; fi
 }
 
-f_root_yshu
+fw_root_yshu
 
 # 判断显卡驱动
-if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then
-gpu=xf86-video-amdgpu
-elif [ "$(lspci -vnn | grep -i "vga.*nvidia.*geforce")" ]; then
-gpu=xf86-video-nouveau; fi
+pjdr_xmka() {
+ if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then
+ gpu=xf86-video-amdgpu
+ elif [ "$(lspci -vnn | grep -i "vga.*nvidia.*geforce")" ]; then
+ gpu=xf86-video-nouveau; fi
+}
+pjdr_xmka
 
 # ======= 下载软件 =======
-# 增加 multilib 源
-sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
-sudo sed -i "/^#Color/s/^#//" /etc/pacman.conf
-# 更新系统并安装 btrfs 管理、网络管理器、tlp
-echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
-# 声卡、触摸板、显卡驱动
-sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput ${gpu}
-# 繁简中日韩、emoji、Ubuntu字体
-sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
-# 小企鹅输入法
-sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
-# 显示服务器和 sway
-sudo pacman -S --noconfirm wayland sway swaybg swayidle swaylock xorg-server-xwayland
-# 图形挂件
-sudo pacman -S --noconfirm alacritty dmenu qt5-wayland
-# 播放控制、亮度控制、电源工具
-sudo pacman -S --noconfirm playerctl brightnessctl upower
-# 其他网络工具
-sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
-# 必要工具
-sudo pacman -S --noconfirm neovim nnn p7zip zsh
-# 模糊搜索、图片
-sudo pacman -S --noconfirm fzf imv
-# mtp、蓝牙
-sudo pacman -S --noconfirm libmtp pulseaudio-bluetooth bluez-utils
-# 其他工具
-sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
-# steam
-#sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
+xxzd_rrjm() {
+ # 增加 multilib 源
+ sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
+ sudo sed -i "/^#Color/s/^#//" /etc/pacman.conf
+ # 更新系统并安装 btrfs 管理、网络管理器、tlp
+ echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
+ # 声卡、触摸板、显卡驱动
+ sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput ${gpu}
+ # 繁简中日韩、emoji、Ubuntu字体
+ sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
+ # 小企鹅输入法
+ sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
+ # 显示服务器和 sway
+ sudo pacman -S --noconfirm wayland sway swaybg swayidle swaylock xorg-server-xwayland
+ # 图形挂件
+ sudo pacman -S --noconfirm alacritty dmenu qt5-wayland
+ # 播放控制、亮度控制、电源工具
+ sudo pacman -S --noconfirm playerctl brightnessctl upower
+ # 其他网络工具
+ sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
+ # 必要工具
+ sudo pacman -S --noconfirm neovim nnn p7zip zsh
+ # 模糊搜索、图片
+ sudo pacman -S --noconfirm fzf imv
+ # mtp、蓝牙
+ sudo pacman -S --noconfirm libmtp pulseaudio-bluetooth bluez-utils
+ # 其他工具
+ sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
+ # steam
+ #sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
+}
+xxzd_rrjm
 
 # ======= 设定 zsh =======
 # 修改 yay 源

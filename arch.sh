@@ -79,27 +79,27 @@ uv_zsh() {
 # 下载配置文件
 xz_pvwj() {
  # 我的 github 仓库网址
- link=https://raw.githubusercontent.com/rraayy246/UZ/master/
+ ck_wv=https://raw.githubusercontent.com/rraayy246/UZ/master/
  # 创建目录
  mkdir -p ~/.config/{alacritty,fcitx,nvim,sway}
  mkdir ~/{xxzd,gz}
  # 下载配置文件
- sudo wget -nv ${link}P/grub -O /etc/default/grub
- sudo wget -nv ${link}P/tlp -O /etc/tlp.conf
- wget -nv ${link}P/hjbl -O ~/.zprofile
- wget -nv ${link}P/zshenv -O ~/.zshenv
- wget -nv ${link}P/zshrc -O ~/.zshrc
- wget -nv ${link}P/sway -O ~/.config/sway/config
- wget -nv ${link}P/vtl.sh -O ~/.config/sway/vtl.sh
- wget -nv ${link}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
- wget -nv ${link}P/vim.vim -O ~/.config/nvim/init.vim
+ sudo wget -nv ${ck_wv}P/grub -O /etc/default/grub
+ sudo wget -nv ${ck_wv}P/tlp -O /etc/tlp.conf
+ wget -nv ${ck_wv}P/hjbl -O ~/.zprofile
+ wget -nv ${ck_wv}P/zshenv -O ~/.zshenv
+ wget -nv ${ck_wv}P/zshrc -O ~/.zshrc
+ wget -nv ${ck_wv}P/sway -O ~/.config/sway/config
+ wget -nv ${ck_wv}P/vtl.sh -O ~/.config/sway/vtl.sh
+ wget -nv ${ck_wv}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
+ wget -nv ${ck_wv}P/vim.vim -O ~/.config/nvim/init.vim
 }
 
 # 安装小鹤音形
 av_xhyx() {
  # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
  # 下载小鹤配置包
- wget -nv ${link}P/flypy.7z -O ~/flypy.7z
+ wget -nv ${ck_wv}P/flypy.7z -O ~/flypy.7z
  # 解压配置包
  7z x ~/flypy.7z
  cp -r ~/rime ~/.config/fcitx/

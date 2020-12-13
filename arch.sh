@@ -70,6 +70,14 @@ yay_av() {
  yay -S --noconfirm oh-my-zsh-git jmtpfs
 }
 
+# 安装软件
+av_rj() {
+ pac_pv
+ pac_av
+ yay_pv
+ yay_av
+}
+
 # 设置 zsh
 uv_zsh() {
  # 更改默认 shell 为 zsh
@@ -197,10 +205,7 @@ yx_vix() {
  fi
 
  pd_xk
- pac_pv
- pac_av
- yay_pv
- yay_av
+ av_rj
  uv_zsh
  xz_pvwj
  av_xhyx

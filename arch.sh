@@ -188,8 +188,8 @@ jhwj_jl() {
  fi
 }
 
-# vim 插件
-vim_ij() {
+# 设置 vim
+vim_uv() {
  # 安装 vim-plug
  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
  # 插件下载
@@ -210,7 +210,7 @@ vix_yx() {
  xhyx_av
  zqd_gl
  jhwj_jl
- vim_ij
+ vim_uv
  wztx
 }
 

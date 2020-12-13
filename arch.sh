@@ -2,8 +2,10 @@
 
 # root 用户不建议使用此脚本
 g_yh() {
- echo "请先退出root用户，并登陆新创建的用户。"
- exit 1
+ if [ "$USER" == "root"  ]; then
+  echo "请先退出root用户，并登陆新创建的用户。"
+  exit 1
+ fi
 }
 
 # 判断显卡驱动
@@ -72,6 +74,7 @@ yay_av() {
 
 # 安装软件
 av_rj() {
+ pd_xk
  pac_pv
  pac_av
  yay_pv
@@ -200,11 +203,7 @@ wztx() {
 
 # ======= 主程序 =======
 yx_vix() {
- if [ "$USER" == "root"  ]; then
-  g_yh
- fi
-
- pd_xk
+ g_yh
  av_rj
  uv_zsh
  xz_pvwj

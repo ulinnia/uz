@@ -74,7 +74,7 @@ yay_av() {
 
 # 安装软件
 rj_av() {
- pd_xk
+ xk_pd
  pac_pv
  pac_av
  yay_pv
@@ -164,7 +164,7 @@ nhcu_uv() {
  sudo grub-mkconfig -o /boot/grub/grub.cfg
 }
 
-# 添加 resume 钩子
+# 设置 resume 钩子
 gz_uv() {
  sudo sed -i "/^HOOKS/s/udev/& resume/" /etc/mkinitcpio.conf
  # 重新生成 initramfs 镜像

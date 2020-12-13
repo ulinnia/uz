@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # root 用户不建议使用此脚本
-g_yh() {
+yh_g() {
  if [ "$USER" == "root"  ]; then
   echo "请先退出root用户，并登陆新创建的用户。"
   exit 1
@@ -9,7 +9,7 @@ g_yh() {
 }
 
 # 判断显卡驱动
-pd_xk() {
+xk_pd() {
  if [ "$(lspci -vnn | grep -i "vga.*amd.*radeon")" ]; then
   gpu=xf86-video-amdgpu
  elif [ "$(lspci -vnn | grep -i "vga.*nvidia.*geforce")" ]; then
@@ -73,7 +73,7 @@ yay_av() {
 }
 
 # 安装软件
-av_rj() {
+rj_av() {
  pd_xk
  pac_pv
  pac_av
@@ -82,13 +82,13 @@ av_rj() {
 }
 
 # 设置 zsh
-uv_zsh() {
+zsh_uv() {
  # 更改默认 shell 为 zsh
  sudo sed -i '/home/s/bash/zsh/' /etc/passwd
 }
 
 # 下载配置文件
-xz_pvwj() {
+pvwj_xz() {
  # 我的 github 仓库网址
  ck_wv=https://raw.githubusercontent.com/rraayy246/UZ/master/
  # 创建目录
@@ -107,7 +107,7 @@ xz_pvwj() {
 }
 
 # 安装小鹤音形
-av_xhyx() {
+xhyx_av() {
  # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
  # 下载小鹤配置包
  wget -nv ${ck_wv}P/flypy.7z -O ~/flypy.7z
@@ -128,7 +128,7 @@ zqd_gl() {
 }
 
 # 创建交换文件
-ij_jhwj() {
+jhwj_ij() {
  sudo touch /swap # 创建空白文件
  sudo chattr +C /swap # 修改档案属性 不执行写入时复制（COW）
  sudo fallocate -l 4G /swap # 创建4G空洞文件
@@ -138,7 +138,7 @@ ij_jhwj() {
 }
 
 # 挂载交换文件
-gz_jhwj() {
+jhwj_gz() {
  echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
  # 最大限度使用物理内存；生效
  echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf
@@ -147,7 +147,7 @@ gz_jhwj() {
 }
 
 # 设置内核参数
-uv_nhcu() {
+nhcu_uv() {
  # 设置 resume 参数
  sudo sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
  # 下载 btrfs_map_physical 工具
@@ -165,26 +165,26 @@ uv_nhcu() {
 }
 
 # 添加 resume 钩子
-tj_gz() {
+gz_uv() {
  sudo sed -i "/^HOOKS/s/udev/& resume/" /etc/mkinitcpio.conf
  # 重新生成 initramfs 镜像
  sudo mkinitcpio -P
 }
 
 # 建立交换文件
-jl_jhwj() {
+jhwj_jl() {
  if [ ! -e "/swap" ]; then
-  ij_jhwj
+  jhwj_ij
  fi
 
  if [ ! "$(grep "\/swap swap swap defaults 0 0" /etc/fstab)" ]; then
-  gz_jhwj
+  jhwj_gz
  fi
 
- uv_nhcu
+ nhcu_uv
 
  if [ ! "$(grep "udev resume" /etc/mkinitcpio.conf)" ]; then
-  tj_gz
+  gz_uv
  fi
 }
 
@@ -202,16 +202,16 @@ wztx() {
 }
 
 # ======= 主程序 =======
-yx_vix() {
- g_yh
- av_rj
- uv_zsh
- xz_pvwj
- av_xhyx
+vix_yx() {
+ yh_g
+ rj_av
+ zsh_uv
+ pvwj_xz
+ xhyx_av
  zqd_gl
- jl_jhwj
+ jhwj_jl
  vim_ij
  wztx
 }
 
-yx_vix
+vix_yx

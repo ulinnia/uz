@@ -196,6 +196,13 @@ vim_uv() {
  nvim +PlugInstall +qall
 }
 
+# 软连接 aidn。
+aidn_lj() {
+ if [ -e "$HOME/A/B/aidn" ]; then
+  ln -s ~/A/B/aidn ~/aidn
+ fi
+}
+
 # 文字提醒
 wztx() {
  echo -e "\n请手动执行 fcitx-configtool 修改输入法。"
@@ -211,6 +218,7 @@ vix_yx() {
  zqd_gl
  jhwj_jl
  vim_uv
+ aidn_lj
  wztx
 }
 

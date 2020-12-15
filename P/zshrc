@@ -92,7 +92,7 @@ plugins=(git)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias fu='fusermount -u ~/gz'
-alias lsa='ls -a'
+alias la='ls -a'
 alias nm='nm-connection-editor'
 alias nn='nnn'
 alias up='sudo pacman -Syu'

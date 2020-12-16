@@ -56,7 +56,6 @@
 游戏。
 
 - supertux
-[W](https://www.supertux.org/)
 - 侠盗猎车手圣安地列斯
 - The Room 迷室系列
 - 爱丽斯的精神审判
@@ -65,7 +64,6 @@
 - 刺激战场
 - BanG Dream! 少女乐团派对
 - DDLC 心跳文学部
-[W](https://ddlc.moe/)
 - APEX英雄
 - 泰坦天降2
 
@@ -78,44 +76,26 @@
 
 软件。
 
-- 自由软件 - GNU工程
-[W](https://www.gnu.org/philosophy/free-sw.zh-cn.html)
 - (英文字体) Ubuntu font
-[W](https://design.ubuntu.com/font/)
 - (浏览器) Firefox 火狐
-[W](https://www.mozilla.org/zh-CN/firefox/)
 - (影音播放器) VLC
-[W](https://www.videolan.org/index.zh.html)
 - (数据压缩) 7-Zip
-[W](https://www.7-zip.org/)
 - (输入法) 小鹤音形
-[W](https://www.flypy.com/)
 - (安卓文件管理) MiXplorer
-[W](https://mixplorer.com/)
 - (安卓音乐播放器) Vinyl Music Player
 - (安卓终端) Termux
-[W](https://termux.com/)
 - (文档编辑器) Vim
-[W](https://www.vim.org/)
 
 不常用的软件。
 
 - (办公室套件) LibreOffice
-[W](https://www.libreoffice.org/)
-- (制作系统启动盘) Rufus
-[W](https://rufus.ie/)
+- (微软制作系统启动盘) Rufus
 - (位图图像编辑器) GIMP
-[W](https://www.gimp.org/)
 - (矢量图形编辑器) Inkscape
-[W](https://inkscape.org/)
 - (三维动画制作) Blender
-[W](https://www.blender.org/)
 - (视频转码器) HandBrake
-[W](https://handbrake.fr/)
 - (视频编辑器) Shotcut
-[W](https://shotcut.org/)
 - (音频编辑器) Audacity
-[W](https://www.audacityteam.org/)
 
 
 ## 解释 ##

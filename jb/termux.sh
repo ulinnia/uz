@@ -15,13 +15,14 @@ rj_av() {
 # 下载配置文件
 pvwj_xz() {
  # 创建文件夹
- mkdir -p ~/{storage/shared/a,.config/nvim}
+ mkdir -p ~/.config/nvim
+ mkdir ~/storage/shared/a
  # 克隆 uz 仓库
  cd ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
  # 移动配置文件
- pvwj=~/storage/shared/a/uz/pv/
- cp ${pvwj}vim.vim ~/.config/nvim/init.vim
- cp ${pvwj}zshrc ~/.zshrc
+ uzck=~/storage/shared/a/uz/
+ cp ${uzck}pv/vim.vim ~/.config/nvim/init.vim
+ cp ${uzck}pv/zshrc ~/.zshrc
  # 下载 Ubuntu 字体
  curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }
@@ -40,9 +41,16 @@ vim_uv() {
  sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 }
 
-# 软连接 uz。
-uz_lj() {
- ln -s ~/storage/shared/a/uz ~/uz
+# uz 设置。
+uz_uv() {
+ if [ -d "$HOME/storage/shared/a/uz/vp/xt" ]; then
+  ln -s ~/storage/shared/a/uz ~/uz
+  cd {uzck}
+  # 记忆账号密码
+  git config credential.helper store
+  git config --global user.email "rraayy246@gmail.com"
+  git config --global user.name "ray"
+  cd
 }
 
 # 应用设定。
@@ -63,7 +71,7 @@ vix_yx() {
  pvwj_xz
  zsh_uv
  vim_uv
- uz_lj
+ uz_uv
  ud_yy
  wztx
 }

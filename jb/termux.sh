@@ -18,7 +18,7 @@ pvwj_xz() {
  mkdir -p ~/{storage/shared/a,.config/nvim}
  # 克隆 uz 仓库
  cd ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
- # 下载配置文件
+ # 移动配置文件
  cp ~/storage/shared/a/uz/pv/vim.vim ~/.config/nvim/init.vim
  cp ~/storage/shared/a/uz/pv/zshrc ~/.zshrc
  # 下载 Ubuntu 字体

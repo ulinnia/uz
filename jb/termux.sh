@@ -14,12 +14,13 @@ rj_av() {
 
 # 下载配置文件
 pvwj_xz() {
- # 用变数代替我的 github 仓库网址
- ck_wv=https://raw.githubusercontent.com/rraayy246/UZ/master/
+ # 创建文件夹
+ mkdir -p ~/{a,.config/nvim}
+ # 克隆 uz 仓库
+ cd ~/a; git clone https://github.com/rraayy246/uz --depth 1; cd
  # 下载配置文件
- mkdir -p ~/.config/nvim
- wget -nv ${ck_wv}pv/vim.vim -O ~/.config/nvim/init.vim
- wget -nv ${ck_wv}pv/zshrc -O ~/.zshrc
+ cp ~/a/uz/pv/vim.vim ~/.config/nvim/init.vim
+ cp ~/a/uz/pv/zshrc ~/.zshrc
  # 下载 Ubuntu 字体
  curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }
@@ -38,7 +39,7 @@ vim_uv() {
  sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 }
 
-# 软连接 aidn。
+# 软连接 uz。
 uz_lj() {
  if [ -d "$HOME/storage/shared/a/uz" ]; then
   ln -s ~/storage/shared/a/uz ~/uz

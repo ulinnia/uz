@@ -111,9 +111,9 @@ xhyx_av() {
  # http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
  # 解压配置包
  7z x ${pvwj}flypy.7z
- cp -r ${pvwj}rime ~/.config/fcitx/
+ cp -r ~/rime ~/.config/fcitx/
  # 删除压缩包
- rm -rf ${pvwj}rime ~/.config/fcitx/rime/default.yaml
+ rm -rf ~/rime ~/.config/fcitx/rime/default.yaml
  # 重新加载 fcitx 配置
  fcitx-remote -r
 }

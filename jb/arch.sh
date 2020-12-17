@@ -107,9 +107,7 @@ pvwj_xz() {
 
 # 安装小鹤音形
 xhyx_av() {
- # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
- # 下载小鹤配置包
- wget -nv ${ck_wv}pv/flypy.7z -O ~/flypy.7z
+ # http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
  # 解压配置包
  7z x ~/a/uz/flypy.7z
  cp -r ~/a/uz/rime ~/.config/fcitx/

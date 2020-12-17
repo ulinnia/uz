@@ -198,8 +198,8 @@ vim_uv() {
 
 # 软连接 aidn。
 aidn_lj() {
- if [ -e "$HOME/A/bf/aidn" ]; then
-  ln -s ~/A/bf/aidn ~/aidn
+ if [ -e "$HOME/A/UZ/aidn" ]; then
+  ln -s ~/A/UZ/aidn ~/aidn
  fi
 }
 

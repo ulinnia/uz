@@ -194,9 +194,16 @@ vim_uv() {
  nvim +PlugInstall +qall
 }
 
-# 软连接 uz。
-uz_lj() {
- ln -s ~/a/uz ~/uz
+# uz 设置。
+uz_uv() {
+ if [ -d "$HOME/a/uz/vp/xt" ]; then
+  ln -s ~/a/uz ~/uz
+  cd ~/a/uz
+  # 记忆账号密码
+  git config credential.helper store
+  git config --global user.email "rraayy246@gmail.com"
+  git config --global user.name "ray"
+  cd
 }
 
 # 文字提醒
@@ -214,7 +221,7 @@ vix_yx() {
  zqd_gl
  jhwj_jl
  vim_uv
- uz_lj
+ uz_uv
  wztx
 }
 

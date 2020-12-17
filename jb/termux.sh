@@ -39,9 +39,9 @@ vim_uv() {
 }
 
 # 软连接 aidn。
-aidn_lj() {
- if [ -e "$HOME/storage/shared/A/UZ/aidn" ]; then
-  ln -s ~/storage/shared/A/UZ/aidn ~/aidn
+uz_lj() {
+ if [ -e "$HOME/storage/shared/a/uz/aidn" ]; then
+  ln -s ~/storage/shared/a/uz ~/uz
  fi
 }
 
@@ -63,7 +63,7 @@ vix_yx() {
  pvwj_xz
  zsh_uv
  vim_uv
- aidn_lj
+ uz_lj
  ud_yy
  wztx
 }

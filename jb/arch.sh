@@ -89,21 +89,20 @@ zsh_uv() {
 
 # 下载配置文件
 pvwj_xz() {
- # 我的 github 仓库网址
- ck_wv=https://raw.githubusercontent.com/rraayy246/UZ/master/
  # 创建目录
- mkdir -p ~/.config/{alacritty,fcitx,nvim,sway}
- mkdir ~/{xxzd,gz}
- # 下载配置文件
- sudo wget -nv ${ck_wv}pv/grub -O /etc/default/grub
- sudo wget -nv ${ck_wv}pv/tlp -O /etc/tlp.conf
- wget -nv ${ck_wv}pv/hjbl -O ~/.zprofile
- wget -nv ${ck_wv}pv/zshenv -O ~/.zshenv
- wget -nv ${ck_wv}pv/zshrc -O ~/.zshrc
- wget -nv ${ck_wv}pv/sway -O ~/.config/sway/config
- wget -nv ${ck_wv}pv/vtl.sh -O ~/.config/sway/vtl.sh
- wget -nv ${ck_wv}pv/vsdr.yml -O ~/.config/alacritty/alacritty.yml
- wget -nv ${ck_wv}pv/vim.vim -O ~/.config/nvim/init.vim
+ mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx,nvim,sway}}
+ # 克隆 uz 仓库
+ cd ~/a; git clone https://github.com/rraayy246/uz --depth 1; cd
+ # 移动配置文件
+ sudo cp ~/a/uz/pv/grub /etc/default/grub
+ sudo cp ~/a/uz/pv/tlp /etc/tlp.conf
+ cp ~/a/uz/pv/hjbl ~/.zprofile
+ cp ~/a/uz/pv/zshenv ~/.zshenv
+ cp ~/a/uz/pv/zshrc ~/.zshrc
+ cp ~/a/uz/pv/sway ~/.config/sway/config
+ cp ~/a/uz/pv/vtl.sh ~/.config/sway/vtl.sh
+ cp ~/a/uz/pv/vsdr.yml ~/.config/alacritty/alacritty.yml
+ cp ~/a/uz/pv/vim.vim ~/.config/nvim/init.vim
 }
 
 # 安装小鹤音形
@@ -112,10 +111,10 @@ xhyx_av() {
  # 下载小鹤配置包
  wget -nv ${ck_wv}pv/flypy.7z -O ~/flypy.7z
  # 解压配置包
- 7z x ~/flypy.7z
- cp -r ~/rime ~/.config/fcitx/
+ 7z x ~/a/uz/flypy.7z
+ cp -r ~/a/uz/rime ~/.config/fcitx/
  # 删除压缩包
- rm -rf ~/rime ~/flypy.7z ~/.config/fcitx/rime/default.yaml
+ rm -rf ~/a/uz/rime ~/.config/fcitx/rime/default.yaml
  # 重新加载 fcitx 配置
  fcitx-remote -r
 }

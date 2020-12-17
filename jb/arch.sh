@@ -196,10 +196,10 @@ vim_uv() {
  nvim +PlugInstall +qall
 }
 
-# 软连接 aidn。
-aidn_lj() {
- if [ -e "$HOME/A/UZ/aidn" ]; then
-  ln -s ~/A/UZ/aidn ~/aidn
+# 软连接 uz。
+uz_lj() {
+ if [ -e "$HOME/A/uz" ]; then
+  ln -s ~/A/uz ~/uz
  fi
 }
 
@@ -218,7 +218,7 @@ vix_yx() {
  zqd_gl
  jhwj_jl
  vim_uv
- aidn_lj
+ uz_lj
  wztx
 }
 

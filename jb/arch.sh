@@ -94,25 +94,26 @@ pvwj_xz() {
  # 克隆 uz 仓库
  cd ~/a; git clone https://github.com/rraayy246/uz --depth 1; cd
  # 移动配置文件
- sudo cp ~/a/uz/pv/grub /etc/default/grub
- sudo cp ~/a/uz/pv/tlp /etc/tlp.conf
- cp ~/a/uz/pv/hjbl ~/.zprofile
- cp ~/a/uz/pv/zshenv ~/.zshenv
- cp ~/a/uz/pv/zshrc ~/.zshrc
- cp ~/a/uz/pv/sway ~/.config/sway/config
- cp ~/a/uz/pv/vtl.sh ~/.config/sway/vtl.sh
- cp ~/a/uz/pv/vsdr.yml ~/.config/alacritty/alacritty.yml
- cp ~/a/uz/pv/vim.vim ~/.config/nvim/init.vim
+ pvwj=~/a/uz/pv/
+ sudo cp {pvwj}grub /etc/default/grub
+ sudo cp {pvwj}tlp /etc/tlp.conf
+ cp {pvwj}hjbl ~/.zprofile
+ cp {pvwj}zshenv ~/.zshenv
+ cp {pvwj}zshrc ~/.zshrc
+ cp {pvwj}sway ~/.config/sway/config
+ cp {pvwj}vtl.sh ~/.config/sway/vtl.sh
+ cp {pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml
+ cp {pvwj}vim.vim ~/.config/nvim/init.vim
 }
 
 # 安装小鹤音形
 xhyx_av() {
  # http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
  # 解压配置包
- 7z x ~/a/uz/flypy.7z
- cp -r ~/a/uz/rime ~/.config/fcitx/
+ 7z x {pvwj}flypy.7z
+ cp -r {pvwj}rime ~/.config/fcitx/
  # 删除压缩包
- rm -rf ~/a/uz/rime ~/.config/fcitx/rime/default.yaml
+ rm -rf {pvwj}rime ~/.config/fcitx/rime/default.yaml
  # 重新加载 fcitx 配置
  fcitx-remote -r
 }

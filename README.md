@@ -115,17 +115,17 @@ cdhsmcq 彩虹猫
 
 ### Arch配置 ###
 
-请先[安装arch](arch.md)
+请先[安装arch](jb/arch.md)
 
 ```shell
 sudo pacman -S curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/arch.sh)"
+sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/jb/arch.sh)"
 ```
 
 
 ### Termux配置 ###
 
 ```shell
-pkg install -y curl; sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/termux.sh)"
+pkg install -y curl; sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/jb/termux.sh)"
 ```
 

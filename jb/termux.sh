@@ -18,8 +18,8 @@ pvwj_xz() {
  ck_wv=https://raw.githubusercontent.com/rraayy246/UZ/master/
  # 下载配置文件
  mkdir -p ~/.config/nvim
- wget -nv ${ck_wv}P/vim.vim -O ~/.config/nvim/init.vim
- wget -nv ${ck_wv}P/zshrc -O ~/.zshrc
+ wget -nv ${ck_wv}pv/vim.vim -O ~/.config/nvim/init.vim
+ wget -nv ${ck_wv}pv/zshrc -O ~/.zshrc
  # 下载 Ubuntu 字体
  curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }
@@ -40,8 +40,8 @@ vim_uv() {
 
 # 软连接 aidn。
 aidn_lj() {
- if [ -e "$HOME/storage/shared/A/B/aidn" ]; then
-  ln -s ~/storage/shared/A/B/aidn ~/aidn
+ if [ -e "$HOME/storage/shared/A/bf/aidn" ]; then
+  ln -s ~/storage/shared/A/bf/aidn ~/aidn
  fi
 }
 

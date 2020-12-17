@@ -17,7 +17,7 @@ pvwj_xz() {
  # 创建文件夹
  mkdir -p ~/{storage/shared/a,.config/nvim}
  # 克隆 uz 仓库
- cp ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
+ cd ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
  # 下载配置文件
  cp ~/storage/shared/a/uz/pv/vim.vim ~/.config/nvim/init.vim
  cp ~/storage/shared/a/uz/pv/zshrc ~/.zshrc

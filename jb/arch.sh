@@ -198,7 +198,7 @@ vim_uv() {
 
 # 软连接 uz。
 uz_lj() {
- if [ -e "$HOME/a/uz" ]; then
+ if [ -d "$HOME/a/uz" ]; then
   ln -s ~/a/uz ~/uz
  fi
 }

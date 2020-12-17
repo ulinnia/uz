@@ -15,12 +15,12 @@ rj_av() {
 # 下载配置文件
 pvwj_xz() {
  # 创建文件夹
- mkdir -p ~/{a,.config/nvim}
+ mkdir -p ~/{storage/shared/a,.config/nvim}
  # 克隆 uz 仓库
- cd ~/a; git clone https://github.com/rraayy246/uz --depth 1; cd
+ cp ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
  # 下载配置文件
- cp ~/a/uz/pv/vim.vim ~/.config/nvim/init.vim
- cp ~/a/uz/pv/zshrc ~/.zshrc
+ cp ~/storage/shared/a/uz/pv/vim.vim ~/.config/nvim/init.vim
+ cp ~/storage/shared/a/uz/pv/zshrc ~/.zshrc
  # 下载 Ubuntu 字体
  curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }

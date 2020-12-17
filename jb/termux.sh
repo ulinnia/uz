@@ -19,8 +19,9 @@ pvwj_xz() {
  # 克隆 uz 仓库
  cd ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
  # 移动配置文件
- cp ~/storage/shared/a/uz/pv/vim.vim ~/.config/nvim/init.vim
- cp ~/storage/shared/a/uz/pv/zshrc ~/.zshrc
+ pvwj=~/storage/shared/a/uz/pv/
+ cp {pvwj}vim.vim ~/.config/nvim/init.vim
+ cp {pvwj}zshrc ~/.zshrc
  # 下载 Ubuntu 字体
  curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }

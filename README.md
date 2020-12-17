@@ -119,13 +119,13 @@ cdhsmcq 彩虹猫
 
 ```shell
 sudo pacman -S curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/jb/arch.sh)"
+sh -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh)"
 ```
 
 
 ### Termux配置 ###
 
 ```shell
-pkg install -y curl; sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/jb/termux.sh)"
+pkg install -y curl; sh -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/termux.sh)"
 ```
 

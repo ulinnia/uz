@@ -195,9 +195,7 @@ vim_uv() {
 
 # 软连接 uz。
 uz_lj() {
- if [ -d "$HOME/a/uz" ]; then
-  ln -s ~/a/uz ~/uz
- fi
+ ln -s ~/a/uz ~/uz
 }
 
 # 文字提醒

@@ -204,6 +204,7 @@ uz_uv() {
   git config --global user.email "rraayy246@gmail.com"
   git config --global user.name "ray"
   cd
+ fi
 }
 
 # 文字提醒

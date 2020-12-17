@@ -41,9 +41,7 @@ vim_uv() {
 
 # 软连接 uz。
 uz_lj() {
- if [ -d "$HOME/storage/shared/a/uz" ]; then
-  ln -s ~/storage/shared/a/uz ~/uz
- fi
+ ln -s ~/storage/shared/a/uz ~/uz
 }
 
 # 应用设定。

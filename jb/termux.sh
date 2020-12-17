@@ -40,8 +40,8 @@ vim_uv() {
 
 # 软连接 aidn。
 aidn_lj() {
- if [ -e "$HOME/storage/shared/A/bf/aidn" ]; then
-  ln -s ~/storage/shared/A/bf/aidn ~/aidn
+ if [ -e "$HOME/storage/shared/A/UZ/aidn" ]; then
+  ln -s ~/storage/shared/A/UZ/aidn ~/aidn
  fi
 }
 

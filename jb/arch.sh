@@ -95,22 +95,22 @@ pvwj_xz() {
  mkdir -p ~/.config/{alacritty,fcitx,nvim,sway}
  mkdir ~/{xxzd,gz}
  # 下载配置文件
- sudo wget -nv ${ck_wv}P/grub -O /etc/default/grub
- sudo wget -nv ${ck_wv}P/tlp -O /etc/tlp.conf
- wget -nv ${ck_wv}P/hjbl -O ~/.zprofile
- wget -nv ${ck_wv}P/zshenv -O ~/.zshenv
- wget -nv ${ck_wv}P/zshrc -O ~/.zshrc
- wget -nv ${ck_wv}P/sway -O ~/.config/sway/config
- wget -nv ${ck_wv}P/vtl.sh -O ~/.config/sway/vtl.sh
- wget -nv ${ck_wv}P/vsdr.yml -O ~/.config/alacritty/alacritty.yml
- wget -nv ${ck_wv}P/vim.vim -O ~/.config/nvim/init.vim
+ sudo wget -nv ${ck_wv}pv/grub -O /etc/default/grub
+ sudo wget -nv ${ck_wv}pv/tlp -O /etc/tlp.conf
+ wget -nv ${ck_wv}pv/hjbl -O ~/.zprofile
+ wget -nv ${ck_wv}pv/zshenv -O ~/.zshenv
+ wget -nv ${ck_wv}pv/zshrc -O ~/.zshrc
+ wget -nv ${ck_wv}pv/sway -O ~/.config/sway/config
+ wget -nv ${ck_wv}pv/vtl.sh -O ~/.config/sway/vtl.sh
+ wget -nv ${ck_wv}pv/vsdr.yml -O ~/.config/alacritty/alacritty.yml
+ wget -nv ${ck_wv}pv/vim.vim -O ~/.config/nvim/init.vim
 }
 
 # 安装小鹤音形
 xhyx_av() {
  # 到 http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
  # 下载小鹤配置包
- wget -nv ${ck_wv}P/flypy.7z -O ~/flypy.7z
+ wget -nv ${ck_wv}pv/flypy.7z -O ~/flypy.7z
  # 解压配置包
  7z x ~/flypy.7z
  cp -r ~/rime ~/.config/fcitx/
@@ -198,8 +198,8 @@ vim_uv() {
 
 # 软连接 aidn。
 aidn_lj() {
- if [ -e "$HOME/A/B/aidn" ]; then
-  ln -s ~/A/B/aidn ~/aidn
+ if [ -e "$HOME/A/bf/aidn" ]; then
+  ln -s ~/A/bf/aidn ~/aidn
  fi
 }
 

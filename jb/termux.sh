@@ -45,7 +45,7 @@ vim_uv() {
 uz_uv() {
  if [ -d "$HOME/storage/shared/a/up/xt" ]; then
   ln -s ~/storage/shared/a/uz ~/uz
-  cd {uzck}
+  cd ${uzck}
   # 记忆账号密码
   git config credential.helper store
   git config --global user.email "rraayy246@gmail.com"

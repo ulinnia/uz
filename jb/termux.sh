@@ -43,7 +43,7 @@ vim_uv() {
 
 # uz 设置。
 uz_uv() {
- if [ -d "$HOME/storage/shared/a/uz/vp/xt" ]; then
+ if [ -d "$HOME/storage/shared/a/vp/xt" ]; then
   ln -s ~/storage/shared/a/uz ~/uz
   cd {uzck}
   # 记忆账号密码

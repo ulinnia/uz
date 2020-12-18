@@ -47,7 +47,7 @@ uz_uv() {
   ln -s ~/storage/shared/a/uz ~/uz
   cd ${uzck}
   # 记忆账号密码
-  git config credential.helper store
+  #git config credential.helper store
   git config --global user.email "rraayy246@gmail.com"
   git config --global user.name "ray"
   cd

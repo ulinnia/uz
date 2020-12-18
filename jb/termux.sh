@@ -9,7 +9,7 @@ nbci_lj() {
 rj_av() {
  pkg install -y curl git man neovim tree wget zsh
  # 安装 oh-my-zsh。
- cd; git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
+ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
 }
 
 # 下载配置文件
@@ -18,7 +18,7 @@ pvwj_xz() {
  mkdir -p ~/.config/nvim
  mkdir ~/storage/shared/a
  # 克隆 uz 仓库
- cd ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
+ git clone https://github.com/rraayy246/uz ~/storage/shared/a/uz --depth 1
  # 移动配置文件
  uzck=~/storage/shared/a/uz/
  cp ${uzck}pv/vim.vim ~/.config/nvim/init.vim

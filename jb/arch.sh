@@ -92,7 +92,7 @@ pvwj_xz() {
  # 创建目录
  mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx,nvim,sway}}
  # 克隆 uz 仓库
- cd ~/a; git clone https://github.com/rraayy246/uz --depth 1; cd
+ git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
  # 移动配置文件
  pvwj=~/a/uz/pv/
  sudo cp ${pvwj}grub /etc/default/grub
@@ -196,7 +196,7 @@ vim_uv() {
 
 # uz 设置。
 uz_uv() {
- if [ -d "$HOME/a/uz/vp/xt" ]; then
+ if [ -d "$HOME/a/up/xt" ]; then
   ln -s ~/a/uz ~/uz
   cd ~/a/uz
   # 记忆账号密码

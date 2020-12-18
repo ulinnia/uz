@@ -18,7 +18,7 @@ pvwj_xz() {
  mkdir -p ~/.config/nvim
  mkdir ~/storage/shared/a
  # 克隆 uz 仓库
- cd ~/storage/shared/a; git clone https://github.com/rraayy246/uz --depth 1; cd
+ git clone https://github.com/rraayy246/uz ~/storage/shared/a/uz --depth 1
  # 移动配置文件
  uzck=~/storage/shared/a/uz/
  cp ${uzck}pv/vim.vim ~/.config/nvim/init.vim
@@ -43,9 +43,9 @@ vim_uv() {
 
 # uz 设置。
 uz_uv() {
- if [ -d "$HOME/storage/shared/a/uz/vp/xt" ]; then
+ if [ -d "$HOME/storage/shared/a/up/xt" ]; then
   ln -s ~/storage/shared/a/uz ~/uz
-  cd {uzck}
+  cd ${uzck}
   # 记忆账号密码
   git config credential.helper store
   git config --global user.email "rraayy246@gmail.com"

@@ -23,7 +23,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 ### 输出配置
 # 随机壁纸
-set $wallpapers_path $HOME/A/vp/bv
+set $wallpapers_path $HOME/a/vp/bv
 output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 
 ### 空闲配置

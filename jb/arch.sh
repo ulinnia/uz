@@ -196,7 +196,7 @@ vim_uv() {
 
 # uz 设置。
 uz_uv() {
- if [ -d "$HOME/a/uz/vp/xt" ]; then
+ if [ -d "$HOME/a/vp/xt" ]; then
   ln -s ~/a/uz ~/uz
   cd ~/a/uz
   # 记忆账号密码

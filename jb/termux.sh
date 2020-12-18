@@ -9,6 +9,7 @@ nbci_lj() {
 rj_av() {
  pkg install -y curl git man neovim tree wget zsh
  # 安装 oh-my-zsh。
+ cd
  git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
 }
 

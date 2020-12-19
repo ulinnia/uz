@@ -109,6 +109,7 @@ pvwj_xz() {
 # 安装小鹤音形
 xhyx_av() {
  # http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
+ cd
  # 解压配置包
  7z x ${pvwj}flypy.7z
  cp -r ~/rime ~/.config/fcitx/
@@ -197,7 +198,7 @@ vim_uv() {
 # uz 设置。
 uz_uv() {
  if [ -d "$HOME/a/up/xt" ]; then
-  ln -s ~/a/uz ~/uz
+  ln -s ~/a/uz ~/
   cd ~/a/uz
   # 记忆账号密码
   git config credential.helper store

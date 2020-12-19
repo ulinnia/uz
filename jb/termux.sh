@@ -50,6 +50,8 @@ uz_uv() {
   git config credential.helper store
   git config --global user.email "rraayy246@gmail.com"
   git config --global user.name "ray"
+  # 默认合并分支
+  git config --global pull.rebase false
   cd
  fi
 }

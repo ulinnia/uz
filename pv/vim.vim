@@ -111,6 +111,9 @@ set undodir=~/.config/nvim/.undo//
 
 " ======= vim-plug 插件管理 =======
 call plug#begin('~/.config/nvim/plug')
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
 call plug#end()
 
+" nerdtree
+map <C-n> :NERDTreeToggle<CR> " 开启目录树

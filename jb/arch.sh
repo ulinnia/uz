@@ -56,7 +56,7 @@ pac_av() {
  # mtp、蓝牙
  sudo pacman -S --noconfirm libmtp pulseaudio-bluetooth bluez-utils
  # 其他工具
- sudo pacman -S --noconfirm libreoffice-zh-CN nodejs tree vlc vim
+ sudo pacman -S --noconfirm clang libreoffice-zh-CN nodejs tree vlc vim
  # steam
  #sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 }
@@ -192,7 +192,7 @@ vim_uv() {
  # 安装 vim-plug
  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
  # 插件下载
- nvim +PlugInstall +qall
+ nvim +PlugInstall +CocInstall coc-clangd +qall
 }
 
 # uz 设置。

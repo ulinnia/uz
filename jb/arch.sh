@@ -56,7 +56,7 @@ pac_av() {
  # mtp、蓝牙
  sudo pacman -S --noconfirm libmtp pulseaudio-bluetooth bluez-utils
  # 其他工具
- sudo pacman -S --noconfirm clang libreoffice-zh-CN nodejs tree vlc vim
+ sudo pacman -S --noconfirm clang libreoffice-zh-CN nodejs tree vlc vim yarn
  # steam
  #sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 }

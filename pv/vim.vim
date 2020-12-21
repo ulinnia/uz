@@ -109,23 +109,23 @@ map r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
   exec "w"
   if &filetype == 'c'
-    if !isdirectory('build')
-      exec "!mkdir build"
+    if !isdirectory('vx')
+      exec "!mkdir vx"
     endif
-    exec "!g++ % -o build/%<"
-    exec "!time ./build/%<"
+    exec "!g++ % -o vx/%<"
+    exec "!time ./vx/%<"
   elseif &filetype == 'cpp'
-    if !isdirectory('build')
-      exec "!mkdir build"
+    if !isdirectory('vx')
+      exec "!mkdir vx"
     endif
-    exec "!g++ % -o build/%<"
-    exec "!time ./build/%<"
+    exec "!g++ % -o vx/%<"
+    exec "!time ./vx/%<"
   elseif &filetype == 'java'
-    if !isdirectory('build')
-      exec "!mkdir build"
+    if !isdirectory('vx')
+      exec "!mkdir vx"
     endif
-    exec "!javac build/%"
-    exec "!time java build/%<"
+    exec "!javac vx/%"
+    exec "!time java vx/%<"
   elseif &filetype == 'sh'
     :!time bash %
   elseif &filetype == 'python'

@@ -104,6 +104,42 @@ set backupdir=~/.config/nvim/.backup//
 set directory=~/.config/nvim/.swp//
 set undodir=~/.config/nvim/.undo//
 
+" 编译文件快捷键
+map r :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+  exec "w"
+  if &filetype == 'c'
+    if !isdirectory('build')
+      exec "!mkdir build"
+    endif
+    exec "!g++ % -o build/%<"
+    exec "!time ./build/%<"
+  elseif &filetype == 'cpp'
+    if !isdirectory('build')
+      exec "!mkdir build"
+    endif
+    exec "!g++ % -o build/%<"
+    exec "!time ./build/%<"
+  elseif &filetype == 'java'
+    if !isdirectory('build')
+      exec "!mkdir build"
+    endif
+    exec "!javac build/%"
+    exec "!time java build/%<"
+  elseif &filetype == 'sh'
+    :!time bash %
+  elseif &filetype == 'python'
+    silent! exec "!clear"
+    exec "!time python3 %"
+  elseif &filetype == 'html'
+    exec "!firefox % &"
+  elseif &filetype == 'markdown'
+    exec "MarkdownPreview"
+  elseif &filetype == 'vimwiki'
+    exec "MarkdownPreview"
+  endif
+endfunc
+
 
 " ======= vim-plug 插件管理 =======
 call plug#begin('~/.config/nvim/plug')

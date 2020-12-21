@@ -90,7 +90,7 @@ zsh_uv() {
 # 下载配置文件
 pvwj_xz() {
  # 创建目录
- mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx,nvim,sway}}
+ mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx,nvim/.backup,sway}}
  # 克隆 uz 仓库
  git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
  # 移动配置文件

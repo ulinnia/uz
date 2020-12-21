@@ -27,7 +27,7 @@ rj_av() {
 # 下载配置文件
 pvwj_xz() {
  # 创建文件夹
- mkdir -p ~/.config/nvim
+ mkdir -p ~/.config/nvim/.backup
  mkdir ~/storage/shared/a
  # 克隆 uz 仓库
  git clone https://github.com/rraayy246/uz ~/storage/shared/a/uz --depth 1

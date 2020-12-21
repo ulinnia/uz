@@ -107,7 +107,7 @@ set undodir=~/.config/nvim/.undo//
 " 编译文件快捷键
 map r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-  exec "w!"
+  exec "w"
   if &filetype == 'c'
     if !isdirectory('build')
       exec "!mkdir build"

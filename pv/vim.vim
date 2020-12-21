@@ -1,5 +1,7 @@
 
 " ======= 基础设置 ========
+" 前缀键
+let mapleader = "\<space>"
 " 显示
 set background=dark " 设定背景颜色
 "set termguicolors " 开启真彩色
@@ -125,6 +127,66 @@ call plug#end()
 " 自动下载 coc 插件
 let g:coc_global_extensions = [
   \ 'coc-clangd']
+set hidden
+set updatetime=100
+set shortmess+=c
+
+" tab 补全
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" 调出自动补全
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" 选择补全后enter不换行
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" 上下查找报错
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" 查看函数调用
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" 显示文档
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" 同名高亮
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" 变量重命名
+nmap <leader>rn <Plug>(coc-rename)
+
+" 格式化代码
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" 默认行为
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
 
 " ======= nerdtree =======
 " autocmd vimenter * NERDTree  "自动开启Nerdtree

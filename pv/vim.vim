@@ -6,10 +6,6 @@ let mapleader = "\<space>"
 set background=dark " 设定背景颜色
 "set termguicolors " 开启真彩色
 
-" 突出显示行列
-"set cursorline " 突出显示当前行
-"set cursorcolumn " 突出显示当前列
-
 " 行号
 set number " 启用绝对行号
 set relativenumber " 启用相对行号
@@ -57,10 +53,8 @@ setlocal foldlevel=1 " 设置折叠层数为
 " set foldclose=all " 设置为自动关闭折叠
 
 " 编辑
-set paste " 设置粘贴模式
 set autoread " 当文件在外部被修改时，自动更新该文件
 set autochdir " 自动切换当前目录为当前文件所在的目录
-"set spell spelllang=en_us " 英语单词拼写检查
 
 " 搜索
 set history=1000 " 历史指令数

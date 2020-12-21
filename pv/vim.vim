@@ -2,6 +2,13 @@
 " ======= 基础设置 ========
 " 前缀键
 let mapleader = "\<space>"
+
+" 映射
+map ; :
+map <LEADER>/ :!
+map Q :q<CR>
+map S :w<CR>
+
 " 显示
 set background=dark " 设定背景颜色
 "set termguicolors " 开启真彩色
@@ -86,8 +93,6 @@ set undofile " 保留撤销历史
 
 " 启用鼠标
 set mouse=a " 启用鼠标滚轮和右键
-"set selection=exclusive
-"set selectmode=mouse,key
 
 " 设置文件编码
 set encoding=utf-8 " 内部编码

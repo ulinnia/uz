@@ -126,7 +126,8 @@ call plug#end()
 " ======= cocnvim =======
 " 自动下载 coc 插件
 let g:coc_global_extensions = [
-  \ 'coc-clangd']
+  \ 'coc-clangd',
+  \ 'coc-vimlsp']
 set hidden
 set updatetime=100
 set shortmess+=c

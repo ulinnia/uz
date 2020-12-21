@@ -5,8 +5,20 @@ nbci_lj() {
  termux-setup-storage
 }
 
+# 更换源
+y_gh() {
+ sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
+
+ sed -i 's@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@' $PREFIX/etc/apt/sources.list.d/game.list
+
+ sed -i 's@^\(deb.*science stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/science-packages-24 science stable@' $PREFIX/etc/apt/sources.list.d/science.list
+
+ pkg update
+}
+
 # 安装软件
 rj_av() {
+# y_gh
  pkg install -y curl git man neovim tree wget zsh
  # 安装 oh-my-zsh。
  git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1

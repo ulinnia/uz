@@ -33,30 +33,32 @@ pac_pv() {
 
 # pacman 安装软件
 pac_av() {
- # 更新系统并安装 btrfs 管理、网络管理器、tlp
+ # 更新系统并安装 btrfs 管理，网络管理器，tlp
  echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
- # 声卡、触摸板、显卡驱动
+ # 声卡，触摸板，显卡驱动
  sudo pacman -S --noconfirm alsa-utils pulseaudio-alsa xf86-input-libinput ${gpu}
- # 繁简中日韩、emoji、Ubuntu字体
+ # 繁简中日韩，emoji，Ubuntu字体
  sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
  # 小企鹅输入法
  sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
- # 显示服务器和 sway
+ # 显示服务器，sway
  sudo pacman -S --noconfirm wayland sway swaybg swayidle swaylock xorg-server-xwayland
- # 图形挂件
+ # 终端，软件启动器，qt5
  sudo pacman -S --noconfirm alacritty dmenu qt5-wayland
- # 播放控制、亮度控制、电源工具
+ # 播放控制，亮度控制，电源工具
  sudo pacman -S --noconfirm playerctl brightnessctl upower
- # 其他网络工具
+ # 网络工具
  sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
  # 必要工具
  sudo pacman -S --noconfirm neovim nnn p7zip zsh
- # 模糊搜索、图片
+ # 模糊搜索，图片
  sudo pacman -S --noconfirm fzf imv
- # mtp、蓝牙
+ # mtp，蓝牙
  sudo pacman -S --noconfirm libmtp pulseaudio-bluetooth bluez-utils
  # 其他工具
- sudo pacman -S --noconfirm clang libreoffice-zh-CN nodejs tree vlc vim yarn
+ sudo pacman -S --noconfirm libreoffice-zh-CN tree vlc vim
+ # 编程语言
+ sudo pacman -S --noconfirm clang nodejs yarn
  # steam
  #sudo pacman -S --noconfirm ttf-liberation wqy-zenhei steam
 }

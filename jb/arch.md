@@ -179,5 +179,5 @@ reboot
 
 ```shell
 sudo pacman -S curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/UZ/raw/master/jb/arch.sh)"
+sh -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh)"
 ```

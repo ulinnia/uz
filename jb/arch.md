@@ -4,7 +4,7 @@
 
 <https://www.archlinux.org/download/>
 
-`md5 archlinux.iso` 验证镜像完整性
+`md5sum archlinux.iso` 验证镜像完整性
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 

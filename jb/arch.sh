@@ -60,7 +60,7 @@ pac_av() {
     # 编程语言
     sudo pacman -S --noconfirm bash-language-server clang nodejs yarn
     # steam
-    #sudo pacman -S --noconfirm ttf-liberation wqy-microhei wqy-zenhei steam
+    #sudo pacman -S --noconfirm gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 }
 
 # 修改 yay 配置

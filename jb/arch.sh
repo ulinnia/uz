@@ -182,9 +182,8 @@ jhwj_jl() {
   jhwj_gz
  fi
 
- nhcu_uv
-
  if [ ! "$(grep "udev resume" /etc/mkinitcpio.conf)" ]; then
+  nhcu_uv
   gz_uv
  fi
 }

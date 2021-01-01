@@ -94,7 +94,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 `pacman -Syy` 更新mirror数据库
 
-`pacstrap /mnt base linux linux-firmware` 安装 Arch 和 Package Group
+`pacstrap /mnt base base-devel linux linux-firmware` 安装 Arch 和 Package Group
 
 `genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
@@ -118,7 +118,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
-按 `x` 删除当前光标所在处的字符，按 `u` 撤消最后执行的命令，`:wq` 命令保存文件并退出。
+按 `x` 删除当前光标所在处的字符，按 `u` 撤消最后执行的命令，`:x` 命令保存文件并退出。
 
 `locale-gen` 生成本地化信息
 
@@ -136,7 +136,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 127.0.1.1	主机名.localdomain 主机名
 ```
 
-按 `i` 切换到输入模式，按 `ESC` 回到命令模式，`:wq` 命令保存文件并退出。
+按 `o` 切换到下行输入模式，按 `ESC` 回到命令模式，`:x` 命令保存文件并退出。
 
 `systemctl enable dhcpcd` 设置dhcpcd自启动
 
@@ -173,7 +173,7 @@ reboot
 
 `exit` 退出root用户，并登陆新创建的用户。
 
-## 快速配置i3
+## 快速配置arch
 
 ```shell
 sudo pacman -S curl

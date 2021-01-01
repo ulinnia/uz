@@ -169,7 +169,7 @@ reboot
 
 `vim /etc/sudoers` 编辑sudo权限
 
-复制一行root ALL=(ALL) ALL, 并替换其中的root为新用户名，`:wq!` 强制保存并退出。
+复制一行root ALL=(ALL) ALL, 并替换其中的root为新用户名，`:x!` 强制保存并退出。
 
 `exit` 退出root用户，并登陆新创建的用户。
 

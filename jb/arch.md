@@ -94,7 +94,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 `pacman -Syy` 更新mirror数据库
 
-`pacstrap /mnt base base-devel linux linux-firmware` 安装 Arch 和 Package Group
+`pacstrap /mnt base linux linux-firmware` 安装 Arch 和 Package Group
 
 `genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
@@ -110,9 +110,9 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs。
 
-`ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
+`ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
 
-`hwclock --systohc --utc` 设置时间标准为UTC
+`hwclock --systohc` 设置时间标准为UTC
 
 `vim /etc/locale.gen` 修改本地化信息
 

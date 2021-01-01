@@ -16,9 +16,7 @@ windows 用户请使用 rufus
 
 `sudo umount /dev/sdx*` /dev/sdx是我的U盘设备，umount U盘。
 
-`sudo mkfs.vfat /dev/sdx –I` 格式化U盘
-
-`dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync` 镜像写入 U 盘
+`sudo cp path/to/archlinux.iso /dev/sdx` 镜像写入 U 盘
 
 ## 从 U 盘启动 Arch live 环境
 

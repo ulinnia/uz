@@ -54,9 +54,10 @@ set backspace=indent,eol,start " 不设定在插入状态无法用退格键和 D
 
 " 折叠
 set foldenable " 开始折叠
-set foldmethod=syntax " 设置语法折叠
+set foldmethod=indent " 设置缩进折叠
 set foldcolumn=0 " 设置折叠区域的宽度
 setlocal foldlevel=1 " 设置折叠层数为
+nnoremap <space> za " 空格开关折叠
 " set foldclose=all " 设置为自动关闭折叠
 
 " 编辑

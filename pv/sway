@@ -41,12 +41,12 @@ exec --no-startup-id nm-applet
 
 
 ### 输入配置
-input "2:14:SynPS/2_Synaptics_TouchPad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-}
+#input "2:14:SynPS/2_Synaptics_TouchPad" {
+#    dwt enabled
+#    tap enabled
+#    natural_scroll enabled
+#    middle_emulation enabled
+#}
 
 # 您可以通过运行以下命令获取输入的名称：swaymsg -t get_inputs
 # 阅读 `man 5 sway-input` 以获取有关此部分的更多信息。

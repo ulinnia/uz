@@ -94,22 +94,21 @@ bindsym XF86AudioPrev exec playerctl previous
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # 或使用 $mod + [上|下|左|右]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    # 左会缩小容器的宽度
+    # 右会增加容器的宽度
+    # 向上将收缩容器的高度
+    # 向下将增加容器的高度
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
 
     # 使用相同的方法移动焦点窗口，但添加Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # 同上，带方向键
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
 
 # 工作区：
     # 切换到工作区
@@ -169,29 +168,6 @@ bindsym XF86AudioPrev exec playerctl previous
     # 显示下一个暂存器窗口或隐藏聚焦的暂存器窗口。
     # 如果有多个暂存器窗口，则此命令会循环浏览它们。
     bindsym $mod+minus scratchpad show
-
-# 调整容器大小：
-mode "resize" {
-    # 左会缩小容器的宽度
-    # 右会增加容器的宽度
-    # 向上将收缩容器的高度
-    # 向下将增加容器的高度
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # 同上，带方向键
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # 返回默认模式
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
 
 # 电源管理
 mode "j关机，i重启，g挂起，x休眠，s锁屏，d登出" {

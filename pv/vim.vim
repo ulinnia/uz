@@ -10,24 +10,24 @@ map Q :q<CR> " 退出
 map S :w<CR> " 保存
 
 " 移动光标
+noremap <silent> H 0 " 移动到行首
 noremap <silent> J 5j " 移动5
 noremap <silent> K 5k " 移动5
-noremap <silent> H 0 " 移动到行首
 noremap <silent> L $ " 移动到行尾
 noremap W 5w " 移动5词
 noremap B 5b " 移动5词
 
 " 分屏
+noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap sj :set splitbelow<CR>:split<CR>
 noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap sl :set splitright<CR>:vsplit<CR>
 
 " 分屏移动
 noremap <LEADER>w <C-w>w
+noremap <LEADER>h <C-w>h
 noremap <LEADER>j <C-w>j
 noremap <LEADER>k <C-w>k
-noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
 
 " 分屏调整大小

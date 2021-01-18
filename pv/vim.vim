@@ -4,7 +4,7 @@
 let mapleader = "\<space>"
 
 " 映射
-map ; : " 冒号
+map ; :
 map <LEADER>/ :!
 map Q :q<CR> " 退出
 map S :w<CR> " 保存

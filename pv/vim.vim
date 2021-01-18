@@ -8,6 +8,8 @@ map ; :
 map <LEADER>/ :!
 map Q :q<CR>
 map S :w<CR>
+noremap J 5j
+noremap K 5k
 
 " 显示
 set background=dark " 设定背景颜色

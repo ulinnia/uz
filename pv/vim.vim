@@ -41,8 +41,8 @@ set matchtime=2 " 短暂跳转到匹配括号的时间
 " 隐藏字符
 set list " 显示隐藏字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " 定义隐藏字符显示
-noremap <F6> :set nolist " 关闭显示隐藏字符快捷键
-noremap <F7> :set list " 开启显示隐藏字符快捷键
+noremap <F6> :set nolist<CR> " 关闭显示隐藏字符快捷键
+noremap <F7> :set list<CR> " 开启显示隐藏字符快捷键
 
 " 缩进、退格
 set expandtab " tab键转空格

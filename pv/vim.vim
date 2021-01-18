@@ -4,12 +4,43 @@
 let mapleader = "\<space>"
 
 " 映射
-map ; :
+map ; : " 冒号
 map <LEADER>/ :!
-map Q :q<CR>
-map S :w<CR>
-noremap J 5j
-noremap K 5k
+map Q :q<CR> " 退出
+map S :w<CR> " 保存
+
+" 移动光标
+noremap <silent> J 5j " 移动5
+noremap <silent> K 5k " 移动5
+noremap <silent> H 0 " 移动到行首
+noremap <silent> L $ " 移动到行尾
+noremap W 5w " 移动5词
+noremap B 5b " 移动5词
+
+" 分屏
+noremap sj :set splitbelow<CR>:split<CR>
+noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
+
+" 分屏移动
+noremap <LEADER>w <C-w>w
+noremap <LEADER>j <C-w>j
+noremap <LEADER>k <C-w>k
+noremap <LEADER>h <C-w>h
+noremap <LEADER>l <C-w>l
+
+" 分屏调整大小
+noremap <up> :res +5<CR>
+noremap <down> :res -5<CR>
+noremap <left> :vertical resize-5<CR>
+noremap <right> :vertical resize+5<CR>
+
+" 分屏排列
+noremap sh <C-w>t<C-w>K " 上下
+noremap sv <C-w>t<C-w>H " 左右
+noremap srh <C-w>b<C-w>K " 旋转上下
+noremap srv <C-w>b<C-w>H " 旋转左右
 
 " 显示
 set background=dark " 设定背景颜色
@@ -235,6 +266,7 @@ au FileType php      let b:AutoPairs = AutoPairsDefine({'<?' : '?>', '<?php': '?
 
 " ======= nerdtree =======
 " autocmd vimenter * NERDTree  "自动开启Nerdtree
+map ff :NERDTreeToggle<CR> " 开启/关闭nerdtree快捷键
 let g:NERDTreeWinSize = 25 "设定 NERDTree 视窗大小
 let NERDTreeShowBookmarks=1  " 开启Nerdtree时自动显示Bookmarks
 "打开vim时如果没有文件自动打开NERDTree
@@ -250,7 +282,6 @@ let g:NERDTreeHidden=0     "不显示隐藏文件
 ""Making it prettier
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-nnoremap <F3> :NERDTreeToggle<CR> " 开启/关闭nerdtree快捷键
 
 " ======= indentline =======
 let g:indent_guides_guide_size = 1 " 指定对齐线的尺寸

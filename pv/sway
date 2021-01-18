@@ -94,15 +94,12 @@ bindsym XF86AudioPrev exec playerctl previous
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # 左会缩小容器的宽度
-    # 右会增加容器的宽度
-    # 向上将收缩容器的高度
-    # 向下将增加容器的高度
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
 
+    # 调整容器大小
+    bindsym $mod+Left resize shrink width 10px # 向左会缩小容器的宽度
+    bindsym $mod+Down resize grow height 10px # 向右会增加容器的宽度
+    bindsym $mod+Up resize shrink height 10px # 向上将收缩容器的高度
+    bindsym $mod+Right resize grow width 10px # 向下将增加容器的高度
 
     # 使用相同的方法移动焦点窗口，但添加Shift
     bindsym $mod+Shift+$left move left

@@ -8,7 +8,7 @@ map ; :
 map <LEADER>/ :!<left>
 map Q :q<CR>
 map S :w<CR>
-" 占位符
+" 占位符 <++>
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 " 替换
 noremap \s :%s//g<left><left>

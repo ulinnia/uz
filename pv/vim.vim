@@ -41,8 +41,8 @@ set matchtime=2 " 短暂跳转到匹配括号的时间
 " 隐藏字符
 set list " 显示隐藏字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " 定义隐藏字符显示
-noremap <F6> :set nolist<CR> " 关闭显示隐藏字符快捷键
-noremap <F7> :set list<CR> " 开启显示隐藏字符快捷键
+noremap <F6> :set nolist<CR> " 关闭显示隐藏字符
+noremap <F7> :set list<CR> " 开启显示隐藏字符
 
 " 缩进、退格
 set expandtab " tab键转空格
@@ -57,7 +57,7 @@ set foldenable " 开始折叠
 set foldmethod=indent " 设置缩进折叠
 set foldcolumn=0 " 设置折叠区域的宽度
 set foldlevel=1 " 设置折叠层数为
-noremap <silent> <LEADER>o za " 开关折叠快捷键
+noremap <silent> <LEADER>o za " 开关折叠
 " set foldclose=all " 设置为自动关闭折叠
 
 " 编辑
@@ -67,6 +67,7 @@ set autochdir " 自动切换当前目录为当前文件所在的目录
 " 搜索
 set history=1000 " 历史指令数
 set hlsearch " 搜索时高亮显示被找到的文本
+noremap <LEADER><CR> :nohlsearch<CR> " 禁止高亮搜索
 set incsearch " 实时搜索
 set nowrapscan " 禁止在搜索到文件两端时重新搜索
 set ignorecase smartcase " 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感

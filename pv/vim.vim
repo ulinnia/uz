@@ -79,7 +79,7 @@ set matchtime=2 " 短暂跳转到匹配括号的时间
 
 " 隐藏字符
 set list " 显示隐藏字符
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " 定义隐藏字符显示
+set listchars=tab:>-,trail:~,nbsp:+,extends:>,precedes:< " 定义隐藏字符显示
 noremap <F6> :set list!<CR>
 " 开关显示隐藏字符
 

@@ -6,16 +6,16 @@ let mapleader = "\<space>"
 " 映射
 map ; :
 map <LEADER>/ :!
-map Q :q<CR> " 退出
-map S :w<CR> " 保存
+map Q :q<CR>
+map S :w<CR>
 
 " 移动光标
-noremap <silent> H 0 " 移动到行首
-noremap <silent> J 5j " 移动5
-noremap <silent> K 5k " 移动5
-noremap <silent> L $ " 移动到行尾
-noremap W 5w " 移动5词
-noremap B 5b " 移动5词
+noremap <silent> H 0
+noremap <silent> J 5j
+noremap <silent> K 5k
+noremap <silent> L $
+noremap W 5w
+noremap B 5b
 
 " 分屏
 noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
@@ -31,16 +31,17 @@ noremap <LEADER>k <C-w>k
 noremap <LEADER>l <C-w>l
 
 " 分屏调整大小
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
+noremap <LEADER><up> :res +5<CR>
+noremap <LEADER><down> :res -5<CR>
+noremap <LEADER><left> :vertical resize-5<CR>
+noremap <LEADER><right> :vertical resize+5<CR>
 
 " 分屏排列
-noremap sg <C-w>t<C-w>K " 上下
-noremap sv <C-w>t<C-w>H " 左右
-noremap srg <C-w>b<C-w>K " 旋转上下
-noremap srv <C-w>b<C-w>H " 旋转左右
+noremap sg <C-w>t<C-w>K
+noremap sv <C-w>t<C-w>H
+" 旋转
+noremap srg <C-w>b<C-w>K
+noremap srv <C-w>b<C-w>H
 
 " 显示
 set background=dark " 设定背景颜色
@@ -55,7 +56,8 @@ set ruler " 显示光标位置
 set laststatus=2 " 总是显示状态栏
 set showcmd " 命令模式下，在底部显示，当前键入的指令
 set showmode " 在底部显示，当前处于命令模式还是插入模式
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ " 设置在状态行显示的信息
+set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\
+" 设置在状态行显示的信息
 
 " 折行
 set wrap " 自动折行
@@ -74,8 +76,10 @@ set matchtime=2 " 短暂跳转到匹配括号的时间
 " 隐藏字符
 set list " 显示隐藏字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " 定义隐藏字符显示
-noremap <F6> :set nolist<CR> " 关闭显示隐藏字符
-noremap <F7> :set list<CR> " 开启显示隐藏字符
+noremap <F6> :set nolist<CR>
+" 关闭显示隐藏字符
+noremap <F7> :set list<CR>
+" 开启显示隐藏字符
 
 " 缩进、退格
 set expandtab " tab键转空格
@@ -90,7 +94,8 @@ set foldenable " 开始折叠
 set foldmethod=indent " 设置缩进折叠
 set foldcolumn=0 " 设置折叠区域的宽度
 set foldlevel=1 " 设置折叠层数为
-noremap <silent> <LEADER>o za " 开关折叠
+noremap <silent> <LEADER>o za
+" 开关折叠
 " set foldclose=all " 设置为自动关闭折叠
 
 " 编辑
@@ -100,7 +105,8 @@ set autochdir " 自动切换当前目录为当前文件所在的目录
 " 搜索
 set history=1000 " 历史指令数
 set hlsearch " 搜索时高亮显示被找到的文本
-noremap <LEADER><CR> :nohlsearch<CR> " 禁止高亮搜索
+noremap <LEADER><CR> :nohlsearch<CR>
+" 禁止高亮搜索
 set incsearch " 实时搜索
 set nowrapscan " 禁止在搜索到文件两端时重新搜索
 set ignorecase smartcase " 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感

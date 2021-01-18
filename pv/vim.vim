@@ -5,9 +5,13 @@ let mapleader = "\<space>"
 
 " 映射
 map ; :
-map <LEADER>/ :!
+map <LEADER>/ :!<left>
 map Q :q<CR>
 map S :w<CR>
+" 占位符
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+" 替换
+noremap \s :%s//g<left><left>
 
 " 移动光标
 noremap <silent> H 0
@@ -76,10 +80,8 @@ set matchtime=2 " 短暂跳转到匹配括号的时间
 " 隐藏字符
 set list " 显示隐藏字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " 定义隐藏字符显示
-noremap <F6> :set nolist<CR>
-" 关闭显示隐藏字符
-noremap <F7> :set list<CR>
-" 开启显示隐藏字符
+noremap <F6> :set list!<CR>
+" 开关显示隐藏字符
 
 " 缩进、退格
 set expandtab " tab键转空格

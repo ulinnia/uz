@@ -37,9 +37,9 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 " 分屏排列
-noremap sh <C-w>t<C-w>K " 上下
+noremap sg <C-w>t<C-w>K " 上下
 noremap sv <C-w>t<C-w>H " 左右
-noremap srh <C-w>b<C-w>K " 旋转上下
+noremap srg <C-w>b<C-w>K " 旋转上下
 noremap srv <C-w>b<C-w>H " 旋转左右
 
 " 显示

@@ -12,7 +12,12 @@ map S :w<CR>
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 " 替换
 noremap \s :%s//g<left><left>
-
+" 空格变跳格
+nnoremap <LEADER>tt :%s/    /\t/g
+vnoremap <LEADER>tt :s/    /\t/g
+" 不移动光标移动
+noremap <C-K> 5<C-y>
+noremap <C-J> 5<C-e>
 " 移动光标
 noremap <silent> H 0
 noremap <silent> J 5j
@@ -21,29 +26,35 @@ noremap <silent> L $
 noremap W 5w
 noremap B 5b
 
+" 分页
+noremap tu :tabe<CR>
+" 分页移动
+noremap th :-tabnext<CR>
+noremap tl :+tabnext<CR>
+" 分页排列
+noremap tmh :-tabmove<CR>
+noremap tml :+tabmove<CR>
+
 " 分屏
 noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap sj :set splitbelow<CR>:split<CR>
 noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap sl :set splitright<CR>:vsplit<CR>
-
 " 分屏移动
 noremap <LEADER>w <C-w>w
 noremap <LEADER>h <C-w>h
 noremap <LEADER>j <C-w>j
 noremap <LEADER>k <C-w>k
 noremap <LEADER>l <C-w>l
-
 " 分屏调整大小
 noremap <LEADER><up> :res +5<CR>
 noremap <LEADER><down> :res -5<CR>
 noremap <LEADER><left> :vertical resize-5<CR>
 noremap <LEADER><right> :vertical resize+5<CR>
-
 " 分屏排列
 noremap sg <C-w>t<C-w>K
 noremap sv <C-w>t<C-w>H
-" 旋转
+" 分屏旋转
 noremap srg <C-w>b<C-w>K
 noremap srv <C-w>b<C-w>H
 

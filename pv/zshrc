@@ -93,6 +93,7 @@ plugins=(git)
 
 alias fu='fusermount -u ~/gz'
 alias la='ls -a'
+alias nm='nmtui-connect'
 alias nn='nnn'
 alias gx='sudo pacman -Syu'
 alias vi='nvim'

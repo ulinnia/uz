@@ -40,10 +40,10 @@ DISABLE_UPDATE_PROMPT="true"
 # DISABLE_AUTO_TITLE="true"
 
 # 取消注释以下行以启用命令自动更正。
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # 在等待完成时，取消注释以下行以显示红点。
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # 如果要禁用将VCS下未跟踪的文件标记为脏文件，请取消注释以下行。
 # 这使得对大型存储库的存储库状态检查变得非常快。
@@ -63,7 +63,9 @@ DISABLE_UPDATE_PROMPT="true"
 # 自定义插件可以添加到 $ZSH_CUSTOM/plugins/
 # 格式范例：plugins=(rails git textmate ruby lighthouse)
 # 明智地添加，因为太多的插件会减慢Shell启动的速度。
-plugins=(git)
+plugins=(
+    git z zsh-autosuggestions zsh-syntax-highlighting
+)
 
 
 # 用户配置
@@ -96,6 +98,7 @@ alias la='ls -a'
 alias nm='nmtui-connect'
 alias nn='nnn'
 alias gx='sudo pacman -Syu'
+alias svi='sudo nvim'
 alias vi='nvim'
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh

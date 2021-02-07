@@ -87,6 +87,9 @@ rj_av() {
 zsh_uv() {
     # 更改默认 shell 为 zsh
     sudo sed -i '/home/s/bash/zsh/' /etc/passwd
+    # 安装插件
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 }
 
 # 下载配置文件

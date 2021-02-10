@@ -58,7 +58,7 @@ exec --no-startup-id fcitx
     bindsym $mod+Shift+f exec firefox
 
     # 关闭聚焦窗口
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
 
     # 启动启动器
     bindsym $mod+d exec $menu

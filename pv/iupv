@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# 启动 sway
+exec sway

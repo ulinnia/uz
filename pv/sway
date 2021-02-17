@@ -36,7 +36,7 @@ exec swayidle -w \
 
 ### 自启
 # 输入法
-exec --no-startup-id fcitx
+exec --no-startup-id fcitx5
 
 ### 输入配置
 #input "2:14:SynPS/2_Synaptics_TouchPad" {

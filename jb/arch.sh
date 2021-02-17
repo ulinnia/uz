@@ -20,7 +20,7 @@ xk_pd() {
 # 修改 pacman 配置
 pac_pv() {
     # pacman 增加 multilib 源
-#    sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
+    sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
     # pacman 开启颜色
     sudo sed -i "/^#Color$/s/#//" /etc/pacman.conf
     # 加上 archlinuxcn 源
@@ -40,7 +40,7 @@ pac_av() {
     # 繁简中日韩，emoji，Ubuntu字体
     sudo pacman -S --noconfirm noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
     # 小企鹅输入法
-    sudo pacman -S --noconfirm fcitx-im fcitx-rime fcitx-configtool
+    sudo pacman -S --noconfirm fcitx5-im fcitx5-rime
     # 显示服务器，sway
     sudo pacman -S --noconfirm wayland sway swaybg swayidle swaylock xorg-server-xwayland
     # 终端，软件启动器，qt5
@@ -95,20 +95,20 @@ zsh_uv() {
 # 下载配置文件
 pvwj_xz() {
     # 创建目录
-    mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx,nvim/.backup,sway}}
+    mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx5,nvim/.backup,sway}}
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
-    # 移动配置文件
+    # 链接配置文件
     pvwj=~/a/uz/pv/
-    sudo cp ${pvwj}grub /etc/default/grub
-    sudo cp ${pvwj}tlp /etc/tlp.conf
-    cp ${pvwj}hjbl ~/.zprofile
-    cp ${pvwj}zshenv ~/.zshenv
-    cp ${pvwj}zshrc ~/.zshrc
-    cp ${pvwj}sway ~/.config/sway/config
-    cp ${pvwj}vtl.sh ~/.config/sway/vtl.sh
-    cp ${pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml
-    cp ${pvwj}vim.vim ~/.config/nvim/init.vim
+    sudo ln -f ${pvwj}grub /etc/default/grub
+    sudo ln -f ${pvwj}tlp /etc/tlp.conf
+    ln -f ${pvwj}hjbl ~/.zshenv
+    ln -f ${pvwj}iupv ~/.zprofile
+    ln -f ${pvwj}zshrc ~/.zshrc
+    ln -f ${pvwj}sway ~/.config/sway/config
+    ln -f ${pvwj}vtl.sh ~/.config/sway/vtl.sh
+    ln -f ${pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml
+    ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
 }
 
 # 安装小鹤音形
@@ -117,9 +117,9 @@ xhyx_av() {
     cd
     # 解压配置包
     7z x ${pvwj}flypy.7z
-    cp -r ~/rime ~/.config/fcitx/
+    cp -r ~/rime ~/.config/fcitx5/
     # 删除压缩包
-    rm -rf ~/rime ~/.config/fcitx/rime/default.yaml
+    rm -rf ~/rime ~/.config/fcitx5/rime/default.yaml
     # 重新加载 fcitx 配置
     fcitx-remote -r
 }

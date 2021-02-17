@@ -9,6 +9,7 @@ export LC_CTYPE=en_US.UTF-8
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
+export SDL_IM_MODULE=fcitx
 
 # 默认编辑器
 export EDITOR=nvim
@@ -16,5 +17,8 @@ export EDITOR=nvim
 # 控制键替换大写锁定键
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
-# 启动 sway
-exec sway
+# nnn 书签，选择，插件，缓存
+export NNN_BMS='a:~/a;x:~/xz;j:~;g:~/gz'
+export NNN_SEL='/tmp/.sel'
+export NNN_PLUG=''
+export NNN_FIFO='/tmp/nnn.fifo'

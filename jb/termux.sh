@@ -31,10 +31,10 @@ pvwj_xz() {
     mkdir ~/storage/shared/a
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/storage/shared/a/uz --depth 1
-    # 移动配置文件
+    # 链接配置文件
     uzck=~/storage/shared/a/uz/
-    cp ${uzck}pv/vim.vim ~/.config/nvim/init.vim
-    cp ${uzck}pv/zshrc ~/.zshrc
+    ln -sf ${uzck}pv/vim.vim ~/.config/nvim/init.vim
+    ln -sf ${uzck}pv/zshrc ~/.zshrc
     # 下载 Ubuntu 字体
     curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }

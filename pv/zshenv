@@ -1,5 +1,0 @@
-# nnn 书签，选择，插件，缓存
-export NNN_BMS='a:~/a;x:~/xz;j:~;g:~/gz'
-export NNN_SEL='/tmp/.sel'
-export NNN_PLUG=''
-export NNN_FIFO='/tmp/nnn.fifo'

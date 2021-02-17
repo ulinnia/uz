@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 # 语言设置
 export LANG=zh_CN.UTF-8

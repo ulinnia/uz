@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # root 用户不建议使用此脚本
 yh_g() {

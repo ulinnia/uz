@@ -217,6 +217,7 @@ call plug#end()
 " 自动下载 coc 插件
 let g:coc_global_extensions = [
   \ 'coc-clangd',
+  \ 'coc-rust-analyzer',
   \ 'coc-sh',
   \ 'coc-vimlsp']
 set hidden

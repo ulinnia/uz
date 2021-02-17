@@ -58,7 +58,7 @@ pac_av() {
     # 其他工具
     sudo pacman -S --noconfirm libreoffice-zh-CN tree vlc vim
     # 编程语言
-    sudo pacman -S --noconfirm bash-language-server clang nodejs yarn
+    sudo pacman -S --noconfirm bash-language-server clang nodejs rust yarn
     # steam
     #sudo pacman -S --noconfirm gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 }

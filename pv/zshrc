@@ -64,7 +64,7 @@ COMPLETION_WAITING_DOTS="true"
 # 格式范例：plugins=(rails git textmate ruby lighthouse)
 # 明智地添加，因为太多的插件会减慢Shell启动的速度。
 plugins=(
-    git z zsh-syntax-highlighting
+    git z
 )
 
 

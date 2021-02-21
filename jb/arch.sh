@@ -118,7 +118,7 @@ xhyx_av() {
     # 删除压缩包
     rm -rf ~/rime ~/.config/fcitx5/rime/default.yaml
     # 重新加载 fcitx 配置
-    fcitx-remote -r
+    fcitx5-remote -r
 }
 
 # 自启动管理

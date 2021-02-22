@@ -114,7 +114,7 @@ xhyx_av() {
     cd
     # 解压配置包
     7z x ${pvwj}flypy.7z
-    cp -r ~/rime ~/.local/share/fcitx5/
+    cp -r ~/rime ~/.local/share/fcitx5
     # 删除压缩包
     rm -rf ~/rime
     # 重新加载 fcitx 配置

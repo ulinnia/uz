@@ -19,7 +19,7 @@ y_gh() {
 # 安装软件
 rj_av() {
 #   y_gh
-    pkg install -y curl git lua54 man neovim nnn tree wget zsh
+    pkg install -y curl fish git lua54 man neovim nnn tree wget
     # 安装 oh-my-zsh。
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
 }
@@ -39,14 +39,14 @@ pvwj_xz() {
     curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }
 
-# 设置 zsh
+# 设置 fish
 zsh_uv() {
-    # 修改安装路径
-    sed -i "/^ZSH=/s/.*/export ZSH=~\/.oh-my-zsh/" ~/.zshrc
-    # 设 zsh 为默认 shell
-    chsh -s zsh
-    # 安装插件
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    # 设 fish 为默认 shell
+    chsh -s fish
+    # 安装 zlua
+    mkdir -p ~/.config/fish/conf.d
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
+    echo "source (lua /path/to/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
 }
 
 # 设置 vim

@@ -1,5 +1,5 @@
 
-if test -z $DISPLAY && test -x /bin/sway
+if test -z $DISPLAY && test -e /bin/sway
     # 启动 sway
     exec sway
 

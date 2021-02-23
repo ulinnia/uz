@@ -83,10 +83,14 @@ rj_av() {
     yay_av
 }
 
-# 设置 zsh
+# 设置 fish
 zsh_uv() {
-    # 更改默认 shell 为 zsh
-    sudo sed -i '/home/s/bash/zsh/' /etc/passwd
+    mkdir -p ~/.config/fish/conf.d
+    # 更改默认 shell 为 fish
+    sudo sed -i '/home/s/bash/fish/' /etc/passwd
+    # 安装 zlua
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
+    echo "source (lua /path/to/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
 }
 
 # 下载配置文件

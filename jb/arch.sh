@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # root 用户不建议使用此脚本
 yh_g() {
@@ -71,7 +71,7 @@ yay_pv() {
 # yay 安装软件
 yay_av() {
     # 安装 ohmyzsh、jmtpfs
-    yay -S --noconfirm oh-my-zsh-git jmtpfs
+    yay -S --noconfirm jmtpfs
 }
 
 # 安装软件
@@ -90,7 +90,7 @@ zsh_uv() {
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
     # 安装 zlua
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo "source (lua /path/to/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
+    echo "source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
 }
 
 # 下载配置文件

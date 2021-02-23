@@ -20,8 +20,6 @@ y_gh() {
 rj_av() {
 #   y_gh
     pkg install -y curl fish git lua54 man neovim nnn tree wget
-    # 安装 oh-my-zsh。
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
 }
 
 # 下载配置文件
@@ -46,7 +44,7 @@ zsh_uv() {
     # 安装 zlua
     mkdir -p ~/.config/fish/conf.d
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo "source (lua /path/to/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
+    echo "source (lua5.4 ~/.config/fish/conf.d/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
 }
 
 # 设置 vim

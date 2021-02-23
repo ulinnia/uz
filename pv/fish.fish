@@ -1,10 +1,12 @@
 
-if test -z $DISPLAY
+if test -z $DISPLAY && test -x /bin/sway
+    # 启动 sway
     exec sway
-end
 
-if status is-interactive
+# 如果是交互状态
+else if status is-interactive
 
+    # 目录跳回
     alias 1='cd -'
     alias 2='cd -2'
     alias 3='cd -3'
@@ -16,6 +18,7 @@ if status is-interactive
     alias 9='cd -9'
     alias _='sudo '
 
+    # git 控制
     alias g=git
     alias ga='git add'
     alias gaa='git add --all'
@@ -23,6 +26,7 @@ if status is-interactive
     alias gl='git pull'
     alias gp='git push'
 
+    # 其他
     alias fu='fusermount -u ~/gz'
     alias la='ls -a'
     alias nm='nmtui-connect'
@@ -31,8 +35,9 @@ if status is-interactive
     alias svi='sudo nvim'
     alias vi='nvim'
 
-    function fish_prompt --description 'Informative prompt'
-        #Save the return status of the previous command
+    # 提示符
+    function fish_prompt --description '信息提示'
+        # 保存上一条命令的返回状态
         set -l last_pipestatus $pipestatus
 
         switch "$USER"

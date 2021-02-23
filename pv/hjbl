@@ -1,19 +1,31 @@
-# This file contains fish universal variable definitions.
-# VERSION: 3.0
-SETUVAR --export EDITOR:nvim
-SETUVAR --export GTK_IM_MODULE:fcitx
+# 该文件包含fish通用变量定义。
+# 版本: 3.0
+
+# 语言设置
 SETUVAR --export LANG:zh_CN\x2eUTF\x2d8
 SETUVAR --export LANGUAGE:zh_CN\x3aen_US
 SETUVAR --export LC_CTYPE:en_US\x2eUTF\x2d8
-SETUVAR --export NNN_BMS:a\x3a\x7e/a\x3bx\x3a\x7e/xz\x3bj\x3a\x7e\x3bg\x3a\x7e/gz
-SETUVAR --export NNN_FIFO:/tmp/nnn\x2efifo
-SETUVAR --export NNN_PLUG:
-SETUVAR --export NNN_SEL:/tmp/\x2esel
-SETUVAR --export QT_IM_MODULE:fcitx
-SETUVAR --export SDL_IM_MODULE:fcitx
-SETUVAR --export XKB_DEFAULT_OPTIONS:ctrl\x3anocaps
-SETUVAR --export XMODIFIERS:\x40im\x3dfcitx
 
+# 设定输入法
+SETUVAR --export GTK_IM_MODULE:fcitx
+SETUVAR --export QT_IM_MODULE:fcitx
+SETUVAR --export XMODIFIERS:\x40im\x3dfcitx
+SETUVAR --export SDL_IM_MODULE:fcitx
+
+# nnn 书签，选择，插件，缓存
+SETUVAR --export NNN_BMS:a\x3a\x7e/a\x3bx\x3a\x7e/xz\x3bj\x3a\x7e\x3bg\x3a\x7e/gz
+SETUVAR --export NNN_SEL:/tmp/\x2esel
+SETUVAR --export NNN_PLUG:
+SETUVAR --export NNN_FIFO:/tmp/nnn\x2efifo
+
+# 默认编辑器
+SETUVAR --export EDITOR:nvim
+
+# 控制键替换大写锁定键
+SETUVAR --export XKB_DEFAULT_OPTIONS:ctrl\x3anocaps
+
+
+# fish 自带变量
 SETUVAR __fish_initialized:3100
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr

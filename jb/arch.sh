@@ -206,21 +206,27 @@ uz_uv() {
 
 # 文字提醒
 wztx() {
-    echo -e "\n请手动执行 fcitx-configtool 修改输入法。"
+    echo -e "\n请手动执行 fcitx5-configtool 修改输入法。"
 }
 
 # ======= 主程序 =======
-vix_yx() {
-    yh_g
-    rj_av
-    zsh_uv
-    pvwj_xz
-    xhyx_av
-    zqd_gl
-    jhwj_jl
-    vim_uv
-    uz_uv
-    wztx
-}
 
-vix_yx
+yh_g
+case $1 in
+    a)
+        pac_av
+        ;;
+
+    *)
+        rj_av
+        zsh_uv
+        pvwj_xz
+        xhyx_av
+        zqd_gl
+        jhwj_jl
+        vim_uv
+        uz_uv
+        wztx
+        ;;
+esac
+

@@ -19,7 +19,7 @@ y_gh() {
 # 安装软件
 rj_av() {
 #   y_gh
-    pkg install -y curl git lua man neovim nnn tree wget zsh
+    pkg install -y curl git lua54 man neovim nnn tree wget zsh
     # 安装 oh-my-zsh。
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh --depth 1
 }

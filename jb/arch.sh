@@ -50,7 +50,7 @@ pac_av() {
     # 网络工具
     sudo pacman -S --noconfirm curl firefox firefox-i18n-zh-cn git wget yay
     # 必要工具
-    sudo pacman -S --noconfirm neovim nnn p7zip zsh
+    sudo pacman -S --noconfirm fish neovim nnn p7zip zsh
     # 模糊搜索，图片
     sudo pacman -S --noconfirm fzf imv
     # mtp，蓝牙

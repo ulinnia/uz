@@ -96,16 +96,15 @@ zsh_uv() {
 # 下载配置文件
 pvwj_xz() {
     # 创建目录
-    mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx5,nvim/.backup,sway}}
+    mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx5,fish,nvim/.backup,sway}}
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
     # 链接配置文件
     pvwj=~/a/uz/pv/
     sudo ln -f ${pvwj}grub /etc/default/grub
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
-    ln -f ${pvwj}hjbl ~/.zshenv
-    ln -f ${pvwj}iupv ~/.zprofile
-    ln -f ${pvwj}zshrc ~/.zshrc
+    ln -f ${pvwj}hjbl ~/.config/fish/fish_variables
+    ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
     ln -f ${pvwj}sway ~/.config/sway/config
     ln -f ${pvwj}vtl.sh ~/.config/sway/vtl.sh
     ln -f ${pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml

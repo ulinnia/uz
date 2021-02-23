@@ -33,6 +33,7 @@ else if status is-interactive
     alias nn='nnn'
     alias gx='sudo pacman -Syu'
     alias svi='sudo nvim'
+    alias uz='uz/'
     alias vi='nvim'
 
     # 提示符

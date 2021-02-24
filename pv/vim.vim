@@ -219,6 +219,7 @@ call plug#end()
 let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-fish',
+  \ 'coc-highlight',
   \ 'coc-rust-analyzer',
   \ 'coc-sh',
   \ 'coc-vimlsp']

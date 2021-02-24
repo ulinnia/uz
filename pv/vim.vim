@@ -66,6 +66,8 @@ set background=dark " 设定背景颜色
 " 行号
 set number " 启用绝对行号
 set relativenumber " 启用相对行号
+noremap <F6> :set nu! rnu!<CR>
+" 开关行号
 
 " 状态栏
 set ruler " 显示光标位置
@@ -92,8 +94,6 @@ set matchtime=2 " 短暂跳转到匹配括号的时间
 " 隐藏字符
 set list " 显示隐藏字符
 set listchars=tab:>-,trail:~,nbsp:+,extends:>,precedes:< " 定义隐藏字符显示
-noremap <F6> :set list!<CR>
-" 开关显示隐藏字符
 
 " 缩进、退格
 set expandtab " tab键转空格

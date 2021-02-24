@@ -32,9 +32,8 @@ pvwj_xz() {
     # 链接配置文件
     pvwj=~/storage/shared/a/uz/pv/
     cp ${pvwj}vim.vim ~/.config/nvim/init.vim
-    cp ${pvwj}zshrc ~/.zshrc
-    ln -f ${pvwj}hjbl ~/.config/fish/fish_variables
-    ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
+    ln -fs ${pvwj}hjbl ~/.config/fish/fish_variables
+    ln -fs ${pvwj}fish.fish ~/.config/fish/config.fish
     # 下载 Ubuntu 字体
     curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }

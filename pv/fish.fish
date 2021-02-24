@@ -22,9 +22,15 @@ else if status is-interactive
     alias g=git
     alias ga='git add'
     alias gaa='git add --all'
+    alias gb='git branch'
+    alias gba='git branch -a'
     alias gcmsg='git commit -m'
+    alias gd='git diff'
     alias gl='git pull'
     alias gp='git push'
+    alias grh='git reset --hard'
+    alias grs='git reset --soft'
+    alias gst='git status'
 
     # 其他
     alias fu='fusermount -u ~/gz'

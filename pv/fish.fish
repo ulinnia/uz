@@ -1,6 +1,6 @@
 
+# 如果没有图形显示，则启动 sway
 if test -z $DISPLAY && test -e /bin/sway
-    # 启动 sway
     exec sway
 
 # 如果是交互状态

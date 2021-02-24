@@ -98,8 +98,9 @@ zsh_uv() {
 # fish 设置环境变量
 fish_hjbl() {
 
+    fish -c "
     # 移除欢迎语
-    set -U fish_greeting ""
+    set -U fish_greeting \"\"
 
     # 语言设置
     set -Ux LANG zh_CN.UTF-8
@@ -123,6 +124,7 @@ fish_hjbl() {
 
     # 控制键替换大写锁定键
     set -Ux XKB_DEFAULT_OPTIONS ctrl:nocaps
+    "
 }
 
 # 下载配置文件

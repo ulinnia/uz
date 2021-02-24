@@ -204,6 +204,7 @@ endfunc
 " ======= vim-plug 插件管理 =======
 call plug#begin('~/.config/nvim/plug')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dag/vim-fish'
 Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Xuyuanp/nerdtree-git-plugin'

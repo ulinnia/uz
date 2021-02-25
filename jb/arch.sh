@@ -107,7 +107,7 @@ pvwj_xz() {
     ln -f ${pvwj}sway ~/.config/sway/config
     ln -f ${pvwj}tuf.toml ~/.config/starship.toml
     ln -f ${pvwj}vtl.sh ~/.config/sway/vtl.sh
-    ln -f ${pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml
+    ln -f ${pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
     # fish 设置环境变量
     fish -c "$(cat ${pvwj}hjbl.fish)"

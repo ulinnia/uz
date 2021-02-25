@@ -33,6 +33,8 @@ pvwj_xz() {
     pvwj=~/storage/shared/a/uz/pv/
     cp ${pvwj}vim.vim ~/.config/nvim/init.vim
     ln -fs ${pvwj}fish.fish ~/.config/fish/config.fish
+    # fish 环境变量
+    fish -c ${pvwj}hjbl.fish
     # 下载 Ubuntu 字体
     curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 }
@@ -45,87 +47,6 @@ zsh_uv() {
     mkdir -p ~/.config/fish/conf.d
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo "source (lua5.4 ~/.config/fish/conf.d/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
-
-    fish_hjbl
-}
-
-# fish 设置环境变量
-fish_hjbl() {
-
-    fish -c "
-        # 移除欢迎语
-        set -U fish_greeting \"\"
-
-        # 语言设置
-        set -Ux LANG zh_CN.UTF-8
-        set -Ux LANGUAGE zh_CN:en_US
-        set -Ux LC_CTYPE en_US.UTF-8
-
-        # 设定输入法
-        set -Ux GTK_IM_MODULE fcitx
-        set -Ux QT_IM_MODULE fcitx
-        set -Ux XMODIFIERS @im=fcitx
-        set -Ux SDL_IM_MODULE fcitx
-
-        # nnn 书签，选择，插件，缓存
-        set -Ux NNN_BMS 'a:~/a;x:~/xz;j:~;g:~/gz'
-        set -Ux NNN_SEL '/tmp/.sel'
-        set -Ux NNN_PLUG ''
-        set -Ux NNN_FIFO '/tmp/nnn.fifo'
-
-        # 默认编辑器
-        set -Ux EDITOR nvim
-
-        # 控制键替换大写锁定键
-        set -Ux XKB_DEFAULT_OPTIONS ctrl:nocaps
-
-        # git 控制
-        abbr -a -U g git
-        abbr -a -U ga 'git add'
-        abbr -a -U gaa 'git add --all'
-        abbr -a -U gb 'git branch'
-        abbr -a -U gba 'git branch -a'
-        abbr -a -U gcmsg 'git commit -m'
-        abbr -a -U gd 'git diff'
-        abbr -a -U gl 'git pull'
-        abbr -a -U gp 'git push'
-        abbr -a -U grh 'git reset --hard'
-        abbr -a -U grs 'git reset --soft'
-        abbr -a -U gst 'git status'
-
-        # 其他
-        abbr -a -U 1 'cd -'
-        abbr -a -U fu 'fusermount -u ~/gz'
-        abbr -a -U la 'ls -a'
-        abbr -a -U nm 'nmtui-connect'
-        abbr -a -U nn 'nnn'
-        abbr -a -U gx 'sudo pacman -Syu'
-        abbr -a -U svi 'sudo nvim'
-        abbr -a -U uz 'cd ~/uz'
-        abbr -a -U vi 'nvim'
-
-        # fish 提示符
-        set -U __fish_git_prompt_show_informative_status 1
-        set -U __fish_git_prompt_hide_untrackedfiles 1
-
-        set -U __fish_git_prompt_color_branch magenta --bold
-        set -U __fish_git_prompt_showupstream \"informative\"
-        set -U __fish_git_prompt_char_upstream_ahead \"↑\"
-        set -U __fish_git_prompt_char_upstream_behind \"↓\"
-        set -U __fish_git_prompt_char_upstream_prefix \"\"
-
-        set -U __fish_git_prompt_char_stagedstate \"+\"
-        set -U __fish_git_prompt_char_dirtystate \"*\"
-        set -U __fish_git_prompt_char_untrackedfiles \"…\"
-        set -U __fish_git_prompt_char_conflictedstate \"\#\"
-        set -U __fish_git_prompt_char_cleanstate \"√\"
-
-        set -U __fish_git_prompt_color_dirtystate blue
-        set -U __fish_git_prompt_color_stagedstate yellow
-        set -U __fish_git_prompt_color_invalidstate red
-        set -U __fish_git_prompt_color_untrackedfiles $fish_color_normal
-        set -U __fish_git_prompt_color_cleanstate green --bold
-    "
 }
 
 # 设置 vim

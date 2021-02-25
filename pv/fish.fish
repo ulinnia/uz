@@ -6,41 +6,6 @@ if test -z $DISPLAY && test -e /bin/sway
 # 如果是交互状态
 else if status is-interactive
 
-    # 目录跳回
-    abbr 1 'cd -'
-    abbr 2 'cd -2'
-    abbr 3 'cd -3'
-    abbr 4 'cd -4'
-    abbr 5 'cd -5'
-    abbr 6 'cd -6'
-    abbr 7 'cd -7'
-    abbr 8 'cd -8'
-    abbr 9 'cd -9'
-
-    # git 控制
-    abbr g git
-    abbr ga 'git add'
-    abbr gaa 'git add --all'
-    abbr gb 'git branch'
-    abbr gba 'git branch -a'
-    abbr gcmsg 'git commit -m'
-    abbr gd 'git diff'
-    abbr gl 'git pull'
-    abbr gp 'git push'
-    abbr grh 'git reset --hard'
-    abbr grs 'git reset --soft'
-    abbr gst 'git status'
-
-    # 其他
-    abbr fu 'fusermount -u ~/gz'
-    abbr la 'ls -a'
-    abbr nm 'nmtui-connect'
-    abbr nn 'nnn'
-    abbr gx 'sudo pacman -Syu'
-    abbr svi 'sudo nvim'
-    abbr uz 'cd ~/uz'
-    abbr vi 'nvim'
-
     # 提示符
     function fish_prompt --description '信息提示'
         # 保存上一条命令的返回状态

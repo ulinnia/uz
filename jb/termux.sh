@@ -79,6 +79,31 @@ fish_hjbl() {
         # 控制键替换大写锁定键
         set -Ux XKB_DEFAULT_OPTIONS ctrl:nocaps
 
+        # git 控制
+        abbr -a -U g git
+        abbr -a -U ga 'git add'
+        abbr -a -U gaa 'git add --all'
+        abbr -a -U gb 'git branch'
+        abbr -a -U gba 'git branch -a'
+        abbr -a -U gcmsg 'git commit -m'
+        abbr -a -U gd 'git diff'
+        abbr -a -U gl 'git pull'
+        abbr -a -U gp 'git push'
+        abbr -a -U grh 'git reset --hard'
+        abbr -a -U grs 'git reset --soft'
+        abbr -a -U gst 'git status'
+
+        # 其他
+        abbr -a -U 1 'cd -'
+        abbr -a -U fu 'fusermount -u ~/gz'
+        abbr -a -U la 'ls -a'
+        abbr -a -U nm 'nmtui-connect'
+        abbr -a -U nn 'nnn'
+        abbr -a -U gx 'sudo pacman -Syu'
+        abbr -a -U svi 'sudo nvim'
+        abbr -a -U uz 'cd ~/uz'
+        abbr -a -U vi 'nvim'
+
         # fish 提示符
         set -U __fish_git_prompt_show_informative_status 1
         set -U __fish_git_prompt_hide_untrackedfiles 1

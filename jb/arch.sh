@@ -109,7 +109,7 @@ pvwj_xz() {
     ln -f ${pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
     # fish 设置环境变量
-    fish -c ${pvwj}hjbl.fish
+    fish -c $(cat ${pvwj}hjbl.fish)
 }
 
 # 安装小鹤音形

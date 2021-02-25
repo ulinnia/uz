@@ -70,8 +70,8 @@ yay_pv() {
 
 # yay 安装软件
 yay_av() {
-    # 安装 ohmyzsh、jmtpfs
-    yay -S --noconfirm jmtpfs
+    # 安装 jmtpfs，starship
+    yay -S --noconfirm jmtpfs starship
 }
 
 # 安装软件

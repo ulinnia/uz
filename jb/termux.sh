@@ -19,7 +19,7 @@ y_gh() {
 # 安装软件
 rj_av() {
 #   y_gh
-    pkg install -y curl fish git lua54 man neovim nnn tree wget zsh
+    pkg install -y curl fish git lua54 man neovim nnn starship tree wget zsh
 }
 
 # 下载配置文件

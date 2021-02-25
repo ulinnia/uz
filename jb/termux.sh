@@ -33,6 +33,7 @@ pvwj_xz() {
     pvwj=~/storage/shared/a/uz/pv/
     cp ${pvwj}vim.vim ~/.config/nvim/init.vim
     ln -fs ${pvwj}fish.fish ~/.config/fish/config.fish
+    ln -f ${pvwj}tuf.toml ~/.config/starship.toml
     # fish 设置环境变量
     fish -c "$(cat ${pvwj}hjbl.fish)"
     # 下载 Ubuntu 字体

@@ -105,6 +105,7 @@ pvwj_xz() {
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
     ln -f ${pvwj}sway ~/.config/sway/config
+    ln -f ${pvwj}tuf.toml ~/.config/starship.toml
     ln -f ${pvwj}vtl.sh ~/.config/sway/vtl.sh
     ln -f ${pvwj}vsdr.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim

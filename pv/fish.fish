@@ -1,3 +1,4 @@
+# ~/.config/fish/config.fish
 
 # 如果没有图形显示，则启动 sway
 if test -z $DISPLAY && test -e /bin/sway

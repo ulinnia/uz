@@ -1,3 +1,4 @@
+#!/bin/fish
 
 # 移除欢迎语
 set -U fish_greeting ""

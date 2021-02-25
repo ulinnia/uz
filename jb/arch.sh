@@ -222,7 +222,7 @@ case $1 in
         pac_av
         ;;
     h)
-        fish_hjbl
+        pvwj_xz
         ;;
     *)
         rj_av

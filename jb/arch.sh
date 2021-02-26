@@ -99,8 +99,10 @@ pvwj_xz() {
     mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx5,fish,nvim/.backup,sway}}
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
-    # 链接配置文件
     pvwj=~/a/uz/pv/
+    # fish 设置环境变量
+    fish -c "$(cat ${pvwj}hjbl.fish)"
+    # 链接配置文件
     sudo ln -f ${pvwj}grub /etc/default/grub
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
@@ -109,8 +111,6 @@ pvwj_xz() {
     ln -f ${pvwj}vtl.sh ~/.config/sway/vtl.sh
     ln -f ${pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
-    # fish 设置环境变量
-    fish -c "$(cat ${pvwj}hjbl.fish)"
 }
 
 # 安装小鹤音形

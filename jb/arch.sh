@@ -98,7 +98,9 @@ zsh_uv() {
 # 下载配置文件
 pvwj_xz() {
     # 创建目录
-    mkdir -p ~/{a,gz,xz,.config/{alacritty,fcitx5,fish,nvim/.backup,sway}}
+    mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,nvim/.backup,sway}}
+    # 壁纸
+    wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
     pvwj=~/a/uz/pv/

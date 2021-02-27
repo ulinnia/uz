@@ -94,7 +94,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 `pacman -Syy` 更新mirror数据库
 
-`pacstrap /mnt base base-devel linux linux-firmware` 安装 Arch 和 Package Group
+`pacstrap /mnt base base-devel linux linux-firmware fish` 安装 Arch 和 Package Group 和 fish
 
 `genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
@@ -103,6 +103,8 @@ mount /dev/nvme0n1p1 /mnt/boot
 `arch-chroot /mnt` 切换至安装好的 Arch
 
 ## 本地化
+
+`fish` 使用 fish，补全更智能
 
 `pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim` 安装必要软件
 

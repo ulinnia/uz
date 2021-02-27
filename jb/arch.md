@@ -156,8 +156,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 重新启动
 
 ```shell
-exit  #退出 chroot 环境
-umount -R /mnt #手动卸载被挂载的分区
+exit  # 退出 fish
+exit  # 退出 chroot 环境
+umount -R /mnt # 手动卸载被挂载的分区
 reboot
 ```
 

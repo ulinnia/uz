@@ -43,9 +43,9 @@ pac_av() {
     # 小企鹅输入法
     ${pacn} fcitx5-im fcitx5-rime
     # 显示服务器，sway
-    ${pacn} wayland sway swaybg swayidle swaylock xorg-server-xwayland
+    ${pacn} wayland sway swaybg swayidle swaylock waybar xorg-server-xwayland
     # 终端，软件启动器，qt5
-    ${pacn} alacritty dmenu qt5-wayland
+    ${pacn} alacritty wofi qt5-wayland
     # 播放控制，亮度控制，电源工具
     ${pacn} playerctl brightnessctl upower
     # 网络工具
@@ -112,7 +112,8 @@ pvwj_xz() {
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
     ln -f ${pvwj}sway ~/.config/sway/config
     ln -f ${pvwj}tuf.toml ~/.config/starship.toml
-    ln -f ${pvwj}vtl.sh ~/.config/sway/vtl.sh
+    ln -f ${pvwj}vtl.json ~/.config/waybar/config
+    ln -f ${pvwj}vtl.css ~/.config/waybar/style.css
     ln -f ${pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
 }

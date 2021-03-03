@@ -19,7 +19,8 @@ set $right l
 set $term alacritty
 # 首选应用启动器
 # 注意：将最终命令传递给swaymsg，以便可以在运行该命令的原始工作空间上打开结果窗口。
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show --allow-images run
 
 ### 输出配置
 # 随机壁纸
@@ -82,7 +83,7 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
@@ -195,7 +196,7 @@ bar {
     position top
 
     # 请记住，此配置文件的当前目录为 $HOME
-    status_command while bash ~/.config/sway/vtl.sh; do sleep 1; done
+    status_command waybar
 
     # https://i3wm.org/docs/userguide.html#_colors
     colors {

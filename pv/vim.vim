@@ -110,7 +110,6 @@ set foldcolumn=0 " 设置折叠区域的宽度
 set foldlevel=1 " 设置折叠层数为
 noremap <silent> <LEADER>o za
 " 开关折叠
-" set foldclose=all " 设置为自动关闭折叠
 
 " 编辑
 set autoread " 当文件在外部被修改时，自动更新该文件

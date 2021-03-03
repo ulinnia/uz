@@ -43,7 +43,7 @@ pac_av() {
     # 小企鹅输入法
     ${pacn} fcitx5-im fcitx5-rime
     # 显示服务器，sway
-    ${pacn} wayland sway swaybg swayidle swaylock waybar xorg-server-xwayland
+    ${pacn} wayland sway swaybg swayidle swaylock waybar xorg-xwayland
     # 终端，软件启动器，qt5
     ${pacn} alacritty wofi qt5-wayland
     # 播放控制，亮度控制，电源工具

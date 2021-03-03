@@ -47,7 +47,7 @@ pac_av() {
     # 终端，软件启动器，qt5
     ${pacn} alacritty wofi qt5-wayland
     # 播放控制，亮度控制，电源工具
-    ${pacn} playerctl brightnessctl upower
+    ${pacn} playerctl brightnessctl
     # 网络工具
     ${pacn} curl firefox firefox-i18n-zh-cn git wget yay
     # 必要工具

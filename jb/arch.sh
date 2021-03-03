@@ -43,7 +43,7 @@ pac_av() {
     # 小企鹅输入法
     ${pacn} fcitx5-im fcitx5-rime
     # 显示服务器，sway
-    ${pacn} wayland sway swaybg swayidle swaylock waybar xorg-xwayland
+    ${pacn} wayland sway swaybg swayidle swaylock i3status-rust xorg-xwayland
     # 终端，软件启动器，qt5
     ${pacn} alacritty wofi qt5-wayland
     # 播放控制，亮度控制，电源工具
@@ -98,7 +98,7 @@ zsh_uv() {
 # 下载配置文件
 pvwj_xz() {
     # 创建目录
-    mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,nvim/.backup,sway}}
+    mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,i3status-rust,nvim/.backup,sway}}
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
     # 克隆 uz 仓库
@@ -112,8 +112,7 @@ pvwj_xz() {
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
     ln -f ${pvwj}sway ~/.config/sway/config
     ln -f ${pvwj}tuf.toml ~/.config/starship.toml
-    ln -f ${pvwj}vtl.json ~/.config/waybar/config
-    ln -f ${pvwj}vtl.css ~/.config/waybar/style.css
+    ln -f ${pvwj}vtl.toml ~/.config/i3status-rust/config.toml
     ln -f ${pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
 }

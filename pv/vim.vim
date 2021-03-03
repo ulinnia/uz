@@ -104,7 +104,7 @@ set autoindent " 继承前一行的缩进方式，适用于多行注释
 set backspace=indent,eol,start " 不设定在插入状态无法用退格键和 Delete 键删除回车符
 
 " 折叠
-set foldenable " 开始折叠
+set foldenable " zM开始折叠，zR关闭折叠
 set foldmethod=indent " 设置缩进折叠
 set foldcolumn=0 " 设置折叠区域的宽度
 set foldlevel=1 " 设置折叠层数为

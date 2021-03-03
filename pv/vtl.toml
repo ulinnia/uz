@@ -20,7 +20,7 @@ format_swap = "{SUp}%"
 [[block]]
 block = "cpu"
 interval = 1
-format = "{barchart} {utilization} {frequency}"
+format = "{utilization} {frequency}"
 
 [[block]]
 block = "load"
@@ -29,15 +29,9 @@ format = "{1m}"
 
 [[block]]
 block = "net"
-format = "{ssid} {signal_strength} {ip} {speed_down} {graph_down}"
+format = "{ssid} {signal_strength} {ip} {speed_down}"
 interval = 5
 use_bits = false
-
-[[block]]
-block = "networkmanager"
-on_click = "alacritty -e nmtui"
-interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
-interface_name_include = []
 
 [[block]]
 block = "battery"
@@ -50,7 +44,7 @@ block = "backlight"
 
 [[block]]
 block = "sound"
-format = "{output_name} {volume}"
+format = "{volume}"
 
 [block.mappings]
 "alsa_output.usb-Harman_Multimedia_JBL_Pebbles_1.0.0-00.analog-stereo" = "🔈"
@@ -59,5 +53,5 @@ format = "{output_name} {volume}"
 [[block]]
 block = "time"
 interval = 1
-format = "%F %T %w"
+format = "%F %T ⭐%w"
 

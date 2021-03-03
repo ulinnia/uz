@@ -1,3 +1,4 @@
+
 theme = "native"
 icons = "awesome5"
 
@@ -18,14 +19,22 @@ format_mem = "{Mup}%"
 format_swap = "{SUp}%"
 
 [[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
 block = "cpu"
 interval = 1
 format = "{utilization} {frequency}"
 
 [[block]]
-block = "load"
-interval = 1
-format = "{1m}"
+block = "temperature"
+collapsed = false
+interval = 10
+format = "{average}°"
+chip = "*-isa-*"
+inputs = ["CPUTIN", "SYSTIN"]
 
 [[block]]
 block = "net"

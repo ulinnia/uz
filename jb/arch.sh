@@ -215,7 +215,7 @@ uz_uv() {
 
 # 文字提醒
 wztx() {
-    echo -e "\n请手动执行 fcitx5-configtool 修改输入法。"
+    echo -e "\n请手动执行 fcitx5-configtool 修改输入法。\n执行 sensors-detect 生成内核模块列表。"
 }
 
 # ======= 主程序 =======

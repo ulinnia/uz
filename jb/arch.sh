@@ -39,7 +39,7 @@ pac_av() {
     # 声卡，触摸板，显卡驱动
     ${pacn} alsa-utils pulseaudio-alsa xf86-input-libinput ${gpu}
     # 繁简中日韩，emoji，Ubuntu字体
-    ${pacn} noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family
+    ${pacn} noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
     # 小企鹅输入法
     ${pacn} fcitx5-im fcitx5-rime
     # 显示服务器，sway

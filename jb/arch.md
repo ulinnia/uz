@@ -26,13 +26,13 @@ windows 用户请使用 rufus
 
 ## 检查网络时间
 
-`ip link` 查看连接
+可选用 `ip link` 查看连接
 
 对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：`dhcpcd`
 
 无线网络请使用 `wifi-menu`
 
-`ping www.163.com` 测试网络是否可用，安装过程中需要用到网络
+可选用 `ping www.163.com` 测试网络是否可用，安装过程中需要用到网络
 
 `timedatectl set-ntp true` 更新系统时间
 
@@ -98,7 +98,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 `genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
-检查fstab文件 `cat /mnt/etc/fstab`
+可选用 `cat /mnt/etc/fstab` 检查fstab文件
 
 `arch-chroot /mnt` 切换至安装好的 Arch
 
@@ -133,9 +133,9 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 加入以下字串
 
 ```shell
-127.0.0.1	localhost
-::1		localhost
-127.0.1.1	主机名.localdomain 主机名
+127.0.0.1       localhost
+::1             localhost
+127.0.1.1       主机名.localdomain 主机名
 ```
 
 按 `o` 切换到下行输入模式，按 `ESC` 回到命令模式，`:x` 命令保存文件并退出。
@@ -146,21 +146,18 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 安装GRUB引导程序
 
-```shell
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-grub-mkconfig -o /boot/grub/grub.cfg
-```
+`grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub`
 
-检查grub文件 `vim /boot/grub/grub.cfg`
+`grub-mkconfig -o /boot/grub/grub.cfg`
+
+可选用 `vim /boot/grub/grub.cfg` 检查 grub 文件
 
 重新启动
 
-```shell
-exit  # 退出 fish
-exit  # 退出 chroot 环境
-umount -R /mnt # 手动卸载被挂载的分区
-reboot
-```
+`exit` 退出 fish
+`exit` 退出 chroot 环境
+可选用 `umount -R /mnt` 手动卸载被挂载的分区
+`reboot` 重启时，记得移除安装介质
 
 ## 搭建桌面环境
 

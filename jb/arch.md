@@ -118,7 +118,7 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 `arch-chroot /mnt` 切换至安装好的 Arch
 
-## 安装基本软件包
+### 安装基本软件包
 
 `fish` 使用 fish，补全更智能
 

@@ -53,11 +53,11 @@ pac_av() {
     # 必要工具
     ${pacn} fish neovim nnn p7zip zsh
     # 模糊搜索，图片
-    ${pacn} fzf imv
+    ${pacn} fzf imv pkgstats nftables
     # mtp，蓝牙
     ${pacn} libmtp pulseaudio-bluetooth bluez-utils
     # 其他工具
-    ${pacn} libreoffice-zh-CN tree vlc vim
+    ${pacn} libreoffice-fresh-zh-cn tree vlc vim
     # 编程语言
     ${pacn} bash-language-server clang lua nodejs rust yarn
     # steam
@@ -111,6 +111,7 @@ pvwj_xz() {
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
     ln -f ${pvwj}sway ~/.config/sway/config
+    ln -f ${pvwj}urf ~/.config/fcitx5/profile
     ln -f ${pvwj}vtl.toml ~/.config/i3status-rust/config.toml
     ln -f ${pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
@@ -130,7 +131,8 @@ xhyx_av() {
 
 # 自启动管理
 zqd_gl() {
-    sudo systemctl enable --now {bluetooth,NetworkManager,NetworkManager-dispatcher,tlp}
+    sudo systemctl enable --now
+    {bluetooth,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
     sudo systemctl disable dhcpcd
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 }

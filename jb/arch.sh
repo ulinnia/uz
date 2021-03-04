@@ -132,8 +132,7 @@ xhyx_av() {
 
 # 自启动管理
 zqd_gl() {
-    sudo systemctl enable --now
-    {bluetooth,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
+    sudo systemctl enable --now {bluetooth,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
     sudo systemctl disable dhcpcd
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 }

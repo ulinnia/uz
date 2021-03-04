@@ -111,7 +111,6 @@ pvwj_xz() {
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish
     ln -f ${pvwj}sway ~/.config/sway/config
-    ln -f ${pvwj}tuf.toml ~/.config/starship.toml
     ln -f ${pvwj}vtl.toml ~/.config/i3status-rust/config.toml
     ln -f ${pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f ${pvwj}vim.vim ~/.config/nvim/init.vim
@@ -200,17 +199,15 @@ vim_uv() {
 
 # uz 设置。
 uz_uv() {
-    if [ -d "$HOME/a/up/xt" ]; then
-        ln -s ~/a/uz ~/
-        cd ~/a/uz
-        # 记忆账号密码
-        git config credential.helper store
-        git config --global user.email "rraayy246@gmail.com"
-        git config --global user.name "ray"
-        # 默认合并分支
-        git config --global pull.rebase false
-        cd
-    fi
+    ln -s ~/a/uz ~/
+    cd ~/a/uz
+    # 记忆账号密码
+    git config credential.helper store
+    git config --global user.email "rraayy246@gmail.com"
+    git config --global user.name "ray"
+    # 默认合并分支
+    git config --global pull.rebase false
+    cd
 }
 
 # 文字提醒
@@ -228,6 +225,9 @@ case $1 in
     h)
         pvwj_xz
         ;;
+    u)
+        uz_uv
+        ;;
     *)
         rj_av
         zsh_uv
@@ -236,7 +236,6 @@ case $1 in
         zqd_gl
         jhwj_jl
         vim_uv
-        uz_uv
         wztx
         ;;
 esac

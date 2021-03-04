@@ -107,6 +107,7 @@ pvwj_xz() {
     # fish 设置环境变量
     fish -c "$(cat ${pvwj}hjbl.fish)"
     # 链接配置文件
+    sudo ln -f ${pvwj}fhq /etc/nftables.conf
     sudo ln -f ${pvwj}grub /etc/default/grub
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
     ln -f ${pvwj}fish.fish ~/.config/fish/config.fish

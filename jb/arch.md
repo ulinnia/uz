@@ -1,6 +1,7 @@
 # Arch Linux (UEFI with GPT) 安装
 
-## 下载 Arch Linux 镜像
+## 安装前的准备
+### 下载 Arch Linux 镜像
 
 <https://www.archlinux.org/download/>
 
@@ -8,7 +9,7 @@
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 
-## 镜像写入 U 盘
+### 镜像写入 U 盘
 
 `sudo fdisk -l` 查看设备
 
@@ -18,13 +19,13 @@
 
 windows 用户请使用 rufus
 
-## 从 U 盘启动 Arch live 环境
+### 从 U 盘启动 Arch live 环境
 
 在 UEFI BIOS 中设置启动磁盘为刚刚写入 Arch 系统的 U 盘。
 
 进入 U 盘的启动引导程序后，选择第一项：Arch Linux archiso x86_64 UEFI CD
 
-## 检查网络时间
+### 检查网络时间
 
 可选用 `ip link` 查看连接
 
@@ -36,7 +37,7 @@ windows 用户请使用 rufus
 
 `timedatectl set-ntp true` 更新系统时间
 
-## 磁盘分区
+### 磁盘分区
 
 `fdisk -l` 查看磁盘设备
 
@@ -70,7 +71,7 @@ nvme0n1是固态硬盘，sda是普通硬盘
 3. 保存新建的分区
     1. 输入 `w`
 
-## 磁盘格式化
+### 磁盘格式化
 
 `mkfs.fat -F32 /dev/nvme0n1p1` 格式化 EFI System 分区为 fat32 格式
 
@@ -78,13 +79,15 @@ nvme0n1是固态硬盘，sda是普通硬盘
 
 `mkfs.btrfs -f /dev/nvme0n1p2` 格式化 Linux root 分区为 brtfs 格式
 
-## 挂载文件系统
+### 挂载文件系统
 
 ```shell
 mount /dev/nvme0n1p2 /mnt
 mkdir /mnt/boot
 mount /dev/nvme0n1p1 /mnt/boot
 ```
+
+## 安装
 
 `vim /etc/pacman.d/mirrorlist` 配置 pacman mirror 镜像源
 
@@ -146,17 +149,20 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 安装GRUB引导程序
 
-`grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub`
+`grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub` 安装 grub
 
-`grub-mkconfig -o /boot/grub/grub.cfg`
+`grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 
 可选用 `vim /boot/grub/grub.cfg` 检查 grub 文件
 
 重新启动
 
 `exit` 退出 fish
+
 `exit` 退出 chroot 环境
+
 可选用 `umount -R /mnt` 手动卸载被挂载的分区
+
 `reboot` 重启时，记得移除安装介质
 
 ## 搭建桌面环境
@@ -169,7 +175,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `vim /etc/sudoers` 编辑sudo权限
 
-复制一行root ALL=(ALL) ALL, 并替换其中的root为新用户名，`:x!` 强制保存并退出。
+复制一行 root ALL=(ALL) ALL，并替换其中的root为新用户名，`:x!` 强制保存并退出。
 
 `exit` 退出root用户，并登陆新创建的用户。
 

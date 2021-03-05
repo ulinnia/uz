@@ -131,7 +131,7 @@ set wildmenu " 命令模式下，底部操作指令按下 Tab 键自动补全
 set wildmode=longest:list,full " 第一次按下 Tab，会显示所有匹配的操作指令的清单；第二次按下 Tab，会依次选择各个指令
 
 " 文件类型
-syntax on " 打开语法高亮。自动识别代码，使用多种颜色显示
+syntax enable " 打开语法高亮。自动识别代码，使用多种颜色显示
 filetype plugin indent on " 打开文件类型检测
 
 " 错误响铃

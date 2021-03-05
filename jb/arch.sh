@@ -53,7 +53,7 @@ pac_av() {
     # 必要工具
     ${pacn} fish neovim nnn p7zip zsh
     # 模糊搜索，图片
-    ${pacn} fzf imv pkgstats nftables
+    ${pacn} fzf imv pkgstats nftables dnscrypt-proxy
     # mtp，蓝牙
     ${pacn} libmtp pulseaudio-bluetooth bluez-utils
     # 其他工具
@@ -106,7 +106,11 @@ pvwj_xz() {
     pvwj=~/a/uz/pv/
     # fish 设置环境变量
     fish -c "$(cat ${pvwj}hjbl.fish)"
+    # dns
+    echo -e "nameserver 127.0.0.1\noptions edns0 single-request-reopen" | sudo tee /etc/resolv.conf 
+    sudo chattr +i /etc/resolv.conf
     # 链接配置文件
+    sudo ln -f ${pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f ${pvwj}fhq /etc/nftables.conf
     sudo ln -f ${pvwj}grub /etc/default/grub
     sudo ln -f ${pvwj}tlp /etc/tlp.conf
@@ -132,7 +136,7 @@ xhyx_av() {
 
 # 自启动管理
 zqd_gl() {
-    sudo systemctl enable --now {bluetooth,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
+    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
     sudo systemctl disable dhcpcd
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 }
@@ -214,7 +218,7 @@ uz_uv() {
 
 # 文字提醒
 wztx() {
-    echo -e "\n请手动执行 fcitx5-configtool 修改输入法。\n执行 sensors-detect 生成内核模块列表。"
+    echo -e "\n请手动执行 sensors-detect 生成内核模块列表。"
 }
 
 # ======= 主程序 =======

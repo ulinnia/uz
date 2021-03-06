@@ -56,7 +56,7 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
 
 `fdisk /dev/nvme0n1` 分区创建
 
-1. 新建启动分区
+1. 新建启动分区 (nvme0n1p1)
     1. 输入 `n`
     2. 选择分区区号，直接 `Enter`，使用默认值，fdisk 会自动递增分区号
     3. 分区开始扇区号，直接 `Enter`，使用默认值
@@ -64,7 +64,7 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
     5. 输入 `t` 修改刚刚创建的分区类型
     6. 输入 `1`，使用 EFI System 类型
 
-2. 新建根分区
+2. 新建根分区 (nvme0n1p2)
     1. 输入 `n`
     2. 选择分区区号，直接 `Enter`，使用默认值，fdisk 会自动递增分区号
     3. 分区开始扇区号，直接 `Enter`，使用默认值
@@ -75,17 +75,27 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
 3. 保存新建的分区
     1. 输入 `w`
 
+### 加密根分区
+
+`cryptsetup luksFormat /dev/nvme0n1p2` 初始化加密根分区
+
+输入你要设置的密码
+
+`cryptsetup open /dev/nvme0n1p2 ray` 使用密码打开根分区
+
+最后的参数是一个名字，它会是解密后的设备在 `/dev/mapper` 下的文件名。
+
 ### 格式化分区
 
 `mkfs.fat -F32 /dev/nvme0n1p1` 格式化启动分区为 fat32 格式
 
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
-`mkfs.btrfs -f /dev/nvme0n1p2` 格式化根分区为 brtfs 格式
+`mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 brtfs 格式
 
 ### 挂载分区
 
-`mount -o compress-force=zstd /dev/nvme0n1p2 /mnt` 挂载根分区并启用压缩
+`mount -o compress-force=zstd /dev/mapper/ray /mnt` 挂载根分区并启用压缩
 
 挂载启动分区
 
@@ -172,9 +182,25 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `passwd` 修改root密码
 
+### 修改内核钩子
+
+`vim /etc/mkinitcpio.conf` 修改内核钩子
+
+找到 `HOOKS` 开头那行，在 `keyboard` 后加入 `encrypt` 如下
+
+`HOOKS=(base ... keyboard encrypt ...)`
+
+`mkinitcpio -p linux` 重新生成 initramfs
+
 ### 安装引导程序
 
 `grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub` 安装 grub
+
+`vim /etc/default/grub` 修改启动参数
+
+找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，ray 为解密后的设备名
+
+`GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:ray"`
 
 `grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 

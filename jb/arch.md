@@ -190,6 +190,8 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `HOOKS=(base ... keyboard encrypt ...)`
 
+保存并退出
+
 `mkinitcpio -p linux` 重新生成 initramfs
 
 ### 安装引导程序
@@ -201,6 +203,8 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，分区和设备名以冒号分隔
 
 `GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:设备名"`
+
+保存并退出
 
 `grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 

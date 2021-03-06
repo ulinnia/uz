@@ -81,7 +81,7 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
 
 输入你要设置的密码
 
-`cryptsetup open /dev/nvme0n1p2 ray` 使用密码打开根分区
+`cryptsetup open /dev/nvme0n1p2 设备名` 使用密码打开根分区
 
 最后的参数是一个名字，它会是解密后的设备在 `/dev/mapper` 下的文件名。
 
@@ -91,11 +91,11 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
 
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
-`mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 brtfs 格式
+`mkfs.btrfs -f /dev/mapper/设备名` 格式化根分区为 brtfs 格式
 
 ### 挂载分区
 
-`mount -o compress-force=zstd /dev/mapper/ray /mnt` 挂载根分区并启用压缩
+`mount -o compress-force=zstd /dev/mapper/设备名 /mnt` 挂载根分区并启用压缩
 
 挂载启动分区
 
@@ -198,9 +198,9 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `vim /etc/default/grub` 修改启动参数
 
-找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，ray 为解密后的设备名
+找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，分区和设备名以冒号分隔
 
-`GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:ray"`
+`GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:设备名"`
 
 `grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 

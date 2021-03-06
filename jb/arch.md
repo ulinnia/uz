@@ -75,23 +75,13 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
 3. 保存新建的分区
     1. 输入 `w`
 
-### 加密根分区
-
-`cryptsetup luksFormat /dev/nvme0n1p2` 初始化加密根分区
-
-输入你要设置的密码
-
-`cryptsetup open /dev/nvme0n1p2 设备名` 使用密码打开根分区
-
-最后的参数是一个名字，它会是解密后的设备在 `/dev/mapper` 下的文件名。
-
 ### 格式化分区
 
 `mkfs.fat -F32 /dev/nvme0n1p1` 格式化启动分区为 fat32 格式
 
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
-`mkfs.btrfs -f /dev/mapper/设备名` 格式化根分区为 brtfs 格式
+`mkfs.btrfs -f /dev/nvme0n1p2` 格式化根分区为 brtfs 格式
 
 ### 挂载分区
 

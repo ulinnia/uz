@@ -2,17 +2,17 @@
 
 # root 用户不建议使用此脚本
 function yh_g
-    if test $USER = "root"
-        echo "请先退出root用户，并登陆新创建的用户。"
+    if test $USER = 'root'
+        echo '请先退出root用户，并登陆新创建的用户。'
         exit 1
     end
 end
 
 # 判断显卡驱动
 function xk_pd
-    if test -n (lspci -vnn | grep -i "vga.*amd.*radeon")
+    if test -n (lspci -vnn | grep -i 'vga.*amd.*radeon')
         set gpu xf86-video-amdgpu
-    else if test -n (lspci -vnn | grep -i "vga.*nvidia.*geforce")
+    else if test -n (lspci -vnn | grep -i 'vga.*nvidia.*geforce')
         set gpu xf86-video-nouveau
     end
 end
@@ -20,12 +20,12 @@ end
 # 修改 pacman 配置
 function pac_pv
     # pacman 增加 multilib 源
-    #sudo sed -i "/^#\[multilib\]/,+1s/^#//g" /etc/pacman.conf
+    #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
-    sudo sed -i "/^#Color$/s/#//" /etc/pacman.conf
+    sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
-    if test -z (grep "archlinuxcn" /etc/pacman.conf)
-        echo -e "[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
+    if test -z (grep 'archlinuxcn' /etc/pacman.conf)
+        echo -e '[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch' | sudo tee -a /etc/pacman.conf
         # 导入 GPG key
         sudo pacman -Syy --noconfirm archlinuxcn-keyring
     end
@@ -34,7 +34,7 @@ end
 # pacman 安装软件
 function pac_av
     # 更新系统并安装 btrfs 管理，网络管理器，tlp
-    echo -e "\n" | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
+    echo -e '\n' | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
     # 缩写
     set pacn sudo pacman -S --noconfirm
     # 声卡，触摸板，显卡驱动
@@ -67,7 +67,7 @@ end
 
 # 修改 yay 配置
 function yay_pv
-    yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
+    yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
 end
 
 # yay 安装软件
@@ -93,7 +93,7 @@ function zsh_uv
     sudo sed -i '/root/s/bash/fish/' /etc/passwd
     # 安装 zlua
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo "source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)" > ~/.config/fish/conf.d/z.fish
+    echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
 end
 
 # 下载配置文件
@@ -108,7 +108,7 @@ function pvwj_xz
     # fish 设置环境变量
     fish {$pvwj}hjbl.fish
     # dns
-    echo -e "nameserver 127.0.0.1\noptions edns0 single-request-reopen" | sudo tee /etc/resolv.conf
+    echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
     # 链接配置文件
     sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
@@ -154,9 +154,9 @@ end
 
 # 挂载交换文件
 function jhwj_gz
-    echo "/swap swap swap defaults 0 0" | sudo tee -a /etc/fstab
+    echo '/swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
     # 最大限度使用物理内存；生效
-    echo "vm.swappiness = 1" | sudo tee /etc/sysctl.conf
+    echo 'vm.swappiness = 1' | sudo tee /etc/sysctl.conf
     # 更新 sysctl 配置
     sudo sysctl -p
 end
@@ -164,15 +164,15 @@ end
 ### 设置内核参数
 function nhcu_uv
     # 设置 resume 参数
-    sudo sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/$(lsblk -l | awk '{ if($7=="/"){print $1} }')/" /etc/default/grub
+    sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/'(lsblk -l | awk '{ if($7=='/'){print $1} }')'/' /etc/default/grub
     # 下载 btrfs_map_physical 工具
-    wget -nv "https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c" -P ~
+    wget -nv 'https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c' -P ~
     # 编译 btrfs_map_physical 工具
     gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
     # 使用 btrfs_map_physical 提取 resume_offset 值
-    set offset (sudo ~/btrfs_map_physical /swap | awk '{ if($1=="0"){print $9} }')
+    set offset (sudo ~/btrfs_map_physical /swap | awk '{ if($1=='0'){print $9} }')
     # 设置 resume_offset 参数
-    sudo sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset=$((offset/4096))/" /etc/default/grub
+    sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset='(math $offset/4096)'/' /etc/default/grub
     # 删除 btrfs_map_physical 工具
     rm ~/btrfs_map_physical*
     # 更新 grub 配置
@@ -181,14 +181,14 @@ end
 
 # 设置 resume 钩子
 function gz_uv
-    sudo sed -i "/^HOOKS/s/udev/& resume/" /etc/mkinitcpio.conf
+    sudo sed -i '/^HOOKS/s/udev/& resume/' /etc/mkinitcpio.conf
     # 重新生成 initramfs 镜像
     sudo mkinitcpio -P
 end
 
 # 建立交换文件
 function jhwj_jl
-    if test ! -e "/swap"
+    if test ! -e '/swap'
         jhwj_ij
         jhwj_gz
         nhcu_uv
@@ -199,7 +199,7 @@ end
 # 设置 vim
 function vim_uv
     # 安装 vim-plug
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    sh -c 'curl -fLo '${XDG_DATA_HOME:-$HOME/.local/share}'/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     # 插件下载
     nvim +PlugInstall +qall
 end
@@ -210,8 +210,8 @@ function uz_uv
     cd ~/a/uz
     # 记忆账号密码
     git config credential.helper store
-    git config --global user.email "rraayy246@gmail.com"
-    git config --global user.name "ray"
+    git config --global user.email 'rraayy246@gmail.com'
+    git config --global user.name 'ray'
     # 默认合并分支
     git config --global pull.rebase false
     cd
@@ -219,7 +219,7 @@ end
 
 # 文字提醒
 function wztx
-    echo -e "\n请手动执行 sensors-detect 生成内核模块列表。"
+    echo -e '\n请手动执行 sensors-detect 生成内核模块列表。'
 end
 
 # ======= 主程序 =======

@@ -1,4 +1,4 @@
-#!/usr/bin/env fish
+#!/bin/fish
 
 # root 用户不建议使用此脚本
 function yh_g

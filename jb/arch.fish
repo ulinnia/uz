@@ -138,7 +138,7 @@ end
 # 自启动管理
 function zqd_gl
     sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
-    sudo systemctl disable dhcpcd
+    and sudo systemctl disable dhcpcd
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 end
 

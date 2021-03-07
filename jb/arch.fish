@@ -25,7 +25,7 @@ function pac_pv
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
     if test -z (grep 'archlinuxcn' /etc/pacman.conf)
-        echo -e '[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch' | sudo tee -a /etc/pacman.conf
+        echo -e '[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' | sudo tee -a /etc/pacman.conf
         # 导入 GPG key
         sudo pacman -Syy --noconfirm archlinuxcn-keyring
     end

@@ -113,7 +113,6 @@ function pvwj_xz
     # 链接配置文件
     sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f {$pvwj}fhq /etc/nftables.conf
-    sudo ln -f {$pvwj}grub /etc/default/grub
     sudo ln -f {$pvwj}tlp /etc/tlp.conf
     ln -f {$pvwj}fish.fish ~/.config/fish/config.fish
     ln -f {$pvwj}sway ~/.config/sway/config

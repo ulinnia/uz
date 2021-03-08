@@ -95,7 +95,7 @@ nvme0n1 是固态硬盘，sda 是普通硬盘
 
 ### 挂载分区
 
-`mount -o compress-force=zstd /dev/mapper/设备名 /mnt` 挂载根分区并启用压缩
+`mount -o autodefrag,compress-force=zstd /dev/mapper/设备名 /mnt` 挂载根分区并启用压缩
 
 挂载启动分区
 

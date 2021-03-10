@@ -146,7 +146,8 @@ end
 # 设置 vim
 function vim_uv
     # 安装 vim-plug
-    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     # 插件下载
     nvim +PlugInstall +qall
 end

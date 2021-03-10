@@ -202,6 +202,8 @@ endfunc
 
 " ======= vim-plug 插件管理 =======
 call plug#begin('~/.config/nvim/plug')
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dag/vim-fish'
 Plug 'preservim/nerdtree'
@@ -209,10 +211,15 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes' "airline 的主题
+Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'luochen1990/rainbow'
+
 call plug#end()
+
+" ======= md 预览 =======
+autocmd Filetype markdown noremap ,m :MarkdownPreview<CR>
+autocmd Filetype markdown noremap ,ms :MarkdownPreviewStop<CR>
 
 " ======= cocnvim =======
 " 自动下载 coc 插件

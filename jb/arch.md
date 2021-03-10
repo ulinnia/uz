@@ -174,7 +174,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# vim /etc/mkinitcpio.conf` 修改内核钩子
 
-找到 `HOOKS` 开头那行，在 `keyboard` 后加入 `encrypt` ：
+找到 `HOOKS` 开头那行，在 `keyboard` 后加入 `encrypt`，如下：
 
 `HOOKS=(base ... keyboard encrypt ...)`
 

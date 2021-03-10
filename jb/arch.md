@@ -74,9 +74,13 @@
 
 `# mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 brtfs 格式
 
+### 创建子卷
+
+``
+
 ### 挂载分区
 
-`# mount -o autodefrag,compress-force=zstd /dev/mapper/ray /mnt` 挂载根分区并启用碎片整理和压缩
+`# mount -o autodefrag,compress-force=zstd,subvol=a /dev/mapper/ray /mnt` 挂载根分区的子卷并启用碎片整理和压缩
 
 `# mkdir /mnt/boot` 创建启动目录
 
@@ -86,7 +90,7 @@
 
 ### 选择镜像
 
-`# vim /etc/pacman.d/mirrorlist` 配置 pacman mirror 镜像源
+`# vim /etc/pacman.d/mirrorlist` 配置 pacman 镜像源
 
 找到标有China的镜像源，命令模式下按下 `dd` 可以剪切光标下的行，按 `gg` 回到文件首，按 `P`（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
 
@@ -104,7 +108,7 @@
 
 `# genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
-可选用 `cat /mnt/etc/fstab` 检查fstab文件
+可选用 `cat /mnt/etc/fstab` 检查 fstab 文件
 
 ### 切换根目录
 
@@ -118,31 +122,31 @@
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
-因为本次安装使用btrfs文件系统，所以要安装 btrfs-progs。
+因为本次安装使用 btrfs 文件系统，所以要安装 btrfs-progs。
 
 ### 设置时区
 
 `# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
 
-`# hwclock --systohc` 设置时间标准为UTC
+`# hwclock --systohc` 设置时间标准为 UTC
 
 ### 本地化
 
 `# vim /etc/locale.gen` 修改本地化信息
 
-移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
+移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8 前面的 # 后保存。
 
 按 `x` 删除当前光标所在处的字符，按 `u` 撤消最后执行的命令，`:x` 命令保存文件并退出。
 
 `# locale-gen` 生成本地化信息
 
-`# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统 locale 设置为en_US.UTF-8
+`# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
 `# echo 主机名 > /etc/hostname` 修改主机名
 
 ### 网络配置
 
-`# vim /etc/hosts` 编辑hosts
+`# vim /etc/hosts` 编辑主机表
 
 加入以下字串
 
@@ -154,15 +158,15 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 按 `o` 切换到下行输入模式，按 `ESC` 回到命令模式，`:x` 命令保存文件并退出。
 
-`systemctl enable dhcpcd` 设置dhcpcd自启动
+`# systemctl enable dhcpcd` 设置 dhcpcd 自启动，下次启动才能连上网
 
 ### Root 密码
 
-`passwd` 修改root密码
+`# passwd` 修改 root 密码
 
 ### 修改内核钩子
 
-`vim /etc/mkinitcpio.conf` 修改内核钩子
+`# vim /etc/mkinitcpio.conf` 修改内核钩子
 
 找到 `HOOKS` 开头那行，在 `keyboard` 后加入 `encrypt` 如下
 
@@ -170,13 +174,13 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 保存并退出
 
-`mkinitcpio -p linux` 重新生成 initramfs
+`# mkinitcpio -p linux` 重新生成 initramfs
 
 ### 安装引导程序
 
-`grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub` 安装 grub
+`# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub` 安装 grub
 
-`vim /etc/default/grub` 修改启动参数
+`# vim /etc/default/grub` 修改启动参数
 
 找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，分区和设备名以冒号分隔
 
@@ -184,35 +188,35 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 保存并退出
 
-`grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
+`# grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 
 可选用 `vim /boot/grub/grub.cfg` 检查 grub 文件
 
 ### 重启
 
-`exit` 退出 fish
+`# exit` 退出 fish
 
-`exit` 退出 chroot 环境
+`# exit` 退出 chroot 环境
 
 可选用 `umount -R /mnt` 手动卸载被挂载的分区
 
-`reboot` 重启时，记得移除安装介质
+`# reboot` 重启时，记得移除安装介质
 
 ## 搭建桌面环境
 
-以root登入
+以 root 登入
 
 ### 创建用户
 
-`useradd -m 用户名` 创建新用户
+`# useradd -m 用户名` 创建新用户
 
-`passwd 用户名` 设置登陆密码
+`# passwd 用户名` 设置登陆密码
 
-`vim /etc/sudoers` 编辑sudo权限
+`# vim /etc/sudoers` 编辑sudo权限
 
-复制一行 root ALL=(ALL) ALL，并替换其中的root为新用户名，`:x!` 强制保存并退出。
+复制一行 root ALL=(ALL) ALL，并替换其中的 root 为新用户名，`:x!` 强制保存并退出。
 
-`exit` 退出root用户，并登陆新创建的用户。
+`# exit` 退出 root 用户，并登陆新创建的用户。
 
 ## 快速配置 arch
 

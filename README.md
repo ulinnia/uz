@@ -67,16 +67,19 @@
 - APEX英雄
 - 泰坦天降2
 - 去月球
+- 寻找天堂
 
 硬件。
 
 - (人体工学键盘) kinesis advantage 2
-- (轨迹球) Kensington Pro Fit® Ergo
+- (轨迹球) Kensington Pro Fit Ergo
 - (折叠爪刀) FX-599-XTS
 - (耳机) 韶音AS800
+- (闪存盘) Lexar JumpDrive M45
 
 软件。
 
+- (文件系统) Btrfs
 - (英文字体) Ubuntu font
 - (浏览器) Firefox 火狐
 - (影音播放器) VLC
@@ -86,6 +89,7 @@
 - (安卓音乐播放器) Vinyl Music Player
 - (安卓终端) Termux
 - (文档编辑器) Vim
+- (文件管理器) nnn
 
 不常用的软件。
 

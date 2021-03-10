@@ -44,6 +44,8 @@
 
 `# parted /dev/nvme0n1` 打开分区
 
+命令提示符会从 `#` 变成 `(parted)`
+
 `(parted) mklabel gpt` 创建 GPT 分区表
 
 `(parted) mkpart esp fat32 1m 513m` 创建启动分区 (nvme0n1p1)
@@ -54,7 +56,7 @@
 
 `(parted) p` 查看分区结果
 
-`(parted) q` 退出 parted 交互
+`(parted) q` 退出 parted 交互模式
 
 ### 加密根分区
 

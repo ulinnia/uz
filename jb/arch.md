@@ -190,7 +190,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，分区和设备名以冒号分隔：
 
-`GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:设备名"`
+`GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:ray"`
 
 保存并退出
 

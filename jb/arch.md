@@ -78,7 +78,7 @@
 
 ### 创建子卷
 
-`# mount -o /dev/mapper/ray /mnt` 挂载根分区
+`# mount /dev/mapper/ray /mnt` 挂载根分区
 
 `# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
 

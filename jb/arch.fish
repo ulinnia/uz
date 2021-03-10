@@ -2,7 +2,7 @@
 
 # root 用户不建议使用此脚本
 function yh_g --description 'root 用户退出'
-    if test $USER = 'root'
+    if test "$USER" = 'root'
         echo '请先退出root用户，并登陆新创建的用户。'
         exit 1
     end
@@ -129,70 +129,18 @@ function xhyx_av
     # 解压配置包
     7z x {$pvwj}flypy.7z
     mkdir -p ~/.local/share/fcitx5
-    mv -f ~/rime ~/.local/share/fcitx5
+    cp -rf ~/rime ~/.local/share/fcitx5
+    rm -rf ~/rime
     # 重新加载 fcitx 配置
     fcitx5-remote -r
 end
 
 # 自启动管理
 function zqd_gl
-    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager,NetworkManager-dispatcher,nftables,tlp}
+    sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
+    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,tlp} ;
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
-end
-
-# 创建交换文件
-function jhwj_ij
-    sudo touch /swap # 创建空白文件
-    sudo chattr +C /swap # 修改档案属性 不执行写入时复制（COW）
-    sudo fallocate -l 4G /swap # 创建4G空洞文件
-    sudo chmod 600 /swap # 修改文件读写执行权限
-    sudo mkswap /swap # 格式化交换文件
-    sudo swapon /swap # 启用交换文件
-end
-
-# 挂载交换文件
-function jhwj_gz
-    echo '/swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
-    # 最大限度使用物理内存；生效
-    echo 'vm.swappiness = 1' | sudo tee /etc/sysctl.conf
-    # 更新 sysctl 配置
-    sudo sysctl -p
-end
-
-### 设置内核参数
-function nhcu_uv
-    # 设置 resume 参数
-    sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume=\/dev\/\w*/resume=\/dev\/'(lsblk -l | awk '{ if($7=='/'){print $1} }')'/' /etc/default/grub
-    # 下载 btrfs_map_physical 工具
-    wget -nv 'https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrfs_map_physical.c' -P ~
-    # 编译 btrfs_map_physical 工具
-    gcc -O2 -o ~/btrfs_map_physical ~/btrfs_map_physical.c
-    # 使用 btrfs_map_physical 提取 resume_offset 值
-    set offset (sudo ~/btrfs_map_physical /swap | awk '{ if($1=='0'){print $9} }')
-    # 设置 resume_offset 参数
-    sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT/s/resume_offset=[0-9]*/resume_offset='(math $offset/4096)'/' /etc/default/grub
-    # 删除 btrfs_map_physical 工具
-    rm ~/btrfs_map_physical*
-    # 更新 grub 配置
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
-end
-
-# 设置 resume 钩子
-function gz_uv
-    sudo sed -i '/^HOOKS/s/udev/& resume/' /etc/mkinitcpio.conf
-    # 重新生成 initramfs 镜像
-    sudo mkinitcpio -P
-end
-
-# 建立交换文件
-function jhwj_jl
-    if test ! -e '/swap'
-        jhwj_ij
-        jhwj_gz
-        nhcu_uv
-        gz_uv
-    end
 end
 
 # 设置 vim

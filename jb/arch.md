@@ -154,7 +154,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# vim /etc/hosts` 编辑主机表
 
-加入以下字串
+加入以下字串：
 
 ```shell
 127.0.0.1       localhost
@@ -174,7 +174,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# vim /etc/mkinitcpio.conf` 修改内核钩子
 
-找到 `HOOKS` 开头那行，在 `keyboard` 后加入 `encrypt` 如下
+找到 `HOOKS` 开头那行，在 `keyboard` 后加入 `encrypt` ：
 
 `HOOKS=(base ... keyboard encrypt ...)`
 
@@ -188,7 +188,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# vim /etc/default/grub` 修改启动参数
 
-找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，分区和设备名以冒号分隔
+找到 `GRUB_CMDLINE_LINUX=` 开头那行，在引号中写入如下字串，nvme0n1p2 为根分区，分区和设备名以冒号分隔：
 
 `GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p2:设备名"`
 

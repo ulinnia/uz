@@ -16,7 +16,7 @@
 
 `$ sudo umount /dev/sda` /dev/sda 是我的闪盘，卸载闪盘。
 
-`$ sudo cp ~/xz/archlinux.iso /dev/sda` 镜像写入闪盘
+`$ sudo cp /home/ray/xz/archlinux.iso /dev/sda` 镜像写入闪盘
 
 ### 启动到 live 环境
 

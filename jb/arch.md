@@ -54,7 +54,7 @@
 
 `(parted) p` 查看分区结果
 
-`(parted) q` 离开 parted 交互
+`(parted) q` 退出 parted 交互
 
 ### 加密根分区
 

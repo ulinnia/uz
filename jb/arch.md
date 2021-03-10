@@ -12,25 +12,21 @@
 
 ### 镜像写入 U 盘
 
-`sudo fdisk -l` 查看设备
+`lsblk -f` 查看设备
 
-`sudo umount /dev/sdx*` /dev/sdx是我的U盘设备，umount U盘。
+`sudo umount /dev/sda` /dev/sda 是我的闪盘，umount 闪盘。
 
-`sudo cp path/to/archlinux.iso /dev/sdx` 镜像写入 U 盘
-
-windows 用户请使用 rufus
+`sudo cp path/to/archlinux.iso /dev/sda` 镜像写入闪盘
 
 ### 启动到 live 环境
 
-在 UEFI BIOS 中设置启动硬盘为刚刚写入 Arch 系统的 U 盘。
+在 UEFI BIOS 中设置启动硬盘为刚刚写入 Arch 系统的闪盘。
 
-进入 U 盘的启动引导程序后，选择第一项：Arch Linux archiso x86_64 UEFI CD
+进入闪盘的启动引导程序后，选择第一项：Arch Linux archiso x86_64 UEFI CD
 
 ### 检查网络
 
 可选用 `ip link` 查看连接
-
-对于有线网络，安装镜像启动的时候，默认会启动 dhcpcd，如果没有启动，可以手动启动：`dhcpcd`
 
 无线网络请使用 `wifi-menu`
 
@@ -42,10 +38,9 @@ windows 用户请使用 rufus
 
 ### 建立硬盘分区
 
-`fdisk -l` 查看硬盘设备
+`parted -l` 查看硬盘设备
 
-`fdisk /dev/nvme0n1` 新建分区表
-
+`parted /dev/nvme0n1` 新建分区表
 
 我要把系统安装在 nvme0n1 这个硬盘中
 

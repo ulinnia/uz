@@ -106,13 +106,13 @@ function pvwj_xz
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
-    # fish 设置环境变量
-    fish {$pvwj}hjbl.fish
     # dns
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
     # 缩写
     set pvwj ~/a/uz/pv/
+    # fish 设置环境变量
+    fish {$pvwj}hjbl.fish
     # 链接配置文件
     sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f {$pvwj}fhq /etc/nftables.conf

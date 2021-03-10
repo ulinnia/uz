@@ -228,5 +228,5 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 ```shell
 sudo pacman -S curl
-curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh | fish
+curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 ```

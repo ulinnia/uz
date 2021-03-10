@@ -124,7 +124,7 @@ cdhsmcq 彩虹猫
 
 ```shell
 sudo pacman -S curl
-sh -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh)"
+curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 ```
 
 

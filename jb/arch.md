@@ -6,17 +6,17 @@
 
 <https://www.archlinux.org/download/>
 
-`md5sum archlinux.iso` 验证镜像完整性
+`$ md5sum archlinux.iso` 验证镜像完整性
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 
 ### 镜像写入 U 盘
 
-`lsblk -f` 查看设备
+`$ lsblk -f` 查看设备
 
-`sudo umount /dev/sda` /dev/sda 是我的闪盘，umount 闪盘。
+`$ sudo umount /dev/sda` /dev/sda 是我的闪盘，卸载闪盘。
 
-`sudo cp path/to/archlinux.iso /dev/sda` 镜像写入闪盘
+`$ sudo cp path/to/archlinux.iso /dev/sda` 镜像写入闪盘
 
 ### 启动到 live 环境
 
@@ -26,84 +26,67 @@
 
 ### 检查网络
 
-可选用 `ip link` 查看连接
+连接网线，无线网络请使用 `wifi-menu`
 
-无线网络请使用 `wifi-menu`
+可选用 `ip link` 查看连接
 
 可选用 `ping www.163.com` 测试网络是否可用，安装过程中需要用到网络
 
 ### 更新系统时间
 
-`timedatectl set-ntp true` 更新系统时间
+`# timedatectl set-ntp true` 更新系统时间
 
 ### 建立硬盘分区
 
-`parted -l` 查看硬盘设备
+`# parted -l` 查看硬盘设备
 
-`parted /dev/nvme0n1` 新建分区表
+我要把系统安装在 nvme0n1 这个硬盘中（nvme0n1 是固态硬盘，sda 是普通硬盘）
 
-我要把系统安装在 nvme0n1 这个硬盘中
+`# parted /dev/nvme0n1` 打开分区
 
-nvme0n1 是固态硬盘，sda 是普通硬盘
+`(parted) mklabel gpt` 创建 GPT 分区表
 
-1. 输入 `g`，新建 GPT 分区表
-2. 输入 `w`，保存修改，这个操作会抹掉硬盘所有数据，慎重
+`(parted) mkpart esp fat32 1m 513m` 创建启动分区 (nvme0n1p1)
 
-`fdisk /dev/nvme0n1` 分区创建
+`(parted) set 1 boot on` 设置 esp 为启动分区
 
-1. 新建启动分区 (nvme0n1p1)
-    1. 输入 `n`
-    2. 选择分区区号，直接 `Enter`，使用默认值，fdisk 会自动递增分区号
-    3. 分区开始扇区号，直接 `Enter`，使用默认值
-    4. 分区结束扇区号，输入 `+512M`（推荐大小）
-    5. 输入 `t` 修改刚刚创建的分区类型
-    6. 输入 `1`，使用 EFI System 类型
+`(parted) mkpart root btrfs 513m 100%` 创建根分区 (nvme0n1p2)
 
-2. 新建根分区 (nvme0n1p2)
-    1. 输入 `n`
-    2. 选择分区区号，直接 `Enter`，使用默认值，fdisk 会自动递增分区号
-    3. 分区开始扇区号，直接 `Enter`，使用默认值
-    4. 分区结束扇区号，直接 `Enter`，选择全部剩余空间
-    5. 输入 `t` 修改分区类型
-    6. 选择分区区号，直接 `Enter`，选择刚创建的分区
-    7. 输入 `23`，使用 Linux root (x86-64) 类型
-3. 保存新建的分区
-    1. 输入 `w`
+`(parted) p` 查看分区结果
+
+`(parted) q` 离开 parted 交互
 
 ### 加密根分区
 
-`cryptsetup luksFormat /dev/nvme0n1p2` 初始化加密根分区
+`# cryptsetup luksFormat /dev/nvme0n1p2` 加密根分区
 
 输入你要设置的密码
 
-`cryptsetup open /dev/nvme0n1p2 设备名` 使用密码打开根分区
+`# cryptsetup open /dev/nvme0n1p2 ray` 使用密码打开根分区
 
 最后的参数是一个名字，它会是解密后的设备在 `/dev/mapper` 下的文件名。
 
 ### 格式化分区
 
-`mkfs.fat -F32 /dev/nvme0n1p1` 格式化启动分区为 fat32 格式
+`# mkfs.fat -F32 /dev/nvme0n1p1` 格式化启动分区为 fat32 格式
 
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
-`mkfs.btrfs -f /dev/mapper/设备名` 格式化根分区为 brtfs 格式
+`# mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 brtfs 格式
 
 ### 挂载分区
 
-`mount -o autodefrag,compress-force=zstd /dev/mapper/设备名 /mnt` 挂载根分区并启用压缩
+`# mount -o autodefrag,compress-force=zstd /dev/mapper/ray /mnt` 挂载根分区并启用碎片整理和压缩
 
-挂载启动分区
+`# mkdir /mnt/boot` 创建启动目录
 
-```shell
-mkdir /mnt/boot
-mount /dev/nvme0n1p1 /mnt/boot
-```
+`# mount /dev/nvme0n1p1 /mnt/boot` 挂载启动分区
 
 ## 安装
 
 ### 选择镜像
 
-`vim /etc/pacman.d/mirrorlist` 配置 pacman mirror 镜像源
+`# vim /etc/pacman.d/mirrorlist` 配置 pacman mirror 镜像源
 
 找到标有China的镜像源，命令模式下按下 `dd` 可以剪切光标下的行，按 `gg` 回到文件首，按 `P`（注意是大写的）将行粘贴到文件最前面的位置（优先级最高）。
 
@@ -111,27 +94,27 @@ mount /dev/nvme0n1p1 /mnt/boot
 
 ### 安装必须软件包
 
-`pacman -Syy` 更新mirror数据库
+`# pacman -Syy` 更新软件包数据库
 
-`pacstrap /mnt base base-devel linux linux-firmware fish` 安装 Arch 和 Package Group 和 fish
+`# pacstrap /mnt base base-devel linux linux-firmware fish` 安装基本包和 fish
 
 ## 配置系统
 
 ### Fstab
 
-`genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
+`# genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
 可选用 `cat /mnt/etc/fstab` 检查fstab文件
 
 ### 切换根目录
 
-`arch-chroot /mnt` 切换至安装好的 Arch
+`# arch-chroot /mnt` 切换至安装好的 Arch
 
 ### 安装基本软件包
 
-`fish` 使用 fish，补全更智能
+`# fish` 使用 fish，补全更智能
 
-`pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim` 安装必要软件
+`# pacman -S amd-ucode btrfs-progs dhcpcd efibootmgr grub os-prober vim` 安装必要软件
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
@@ -139,27 +122,27 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 ### 设置时区
 
-`ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
+`# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
 
-`hwclock --systohc` 设置时间标准为UTC
+`# hwclock --systohc` 设置时间标准为UTC
 
 ### 本地化
 
-`vim /etc/locale.gen` 修改本地化信息
+`# vim /etc/locale.gen` 修改本地化信息
 
 移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8前面的 # 后保存。
 
 按 `x` 删除当前光标所在处的字符，按 `u` 撤消最后执行的命令，`:x` 命令保存文件并退出。
 
-`locale-gen` 生成本地化信息
+`# locale-gen` 生成本地化信息
 
-`echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统 locale 设置为en_US.UTF-8
+`# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统 locale 设置为en_US.UTF-8
 
-`echo 主机名 > /etc/hostname` 修改主机名
+`# echo 主机名 > /etc/hostname` 修改主机名
 
 ### 网络配置
 
-`vim /etc/hosts` 编辑hosts
+`# vim /etc/hosts` 编辑hosts
 
 加入以下字串
 

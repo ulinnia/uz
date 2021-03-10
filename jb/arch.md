@@ -6,7 +6,7 @@
 
 <https://www.archlinux.org/download/>
 
-`$ md5sum archlinux.iso` 验证镜像完整性
+`$ md5sum ~/xz/archlinux.iso` 验证镜像完整性
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 
@@ -16,7 +16,7 @@
 
 `$ sudo umount /dev/sda` /dev/sda 是我的闪盘，卸载闪盘。
 
-`$ sudo cp path/to/archlinux.iso /dev/sda` 镜像写入闪盘
+`$ sudo cp ~/xz/archlinux.iso /dev/sda` 镜像写入闪盘
 
 ### 启动到 live 环境
 

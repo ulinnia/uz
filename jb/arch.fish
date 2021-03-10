@@ -33,10 +33,12 @@ end
 
 # pacman 安装软件
 function pac_av
-    # 更新系统并安装 btrfs 管理，网络管理器，tlp
-    echo -e '\n' | sudo pacman -Syu btrfs-progs networkmanager tlp tlp-rdw
+    # 更新系统
+    sudo pacman -Syu --noconfirm
     # 缩写
     set pacn sudo pacman -S --noconfirm
+    # btrfs 管理，网络管理器，tlp
+    $pacn btrfs-progs networkmanager tlp tlp-rdw
     # 声卡，触摸板，显卡驱动
     $pacn alsa-utils pulseaudio-alsa xf86-input-libinput $gpu
     # 繁简中日韩，emoji，Ubuntu字体
@@ -86,7 +88,7 @@ function rj_av
 end
 
 # 设置 fish
-function zsh_uv
+function fish_uv
     mkdir -p ~/.config/fish/conf.d
     # 更改默认 shell 为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
@@ -104,12 +106,13 @@ function pvwj_xz
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
-    set pvwj ~/a/uz/pv/
     # fish 设置环境变量
     fish {$pvwj}hjbl.fish
     # dns
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
+    # 缩写
+    set pvwj ~/a/uz/pv/
     # 链接配置文件
     sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f {$pvwj}fhq /etc/nftables.conf
@@ -167,7 +170,7 @@ end
 
 # 文字提醒
 function wztx
-    echo -e '\n请手动执行 sensors-detect 生成内核模块列表。'
+    echo -e '\n'
 end
 
 # ======= 主程序 =======
@@ -182,7 +185,7 @@ case u
     uz_uv
 case '*'
     rj_av
-    zsh_uv
+    fish_uv
     pvwj_xz
     xhyx_av
     zqd_gl

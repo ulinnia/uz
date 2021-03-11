@@ -8,16 +8,6 @@ function yh_ud --description 'root 用户退出'
     end
 end
 
-# 判断显卡驱动
-function xk_ud
-    if lspci -vnn | string match -iq '*vga*amd*radeon*'
-        set gpu xf86-video-amdgpu
-    else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
-        #set gpu xf86-video-nouveau
-        set gpu nvidia
-    end
-end
-
 # 修改 pacman 配置
 function pac_ud
     # pacman 增加 multilib 源
@@ -32,6 +22,16 @@ function pac_ud
     end
 end
 
+# 判断显卡驱动
+function xk_ud
+    if lspci -vnn | string match -iq '*vga*amd*radeon*'
+        return xf86-video-amdgpu
+    else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
+        #return xf86-video-nouveau
+        return nvidia
+    end
+end
+
 # pacman 安装软件
 function pac_av
     # 更新系统
@@ -41,7 +41,7 @@ function pac_av
     # btrfs 管理，网络管理器，tlp
     $pacn btrfs-progs networkmanager tlp tlp-rdw
     # 声卡，触摸板，显卡驱动
-    $pacn alsa-utils pulseaudio-alsa xf86-input-libinput $gpu
+    $pacn alsa-utils pulseaudio-alsa xf86-input-libinput (xk_ud)
     # 繁简中日韩，emoji，Ubuntu字体
     $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
     # 小企鹅输入法

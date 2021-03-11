@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # root 用户不建议使用此脚本
-function yh_uv --description 'root 用户退出'
+function yh_ud --description 'root 用户退出'
     if test "$USER" = 'root'
         echo '请先退出root用户，并登陆新创建的用户。'
         exit 1
@@ -9,7 +9,7 @@ function yh_uv --description 'root 用户退出'
 end
 
 # 判断显卡驱动
-function xk_uv
+function xk_ud
     if lspci -vnn | string match -iq 'vga.*amd.*radeon'
         set gpu xf86-video-amdgpu
     else if lspci -vnn | string match -iq 'vga.*nvidia.*geforce'
@@ -19,7 +19,7 @@ function xk_uv
 end
 
 # 修改 pacman 配置
-function pac_uv
+function pac_ud
     # pacman 增加 multilib 源
     sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
@@ -72,7 +72,7 @@ function pac_av
 end
 
 # 修改 yay 配置
-function yay_uv
+function yay_ud
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
 end
 
@@ -84,15 +84,15 @@ end
 
 # 安装软件
 function rj_av
-    xk_uv
-    pac_uv
+    xk_ud
+    pac_ud
     pac_av
-    yay_uv
+    yay_ud
     yay_av
 end
 
 # 设置 fish
-function fish_uv
+function fish_ud
     mkdir -p ~/.config/fish/conf.d
     # 更改默认 shell 为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
@@ -103,7 +103,7 @@ function fish_uv
 end
 
 # 下载配置文件
-function pvwj_uv
+function pvwj_ud
     # 创建目录
     mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,i3status-rust,nvim/.backup,sway}}
     # 壁纸
@@ -146,7 +146,7 @@ function xhyx_av
 end
 
 # 自启动管理
-function zqd_uv
+function zqd_ud
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
     sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,tlp} ;
@@ -154,7 +154,7 @@ function zqd_uv
 end
 
 # 设置 vim
-function vim_uv
+function vim_ud
     # 安装 vim-plug
     curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -163,7 +163,7 @@ function vim_uv
 end
 
 # uz 设置。
-function uz_uv
+function uz_ud
     ln -s ~/a/uz ~/
     cd ~/a/uz
     # 记忆账号密码
@@ -182,21 +182,21 @@ end
 
 # ======= 主程序 =======
 
-yh_uv
+yh_ud
 switch $argv[1]
 case a
     pac_av
 case p
-    pvwj_uv
+    pvwj_ud
 case u
-    uz_uv
+    uz_ud
 case '*'
     rj_av
-    fish_uv
-    pvwj_uv
+    fish_ud
+    pvwj_ud
     xhyx_av
-    zqd_uv
-    vim_uv
+    zqd_ud
+    vim_ud
     wztx
 end
 

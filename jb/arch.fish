@@ -11,7 +11,8 @@ end
 # 判断显卡驱动
 function xk_pd
     if test -n (lspci -vnn | grep -i 'vga.*amd.*radeon')
-        set gpu xf86-video-amdgpu
+        #set gpu xf86-video-amdgpu
+        set gpu nvidia
     else if test -n (lspci -vnn | grep -i 'vga.*nvidia.*geforce')
         set gpu xf86-video-nouveau
     end
@@ -20,7 +21,7 @@ end
 # 修改 pacman 配置
 function pac_pv
     # pacman 增加 multilib 源
-    #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
+    sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
@@ -45,10 +46,13 @@ function pac_av
     $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
     # 小企鹅输入法
     $pacn fcitx5-im fcitx5-rime
-    # 显示服务器，sway
-    $pacn wayland sway swaybg swayidle swaylock i3status-rust xorg-xwayland
-    # 终端，软件启动器，qt5
-    $pacn alacritty wofi qt5-wayland
+    # 显示服务器 wayland
+    #$pacn wayland sway swaybg swayidle swaylock xorg-xwayland
+    #$pacn wofi qt5-wayland
+    # 显示服务器 xorg
+    $pacn xorg xorg-xinit i3-gaps i3lock rofi
+    # 终端
+    $pacn alacritty i3status-rust
     # 播放控制，亮度控制，电源工具
     $pacn playerctl brightnessctl upower lm_sensors
     # 网络工具
@@ -64,7 +68,7 @@ function pac_av
     # 编程语言
     $pacn bash-language-server clang lua nodejs rust yarn
     # steam
-    #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
+    $pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 end
 
 # 修改 yay 配置
@@ -104,6 +108,8 @@ function pvwj_xz
     mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,i3status-rust,nvim/.backup,sway}}
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
+    # xinit
+    echo 'exec i3' > ~/.xinitrc
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
     # dns
@@ -118,7 +124,8 @@ function pvwj_xz
     sudo ln -f {$pvwj}fhq /etc/nftables.conf
     sudo ln -f {$pvwj}tlp /etc/tlp.conf
     ln -f {$pvwj}fish.fish ~/.config/fish/config.fish
-    ln -f {$pvwj}sway ~/.config/sway/config
+    #ln -f {$pvwj}sway ~/.config/sway/config
+    ln -f {$pvwj}i3 ~/.config/i3/config
     ln -f {$pvwj}urf ~/.config/fcitx5/profile
     ln -f {$pvwj}vtl.toml ~/.config/i3status-rust/config.toml
     ln -f {$pvwj}vd.yml ~/.config/alacritty/alacritty.yml

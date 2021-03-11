@@ -123,7 +123,6 @@ cdhsmcq 彩虹猫
 请先[安装arch](jb/arch.md)
 
 ```shell
-sudo pacman -S curl
 curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 ```
 

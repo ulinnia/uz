@@ -178,6 +178,8 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `HOOKS=(base ... keyboard encrypt ...)`
 
+如果是安装在可移动设备上，要把 `block` 和 `keyboard` 移动到 `autodetect` 之前。
+
 保存并退出
 
 `# mkinitcpio -p linux` 重新生成 initramfs
@@ -185,6 +187,8 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 ### 安装引导程序
 
 `# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub` 安装 grub
+
+如果是安装在可移动设备上，要再加上 `--removable` 参数。
 
 `# vim /etc/default/grub` 修改启动参数
 

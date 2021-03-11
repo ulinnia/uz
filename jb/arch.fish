@@ -25,10 +25,10 @@ end
 # 判断显卡驱动
 function xk_ud
     if lspci -vnn | string match -iq '*vga*amd*radeon*'
-        return xf86-video-amdgpu
+        echo xf86-video-amdgpu
     else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
-        #return xf86-video-nouveau
-        return nvidia
+        #echo xf86-video-nouveau
+        echo nvidia
     end
 end
 

@@ -19,11 +19,6 @@ format_mem = "{Mup}%"
 format_swap = "{SUp}%"
 
 [[block]]
-block = "load"
-interval = 1
-format = "{1m}"
-
-[[block]]
 block = "cpu"
 interval = 1
 format = "{utilization} {frequency}"

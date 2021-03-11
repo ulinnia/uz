@@ -137,7 +137,7 @@ end
 function xhyx_av
     cd
     # 解压配置包
-    7z x {$pvwj}flypy.7z
+    7z x ~/a/uz/pv/flypy.7z
     mkdir -p ~/.local/share/fcitx5
     cp -rf ~/rime ~/.local/share/fcitx5
     rm -rf ~/rime

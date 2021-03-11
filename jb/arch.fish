@@ -196,7 +196,6 @@ case '*'
     pvwj_xz
     xhyx_av
     zqd_gl
-    jhwj_jl
     vim_uv
     wztx
 end

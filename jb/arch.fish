@@ -46,10 +46,10 @@ function pac_av
     $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
     # 小企鹅输入法
     $pacn fcitx5-im fcitx5-rime
-    # 显示服务器 wayland
+    # wayland 显示服务器
     #$pacn wayland sway swaybg swayidle swaylock xorg-xwayland
     #$pacn wofi qt5-wayland
-    # 显示服务器 xorg
+    # xorg 显示服务器
     $pacn xorg xorg-xinit i3-gaps i3lock rofi
     # 终端
     $pacn alacritty i3status-rust
@@ -67,6 +67,8 @@ function pac_av
     $pacn libreoffice-fresh-zh-cn tree vlc vim
     # 编程语言
     $pacn bash-language-server clang lua nodejs rust yarn
+    # 安装 arch
+    $pacn arch-install-scripts dosfstools parted
     # steam
     $pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 end

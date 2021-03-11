@@ -11,10 +11,10 @@ end
 # 判断显卡驱动
 function xk_pd
     if lspci -vnn | string match -iq 'vga.*amd.*radeon'
-        #set gpu xf86-video-amdgpu
-        set gpu nvidia
+        set gpu xf86-video-amdgpu
     else if lspci -vnn | string match -iq 'vga.*nvidia.*geforce'
-        set gpu xf86-video-nouveau
+        #set gpu xf86-video-nouveau
+        set gpu nvidia
     end
 end
 
@@ -25,7 +25,7 @@ function pac_pv
     # pacman 开启颜色
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
-    if string match -q 'archlinuxcn' < /etc/pacman.conf
+    if not string match -q 'archlinuxcn' < /etc/pacman.conf
         echo -e '[archlinuxcn]\nServer =  https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' | sudo tee -a /etc/pacman.conf
         # 导入 GPG key
         sudo pacman -Syy --noconfirm archlinuxcn-keyring

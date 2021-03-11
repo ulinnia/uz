@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # root 用户不建议使用此脚本
-function yh_g --description 'root 用户退出'
+function yh_uv --description 'root 用户退出'
     if test "$USER" = 'root'
         echo '请先退出root用户，并登陆新创建的用户。'
         exit 1
@@ -9,7 +9,7 @@ function yh_g --description 'root 用户退出'
 end
 
 # 判断显卡驱动
-function xk_pd
+function xk_uv
     if lspci -vnn | string match -iq 'vga.*amd.*radeon'
         set gpu xf86-video-amdgpu
     else if lspci -vnn | string match -iq 'vga.*nvidia.*geforce'
@@ -19,7 +19,7 @@ function xk_pd
 end
 
 # 修改 pacman 配置
-function pac_pv
+function pac_uv
     # pacman 增加 multilib 源
     sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
@@ -72,7 +72,7 @@ function pac_av
 end
 
 # 修改 yay 配置
-function yay_pv
+function yay_uv
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
 end
 
@@ -84,10 +84,10 @@ end
 
 # 安装软件
 function rj_av
-    xk_pd
-    pac_pv
+    xk_uv
+    pac_uv
     pac_av
-    yay_pv
+    yay_uv
     yay_av
 end
 
@@ -103,7 +103,7 @@ function fish_uv
 end
 
 # 下载配置文件
-function pvwj_xz
+function pvwj_uv
     # 创建目录
     mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,i3status-rust,nvim/.backup,sway}}
     # 壁纸
@@ -146,7 +146,7 @@ function xhyx_av
 end
 
 # 自启动管理
-function zqd_gl
+function zqd_uv
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
     sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,tlp} ;
@@ -182,20 +182,20 @@ end
 
 # ======= 主程序 =======
 
-yh_g
+yh_uv
 switch $argv[1]
 case a
     pac_av
 case p
-    pvwj_xz
+    pvwj_uv
 case u
     uz_uv
 case '*'
     rj_av
     fish_uv
-    pvwj_xz
+    pvwj_uv
     xhyx_av
-    zqd_gl
+    zqd_uv
     vim_uv
     wztx
 end

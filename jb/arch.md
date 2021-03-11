@@ -86,7 +86,7 @@
 
 ### 挂载分区
 
-`# mount -o autodefrag,compress-force=zstd,subvol=a /dev/mapper/ray /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
+`# mount -o autodefrag,compress=zstd,subvol=a /dev/mapper/ray /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
 
 `# mkdir /mnt/boot` 创建启动目录
 

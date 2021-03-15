@@ -130,6 +130,6 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 ### Termux配置 ###
 
 ```shell
-pkg install -y curl; sh -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/termux.sh)"
+pkg install -y curl fish; curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/termux.fish | fish
 ```
 

@@ -57,7 +57,7 @@ end
 
 # uz 设置。
 function uz_ud
-    if test -d "$HOME/storage/shared/a/up/xt"
+    if test -d $HOME/storage/shared/a/up/xt
         ln -s ~/storage/shared/a/uz ~/uz
         cd ~/uz
         # 记忆账号密码

@@ -58,7 +58,7 @@ function pac_av
     # 网络工具
     $pacn curl firefox firefox-i18n-zh-cn git wget yay
     # 必要工具
-    $pacn fish neovim nnn p7zip zsh
+    $pacn fish neovim nnn openssh p7zip zsh
     # 模糊搜索，图片
     $pacn fzf imv pkgstats nftables dnscrypt-proxy
     # mtp，蓝牙

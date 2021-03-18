@@ -19,7 +19,7 @@ end
 # 安装软件
 function rj_av
 #   y_gh
-    pkg install -y curl fish git lua54 man neovim starship tree wget zsh
+    pkg install -y curl fish git lua54 man neovim openssh starship tree wget zsh
 end
 
 # 下载配置文件

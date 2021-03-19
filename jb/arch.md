@@ -30,7 +30,7 @@
 
 可选用 `ip link` 查看连接
 
-可选用 `ping www.163.com` 测试网络是否可用，安装过程中需要用到网络
+可选用 `ping 1.1.1.1` 测试网络是否可用，安装过程中需要用到网络
 
 ### 更新系统时间
 
@@ -74,7 +74,7 @@
 
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
-`# mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 brtfs 格式
+`# mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 Brtfs 格式
 
 ### 创建子卷
 
@@ -128,7 +128,7 @@
 
 amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
-因为本次安装使用 btrfs 文件系统，所以要安装 btrfs-progs。
+因为本次安装使用 Btrfs 文件系统，所以要安装 btrfs-progs。
 
 ### 设置时区
 
@@ -200,11 +200,11 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 
-可选用 `vim /boot/grub/grub.cfg` 检查 grub 文件
+可选用 `vim /boot/grub/grub.cfg` 检查 Grub 文件
 
 ### 重启
 
-`# exit` 退出 fish
+`# exit` 退出 Fish
 
 `# exit` 退出 chroot 环境
 

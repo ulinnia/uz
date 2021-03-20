@@ -81,12 +81,12 @@ function zqd_ud
     sudo systemctl enable --now {dnscrypt-proxy,nftables,ntpd,sshd} ;
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
     # 更换虚拟终端为 kmscon
-    ln -s /usr/lib/systemd/system/kmsconvt\@.service /etc/systemd/system/autovt\@.service
+    sudo ln -s /usr/lib/systemd/system/kmsconvt\@.service /etc/systemd/system/autovt\@.service
 end
 
 # uz 设置。
 function uz_ud
-    ln -s ~/storage/shared/a/uz ~/uz
+    ln -s ~/a/uz ~/uz
     cd ~/uz
     # 默认合并分支
     git config --global pull.rebase false

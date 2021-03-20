@@ -6,8 +6,8 @@
 </p>
 
 - [彩虹猫](#彩虹猫)
-- [Arch 配置](#Arch配置)
-- [Arch 服务器配置](#Arch服务器配置)
+- [Arch 配置](#Arch\ 配置)
+- [Arch 服务器配置](#Arch 服务器配置)
 - [Termux 配置](#Termux配置)
 
 

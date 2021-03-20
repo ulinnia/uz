@@ -6,8 +6,9 @@
 </p>
 
 - [彩虹猫](#彩虹猫)
-- [Arch配置](#Arch配置)
-- [Termux配置](#Termux配置)
+- [Arch 配置](#Arch 配置)
+- [Arch 服务器配置](#Arch 服务器配置)
+- [Termux 配置](#Termux 配置)
 
 
 ## 神作 ##
@@ -118,7 +119,7 @@ cdhsmcq 彩虹猫
 [aidn.jp](https://aidn.jp/)
 
 
-### Arch配置 ###
+### Arch 配置 ###
 
 请先[安装arch](jb/arch.md)
 
@@ -127,7 +128,16 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 ```
 
 
-### Termux配置 ###
+### Arch 服务器配置 ###
+
+请先[安装arch](jb/archv.md)
+
+```shell
+curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
+```
+
+
+### Termux 配置 ###
 
 ```shell
 pkg install -y curl fish; curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/termux.fish | fish

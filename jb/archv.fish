@@ -71,7 +71,7 @@ function pvwj_ud
     # nvim 注释 plug 配置
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
     # sudo 免密码
-    if not string match -q '%sudo*NOPASSWD:' < /etc/sudoers
+    if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
         echo '%sudo ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers
     end
 end

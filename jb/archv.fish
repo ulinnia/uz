@@ -77,7 +77,7 @@ function pvwj_ud
 end
 
 # 自启动
-fuction zqd_ud
+function zqd_ud
     sudo systemctl enable --now {dnscrypt-proxy,nftables,ntpd,sshd} ;
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
     # 更换虚拟终端为 kmscon
@@ -91,6 +91,23 @@ function uz_ud
     # 默认合并分支
     git config --global pull.rebase false
     cd
+end
+
+
+# ======= 主程序 =======
+
+yh_ud
+switch $argv[1]
+case a
+    pac_av
+case p
+    pvwj_ud
+case '*'
+    pac_ud
+    pac_av
+    pvwj_ud
+    zqd_ud
+    uz_ud
 end
 
 

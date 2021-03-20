@@ -1,12 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/fish
 
 # 连接内部存储。
-function nbci_ud
-    termux-setup-storage
-end
+termux-setup-storage
 
 # 更换源
-function y_gh
+function rj_ud
     sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
 
     sed -i 's@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@' $PREFIX/etc/apt/sources.list.d/game.list
@@ -18,80 +16,71 @@ end
 
 # 安装软件
 function rj_av
-#   y_gh
     pkg install -y curl fish git lua54 man neovim openssh starship tree wget zsh
 end
 
-# 下载配置文件
-function pvwj_ud
-    # 创建文件夹
-    mkdir -p ~/.config/nvim/.backup
-    mkdir ~/storage/shared/a
+# uz 设定
+function uz_ud
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/storage/shared/a/uz --depth 1
-    # 链接配置文件
+    # 链接 uz
+    ln -s ~/storage/shared/a/uz ~/uz
+    cd ~/uz
+    # 记忆账号密码
+    git config credential.helper store
+    git config --global user.email 'rraayy246@gmail.com'
+    git config --global user.name 'ray'
+    # 默认合并分支
+    git config --global pull.rebase false
+    cd
+end
+
+# 复制设定
+function fv_ud
+    # 创建文件夹
+    mkdir -p ~/.config/{fish/conf.d,nvim/.backup}
+    mkdir ~/storage/shared/a
+    # 缩写
     set pvwj ~/storage/shared/a/uz/pv/
-    cp {$pvwj}vim.vim ~/.config/nvim/init.vim
-    ln -fs {$pvwj}fish.fish ~/.config/fish/config.fish
     # fish 设置环境变量
     fish {$pvwj}hjbl.fish
+    # 链接配置文件
+    cp -f {$pvwj}vim.vim ~/.config/nvim/init.vim
+end
+
+# 写入设定
+function xr_ud
+    # 设 fish 为默认 shell
+    chsh -s fish
+    # 安装 zlua
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
+    echo 'source (lua5.4 ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
+    # 提示符
+    echo -e 'if status is-interactive\n    starship init fish | source\nend' > ~/.config/fish/config.fish
+
+    # nvim 注释 plug 配置
+    sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
     # 下载 Ubuntu 字体
     curl -fsLo ~/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 end
 
-# 设置 fish
-function fish_ud
-    # 设 fish 为默认 shell
-    chsh -s fish
-    # 安装 zlua
-    mkdir -p ~/.config/fish/conf.d
-    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo 'source (lua5.4 ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
-end
-
-# 设置 vim
-function vim_ud
-    # nvim 注释 plug 配置
-    sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
-end
-
-# uz 设置。
-function uz_ud
-    if test -d $HOME/storage/shared/a/up/xt
-        ln -s ~/storage/shared/a/uz ~/uz
-        cd ~/uz
-        # 记忆账号密码
-        git config credential.helper store
-        git config --global user.email 'rraayy246@gmail.com'
-        git config --global user.name 'ray'
-        # 默认合并分支
-        git config --global pull.rebase false
-        cd
-    end
-end
-
-# 应用设定。
-function yy_ud
-    termux-reload-settings
-end
-
-# 文字提醒
-function wztx
-    echo "完成！请重启Termux。"
-    exit
-end
 
 # ======= 主程序 =======
 
 switch $argv[1]
-case '*'
-    nbci_ud
+case a
     rj_av
-    pvwj_ud
-    fish_ud
-    vim_ud
+case p
+    fv_ud
+    xr_ud
+case u
     uz_ud
-    yy_ud
-    wztx
+case '*'
+    rj_av
+    uz_ud
+    fv_ud
+    xr_ud
+    termux-reload-settings
+    echo "完成！请重启Termux。"
 end
 

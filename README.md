@@ -6,7 +6,7 @@
 </p>
 
 - [彩虹猫](#彩虹猫)
-- [Arch配置](#Arch配置)
+- [Arch个人配置](#Arch个人配置)
 - [Arch服务器配置](#Arch服务器配置)
 - [Termux配置](#Termux配置)
 
@@ -119,7 +119,7 @@ cdhsmcq 彩虹猫
 [aidn.jp](https://aidn.jp/)
 
 
-### Arch配置 ###
+### Arch个人配置 ###
 
 请先[安装arch](jb/arch.md)
 

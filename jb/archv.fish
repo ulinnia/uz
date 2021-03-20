@@ -35,7 +35,7 @@ function pac_av
     $pacn tree lua zsh
     $pacn ttf-dejavu wqy-microhei
     # yay
-    yay -S kmscon starship
+    yay -S --noconfirm kmscon starship
 end
 
 # 配置文件

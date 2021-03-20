@@ -12,5 +12,4 @@ set root (string split ' ' (string match '* /' (df)))
 
 sudo umount /mnt
 sudo mount $root[1] /mnt
-sudo btrfs subvolume delete -c /mnt/a
-sudo btrfs subvolume snapshot /mnt/b /mnt/a
+sudo btrfs send -p /mnt/a /mnt/c | sudo btrfs receive /mnt/a

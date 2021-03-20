@@ -168,7 +168,7 @@ DNS=1.1.1.1
 
 `# grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 
-### 重启
+### 完成 Arch 创建
 
 `# exit` 退出 Fish
 
@@ -176,4 +176,27 @@ DNS=1.1.1.1
 
 `# systemctl poweroff` 关机
 
+完成创建，到网站上按完成按钮，等待机器重启。
+
+### 新建用户
+
+打开 VNC
+
+以 root 登入
+
+`# useradd -m 用户名` 创建新用户
+
+`# passwd 用户名` 设置登陆密码
+
+`# vim /etc/sudoers` 编辑sudo权限
+
+复制一行 root ALL=(ALL) ALL，并替换其中的 root 为新用户名，`:x!` 强制保存并退出。
+
+`# exit` 退出 root 用户，并登陆新创建的用户
+
+## 快速配置 arch
+
+```shell
+curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
+```
 

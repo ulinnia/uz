@@ -75,6 +75,8 @@ DNS=1.1.1.1
 
 `# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
 
+`# umount /mnt` 卸载根分区
+
 ### 挂载分区
 
 `# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩

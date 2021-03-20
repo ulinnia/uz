@@ -81,10 +81,6 @@ DNS=1.1.1.1
 
 `# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
 
-`# mkdir /mnt/boot` 创建启动目录
-
-`# mount /dev/vda1 /mnt/boot` 挂载启动分区
-
 ## 安装
 
 ### 安装必须软件包

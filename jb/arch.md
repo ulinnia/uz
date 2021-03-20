@@ -48,11 +48,11 @@
 
 `(parted) mklabel gpt` 创建 GPT 分区表
 
-`(parted) mkpart esp fat32 1m 513m` 创建启动分区 (nvme0n1p1)
+`(parted) mkpart esp 1m 513m` 创建启动分区 (nvme0n1p1)
 
 `(parted) set 1 boot on` 设置 esp 为启动分区
 
-`(parted) mkpart root btrfs 513m 100%` 创建根分区 (nvme0n1p2)
+`(parted) mkpart root 513m -1m` 创建根分区 (nvme0n1p2)
 
 `(parted) p` 查看分区结果
 

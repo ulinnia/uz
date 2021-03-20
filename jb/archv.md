@@ -55,19 +55,17 @@ DNS=1.1.1.1
 
 `(parted) mklabel gpt` 创建 GPT 分区表
 
-`(parted) mkpart grub fat32 1m 3m` 创建启动分区 (vda1)
+`(parted) mkpart grub 1m 3m` 创建启动分区 (vda1)
 
 `(parted) set 1 bios_grub on` 设置启动分区
 
-`(parted) mkpart root btrfs 3m 100%` 创建根分区 (vda2)
+`(parted) mkpart root 3m -1m` 创建根分区 (vda2)
 
 `(parted) p` 查看分区结果
 
 `(parted) q` 退出 parted 交互模式
 
 ### 格式化分区
-
-`# mkfs.fat -F32 /dev/vda1` 假装格式化 Grub 分区，免得无法挂载
 
 `# mkfs.btrfs --label arch /dev/vda2` 格式化根分区为 Brtfs 格式
 

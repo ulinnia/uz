@@ -160,6 +160,8 @@ DNS=1.1.1.1
 
 `# systemctl enable --now systemd-networkd` 应用网络设定
 
+`# systemctl enable --now systemd-resolved` 应用 dns 解析
+
 `# passwd` 修改 root 密码
 
 ### 安装引导程序

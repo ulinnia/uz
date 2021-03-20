@@ -1,4 +1,4 @@
-# Arch Linux (UEFI with GPT) 安装
+# 安装 Arch Linux (UEFI 和 GPT)
 
 ## 安装前的准备
 

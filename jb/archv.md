@@ -1,6 +1,7 @@
-# 安装 Arch 到 VPS 上
+# 安装 Arch (VPS 和 BIOS)
 
 ## 安装前的准备
+
 ### 上传 Arch Linux 镜像
 
 <https://www.archlinux.org/download/>
@@ -103,8 +104,8 @@ DNS=1.1.1.1
 `# pacman -S btrfs-progs grub vim` 安装必要软件
 
 ### 设置时区
-                                                                  `# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime`
-设置时区
+
+`# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
 
 `# hwclock --systohc` 设置时间标准为 UTC
 

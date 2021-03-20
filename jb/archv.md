@@ -69,9 +69,15 @@ DNS=1.1.1.1
 
 `# mkfs.btrfs -L arch /dev/vda2` 格式化根分区为 Brtfs 格式
 
+### 创建子卷
+
+`# mount /dev/vda2 /mnt` 挂载根分区
+
+`# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
+
 ### 挂载分区
 
-`# mount -o autodefrag,compress=zstd /dev/vda2 /mnt` 挂载根分区并启用碎片整理和压缩
+`# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
 
 `# mkdir /mnt/boot` 创建启动目录
 

@@ -9,7 +9,7 @@ function yh_ud --description 'root 用户退出'
 end
 
 # 修改 pacman 配置
-function pac_ud
+function rj_ud
     # pacman 增加 multilib 源
     sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
@@ -32,8 +32,8 @@ function xk_ud
     end
 end
 
-# pacman 安装软件
-function pac_av
+# 安装软件
+function rj_av
     # 更新系统
     sudo pacman -Syu --noconfirm
     # 缩写
@@ -71,52 +71,33 @@ function pac_av
     $pacn arch-install-scripts dosfstools parted
     # steam
     $pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
-end
 
-# 修改 yay 配置
-function yay_ud
+    # 修改 yay 配置
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
-end
-
-# yay 安装软件
-function yay_av
-    # 安装 jmtpfs，starship
+    # yay 安装 jmtpfs，starship
     yay -S --noconfirm jmtpfs starship
 end
 
-# 安装软件
-function rj_av
-    xk_ud
-    pac_ud
-    pac_av
-    yay_ud
-    yay_av
-end
-
-# 设置 fish
-function fish_ud
-    mkdir -p ~/.config/fish/conf.d
-    # 更改默认 shell 为 fish
-    sudo sed -i '/home/s/bash/fish/' /etc/passwd
-    sudo sed -i '/root/s/bash/fish/' /etc/passwd
-    # 安装 zlua
-    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
-end
-
-# 下载配置文件
-function pvwj_ud
-    # 创建目录
-    mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish,i3status-rust,nvim/.backup,sway}}
-    # 壁纸
-    wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
-    # xinit
-    echo 'exec i3' > ~/.xinitrc
+# uz 设定
+function uz_ud
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
-    # dns
-    echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
-    sudo chattr +i /etc/resolv.conf
+    # 链接 uz
+    ln -s ~/a/uz ~/
+    cd ~/a/uz
+    # 记忆账号密码
+    git config credential.helper store
+    git config --global user.email 'rraayy246@gmail.com'
+    git config --global user.name 'ray'
+    # 默认合并分支
+    git config --global pull.rebase false
+    cd
+end
+
+# 复制设定
+function fv_ud
+    # 创建目录
+    mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,nvim/.backup,sway}}
     # 缩写
     set pvwj ~/a/uz/pv/
     # fish 设置环境变量
@@ -134,6 +115,36 @@ function pvwj_ud
     ln -f {$pvwj}vim.vim ~/.config/nvim/init.vim
 end
 
+# 写入设定
+function xr_ud
+    # sudo 免密码
+    if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
+        sudo sed -i '/root ALL/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+    end
+    # grub 超时
+    sudo sed -i '/set timeout=5/s/5/1/g' /boot/grub/grub.cfg
+    # dns
+    echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
+    sudo chattr +i /etc/resolv.conf
+
+    # 更改默认 shell 为 fish
+    sudo sed -i '/home/s/bash/fish/' /etc/passwd
+    sudo sed -i '/root/s/bash/fish/' /etc/passwd
+    # 安装 zlua
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
+    echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
+    # xinit
+    echo 'exec i3' > ~/.xinitrc
+    # 壁纸
+    wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
+
+    # 安装 vim-plug
+    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    # 插件下载
+    nvim +PlugInstall +qall
+end
+
 # 安装小鹤音形
 # http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
 function xhyx_av
@@ -147,7 +158,7 @@ function xhyx_av
     fcitx5-remote -r
 end
 
-# 自启动管理
+# 自启动
 function zqd_ud
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
@@ -155,50 +166,25 @@ function zqd_ud
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 end
 
-# 设置 vim
-function vim_ud
-    # 安装 vim-plug
-    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    # 插件下载
-    nvim +PlugInstall +qall
-end
-
-# uz 设置。
-function uz_ud
-    ln -s ~/a/uz ~/
-    cd ~/a/uz
-    # 记忆账号密码
-    git config credential.helper store
-    git config --global user.email 'rraayy246@gmail.com'
-    git config --global user.name 'ray'
-    # 默认合并分支
-    git config --global pull.rebase false
-    cd
-end
-
-# 文字提醒
-function wztx
-    echo -e '\n'
-end
 
 # ======= 主程序 =======
 
 yh_ud
 switch $argv[1]
 case a
-    pac_av
+    rj_av
 case p
-    pvwj_ud
+    fv_ud
+    xr_ud
 case u
     uz_ud
 case '*'
+    rj_ud
     rj_av
-    fish_ud
-    pvwj_ud
+    uz_ud
+    fv_ud
+    xr_ud
     xhyx_av
     zqd_ud
-    vim_ud
-    wztx
 end
 

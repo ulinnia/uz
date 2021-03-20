@@ -9,7 +9,7 @@ function yh_ud --description 'root 用户退出'
 end
 
 # 修改 pacman 配置
-function pac_ud
+function rj_ud
     # pacman 增加 multilib 源
     sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
@@ -23,7 +23,7 @@ function pac_ud
 end
 
 # 安装软件
-function pac_av
+function rj_av
     # 更新系统
     sudo pacman -Syu --noconfirm
     # 缩写
@@ -34,61 +34,72 @@ function pac_av
     $pacn fzf pkgstats nftables dnscrypt-proxy
     $pacn tree lua zsh
     $pacn ttf-dejavu wqy-microhei
+
     # yay
     yay -S --noconfirm kmscon starship
 end
 
-# 配置文件
-function pvwj_ud
-    # 创建目录
-    mkdir -p ~/{a,xz,.config/{fish/conf.d,nvim/.backup}}
-    # 提示符
-    echo -e 'if status is-interactive\n    starship init fish | source\nend' > ~/.config/fish/config.fish
-    # 安装 zlua
-    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
-    # 更改默认 shell 为 fish
-    sudo sed -i '/home/s/bash/fish/' /etc/passwd
-    sudo sed -i '/root/s/bash/fish/' /etc/passwd
-    # ssh
-    sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config
-    # dns
-    echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
-    sudo chattr +i /etc/resolv.conf
-    # grub 超时
-    sudo sed -i '/set timeout=5/s/5/0/g' /boot/grub/grub.cfg
+# uz 设定
+function uz_ud
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
+    # 链接 uz
+    ln -s ~/a/uz ~/
+    cd ~/uz
+    # 记忆账号密码
+    git config credential.helper store
+    git config --global user.email 'rraayy246@gmail.com'
+    git config --global user.name 'ray'
+    # 默认合并分支
+    git config --global pull.rebase false
+    cd
+end
+
+# 复制设定
+function fv_ud
+    # 创建目录
+    mkdir -p ~/{a,xz,.config/{fish/conf.d,nvim/.backup}}
     # 缩写
     set pvwj ~/a/uz/pv/
     # fish 设置环境变量
     fish {$pvwj}hjbl.fish
     # 链接配置文件
-    cp -f {$pvwj}vim.vim ~/.config/nvim/init.vim
     sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f {$pvwj}fhq /etc/nftables.conf
-    sudo ln -f {$pvwj}zt.conf /etc/fonts/conf.d/99-kmscon.conf
-    # nvim 注释 plug 配置
-    sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
+    cp -f {$pvwj}vim.vim ~/.config/nvim/init.vim
+end
+
+# 写入设定
+function xr_ud
     # sudo 免密码
     if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
         sudo sed -i '/root ALL/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
     end
+    # grub 超时
+    sudo sed -i '/set timeout=5/s/5/0/g' /boot/grub/grub.cfg
+    # dns
+    echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
+    sudo chattr +i /etc/resolv.conf
+    # ssh
+    sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config
+
+    # 更改默认 shell 为 fish
+    sudo sed -i '/home/s/bash/fish/' /etc/passwd
+    sudo sed -i '/root/s/bash/fish/' /etc/passwd
+    # 安装 zlua
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
+    echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
+    # 提示符
+    echo -e 'if status is-interactive\n    starship init fish | source\nend' > ~/.config/fish/config.fish
+
+    # nvim 注释 plug 配置
+    sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
 end
 
 # 自启动
 function zqd_ud
-    sudo systemctl enable --now {dnscrypt-proxy,nftables,ntpd,sshd} ;
+    sudo systemctl enable --now {dnscrypt-proxy,nftables,ntpd,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-end
-
-# uz 设置。
-function uz_ud
-    ln -s ~/a/uz ~/uz
-    cd ~/uz
-    # 默认合并分支
-    git config --global pull.rebase false
-    cd
 end
 
 
@@ -97,15 +108,18 @@ end
 yh_ud
 switch $argv[1]
 case a
-    pac_av
+    rj_av
 case p
-    pvwj_ud
-case '*'
-    pac_ud
-    pac_av
-    pvwj_ud
-    zqd_ud
+    fv_ud
+    xr_ud
+case u
     uz_ud
+case '*'
+    rj_ud
+    rj_av
+    uz_ud
+    fv_ud
+    xr_ud
+    zqd_ud
 end
-
 

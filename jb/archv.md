@@ -67,7 +67,7 @@ DNS=1.1.1.1
 
 ### 格式化分区
 
-`# mkfs.btrfs --label arch /dev/vda2` 格式化根分区为 Brtfs 格式
+`# mkfs.btrfs -L arch /dev/vda2` 格式化根分区为 Brtfs 格式
 
 ### 挂载分区
 

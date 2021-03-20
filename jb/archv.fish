@@ -72,7 +72,7 @@ function pvwj_ud
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
     # sudo 免密码
     if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
-        echo '%sudo ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers
+        sudo sed -i '/root ALL/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
     end
 end
 

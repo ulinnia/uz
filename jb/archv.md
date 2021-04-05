@@ -49,41 +49,80 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
 1. 首先，将实例关机 `Power Off`
 
-2. 在面板上点存储 `Storage`
+2. 点击存储 `Storage`
 
-3. 磁盘 `Disks`：将预设的两个磁盘 `Arch` 和 `Swap` 删除。
+3. 磁盘 `Disks`：将默认的两个磁盘 `Arch` 和 `Swap` 删除。
 
-4. 添加磁盘 `Add a Disk`：
+4. 添加镜像磁盘 `Add a Disk`：
 
     - 创建空磁盘
 
     - 标志：`iso`
 
-    - 文件系统：原始磁盘 `raw`
+    - 文件系统：原始 `raw`
 
     - 大小：`1024` MB
 
-5. 添加磁盘：
+5. 添加交换磁盘：
 
     - 创建空磁盘
 
     - 标志：`Swap`
 
-    - 文件系统：原始磁盘
+    - 文件系统：原始
 
     - 大小：`512` MB
 
-6. 添加磁盘：
+6. 添加根磁盘：
 
     - 创建空磁盘
 
     - 标志：`Root`
 
-    - 文件系统：原始磁盘
+    - 文件系统：原始
 
     - 大小：默认最大值
 
 
+### 创建配置
+
+1. 点击配置 `Configurations`
+
+2. 将默认的两个配置 `Boot` 和 `Installer` 删除
+
+3. 添加镜像配置：
+
+    - 标志：iso
+
+    - 启动设定：选择内核：直接磁盘 `Direct Disk`
+
+    - 块设备分配 `Assignment`：`/dev/sda` 选择 `Root`，`sdb` 选择 `Swap`，`sdc` 选择 `iso`
+
+    - 根设备 `Root Device`：选择 `sdc`
+
+    - 将文件系统/启动助手 `Filesystem/Boot Helpers` 下的勾选框全部取消。
+
+4. 添加启动配置：
+
+    - 标志：Boot
+
+    - 启动设定：选择内核：直接磁盘 `Direct Disk`
+
+    - 块设备分配 `Assignment`：`sda` 选择 `Root`，`sdb` 选择 `Swap`
+
+    - 根设备：选择 `sda`
+
+    - 将文件系统/启动助手 `Filesystem/Boot Helpers` 下的勾选框全部取消。
+
+
+### 关闭监视程序
+
+点击设定 `Settings`
+
+点击关机监视 `Shutdown Watchdog`，将开关取消。
+
+
+### 安装 Arch Linux 镜像
 
 
 

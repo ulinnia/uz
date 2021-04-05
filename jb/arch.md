@@ -1,6 +1,8 @@
 # 安装 Arch Linux (UEFI 和 GPT)
 
+
 ## 安装前的准备
+
 
 ### 下载 Arch Linux 镜像
 
@@ -10,6 +12,7 @@
 
 将输出和下载页面提供的 md5 值对比一下，看看是否一致，不一致则不要继续安装，换个节点重新下载直到一致为止。
 
+
 ### 镜像写入 U 盘
 
 `$ lsblk -f` 查看设备
@@ -18,11 +21,13 @@
 
 `$ sudo cp /home/ray/xz/archlinux.iso /dev/sda` 镜像写入闪盘
 
+
 ### 启动到 live 环境
 
 在 UEFI BIOS 中设置启动硬盘为刚刚写入 Arch 系统的闪盘。
 
 进入闪盘的启动引导程序后，选择第一项：Arch Linux archiso x86_64 UEFI CD
+
 
 ### 检查网络
 
@@ -32,9 +37,11 @@
 
 可选用 `ping 1.1.1.1` 测试网络是否可用，安装过程中需要用到网络
 
+
 ### 更新系统时间
 
 `# timedatectl set-ntp true` 更新系统时间
+
 
 ### 建立硬盘分区
 
@@ -58,6 +65,7 @@
 
 `(parted) q` 退出 parted 交互模式
 
+
 ### 加密根分区
 
 `# cryptsetup luksFormat /dev/nvme0n1p2` 加密根分区
@@ -68,6 +76,7 @@
 
 最后的参数是一个名字，它会是解密后的设备在 `/dev/mapper` 下的文件名。
 
+
 ### 格式化分区
 
 `# mkfs.fat -F32 /dev/nvme0n1p1` 格式化启动分区为 fat32 格式
@@ -75,6 +84,7 @@
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
 `# mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 Brtfs 格式
+
 
 ### 创建子卷
 
@@ -84,6 +94,7 @@
 
 `# umount /mnt` 卸载根分区
 
+
 ### 挂载分区
 
 `# mount -o autodefrag,compress=zstd,subvol=a /dev/mapper/ray /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
@@ -92,7 +103,9 @@
 
 `# mount /dev/nvme0n1p1 /mnt/boot` 挂载启动分区
 
+
 ## 安装
+
 
 ### 选择镜像
 
@@ -102,13 +115,16 @@
 
 最后记得用 `:wq` 命令保存文件并退出。
 
+
 ### 安装必须软件包
 
 `# pacman -Syy` 更新软件包数据库
 
 `# pacstrap /mnt base base-devel linux linux-firmware fish` 安装基本包和 fish
 
+
 ## 配置系统
+
 
 ### Fstab
 
@@ -116,9 +132,11 @@
 
 可选用 `cat /mnt/etc/fstab` 检查 fstab 文件
 
+
 ### 切换根目录
 
 `# arch-chroot /mnt` 切换至安装好的 Arch
+
 
 ### 安装基本软件包
 
@@ -130,11 +148,13 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 因为本次安装使用 Btrfs 文件系统，所以要安装 btrfs-progs。
 
+
 ### 设置时区
 
 `# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
 
 `# hwclock --systohc` 设置时间标准为 UTC
+
 
 ### 本地化
 
@@ -149,6 +169,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
 `# echo 主机名 > /etc/hostname` 修改主机名
+
 
 ### 网络配置
 
@@ -166,9 +187,11 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# systemctl enable dhcpcd` 设置 dhcpcd 自启动，下次启动才能连上网
 
+
 ### Root 密码
 
 `# passwd` 修改 root 密码
+
 
 ### 修改内核钩子
 
@@ -183,6 +206,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 保存并退出
 
 `# mkinitcpio -p linux` 重新生成 initramfs
+
 
 ### 安装引导程序
 
@@ -202,6 +226,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 可选用 `vim /boot/grub/grub.cfg` 检查 Grub 文件
 
+
 ### 重启
 
 `# exit` 退出 Fish
@@ -212,9 +237,11 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# reboot` 重启时，记得移除安装介质
 
+
 ## 搭建桌面环境
 
 以 root 登入
+
 
 ### 创建用户
 
@@ -228,8 +255,11 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# exit` 退出 root 用户，并登陆新创建的用户。
 
+
 ## 快速配置 arch
 
 ```shell
 curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 ```
+
+

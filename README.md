@@ -143,3 +143,4 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 pkg install -y curl fish; curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/termux.fish | fish
 ```
 
+

@@ -1,6 +1,54 @@
 # 安装 Arch (VPS 和 BIOS)
 
+
+## 虛擬專用服务器 VPS 提供商
+
+Linode：速度与功能相对较好，但注册和安装繁琐，需要绑定双币信用卡和谷歌邮箱。
+
+Vultr：速度差了点，但好在简单好用，支持支付宝。
+
+其他提供商一率不推荐（贵，乱收钱，速度差，无法按时计费，不提供非管理型VPS）。
+
+以下操作使用 Linode，和 vultr 的差别是后者简化了启动 Live 环境的过程。
+
+
+### Linode 注册
+
+<https://www.linode.com/>
+
+到 Linode 官网注册账号 `Sign Up`，然后绑定一张信用卡。
+
+
+### 创建实例
+
+进入Linode控制台首页后，按下创建 `Create`，选择实例 `Linode`。
+
+- 选择发行版：映像 `Images` 栏位键入 `ar`，选择 `Arch Linux`
+
+- 地区：地区选择日本 `Tokyo 2, JP`
+
+- 实例方案：共享处理器 `Shared CPU` 选择最小方案 `Nanode 1GB` 月付5刀
+
+- 实例标志：输入 `Arch-Linux-Japan`
+
+- 根密码：随便打一串数字，因为用不到所以不用记住。
+
+最后按右手边的创建实例 `Create Linode`
+
+等待左上方棕色 `PROVISIONING` 变绿色 `RUNNING`
+
+用 [站长工具](https://ping.chinaz.com/) 测试实例的 IP 有没被墙。
+
+如果没有被墙，那恭喜你，可以进行下个步骤，如果被墙了，则删掉实例，重新创建实例。
+
+
 ## 安装前的准备
+
+
+### 创建硬盘
+
+在面板上点存储 `Storage`
+
 
 ### 上传 Arch Linux 镜像
 
@@ -8,9 +56,11 @@
 
 将镜像上传到 VPS 上。然后打开 VNC。
 
-# 启动到 Live 环境
+
+## 启动到 Live 环境
 
 进入闪盘的启动引导程序后，选择第一项：Arch Linux archiso
+
 
 ### 联网
 
@@ -43,6 +93,7 @@ DNS=1.1.1.1
 
 `# pacman -Sy archlinux-keyring` 更新密钥环
 
+
 ### 建立硬盘分区
 
 `# lsblk` 查看硬盘设备
@@ -65,9 +116,11 @@ DNS=1.1.1.1
 
 `(parted) q` 退出 parted 交互模式
 
+
 ### 格式化分区
 
 `# mkfs.btrfs -L arch /dev/vda2` 格式化根分区为 Brtfs 格式
+
 
 ### 创建子卷
 
@@ -77,17 +130,22 @@ DNS=1.1.1.1
 
 `# umount /mnt` 卸载根分区
 
+
 ### 挂载分区
 
 `# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
 
+
 ## 安装
+
 
 ### 安装必须软件包
 
 `# pacstrap /mnt base base-devel linux linux-firmware fish` 安装基本包和 Fish
 
+
 ## 配置系统
+
 
 ### Fstab
 
@@ -95,9 +153,11 @@ DNS=1.1.1.1
 
 可选用 `cat /mnt/etc/fstab` 检查 fstab 文件
 
+
 ### 切换根目录
 
 `# arch-chroot /mnt` 切换至安装好的 Arch
+
 
 ### 安装基本软件包
 
@@ -105,11 +165,13 @@ DNS=1.1.1.1
 
 `# pacman -S btrfs-progs grub vim` 安装必要软件
 
+
 ### 设置时区
 
 `# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime` 设置时区
 
 `# hwclock --systohc` 设置时间标准为 UTC
+
 
 ### 本地化
 
@@ -124,6 +186,7 @@ DNS=1.1.1.1
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
 `# echo 主机名 > /etc/hostname` 修改主机名
+
 
 ### 网络配置
 
@@ -164,11 +227,13 @@ DNS=1.1.1.1
 
 `# passwd` 修改 root 密码
 
+
 ### 安装引导程序
 
 `# grub-install --target=i386-pc /dev/vda` 安装 grub
 
 `# grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
+
 
 ### 完成 Arch 创建
 
@@ -179,6 +244,7 @@ DNS=1.1.1.1
 `# systemctl poweroff` 关机
 
 完成创建，到网站上按完成按钮，等待机器重启。
+
 
 ### 新建用户
 
@@ -196,9 +262,11 @@ DNS=1.1.1.1
 
 `# exit` 退出 root 用户，并登陆新创建的用户
 
+
 ## 快速配置 arch
 
 ```shell
 curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 ```
+
 

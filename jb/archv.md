@@ -14,7 +14,7 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
 ### Linode 注册
 
-到 [Linode 官网][Linode]注册账号 `Sign Up`，然后绑定一张信用卡。
+到 [Linode 官网][Linode] 注册账号 `Sign Up`，然后绑定一张信用卡。
 
 [Linode]: https://www.linode.com/
 
@@ -66,7 +66,7 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
     - 创建空磁盘
 
-    - 标志：`Root`
+    - 标志：`Arch`
 
     - 文件系统：原始
 
@@ -104,27 +104,47 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
     - 将文件系统/启动助手 `Filesystem/Boot Helpers` 下的勾选框全部取消。
 
 
-### 关闭监视程序
+### 关闭监听程序
 
 点击设定 `Settings`
 
-点击关机监视 `Shutdown Watchdog`，将开关取消。
+点击关机监听 `Shutdown Watchdog`，将开关取消。
 
 
 ### 安装 Arch Linux 镜像
 
+点击 `...`，选择救援模式 `Rescue`
 
+`/dev/sda` 选择 `iso`，然后重启到救援模式。
 
-### 上传 Arch Linux 镜像
+等待左上方棕色变绿色 `RUNNING`
 
-<https://www.archlinux.org/download/>
+启动 LISH 控制台 `LISH Console`
 
-将镜像上传到 VPS 上。然后打开 VNC。
+到 [Arch 镜像站][Arch Download] 或 [Arch 日本镜像站][Arch Cat] 选择下载点，并将镜像 `iso` 下载链接复制。
+
+[Arch Download]: https://www.archlinux.org/download/
+
+[Arch Cat]: https://mirrors.cat.net/archlinux/iso/
+
+在 LISH 控制台下命令，将网址替换成 iso 下载链接：
+
+`# curl https://mirrors.cat.net/archlinux/iso/2021.04.01/archlinux-2021.04.01-x86_64.iso | dd of=/dev/sda` 将镜像写入 sda 磁盘
+
+`# sync; echo 3 > /proc/sys/vm/drop_caches` 清除快取
 
 
 ## 启动到 Live 环境
 
-进入闪盘的启动引导程序后，选择第一项：Arch Linux archiso
+关闭 LISH 控制台
+
+点击配置 `Configurations`
+
+标志：`iso` 点击启动 `Boot`
+
+启动 LISH 控制台 `LISH Console`
+
+进入镜像的启动引导程序后，选择第一项：Arch Linux archiso
 
 
 ### 联网

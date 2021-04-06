@@ -102,6 +102,32 @@ function zqd_ud
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
 end
 
+# 交换文件
+function jhwj_ud
+    if not test -e /swap
+        # 创建空文件
+        sudo touch /swap
+        # 禁止写时复制
+        sudo chattr +C /swap
+        # 禁止压缩
+        sudo chattr -c /swap
+        # 文件大小
+        sudo fallocate -l 512M /swap
+        # 设定拥有者读写
+        sudo chmod 600 /swap
+        # 格式化交换文件
+        sudo mkswap /swap
+        # 启用交换文件
+        sudo swapon /swap
+        # 写入 fstab
+        echo '/swap none swap defaults 0 0' | sudo tee -a /etc/fstab
+
+        # 最大限度使用物理内存，生效
+        echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.conf
+        sudo sysctl -p
+    end
+end
+
 
 # ======= 主程序 =======
 
@@ -121,5 +147,6 @@ case '*'
     fv_ud
     xr_ud
     zqd_ud
+    jhwj_ud
 end
 

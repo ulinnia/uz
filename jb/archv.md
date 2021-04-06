@@ -372,3 +372,12 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 ```
 
 
+## ssh 连接
+
+`$ ssh-keygen` 生成公钥，一路回车
+
+`$ ssh-copy-id user@host` 上传公钥
+
+`$ ssh user@host` 登入主机
+
+

@@ -147,7 +147,11 @@
 
 标志：`iso` 点击启动 `Boot`
 
+等待左上方棕色变绿色 `RUNNING`
+
 启动 LISH 控制台 `LISH Console`
+
+点击 `Glish`
 
 进入镜像的启动引导程序后，选择第一项：Arch Linux archiso
 

@@ -3,20 +3,23 @@
 
 ## 虛擬專用服务器 VPS 提供商
 
-Linode：速度与功能相对较好，但注册和安装繁琐，需要绑定双币信用卡和谷歌邮箱。
+[Linode][Linode]：速度与功能相对较好，但注册和安装繁琐，需要绑定双币信用卡和谷歌邮箱。
 
-Vultr：速度差了点，但好在简单好用，支持支付宝。
+[Vultr][Vultr]：速度差了点，但好在简单好用，支持支付宝。
 
 其他提供商一率不推荐（贵，乱收钱，速度差，无法按时计费，不提供非管理型VPS）。
 
 以下操作使用 Linode，和 vultr 的差别是后者简化了启动 Live 环境的过程。
+
+[Linode]: https://www.linode.com/
+
+[Vultr]: https://www.vultr.com/zh/
 
 
 ### Linode 注册
 
 到 [Linode 官网][Linode] 注册账号 `Sign Up`，然后绑定一张信用卡。
 
-[Linode]: https://www.linode.com/
 
 ### 创建实例
 
@@ -36,7 +39,9 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
 等待左上方棕色 `PROVISIONING` 变绿色 `RUNNING`
 
-用 [站长工具](https://ping.chinaz.com/) 测试实例的 IP 有没被墙。
+用 [站长工具][Chinaz] 测试实例的 IP 有没被墙。
+
+[Chinaz]: https://ping.chinaz.com/
 
 如果没有被墙（地图大部分是绿色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例，重新创建实例。
 

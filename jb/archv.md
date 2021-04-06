@@ -31,7 +31,7 @@
 
 - 实例方案：共享处理器 `Shared CPU` 选择最小方案 `Nanode 1GB` 月付5刀
 
-- 实例标志：输入 `Arch-Linux-Japan`
+- 实例标志：输入 `Arch-Linux-JP`
 
 - 根密码：随便打一串数字，因为用不到所以不用记住。
 
@@ -90,7 +90,7 @@
 
     - 启动设定：选择内核：直接磁盘 `Direct Disk`
 
-    - 块设备分配 `Assignment`：`/dev/sda` 选择 `Root`，`sdb` 选择 `iso`
+    - 块设备分配 `Assignment`：`/dev/sda` 选择 `Arch`，`sdb` 选择 `iso`
 
     - 根设备 `Root Device`：选择 `sdb`
 
@@ -102,7 +102,7 @@
 
     - 启动设定：选择内核：直接磁盘 `Direct Disk`
 
-    - 块设备分配 `Assignment`：`sda` 选择 `Root`
+    - 块设备分配：`sda` 选择 `Arch`
 
     - 根设备：选择 `sda`
 
@@ -192,19 +192,19 @@ DNS=1.1.1.1
 
 `# lsblk` 查看硬盘设备
 
-我要把系统安装在 vda 这个硬盘中
+我要把系统安装在 sda 这个硬盘中
 
-`# parted /dev/vda` 打开分区
+`# parted /dev/sda` 打开分区
 
 命令提示符会从 `#` 变成 `(parted)`
 
 `(parted) mklabel gpt` 创建 GPT 分区表
 
-`(parted) mkpart grub 1m 3m` 创建启动分区 (vda1)
+`(parted) mkpart grub 1m 3m` 创建启动分区 (sda1)
 
 `(parted) set 1 bios_grub on` 设置启动分区
 
-`(parted) mkpart root 3m -1m` 创建根分区 (vda2)
+`(parted) mkpart root 3m -1m` 创建根分区 (sda2)
 
 `(parted) p` 查看分区结果
 
@@ -213,12 +213,12 @@ DNS=1.1.1.1
 
 ### 格式化分区
 
-`# mkfs.btrfs -L arch /dev/vda2` 格式化根分区为 Brtfs 格式
+`# mkfs.btrfs -L arch /dev/sda2` 格式化根分区为 Brtfs 格式
 
 
 ### 创建子卷
 
-`# mount /dev/vda2 /mnt` 挂载根分区
+`# mount /dev/sda2 /mnt` 挂载根分区
 
 `# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
 
@@ -227,7 +227,7 @@ DNS=1.1.1.1
 
 ### 挂载分区
 
-`# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
+`# mount -o autodefrag,compress=zstd,subvol=a /dev/sda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
 
 
 ## 安装
@@ -324,7 +324,7 @@ DNS=1.1.1.1
 
 ### 安装引导程序
 
-`# grub-install --target=i386-pc /dev/vda` 安装 grub
+`# grub-install --target=i386-pc /dev/sda` 安装 grub
 
 `# grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 

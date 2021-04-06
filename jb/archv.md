@@ -14,10 +14,9 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
 ### Linode 注册
 
-<https://www.linode.com/>
+到 [Linode 官网](Linode)注册账号 `Sign Up`，然后绑定一张信用卡。
 
-到 Linode 官网注册账号 `Sign Up`，然后绑定一张信用卡。
-
+[Linode]: https://www.linode.com/
 
 ### 创建实例
 
@@ -63,17 +62,7 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
     - 大小：`1024` MB
 
-5. 添加交换磁盘：
-
-    - 创建空磁盘
-
-    - 标志：`Swap`
-
-    - 文件系统：原始
-
-    - 大小：`512` MB
-
-6. 添加根磁盘：
+5. 添加根磁盘：
 
     - 创建空磁盘
 
@@ -96,9 +85,9 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
     - 启动设定：选择内核：直接磁盘 `Direct Disk`
 
-    - 块设备分配 `Assignment`：`/dev/sda` 选择 `Root`，`sdb` 选择 `Swap`，`sdc` 选择 `iso`
+    - 块设备分配 `Assignment`：`/dev/sda` 选择 `Root`，`sdb` 选择 `iso`
 
-    - 根设备 `Root Device`：选择 `sdc`
+    - 根设备 `Root Device`：选择 `sdb`
 
     - 将文件系统/启动助手 `Filesystem/Boot Helpers` 下的勾选框全部取消。
 
@@ -108,7 +97,7 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
     - 启动设定：选择内核：直接磁盘 `Direct Disk`
 
-    - 块设备分配 `Assignment`：`sda` 选择 `Root`，`sdb` 选择 `Swap`
+    - 块设备分配 `Assignment`：`sda` 选择 `Root`
 
     - 根设备：选择 `sda`
 

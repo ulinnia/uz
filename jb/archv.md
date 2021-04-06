@@ -41,9 +41,9 @@
 
 用 [站长工具][Chinaz] 测试实例的 IP 有没被墙。
 
-[Chinaz]: https://ping.chinaz.com/
-
 如果没有被墙（地图大部分是绿色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例，重新创建实例。
+
+[Chinaz]: https://ping.chinaz.com/
 
 
 ## 安装前的准备
@@ -128,10 +128,6 @@
 
 到 [Arch 镜像站][Arch Download] 或 [Arch 日本镜像站][Arch Cat] 选择下载点，并将镜像 `iso` 下载链接复制。
 
-[Arch Download]: https://www.archlinux.org/download/
-
-[Arch Cat]: https://mirrors.cat.net/archlinux/iso/
-
 在 LISH 控制台下命令，将网址替换成 iso 下载链接：
 
 `# curl https://mirrors.cat.net/archlinux/iso/2021.04.01/archlinux-2021.04.01-x86_64.iso | dd of=/dev/sda` 将镜像写入 sda 磁盘
@@ -139,6 +135,10 @@
 `# sync; echo 3 > /proc/sys/vm/drop_caches` 清除快取
 
 关闭 LISH 控制台
+
+[Arch Download]: https://www.archlinux.org/download/
+
+[Arch Cat]: https://mirrors.cat.net/archlinux/iso/
 
 
 ## 启动到 Live 环境
@@ -174,9 +174,9 @@
 Name=ens3
 
 [Network]
-Address=104.168.142.56/24
+Address=111.111.111.111/24
 Netmask=255.255.255.0
-Gateway=104.168.142.1
+Gateway=111.111.111.1
 DNS=1.1.1.1
 ```
 
@@ -354,7 +354,7 @@ DNS=1.1.1.1
 
 `# vim /etc/sudoers` 编辑超级用户权限
 
-复制一行 root ALL=(ALL) ALL，并替换其中的 root 为新用户名，`:x!` 强制保存并退出。
+复制一行 `root ALL=(ALL) ALL`，并替换其中的 `root` 为新用户名，`:x!` 强制保存并退出。
 
 `# exit` 退出根用户，并登陆新创建的用户
 

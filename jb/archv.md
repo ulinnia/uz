@@ -14,7 +14,7 @@ Vultr：速度差了点，但好在简单好用，支持支付宝。
 
 ### Linode 注册
 
-到 [Linode 官网](Linode)注册账号 `Sign Up`，然后绑定一张信用卡。
+到 [Linode 官网][Linode]注册账号 `Sign Up`，然后绑定一张信用卡。
 
 [Linode]: https://www.linode.com/
 

@@ -320,6 +320,11 @@ DNS=1.1.1.1
 `# systemctl enable --now systemd-resolved` 应用 dns 解析
 
 
+### 设置网络
+
+`# systemctl enable dhcpcd` 启用网络
+
+
 ### 修改根密码
 
 `# passwd` 修改根密码

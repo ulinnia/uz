@@ -9,7 +9,7 @@
 
 其他提供商一率不推荐（贵，乱收钱，速度差，无法按时计费，不提供非管理型VPS）。
 
-以下操作使用 Linode，和 vultr 的差别是后者简化了启动 Live 环境的过程。
+以下操作使用 Linode，Vultr 请跳转到 [Vultr 安装 Arch](#Vultr-安装-Arch)。
 
 [Linode]: https://www.linode.com/
 
@@ -159,7 +159,7 @@
 ### 联网
 
 `# ping 1.1.1.1`
-测试有没连上网，如果连上了就跳到下节[更新系统时间](#更新系统时间)
+测试有没连上网，如果连上了就跳到下节 [更新系统时间](#更新系统时间)
 
 `# ip addr` 查看网卡
 
@@ -373,5 +373,8 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 `$ ssh-copy-id user@host` 上传公钥
 
 `$ ssh user@host` 登入主机
+
+
+## Vultr 安装 Arch
 
 

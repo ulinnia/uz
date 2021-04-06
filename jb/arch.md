@@ -168,7 +168,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
-`# echo 主机名 > /etc/hostname` 修改主机名
+`# echo Arch > /etc/hostname` 修改主机名
 
 
 ### 网络配置
@@ -180,7 +180,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 ```shell
 127.0.0.1       localhost
 ::1             localhost
-127.0.1.1       主机名.localdomain 主机名
+127.0.1.1       Arch.localdomain Arch
 ```
 
 按 `o` 切换到下行输入模式，按 `ESC` 回到命令模式，`:x` 命令保存文件并退出。
@@ -190,7 +190,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 ### Root 密码
 
-`# passwd` 修改 root 密码
+`# passwd` 修改根密码
 
 
 ### 修改内核钩子
@@ -240,7 +240,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 ## 搭建桌面环境
 
-以 root 登入
+以根用户 `root` 登入
 
 
 ### 创建用户
@@ -249,11 +249,11 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# passwd 用户名` 设置登陆密码
 
-`# vim /etc/sudoers` 编辑sudo权限
+`# vim /etc/sudoers` 编辑超级用户权限
 
 复制一行 root ALL=(ALL) ALL，并替换其中的 root 为新用户名，`:x!` 强制保存并退出。
 
-`# exit` 退出 root 用户，并登陆新创建的用户。
+`# exit` 退出根用户，并登陆新创建的用户。
 
 
 ## 快速配置 arch

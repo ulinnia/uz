@@ -358,7 +358,7 @@ DNS=1.1.1.1
 
 `# passwd 用户名` 设置登陆密码
 
-`# vim /etc/sudoers` 编辑sudo权限
+`# vim /etc/sudoers` 编辑超级用户权限
 
 复制一行 root ALL=(ALL) ALL，并替换其中的 root 为新用户名，`:x!` 强制保存并退出。
 

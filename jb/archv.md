@@ -31,7 +31,7 @@
 
 - 实例方案：共享处理器 `Shared CPU` 选择最小方案 `Nanode 1GB` 月付5刀
 
-- 实例标志：输入 `Arch-Linux-JP`
+- 实例标志：输入 `Arch-Linode-JP2`
 
 - 根密码：随便打一串数字，因为用不到所以不用记住。
 
@@ -279,7 +279,7 @@ DNS=1.1.1.1
 
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
-`# echo 主机名 > /etc/hostname` 修改主机名
+`# echo Arch-Linode > /etc/hostname` 修改主机名
 
 
 ### 网络配置
@@ -319,7 +319,10 @@ DNS=1.1.1.1
 
 `# systemctl enable --now systemd-resolved` 应用 dns 解析
 
-`# passwd` 修改 root 密码
+
+### 修改根密码
+
+`# passwd` 修改根密码
 
 
 ### 安装引导程序
@@ -344,7 +347,7 @@ DNS=1.1.1.1
 
 打开 VNC
 
-以 root 登入
+以根用户 `root` 登入
 
 `# useradd -m 用户名` 创建新用户
 
@@ -354,7 +357,7 @@ DNS=1.1.1.1
 
 复制一行 root ALL=(ALL) ALL，并替换其中的 root 为新用户名，`:x!` 强制保存并退出。
 
-`# exit` 退出 root 用户，并登陆新创建的用户
+`# exit` 退出根用户，并登陆新创建的用户
 
 
 ## 快速配置 arch

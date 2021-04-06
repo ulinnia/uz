@@ -98,7 +98,7 @@
 
 4. 添加启动配置：
 
-    - 标志：`Boot`
+    - 标志：`Arch`
 
     - 启动设定：选择内核：直接磁盘 `Direct Disk`
 
@@ -138,10 +138,10 @@
 
 `# sync; echo 3 > /proc/sys/vm/drop_caches` 清除快取
 
+关闭 LISH 控制台
+
 
 ## 启动到 Live 环境
-
-关闭 LISH 控制台
 
 点击配置 `Configurations`
 
@@ -157,6 +157,8 @@
 
 
 ### 联网
+
+`# ping 1.1.1.1` 测试有没连上网，如果连上了就直接跳下一节，连不上就继续。
 
 `# ip addr` 查看网卡
 
@@ -181,11 +183,16 @@ DNS=1.1.1.1
 
 `# systemctl enable --now systemd-networkd` 应用网络设定
 
-`# ping 1.1.1.1` 测试有没连上网
-
-`# timedatectl set-ntp true` 更新系统时间
+`# systemctl enable --now systemd-resolved` 应用 dns 解析
 
 `# pacman -Sy archlinux-keyring` 更新密钥环
+
+等下`设置网络`时必须把这节重做一次。
+
+
+### 更新系统时间
+
+`# timedatectl set-ntp true` 更新系统时间
 
 
 ### 建立硬盘分区
@@ -299,29 +306,6 @@ DNS=1.1.1.1
 
 ### 设置网络
 
-`# vim /etc/systemd/network/w.network` 设置网络
-
-写入`网卡名称`和 VPS 提供的`IP地址/网络掩码、网路遮罩、默认网关`如下：
-
-```
-[Match]
-Name=ens3
-
-[Network]
-Address=104.168.142.56/24
-Netmask=255.255.255.0
-Gateway=104.168.142.1
-DNS=1.1.1.1
-```
-命令模式下按 `i` 输入，按 `ESC` 回到命令模式，`:x` 保存退出。
-
-`# systemctl enable --now systemd-networkd` 应用网络设定
-
-`# systemctl enable --now systemd-resolved` 应用 dns 解析
-
-
-### 设置网络
-
 `# systemctl enable dhcpcd` 启用网络
 
 
@@ -343,14 +327,23 @@ DNS=1.1.1.1
 
 `# exit` 退出 chroot 环境
 
-`# systemctl poweroff` 关机
+关闭 LISH 视窗
 
-完成创建，到网站上按完成按钮，等待机器重启。
+
+### 打开远程操作
+
+点击配置 `Configurations`
+
+标志：`Arch` 点击启动 `Boot`
+
+等待左上方棕色变绿色 `RUNNING`
+
+启动 LISH 控制台 `LISH Console`
+
+点击 `Glish`
 
 
 ### 新建用户
-
-打开 VNC
 
 以根用户 `root` 登入
 

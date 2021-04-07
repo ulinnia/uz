@@ -265,7 +265,7 @@ DNS=1.1.1.1
 
 `# fish` 使用 fish，补全更智能
 
-`# pacman -S btrfs-progs grub vim` 安装必要软件
+`# pacman -S btrfs-progs dhcpcd grub vim` 安装必要软件
 
 
 ### 设置时区

@@ -113,6 +113,7 @@ function fv_ud
     ln -f {$pvwj}vtl.toml ~/.config/i3status-rust/config.toml
     ln -f {$pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f {$pvwj}vim.vim ~/.config/nvim/init.vim
+    ln -f {$pvwj}xmod ~/.xmodmap
 end
 
 # 写入设定
@@ -134,7 +135,7 @@ function xr_ud
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
     # xinit
-    echo 'exec i3' > ~/.xinitrc
+    echo '/usr/bin/xmodmap $HOME/.xmodmap\nexec i3' > ~/.xinitrc
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
 

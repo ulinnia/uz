@@ -106,6 +106,7 @@ function fv_ud
     sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f {$pvwj}fhq /etc/nftables.conf
     sudo ln -f {$pvwj}tlp /etc/tlp.conf
+    sudo ln -f {$pvwj}keyb /etc/X11/xorg.conf.d/00-keyboard.conf
     ln -f {$pvwj}fish.fish ~/.config/fish/config.fish
     #ln -f {$pvwj}sway ~/.config/sway/config
     ln -f {$pvwj}i3 ~/.config/i3/config
@@ -113,7 +114,6 @@ function fv_ud
     ln -f {$pvwj}vtl.toml ~/.config/i3status-rust/config.toml
     ln -f {$pvwj}vd.yml ~/.config/alacritty/alacritty.yml
     ln -f {$pvwj}vim.vim ~/.config/nvim/init.vim
-    ln -f {$pvwj}xmod ~/.xmodmap
 end
 
 # 写入设定

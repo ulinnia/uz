@@ -23,7 +23,7 @@
 
 ### 创建实例
 
-进入Linode控制台首页后，按下创建 `Create`，选择实例 `Linode`。
+进入 Linode 控制台首页后，按下创建 `Create`，选择实例 `Linode`。
 
 - 选择发行版：映像 `Images` 栏位键入 `ar`，选择 `Arch Linux`
 
@@ -57,7 +57,7 @@
 
 3. 磁盘 `Disks`：将默认的两个磁盘 `Arch` 和 `Swap` 删除。
 
-4. 添加镜像磁盘 `Add a Disk`：
+4. 添加映像磁盘 `Add a Disk`：
 
     - 创建空磁盘
 
@@ -84,7 +84,7 @@
 
 2. 将默认的两个配置 `Boot` 和 `Installer` 删除
 
-3. 添加镜像配置：
+3. 添加映像配置：
 
     - 标志：`iso`
 
@@ -116,7 +116,7 @@
 点击关机监听 `Shutdown Watchdog`，将开关取消。
 
 
-### 安装 Arch Linux 镜像
+### 安装 Arch Linux 映像
 
 点击 `...`，选择救援模式 `Rescue`
 
@@ -126,11 +126,11 @@
 
 启动 LISH 控制台 `LISH Console`
 
-到 [Arch 镜像站][Arch Download] 或 [Arch 日本镜像站][Arch Cat] 选择下载点，并将镜像 `iso` 下载链接复制。
+到 [Arch 下载站][Arch Download] 或 [Arch 日本镜像站][Arch Cat] 选择下载点，并将映像 `iso` 下载链接复制。
 
 在 LISH 控制台下命令，将网址替换成 iso 下载链接：
 
-`# curl https://mirrors.cat.net/archlinux/iso/2021.04.01/archlinux-2021.04.01-x86_64.iso | dd of=/dev/sda` 将镜像写入 sda 磁盘
+`# curl https://mirrors.cat.net/archlinux/iso/2021.04.01/archlinux-2021.04.01-x86_64.iso | dd of=/dev/sda` 将映像写入 sda 磁盘
 
 `# sync; echo 3 > /proc/sys/vm/drop_caches` 清除快取
 
@@ -153,7 +153,7 @@
 
 点击 `Glish`
 
-进入镜像的启动引导程序后，选择第一项：Arch Linux archiso
+进入映像的启动引导程序后，选择第一项：`Arch Linux install medium` 回车
 
 
 ### 联网
@@ -185,8 +185,6 @@ DNS=1.1.1.1
 `# systemctl enable --now systemd-networkd` 应用网络设定
 
 `# systemctl enable --now systemd-resolved` 应用 dns 解析
-
-`# pacman -Sy archlinux-keyring` 更新密钥环
 
 等下`设置网络`时必须把这节重做一次。
 
@@ -242,6 +240,8 @@ DNS=1.1.1.1
 
 
 ### 安装必须软件包
+
+`# pacman -Sy archlinux-keyring` 更新密钥环
 
 `# pacstrap /mnt base base-devel linux linux-firmware fish` 安装基本包和 Fish
 
@@ -376,5 +376,49 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 
 
 ## Vultr 安装 Arch
+
+
+### Vultr 注册
+
+到 [Vultr 官网](Vultr) 注册账号，然后充值十刀。
+
+
+### 创建实例
+
+进入Linode控制台首页后，按下 蓝色加号 创建实例。
+
+- 选择服务器：选择云计算 `Cloud Compute`
+
+- 服务器位置：选择东京 `Tokyo`
+
+- 服务器类型：点击映像集 `ISO Library`，选择 `Arch Linux`
+
+- 服务器大小：选择最小方案 `$5/mo` 月付5刀
+
+- 输入服务器标志 `server label`：输入 `Arch-Vultr-JP`
+
+最后按部署 `Deploy Now`
+
+等待状态变成 `Running`
+
+点击进入刚创建的实例
+
+点击右上方的查看控制台 `View Console`
+
+进入映像的启动引导程序后，选择第一项：`Arch Linux install medium` 回车
+
+等待直到 `root@archiso ~ #` 出现
+
+用 [站长工具][chinaz] 测试实例的 IP 有没被墙。
+
+如果没有被墙（地图大部分是绿色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例，重新创建实例。
+
+跳到 [联网](#联网)。注意：将 `sda` 替换为 `vda`，`打开远程操作` 替换为：
+
+返回 Vultr 的 `服务器信息` 页面
+
+在 `设置` 选项卡上，单击 `自定义ISO`，然后单击 `删除ISO`
+
+单击 `服务器重新启动` 图标，然后单击 `View Console`
 
 

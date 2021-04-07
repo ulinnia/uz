@@ -413,7 +413,8 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 
 如果没有被墙（地图大部分是绿色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例，重新创建实例。
 
-跳到 [联网](#联网)。注意：将 `sda` 替换为 `vda`，`打开远程操作` 替换为：
+跳到 [联网](#联网)。注意：将 `sda` 替换为 `vda`，修改主机名 `Arch-Linode` 替换为
+`Arch-Vultr`，`打开远程操作` 一节替换为：
 
 返回 Vultr 的 `服务器信息` 页面
 

@@ -73,7 +73,7 @@ end
 function xr_ud
     # sudo 免密码
     if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
-        sudo sed -i '/# %sudo/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+        sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
     end
     # grub 超时
     sudo sed -i '/set timeout=5/s/5/0/g' /boot/grub/grub.cfg

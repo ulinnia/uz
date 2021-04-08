@@ -32,7 +32,7 @@ function rj_av
     $pacn btrfs-progs neovim nnn ntp openssh wireguard-tools
     $pacn git wget yay
     $pacn fzf pkgstats nftables dnscrypt-proxy
-    $pacn htop tree lua zsh
+    $pacn fcorn htop tree lua zsh
     $pacn ttf-dejavu wqy-microhei
 
     # yay

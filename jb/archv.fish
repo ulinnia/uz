@@ -103,7 +103,7 @@ end
 function zqd_ud
     sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-    sudo fcrontab "$pvwj"cron
+    sudo fcrontab ~/a/uz/pv/cron
 end
 
 # 交换文件

@@ -33,7 +33,6 @@ function rj_av
     $pacn git wget yay
     $pacn fzf pkgstats nftables dnscrypt-proxy
     $pacn fcron htop tree lua zsh
-    $pacn ttf-dejavu wqy-microhei
 
     # yay
     yay -S --noconfirm kmscon starship

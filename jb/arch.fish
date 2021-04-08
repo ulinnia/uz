@@ -66,7 +66,7 @@ function rj_av
     # mtp，蓝牙
     $pacn libmtp pulseaudio-bluetooth bluez-utils
     # 其他工具
-    $pacn libreoffice-fresh-zh-cn tree vlc vim
+    $pacn htop libreoffice-fresh-zh-cn ntp tree vlc vim
     # 编程语言
     $pacn bash-language-server clang lua nodejs rust yarn
     # 安装 arch
@@ -168,7 +168,7 @@ end
 function zqd_ud
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
-    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,tlp} ;
+    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,tlp} ;
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 end
 

@@ -62,11 +62,11 @@ function fv_ud
     # 缩写
     set pvwj ~/a/uz/pv/
     # fish 设置环境变量
-    fish {$pvwj}hjbl.fish
+    fish "$pvwj"hjbl.fish
     # 链接配置文件
-    sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f {$pvwj}fhq /etc/nftables.conf
-    cp -f {$pvwj}vim.vim ~/.config/nvim/init.vim
+    sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo ln -f "$pvwj"fhq /etc/nftables.conf
+    cp -f "$pvwj"vim.vim ~/.config/nvim/init.vim
 end
 
 # 写入设定
@@ -74,7 +74,7 @@ function xr_ud
     # 主机表
     sudo sed -i '/localhost\|localdomain/d' /etc/hosts
     set ipp (ip addr show | grep -o 'inet .*/24' | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]')
-    echo -e $ipp"\tlocalhost\n::1\t\tlocalhost\n"$ipp"\t"$hostname".localdomain "$hostname | sudo tee -a /etc/hosts
+    echo -e $ipp'\tlocalhost\n::1\t\tlocalhost\n'$ipp'\t'$hostname'.localdomain '$hostname | sudo tee -a /etc/hosts
     # sudo 免密码
     if not sudo grep -q '^[^#].*NOPASSWD:' /etc/sudoers
         sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
@@ -104,7 +104,7 @@ end
 function zqd_ud
     sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-    sudo fcrontab {$pvwj}cron
+    sudo fcrontab "$pvwj"cron
 end
 
 # 交换文件
@@ -127,11 +127,15 @@ function jhwj_ud
         # 启用交换文件
         sudo swapon /swap/swap
         # 写入 fstab
-        echo '/swap/swap none swap defaults 0 0' | sudo tee -a /etc/fstab
+        if not sudo grep -q '/swap/swap' /etc/fstab
+            echo '/swap/swap none swap defaults 0 0' | sudo tee -a /etc/fstab
+        end
 
         # 最大限度使用物理内存，生效
-        echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.conf
-        sudo sysctl -p
+        if not sudo grep -q 'swappiness' /etc/sysctl.conf
+            echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.conf
+            sudo sysctl -p
+        end
     end
 end
 

@@ -43,9 +43,9 @@ function fv_ud
     # 缩写
     set pvwj ~/storage/shared/a/uz/pv/
     # fish 设置环境变量
-    fish {$pvwj}hjbl.fish
+    fish "$pvwj"hjbl.fish
     # 链接配置文件
-    cp -f {$pvwj}vim.vim ~/.config/nvim/init.vim
+    cp -f "$pvwj"vim.vim ~/.config/nvim/init.vim
 end
 
 # 写入设定

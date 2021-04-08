@@ -103,29 +103,29 @@ function fv_ud
     # 缩写
     set pvwj ~/a/uz/pv/
     # fish 设置环境变量
-    fish {$pvwj}hjbl.fish
+    fish "$pvwj"hjbl.fish
     # 链接配置文件
-    sudo ln -f {$pvwj}dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f {$pvwj}fhq /etc/nftables.conf
-    sudo ln -f {$pvwj}tlp /etc/tlp.conf
-    sudo ln -f {$pvwj}keyb /etc/X11/xorg.conf.d/00-keyboard.conf
-    ln -f {$pvwj}fish.fish ~/.config/fish/config.fish
-    #ln -f {$pvwj}sway ~/.config/sway/config
-    ln -f {$pvwj}i3 ~/.config/i3/config
-    ln -f {$pvwj}urf ~/.config/fcitx5/profile
-    ln -f {$pvwj}vtl.toml ~/.config/i3status-rust/config.toml
-    ln -f {$pvwj}vd.yml ~/.config/alacritty/alacritty.yml
-    ln -f {$pvwj}vim.vim ~/.config/nvim/init.vim
+    sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo ln -f "$pvwj"fhq /etc/nftables.conf
+    sudo ln -f "$pvwj"tlp /etc/tlp.conf
+    sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
+    ln -f "$pvwj"fish.fish ~/.config/fish/config.fish
+    #ln -f "$pvwj"sway ~/.config/sway/config
+    ln -f "$pvwj"i3 ~/.config/i3/config
+    ln -f "$pvwj"urf ~/.config/fcitx5/profile
+    ln -f "$pvwj"vtl.toml ~/.config/i3status-rust/config.toml
+    ln -f "$pvwj"vd.yml ~/.config/alacritty/alacritty.yml
+    ln -f "$pvwj"vim.vim ~/.config/nvim/init.vim
 end
 
 # 写入设定
 function xr_ud
     # 主机表
     sudo sed -i '/localhost\|localdomain/d' /etc/hosts
-    echo -e "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t"$hostname".localdomain "$hostname | sudo tee -a /etc/hosts
+    echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$hostname'.localdomain '$hostname | sudo tee -a /etc/hosts
     # sudo 免密码
-    if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
-        sudo sed -i '/root ALL/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+    if not sudo grep -q '^[^#].*NOPASSWD:' /etc/sudoers
+        sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
     end
     # grub 超时
     sudo sed -i '/set timeout=5/s/5/1/g' /boot/grub/grub.cfg

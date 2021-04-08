@@ -26,28 +26,30 @@ set -Ux EDITOR nvim
 set -Ux XKB_DEFAULT_OPTIONS ctrl:nocaps
 
 # git 控制
-abbr -a -U g git
-abbr -a -U ga 'git add'
-abbr -a -U gaa 'git add --all'
-abbr -a -U gb 'git branch'
-abbr -a -U gba 'git branch -a'
-abbr -a -U gcmsg 'git commit -m'
-abbr -a -U gd 'git diff'
-abbr -a -U gl 'git pull'
-abbr -a -U gp 'git push'
-abbr -a -U grh 'git reset --hard'
-abbr -a -U grs 'git reset --soft'
-abbr -a -U gst 'git status'
+abbr -Ua g git
+abbr -Ua ga 'git add'
+abbr -Ua gaa 'git add --all'
+abbr -Ua gb 'git branch'
+abbr -Ua gba 'git branch -a'
+abbr -Ua gcmsg 'git commit -m'
+abbr -Ua gd 'git diff'
+abbr -Ua gl 'git pull'
+abbr -Ua gp 'git push'
+abbr -Ua grh 'git reset --hard'
+abbr -Ua grs 'git reset --soft'
+abbr -Ua gst 'git status'
 
 # 其他
-abbr -a -U 1 'cd -'
-abbr -a -U fu 'fusermount -u ~/gz'
-abbr -a -U la 'ls -a'
-abbr -a -U n 'nnn'
-abbr -a -U nm 'nmtui-connect'
-abbr -a -U gx 'sudo pacman -Syu'
-abbr -a -U s 'sudo'
-abbr -a -U sv 'sudo nvim'
-abbr -a -U u 'cd ~/uz'
-abbr -a -U v 'nvim'
+abbr -Ua 1 'cd -'
+abbr -Ua fu 'fusermount -u ~/gz'
+abbr -Ua h 'htop'
+abbr -Ua la 'ls -a'
+abbr -Ua n 'nnn'
+abbr -Ua nm 'nmtui-connect'
+abbr -Ua gx 'sudo pacman -Syu'
+abbr -Ua s 'sudo'
+abbr -Ua sv 'sudo nvim'
+abbr -Ua u 'cd ~/uz'
+abbr -Ua v 'nvim'
+
 

@@ -73,7 +73,7 @@ end
 function xr_ud
     # sudo 免密码
     if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
-        sudo sed -i '/root ALL/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+        sudo sed -i 's/# %sudo ALL=(ALL) ALL/%sudo ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
     end
     # grub 超时
     sudo sed -i '/set timeout=5/s/5/0/g' /boot/grub/grub.cfg
@@ -100,7 +100,7 @@ end
 function zqd_ud
     sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-    sudo fcrontab -c {$pvwj}cron
+    sudo fcrontab {$pvwj}cron
 end
 
 # 交换文件

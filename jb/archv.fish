@@ -105,23 +105,25 @@ end
 
 # 交换文件
 function jhwj_ud
-    if not test -e /swap
+    if not test -e /swap/swap
+        # 创建子卷
+        sudo btrfs subvolume create /swap
         # 创建空文件
-        sudo touch /swap
+        sudo touch /swap/swap
         # 禁止写时复制
-        sudo chattr +C /swap
+        sudo chattr +C /swap/swap
         # 禁止压缩
-        sudo chattr -c /swap
+        sudo chattr -c /swap/swap
         # 文件大小
-        sudo fallocate -l 512M /swap
+        sudo fallocate -l 512M /swap/swap
         # 设定拥有者读写
-        sudo chmod 600 /swap
+        sudo chmod 600 /swap/swap
         # 格式化交换文件
-        sudo mkswap /swap
+        sudo mkswap /swap/swap
         # 启用交换文件
-        sudo swapon /swap
+        sudo swapon /swap/swap
         # 写入 fstab
-        echo '/swap none swap defaults 0 0' | sudo tee -a /etc/fstab
+        echo '/swap/swap none swap defaults 0 0' | sudo tee -a /etc/fstab
 
         # 最大限度使用物理内存，生效
         echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.conf

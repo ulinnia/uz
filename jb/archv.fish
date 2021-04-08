@@ -98,8 +98,9 @@ end
 
 # 自启动
 function zqd_ud
-    sudo systemctl enable --now {dnscrypt-proxy,nftables,ntpd,sshd}
+    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
+    sudo fcrontab -c {$pvwj}cron
 end
 
 # 交换文件

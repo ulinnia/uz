@@ -72,7 +72,7 @@ end
 # 写入设定
 function xr_ud
     # sudo 免密码
-    if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
+    if not sudo grep -q '^[^#].*NOPASSWD:' /etc/sudoers
         sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
     end
     # grub 超时

@@ -185,6 +185,8 @@ func! CompileRunGcc()
     endif
     exec "!javac vx/%"
     exec "!time java vx/%<"
+  elseif &filetype == 'fish'
+    :!time fish %
   elseif &filetype == 'sh'
     :!time bash %
   elseif &filetype == 'python'

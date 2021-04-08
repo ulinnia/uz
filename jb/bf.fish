@@ -1,12 +1,5 @@
 #!/usr/bin/env fish
 
-# 警告
-echo '即将进行备份，确定？'
-read rrr
-if test "$rrr" != 'y'
-    exit 1
-end
-
 # 根目录地址
 set root (string split ' ' (string match '* /' (df)))
 

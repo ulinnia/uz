@@ -36,6 +36,8 @@ end
 function rj_av
     # 更新系统
     sudo pacman -Syu --noconfirm
+    # 同步包名数据库
+    sudo pacman -Fy --noconfirm
     # 缩写
     set pacn sudo pacman -S --noconfirm
     # btrfs 管理，网络管理器，tlp
@@ -118,6 +120,9 @@ end
 
 # 写入设定
 function xr_ud
+    # 主机表
+    sudo sed -i '/localhost\|localdomain/d' /etc/hosts
+    echo -e "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t"$hostname".localdomain "$hostname | sudo tee -a /etc/hosts
     # sudo 免密码
     if not sudo grep -q '%sudo.*NOPASSWD:' /etc/sudoers
         sudo sed -i '/root ALL/a\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers

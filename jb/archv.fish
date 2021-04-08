@@ -71,6 +71,10 @@ end
 
 # 写入设定
 function xr_ud
+    # 主机表
+    sudo sed -i '/localhost\|localdomain/d' /etc/hosts
+    set ipp (ip addr show | grep -o 'inet .*/24' | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]')
+    echo -e $ipp"\tlocalhost\n::1\t\tlocalhost\n"$ipp"\t"$hostname".localdomain "$hostname | sudo tee -a /etc/hosts
     # sudo 免密码
     if not sudo grep -q '^[^#].*NOPASSWD:' /etc/sudoers
         sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers

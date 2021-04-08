@@ -140,7 +140,7 @@ function xr_ud
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
     # xinit
-    echo '/usr/bin/xmodmap $HOME/.xmodmap\nexec i3' > ~/.xinitrc
+    echo 'exec i3' > ~/.xinitrc
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
 

@@ -243,7 +243,7 @@ DNS=1.1.1.1
 
 `# pacman -Sy archlinux-keyring` 更新密钥环
 
-`# pacstrap /mnt base base-devel linux linux-firmware fish` 安装基本包和 Fish
+`# pacstrap /mnt base base-devel linux-lts linux-firmware fish` 安装基本包和 Fish
 
 
 ## 配置系统

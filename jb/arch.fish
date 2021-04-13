@@ -136,6 +136,7 @@ function xr_ud
     # 更改默认 shell 为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
     sudo sed -i '/root/s/bash/fish/' /etc/passwd
+    rm ~/.bash*
     # 安装 zlua
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish

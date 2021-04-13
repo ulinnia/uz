@@ -52,6 +52,7 @@ end
 function xr_ud
     # 设 fish 为默认 shell
     chsh -s fish
+    rm ~/.bash*
     # 安装 zlua
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo 'source (lua5.4 ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish

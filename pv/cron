@@ -1,1 +1,1 @@
-0 0 * * 0 fish ~/uz/jb/bf.fish; and sudo pacman -Syu
+0 0 * * 0 fish ~/uz/jb/bf.fish; and sudo pacman -Syu --noconfirm

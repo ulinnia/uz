@@ -50,7 +50,7 @@ function rj_av
     $pacn fcitx5-im fcitx5-rime
     # wayland 显示服务器
     #$pacn wayland sway swaybg swayidle swaylock xorg-xwayland
-    #$pacn grim wofi qt5-wayland
+    #$pacn grim slurp wofi qt5-wayland
     # xorg 显示服务器
     $pacn xorg xorg-xinit i3-gaps i3lock rofi
     # 终端

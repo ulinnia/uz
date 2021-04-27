@@ -87,6 +87,9 @@ bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# 屏幕截图
+bindsym Print exec import ~/(date +'%F-%T').jpg
+
 # 移动：
     # 转移焦点
     bindsym $mod+$left focus left

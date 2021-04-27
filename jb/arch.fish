@@ -50,7 +50,7 @@ function rj_av
     $pacn fcitx5-im fcitx5-rime
     # wayland 显示服务器
     #$pacn wayland sway swaybg swayidle swaylock xorg-xwayland
-    #$pacn wofi qt5-wayland
+    #$pacn grim wofi qt5-wayland
     # xorg 显示服务器
     $pacn xorg xorg-xinit i3-gaps i3lock rofi
     # 终端
@@ -62,7 +62,7 @@ function rj_av
     # 必要工具
     $pacn fish neovim nnn openssh p7zip wireguard-tools zsh
     # 模糊搜索，图片
-    $pacn fzf imv pkgstats nftables dnscrypt-proxy
+    $pacn fzf imagemagick imv pkgstats nftables dnscrypt-proxy
     # mtp，蓝牙
     $pacn libmtp pulseaudio-bluetooth bluez-utils
     # 其他工具

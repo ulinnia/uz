@@ -3,7 +3,9 @@
 # 根目录地址
 set root (string split ' ' (string match '* /' (df)))
 
-sudo umount /mnt
+if df | grep -q ' /mnt'
+    sudo umount /mnt
+end
 sudo mount $root[1] /mnt; or begin
     echo 挂载根目录失败 $root[1]
     exit 1

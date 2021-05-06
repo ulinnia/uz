@@ -1,2 +1,4 @@
-0 0 * * 0 /bin/fish -c 'fish ~/uz/jb/bf.fish; and sudo pacman -Syu --noconfirm; and sudo systemctl reboot'
+# 自动更新系统
+0 0 * * 0 fish -c 'fish ~/uz/jb/bf.fish; and sudo pacman -Syu --noconfirm; and sudo systemctl reboot'
+
 

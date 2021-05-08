@@ -56,7 +56,7 @@ function rj_av
     # 终端
     $pacn alacritty i3status-rust
     # 播放控制，亮度控制，电源工具
-    $pacn playerctl brightnessctl upower lm_sensors
+    $pacn calibre playerctl brightnessctl upower lm_sensors
     # 网络工具
     $pacn curl firefox firefox-i18n-zh-cn git wget yay
     # 必要工具

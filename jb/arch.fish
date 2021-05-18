@@ -28,7 +28,7 @@ function xk_ud
         echo xf86-video-amdgpu
     else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
         #echo xf86-video-nouveau
-        echo nvidia
+        echo xf86-video-nouveau
     end
 end
 

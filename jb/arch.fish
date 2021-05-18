@@ -11,7 +11,7 @@ end
 # 修改 pacman 配置
 function rj_ud
     # pacman 增加 multilib 源
-    sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
+    #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
@@ -72,7 +72,7 @@ function rj_av
     # 安装 arch
     $pacn arch-install-scripts dosfstools parted
     # steam
-    $pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
+    #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
     # 修改 yay 配置
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save

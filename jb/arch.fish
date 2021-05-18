@@ -49,10 +49,10 @@ function rj_av
     # 小企鹅输入法
     $pacn fcitx5-im fcitx5-rime
     # wayland 显示服务器
-    #$pacn wayland sway swaybg swayidle swaylock xorg-xwayland
-    #$pacn grim slurp wofi qt5-wayland
+    $pacn wayland sway swaybg swayidle swaylock xorg-xwayland
+    $pacn grim slurp wofi qt5-wayland
     # xorg 显示服务器
-    $pacn xorg xorg-xinit i3-gaps i3lock rofi
+    #$pacn xorg xorg-xinit i3-gaps i3lock rofi
     # 终端
     $pacn alacritty i3status-rust
     # 播放控制，亮度控制，电源工具
@@ -110,8 +110,8 @@ function fv_ud
     sudo ln -f "$pvwj"tlp /etc/tlp.conf
     sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
     ln -f "$pvwj"fish.fish ~/.config/fish/config.fish
-    #ln -f "$pvwj"sway ~/.config/sway/config
-    ln -f "$pvwj"i3 ~/.config/i3/config
+    ln -f "$pvwj"sway ~/.config/sway/config
+    #ln -f "$pvwj"i3 ~/.config/i3/config
     ln -f "$pvwj"urf ~/.config/fcitx5/profile
     ln -f "$pvwj"vtl.toml ~/.config/i3status-rust/config.toml
     ln -f "$pvwj"vd.yml ~/.config/alacritty/alacritty.yml
@@ -141,7 +141,7 @@ function xr_ud
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
     # xinit
-    echo 'exec i3' > ~/.xinitrc
+    #echo 'exec i3' > ~/.xinitrc
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
 

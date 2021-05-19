@@ -14,8 +14,10 @@ sudo mount $root[1] /mnt; or begin
     exit
 end
 sudo btrfs subvolume delete -c /mnt/b; or begin
-    echo 删除子卷失败
-    exit
+    if sudo btrfs subvolume list /mnt | grep -q 'path b'
+        echo 删除子卷失败
+        exit
+    end
 end
 sudo btrfs subvolume snapshot /mnt/a /mnt/b;
 and sudo mkinitcpio -g /boot/initramfs-linux-b.img; or begin

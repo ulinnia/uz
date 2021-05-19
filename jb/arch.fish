@@ -27,7 +27,6 @@ function xk_ud
     if lspci -vnn | string match -iq '*vga*amd*radeon*'
         echo xf86-video-amdgpu
     else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
-        #echo xf86-video-nouveau
         echo xf86-video-nouveau
     end
 end
@@ -52,17 +51,17 @@ function rj_av
     $pacn wayland sway swaybg swayidle swaylock xorg-xwayland
     $pacn grim slurp wofi qt5-wayland
     # xorg 显示服务器
-    #$pacn xorg xorg-xinit i3-gaps i3lock rofi
+    #$pacn xorg xorg-xinit i3-gaps i3lock imagemagick rofi
     # 终端
     $pacn alacritty i3status-rust
     # 播放控制，亮度控制，电源工具
     $pacn calibre playerctl brightnessctl upower lm_sensors
     # 网络工具
-    $pacn curl firefox firefox-i18n-zh-cn git wget yay
+    $pacn curl firefox firefox-i18n-zh-cn git wget
     # 必要工具
     $pacn fish neovim nnn openssh p7zip wireguard-tools zsh
     # 模糊搜索，图片
-    $pacn fzf imagemagick imv pkgstats nftables dnscrypt-proxy
+    $pacn fzf imv pkgstats nftables dnscrypt-proxy
     # mtp，蓝牙
     $pacn libmtp pulseaudio-bluetooth bluez-utils
     # 其他工具
@@ -74,6 +73,11 @@ function rj_av
     # steam
     #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
+    # 安装 yay
+    cd
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
     # 修改 yay 配置
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
     # yay 安装 jmtpfs，starship
@@ -194,4 +198,5 @@ case '*'
     xhyx_av
     zqd_ud
 end
+
 

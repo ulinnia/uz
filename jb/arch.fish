@@ -108,7 +108,7 @@ function fv_ud
     sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f "$pvwj"fhq /etc/nftables.conf
     sudo ln -f "$pvwj"tlp /etc/tlp.conf
-    sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
+    #sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
     ln -f "$pvwj"fish.fish ~/.config/fish/config.fish
     ln -f "$pvwj"sway ~/.config/sway/config
     #ln -f "$pvwj"i3 ~/.config/i3/config

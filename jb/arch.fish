@@ -65,9 +65,11 @@ function rj_av
     # mtp，蓝牙
     $pacn libmtp pulseaudio-bluetooth bluez-utils
     # 其他工具
-    $pacn htop libreoffice-fresh-zh-cn ntp tree vlc vim
+    $pacn libreoffice-fresh-zh-cn ntp tree vlc vim
     # 编程语言
     $pacn bash-language-server clang lua nodejs rust yarn
+    # 新工具
+    $pacn fd ripgrep htop bat tldr exa
     # 安装 arch
     $pacn arch-install-scripts dosfstools parted
     # steam

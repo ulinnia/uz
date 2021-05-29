@@ -43,37 +43,52 @@ function rj_av
     $pacn btrfs-progs networkmanager tlp tlp-rdw
     # 声卡，触摸板，显卡驱动
     $pacn alsa-utils pulseaudio-alsa xf86-input-libinput (xk_ud)
-    # 繁简中日韩，emoji，Ubuntu字体
-    $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
-    # 小企鹅输入法
-    $pacn fcitx5-im fcitx5-rime
-    # wayland 显示服务器
-    $pacn wayland sway swaybg swayidle swaylock xorg-xwayland
-    $pacn grim slurp wofi qt5-wayland
-    # xorg 显示服务器
-    #$pacn xorg xorg-xinit i3-gaps i3lock imagemagick rofi
-    # 终端
-    $pacn alacritty i3status-rust
-    # 播放控制，亮度控制，电源工具
-    $pacn calibre playerctl brightnessctl upower lm_sensors
-    # 网络工具
-    $pacn curl firefox firefox-i18n-zh-cn git wget
-    # 必要工具
-    $pacn fish neovim nnn openssh p7zip wireguard-tools zsh
-    # 模糊搜索，图片
-    $pacn fzf imv pkgstats nftables dnscrypt-proxy
-    # mtp，蓝牙
-    $pacn libmtp pulseaudio-bluetooth bluez-utils
-    # 其他工具
-    $pacn libreoffice-fresh-zh-cn ntp tree vlc vim
-    # 编程语言
-    $pacn bash-language-server clang lua nodejs rust yarn
-    # 新工具
-    $pacn fd ripgrep htop bat tldr exa
-    # 安装 arch
-    $pacn arch-install-scripts dosfstools parted
-    # steam
-    #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
+
+    # 互联网
+        # 网络连接
+        $pacn curl firefox firefox-i18n-zh-cn git wget
+
+    # 多媒体
+        # wayland 显示服务器
+        $pacn wayland sway swaybg swayidle swaylock xorg-xwayland
+        # 显示
+        $pacn imv p7zip vlc
+        # xorg 显示服务器
+        #$pacn xorg xorg-xinit i3-gaps i3lock imagemagick rofi
+        # 截图，菜单
+        $pacn grim slurp wofi qt5-wayland
+
+    # 工具
+        # 终端
+        $pacn alacritty fish i3status-rust neovim nnn
+        # 小企鹅输入法
+        $pacn fcitx5-im fcitx5-rime
+        # 播放控制，亮度控制，电源工具
+        $pacn calibre playerctl brightnessctl upower lm_sensors
+        # 查找
+        $pacn fd fzf ripgrep htop bat tldr exa
+        # mtp，蓝牙
+        $pacn libmtp pulseaudio-bluetooth bluez-utils
+        # 安装 arch
+        $pacn arch-install-scripts dosfstools parted
+        # 统计，兼容
+        $pacn pkgstats vim zsh
+
+    # 文档
+        # 繁简中日韩，emoji，Ubuntu字体
+        $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
+        # 办公
+        $pacn libreoffice-fresh-zh-cn tree
+
+    # 安全
+        # 网络安全
+        $pacn dnscrypt-proxy nftables ntp openssh wireguard-tools
+
+    # 科学
+        # 编程语言
+        $pacn bash-language-server clang lua nodejs rust yarn
+        # steam
+        #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
     # 安装 yay
     cd

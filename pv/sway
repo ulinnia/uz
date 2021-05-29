@@ -181,7 +181,7 @@ mode "j关机，i重启，g挂起，x休眠，s锁屏，d登出" {
     bindsym x exec --no-startup-id systemctl hibernate, mode "default"
     bindsym s exec --no-startup-id swaylock -f -c 000000, mode "default"
     bindsym d exec --no-startup-id swaymsg exit, mode "default"
-    
+
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }

@@ -64,9 +64,11 @@ function rj_av
         # 小企鹅输入法
         $pacn fcitx5-im fcitx5-rime
         # 播放控制，亮度控制，电源工具
-        $pacn calibre playerctl brightnessctl upower lm_sensors
+        $pacn playerctl brightnessctl upower lm_sensors
         # 查找
-        $pacn fd fzf ripgrep htop bat tldr exa
+        $pacn fzf htop tree
+        # 新查找
+        $pacn fd ripgrep bat tldr exa
         # mtp，蓝牙
         $pacn libmtp pulseaudio-bluetooth bluez-utils
         # 安装 arch
@@ -77,8 +79,8 @@ function rj_av
     # 文档
         # 繁简中日韩，emoji，Ubuntu字体
         $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
-        # 办公
-        $pacn libreoffice-fresh-zh-cn tree
+        # 电子书，办公
+        $pacn calibre libreoffice-fresh-zh-cn
 
     # 安全
         # 网络安全

@@ -187,6 +187,9 @@ mode "j关机，i重启，g挂起，x休眠，s锁屏，d登出" {
 }
 bindsym $mod+o mode "j关机，i重启，g挂起，x休眠，s锁屏，d登出"
 
+# 锁屏快捷键
+bindsym $mod+l exec --no-startup-id swaylock -f -c 000000
+
 # 状态栏：
 # 阅读 `man 5 sway-bar` ，了解有关此部分的更多信息。
 bar {

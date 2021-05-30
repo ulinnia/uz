@@ -32,7 +32,7 @@ format = "{average}"
 [[block]]
 block = "net"
 format = "{ssid} {signal_strength} {ip} {speed_down;K}"
-interval = 5
+interval = 1
 
 [[block]]
 block = "battery"

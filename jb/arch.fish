@@ -93,14 +93,14 @@ function rj_av
         #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
     # 安装 yay
-    cd
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-    # 修改 yay 配置
-    yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
-    # yay 安装 jmtpfs，starship
-    yay -S --noconfirm jmtpfs starship
+    $pacn yay; and begin
+        # 修改 yay 配置
+        yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
+        # yay 安装 jmtpfs，starship
+        yay -S --noconfirm jmtpfs starship
+    end; or begin
+        echo yay 下载失败
+    end
 end
 
 # uz 设定

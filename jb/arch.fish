@@ -93,14 +93,19 @@ function rj_av
         #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
     # 安装 yay
-    $pacn yay; and begin
-        # 修改 yay 配置
-        yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
-        # yay 安装 jmtpfs，starship
-        yay -S --noconfirm jmtpfs starship
-    end; or begin
-        echo yay 下载失败
+    $pacn yay; or begin
+        # 删除 gnupg 目录及其文件
+        sudo rm -R  /etc/pacman.d/gnupg/
+        # 初始化密钥环
+        sudo pacman-key --init
+        # 验证主密钥
+        sudo pacman-key --populate archlinux
+        sudo pacman-key --populate archlinuxcn
     end
+    # 修改 yay 配置
+    yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
+    # yay 安装 jmtpfs，starship
+    yay -S --noconfirm jmtpfs starship
 end
 
 # uz 设定

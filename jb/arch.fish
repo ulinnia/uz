@@ -101,6 +101,9 @@ function rj_av
         # 验证主密钥
         sudo pacman-key --populate archlinux
         sudo pacman-key --populate archlinuxcn
+        $pacn yay; or begin
+            echo '下载 yay 失败'
+        end
     end
     # 修改 yay 配置
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save

@@ -22,6 +22,7 @@
 
 动漫。
 
+- 罪恶王冠
 - 化物语
 - 伪物语
 - 少女终末旅行
@@ -71,14 +72,6 @@
 - 去月球
 - 寻找天堂
 
-硬件。
-
-- (人体工学键盘) kinesis advantage 2
-- (轨迹球) Kensington Pro Fit Ergo
-- (折叠爪刀) FX-599-XTS
-- (耳机) 韶音AS800
-- (闪存盘) Lexar JumpDrive M45
-
 软件。
 
 - (文件系统) Btrfs
@@ -103,6 +96,18 @@
 - (视频转码器) HandBrake
 - (视频编辑器) Shotcut
 - (音频编辑器) Audacity
+
+硬件。
+
+- (人体工学键盘) kinesis advantage 2
+- (轨迹球) Kensington Pro Fit Ergo
+- (耳机) 韶音AS800
+- (闪存盘) Lexar JumpDrive M45
+
+日常携带。
+
+- (战术单肩包) Maxpedition Entity 16
+- (折叠爪刀) FX-599-XTS
 
 
 ## 解释 ##

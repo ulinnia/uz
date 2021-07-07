@@ -102,12 +102,12 @@
 
 - (人体工学键盘) kinesis advantage 2
 - (轨迹球) Kensington Pro Fit Ergo
-- (耳机) 韶音AS800
+- (耳机) 韶音 AS800
 - (闪存盘) Lexar JumpDrive M45
 
 日常携带。
 
-- (智能手环) 华为手环 6
+- (智能手环) 华为 Watch Fit
 - (战术单肩包) Maxpedition Entity 16
 - (折叠爪刀) FX-599-XTS
 

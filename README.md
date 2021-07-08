@@ -107,6 +107,7 @@
 
 日常携带。
 
+- (手机) 华为 Mate 30 Pro 5G
 - (智能手环) 华为 Watch Fit
 - (战术单肩包) Maxpedition Entity 16
 - (折叠爪刀) FX-599-XTS

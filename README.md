@@ -46,6 +46,7 @@
 - 清漪 - 但叹清风错
 - 甘茶の音楽工房 - 赤い风船とメリーゴーランド
 - supercell - My Dearest
+- EGOIST - The Everlasting Guilty Crown
 - いとうかなこ - アマデウス
 - GALA - 追梦赤子心
 - SOUNDORBIS - LIFE

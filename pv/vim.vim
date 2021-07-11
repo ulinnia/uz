@@ -166,39 +166,38 @@ set undodir=~/.config/nvim/.undo//
 " 编译文件快捷键
 map r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-  exec "w"
-  if &filetype == 'c'
-    if !isdirectory('vx')
-      exec "!mkdir vx"
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        :tab split
+        :term time ./%<
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        :tab split
+        :term time ./%<
+    elseif &filetype == 'rust'
+        :tab split
+        :term cargo run
+    elseif &filetype == 'java'
+        :tab split
+        :term javac % && time java %<
+    elseif &filetype == 'fish'
+        :tab split
+        :term time fish %
+    elseif &filetype == 'sh'
+        :tab split
+        :term time bash %
+    elseif &filetype == 'python'
+        :tab split
+        :term python %
+    elseif &filetype == 'go'
+        :tab split
+        :term go run .
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'markdown'
+        exec "InstantMarkdownPreview"
     endif
-    exec "!g++ % -o vx/%<"
-    exec "!time ./vx/%<"
-  elseif &filetype == 'cpp'
-    if !isdirectory('vx')
-      exec "!mkdir vx"
-    endif
-    exec "!g++ % -o vx/%<"
-    exec "!time ./vx/%<"
-  elseif &filetype == 'java'
-    if !isdirectory('vx')
-      exec "!mkdir vx"
-    endif
-    exec "!javac vx/%"
-    exec "!time java vx/%<"
-  elseif &filetype == 'fish'
-    :!time fish %
-  elseif &filetype == 'sh'
-    :!time bash %
-  elseif &filetype == 'python'
-    silent! exec "!clear"
-    exec "!time python3 %"
-  elseif &filetype == 'html'
-    exec "!firefox % &"
-  elseif &filetype == 'markdown'
-    exec "MarkdownPreview"
-  elseif &filetype == 'vimwiki'
-    exec "MarkdownPreview"
-  endif
 endfunc
 
 

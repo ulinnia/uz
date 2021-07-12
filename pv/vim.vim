@@ -169,26 +169,26 @@ func! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
         exec "!g++ % -o %<"
-        :sp | term time ./%<
+        :bel sp | term time ./%<
     elseif &filetype == 'cpp'
         exec "!g++ % -o %<"
-        :sp | term time ./%<
+        :bel sp | term time ./%<
     elseif &filetype == 'fish'
-        :sp | term time fish %
+        :bel sp | term time fish %
     elseif &filetype == 'go'
-        :sp | term go run .
+        :bel sp | term go run .
     elseif &filetype == 'html'
         exec "!firefox % &"
     elseif &filetype == 'java'
-        :sp | term javac % && time java %<
+        :bel sp | term javac % && time java %<
     elseif &filetype == 'markdown'
         exec "InstantMarkdownPreview"
     elseif &filetype == 'python'
-        :sp | term python %
+        :bel sp | term python %
     elseif &filetype == 'rust'
-        :sp | term cargo run
+        :bel sp | term cargo run
     elseif &filetype == 'sh'
-        :sp | term time bash %
+        :bel sp | term time bash %
     endif
 endfunc
 

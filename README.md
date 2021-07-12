@@ -6,9 +6,9 @@
 </p>
 
 - [彩虹猫](#彩虹猫)
-- [Arch个人配置](#Arch-个人配置)
-- [Arch服务器配置](#Arch-服务器配置)
-- [Termux配置](#Termux-配置)
+- [Arch 个人配置](#Arch-个人配置)
+- [Arch 服务器配置](#Arch-服务器配置)
+- [Termux 配置](#Termux-配置)
 
 
 ## 神作 ##

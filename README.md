@@ -129,7 +129,7 @@ cdhsmcq 彩虹猫
 [aidn.jp](https://aidn.jp/)
 
 
-### Arch个人配置 ###
+### Arch 个人配置 ###
 
 请先[安装arch](jb/arch.md)
 

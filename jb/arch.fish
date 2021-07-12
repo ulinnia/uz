@@ -201,7 +201,7 @@ function zqd_ud
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
     sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,tlp} ;
-    sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
+    sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
 end
 
 

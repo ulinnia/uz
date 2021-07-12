@@ -28,13 +28,45 @@ function rj_av
     sudo pacman -Syu --noconfirm
     # 缩写
     set pacn sudo pacman -S --noconfirm
-    # 软件
-    $pacn btrfs-progs neovim nnn ntp openssh wireguard-tools
-    $pacn git wget yay
-    $pacn fzf pkgstats nftables dnscrypt-proxy
-    $pacn fcron htop tree lua zsh
+    # btrfs 管理
+    $pacn btrfs-progs
 
-    # yay
+    # 互联网
+        # 网络连接
+        $pacn curl git wget
+
+    # 工具
+        # 终端
+        $pacn fcron fish neovim nnn
+        # 查找
+        $pacn fzf htop tree
+        # 新查找
+        $pacn fd ripgrep bat tldr exa
+        # 缓存，统计，兼容
+        $pacn pacman-contrib pkgstats vim zsh
+
+    # 安全
+        # 网络安全
+        $pacn dnscrypt-proxy nftables ntp openssh wireguard-tools
+
+    # 科学
+        # 编程语言
+        $pacn lua
+
+    # 安装 yay
+    $pacn yay; or begin
+        # 删除 gnupg 目录及其文件
+        sudo rm -R  /etc/pacman.d/gnupg/
+        # 初始化密钥环
+        sudo pacman-key --init
+        # 验证主密钥
+        sudo pacman-key --populate archlinux
+        sudo pacman-key --populate archlinuxcn
+        $pacn yay; or begin
+            echo '下载 yay 失败'
+        end
+    end
+    # yay 安装 kmscon，starship
     yay -S --noconfirm kmscon starship
 end
 
@@ -102,7 +134,7 @@ end
 
 # 自启动
 function zqd_ud
-    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,sshd}
+    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
     sudo fcrontab ~/a/uz/pv/cron
 end

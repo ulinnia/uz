@@ -18,7 +18,7 @@
 - daniwell
 - 新房昭之
 - 入间人间
-- 东尼·博赞/Tony·Buzan
+- 东尼·博赞 / Tony·Buzan
 
 动漫。
 
@@ -69,7 +69,7 @@
 - 刺激战场
 - BanG Dream! 少女乐团派对
 - DDLC 心跳文学部
-- APEX英雄
+- APEX 英雄
 - 泰坦天降2
 - 去月球
 - 寻找天堂
@@ -131,7 +131,7 @@ cdhsmcq 彩虹猫
 
 ### Arch 个人配置 ###
 
-请先[安装arch](jb/arch.md)
+请先[安装 arch](jb/arch.md)
 
 ```shell
 curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
@@ -140,7 +140,7 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 
 ### Arch 服务器配置 ###
 
-请先[安装arch](jb/archv.md)
+请先[安装 arch](jb/archv.md)
 
 ```shell
 curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish

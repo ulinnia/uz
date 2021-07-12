@@ -73,8 +73,8 @@ function rj_av
         $pacn libmtp pulseaudio-bluetooth bluez-utils
         # 安装 arch
         $pacn arch-install-scripts dosfstools parted
-        # 统计，兼容
-        $pacn pkgstats vim zsh
+        # 缓存，统计，兼容
+        $pacn pacman-contrib pkgstats vim zsh
 
     # 文档
         # 繁简中日韩，emoji，Ubuntu字体
@@ -200,7 +200,7 @@ end
 function zqd_ud
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
-    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,tlp} ;
+    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,tlp} ;
     sudo systemctl mask {systemd-rfkill.service,systemd-rfkill.socket}
 end
 

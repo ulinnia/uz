@@ -24,12 +24,12 @@ echo "\
 PrivateKey = "(cat pri1)"
 Address = 10.10.10.1
 ListenPort = 54321
-PostUp   = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o "$interface" -j MASQUERADE
-PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o "$interface" -j MASQUERADE
+PostUp   = nft add rule wgf0 filter FORWARD iifname wgf0 counter accept; nft add rule wgf0 filter FORWARD oifname wgf0 counter accept; nft add rule wgf0 wgf0 POSTROUTING oifname "$interface" counter masquerade
+PostDown = nft delete table wgf0
 [Peer]
 PublicKey = "(cat pub2)"
 AllowedIPs = 10.10.10.2/32
-" > wg0.conf
+" > wgf0.conf
 
 # 生成客户端配置文件
 echo "\
@@ -45,16 +45,16 @@ AllowedIPs = 0.0.0.0/0
 " > client.conf
 
 # 复制配置文件并启动
-sudo cp wg0.conf /etc/wireguard/ || begin
-    echo 复制失败,请检查/etc/wireguard目录或wg0.conf是否存在
+sudo cp wgf0.conf /etc/wireguard/ || begin
+    echo 复制失败,请检查/etc/wireguard目录或wgf0.conf是否存在
     exit
 end
-sudo systemctl start wg-quick@wg0 || begin
-    echo 启动wireguard失败，请检查/etc/wireguard/wg0.conf是否存在错误
+sudo systemctl start wg-quick@wgf0 || begin
+    echo 启动wireguard失败，请检查/etc/wireguard/wgf0.conf是否存在错误
     exit
 end
 
-sudo systemctl enable --now wg-quick@wg0
+sudo systemctl enable --now wg-quick@wgf0
 
 # 显示客户端配置文件
 echo "----------以下是客户端配置文件，请保存并在客户端中使用----------"

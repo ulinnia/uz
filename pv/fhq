@@ -1,19 +1,30 @@
 table inet filter {
+	map input_vmap {
+		type inet_proto : verdict
+		elements = { tcp : jump TCP, udp : jump UDP }
+	}
+
+	set web {
+		type inet_service
+		flags interval
+		elements = { 80, 443 }
+	}
+
 	chain input {
-		type filter hook input priority filter; policy drop;
-		ct state established,related accept
-		iif "lo" accept
-		ct state invalid drop
-		ip protocol icmp icmp type echo-request ct state new accept
-		ip protocol udp ct state new jump UDP
-		ip protocol tcp tcp flags & (fin | syn | rst | ack) == syn ct state new jump TCP
-		ip protocol udp reject
-		ip protocol tcp reject with tcp reset
-		meta nfproto ipv4 counter packets 7 bytes 252 reject with icmp type prot-unreachable
+		type filter hook input priority filter; policy accept;
+		iif "lo" accept comment "Accept any localhost traffic"
+		iif != "lo" ip daddr 127.0.0.0/8 counter packets 0 bytes 0 drop comment "drop connections to loopback not coming from loopback"
+		ct state invalid log prefix "Invalid-Input: " level info flags all counter packets 0 bytes 0 drop comment "Drop invalid connections"
+		ip protocol icmp icmp type echo-request limit rate 20 bytes/second burst 500 bytes counter packets 0 bytes 0 accept comment "No ping floods"
+		ip protocol icmp icmp type echo-request drop comment "No ping floods"
+		ct state { established, related } counter packets 1820 bytes 1372821 accept comment "Accept traffic originated from us"
+		ip protocol icmp icmp type { destination-unreachable, router-advertisement, router-solicitation, time-exceeded, parameter-problem } accept comment "Accept ICMP"
+		ip protocol igmp accept comment "Accept IGMP"
+		meta l4proto vmap @input_vmap
 	}
 
 	chain forward {
-		type filter hook forward priority filter; policy drop;
+		type filter hook forward priority filter; policy accept;
 	}
 
 	chain output {
@@ -21,13 +32,10 @@ table inet filter {
 	}
 
 	chain TCP {
-		tcp dport 80 accept
-		tcp dport 443 accept
-		tcp dport 22 accept
-		tcp dport 53 accept
+		tcp dport 22 ct state new limit rate 15/minute log prefix "New SSH connection: " counter packets 0 bytes 0 accept comment "Avoid brute force on SSH"
+		tcp dport @web counter packets 0 bytes 0 accept comment "Accept web server"
 	}
 
 	chain UDP {
-		udp dport 53 accept
 	}
 }

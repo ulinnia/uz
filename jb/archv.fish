@@ -90,14 +90,17 @@ end
 function fv_ud
     # 创建目录
     mkdir -p ~/{a,xz,.config/{fish/conf.d,nvim/.backup}}
+    sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
     set pvwj ~/a/uz/pv/
     # fish 设置环境变量
     fish "$pvwj"hjbl.fish
+    sudo fish "$pvwj"hjbl.fish
     # 链接配置文件
     sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f "$pvwj"fhq /etc/nftables.conf
     cp -f "$pvwj"vim.vim ~/.config/nvim/init.vim
+    sudo cp -f "$pvwj"vim.vim /root/.config/nvim/init.vim
 end
 
 # 写入设定
@@ -127,9 +130,11 @@ function xr_ud
     echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
     # 提示符
     echo -e 'if status is-interactive\n    starship init fish | source\nend' > ~/.config/fish/config.fish
+    echo -e 'if status is-interactive\n    starship init fish | source\nend' | sudo tee /root/.config/fish/config.fish
 
     # nvim 注释 plug 配置
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
+    sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 end
 
 # 自启动

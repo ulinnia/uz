@@ -131,22 +131,26 @@ end
 function fv_ud
     # 创建目录
     mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,nvim/.backup,sway}}
+    sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
     set pvwj ~/a/uz/pv/
     # fish 设置环境变量
     fish "$pvwj"hjbl.fish
+    sudo fish "$pvwj"hjbl.fish
     # 链接配置文件
     sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f "$pvwj"fhq /etc/nftables.conf
     sudo ln -f "$pvwj"tlp /etc/tlp.conf
     #sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
     ln -f "$pvwj"fish.fish ~/.config/fish/config.fish
+    sudo ln -f "$pvwj"fish.fish /root/.config/fish/config.fish
     ln -f "$pvwj"sway ~/.config/sway/config
     #ln -f "$pvwj"i3 ~/.config/i3/config
     ln -f "$pvwj"urf ~/.config/fcitx5/profile
     ln -f "$pvwj"vtl.toml ~/.config/i3status-rust/config.toml
     ln -f "$pvwj"vd.yml ~/.config/alacritty/alacritty.yml
     ln -f "$pvwj"vim.vim ~/.config/nvim/init.vim
+    sudo cp -f "$pvwj"vim.vim /root/.config/nvim/init.vim
 end
 
 # 写入设定
@@ -176,6 +180,8 @@ function xr_ud
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O ~/a/vp/bv/hw.png
 
+    # 根用户 nvim 注释 plug 配置
+    sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
     # 安装 vim-plug
     curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

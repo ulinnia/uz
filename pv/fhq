@@ -64,7 +64,7 @@ table inet nat {
     chain postrouting {
 
         # 源地址转换
-        type nat hook postrouting priority 0;
+        type nat hook postrouting priority 100;
 
     }
 

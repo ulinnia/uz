@@ -120,10 +120,6 @@ function xr_ud
     sudo chattr +i /etc/resolv.conf
     # ssh
     sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config
-    # sysctl 生效
-    if not sudo grep -q 'sysctl -p' /etc/rc.local
-        echo 'sysctl -p' | sudo tee -a /etc/rc.local
-    end
 
     # 更改默认 shell 为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
@@ -173,9 +169,9 @@ function jhwj_ud
         end
 
         # 最大限度使用物理内存，生效
-        if not sudo grep -q 'swappiness' /etc/sysctl.conf
-            echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.conf
-            sudo sysctl -p
+        if not sudo grep -q 'swappiness' /etc/sysctl.d/99-sysctl.conf
+            echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.d/99-sysctl.conf
+            sudo sysctl (bat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
         end
     end
 end

@@ -167,10 +167,6 @@ function xr_ud
     # dns
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
-    # sysctl 生效
-    if not sudo grep -q 'sysctl -p' /etc/rc.local
-        echo 'sysctl -p' | sudo tee -a /etc/rc.local
-    end
 
     # 更改默认 shell 为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd

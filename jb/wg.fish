@@ -30,7 +30,7 @@ echo "\
 PrivateKey = "(cat pri1)"
 Address = 10.10.10.1
 ListenPort = 54321
-PostUp   = nft add rule inet filter forward iifname wg0 counter accept; nft add rule inet filter forward oifname wg0 counter accept; nft add rule inet nat postrouting oifname "$interface" counter masquerade
+PostUp   = nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
 PostDown = nft flush table inet nat
 [Peer]
 PublicKey = "(cat pub2)"

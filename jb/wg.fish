@@ -24,8 +24,8 @@ echo "\
 PrivateKey = "(cat pri1)"
 Address = 10.10.10.1
 ListenPort = 54321
-PostUp   = nft add rule wgf filter FORWARD iifname wgf0 counter accept; nft add rule wgf filter FORWARD oifname wgf0 counter accept; nft add rule wgf wgf0 POSTROUTING oifname "$interface" counter masquerade
-PostDown = nft delete table wgf
+PostUp   = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = nft flush table inet nat
 [Peer]
 PublicKey = "(cat pub2)"
 AllowedIPs = 10.10.10.2/32

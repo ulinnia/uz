@@ -37,7 +37,7 @@ function rj_av
 
     # 工具
         # 终端
-        $pacn fcron fish neovim nnn
+        $pacn fcron fish neovim nnn qrencode
         # 查找
         $pacn fzf htop tree
         # 新查找

@@ -42,7 +42,7 @@ echo "\
 [Interface]
 PrivateKey = "(cat pri2)"
 Address = 10.10.10.2
-DNS = 8.8.8.8
+DNS = 1.1.1.1
 
 [Peer]
 PublicKey = "(cat pub1)"

@@ -120,6 +120,10 @@ function xr_ud
     sudo chattr +i /etc/resolv.conf
     # ssh
     sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config
+    # sysctl 生效
+    if not sudo grep -q 'sysctl -p' /etc/rc.local
+        echo 'sysctl -p' | sudo tee -a /etc/rc.local
+    end
 
     # 更改默认 shell 为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd

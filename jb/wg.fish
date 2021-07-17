@@ -18,6 +18,12 @@ chmod 600 pri2
 set interface (ip -o -4 route show to default | awk '{print $5}')
 set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
+# 打开流量转发
+if not sudo grep -q 'ip_forward' /etc/sysctl.conf
+    echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
+    sudo sysctl -p
+end
+
 # 生成服务端配置文件
 echo "\
 [Interface]

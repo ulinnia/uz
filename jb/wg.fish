@@ -56,10 +56,13 @@ sudo cp wg0.conf /etc/wireguard/ || begin
     echo 复制失败,请检查/etc/wireguard目录或wg0.conf是否存在
     exit
 end
-sudo systemctl enable --now wg-quick@wg0 || begin
+sudo wg-quick up wg0 || begin
     echo 启动wireguard失败，请检查/etc/wireguard/wg0.conf是否存在错误
     exit
 end
+
+# 开机自启
+sudo systemctl enable wg-quick@wg0
 
 # 显示客户端配置文件
 echo "----------以下是客户端配置文件，请保存并在客户端中使用----------"

@@ -17,6 +17,7 @@ chmod 600 pri2
 
 set interface (ip -o -4 route show to default | awk '{print $5}')
 set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+set port 54321
 
 # 打开流量转发
 if not sudo grep -q 'ip_forward' /etc/sysctl.d/99-sysctl.conf
@@ -29,8 +30,8 @@ echo "\
 [Interface]
 PrivateKey = "(cat pri1)"
 Address = 10.10.10.1
-ListenPort = 54321
-PostUp   = nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
+ListenPort = "$port"
+PostUp   = nft add rule inet filter input udp dport "$port" accept; nft add rule inet filter forward iifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
 PostDown = nft flush table inet nat
 [Peer]
 PublicKey = "(cat pub2)"
@@ -46,7 +47,7 @@ DNS = 1.1.1.1
 
 [Peer]
 PublicKey = "(cat pub1)"
-Endpoint = "$ip":54321
+Endpoint = "$ip":"$port"
 AllowedIPs = 0.0.0.0/0
 " > client.conf
 

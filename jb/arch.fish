@@ -143,7 +143,6 @@ function fv_ud
     sudo ln -f "$pvwj"tlp /etc/tlp.conf
     #sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
     ln -f "$pvwj"fish.fish ~/.config/fish/config.fish
-    sudo ln -f "$pvwj"fish.fish /root/.config/fish/config.fish
     ln -f "$pvwj"sway ~/.config/sway/config
     #ln -f "$pvwj"i3 ~/.config/i3/config
     ln -f "$pvwj"urf ~/.config/fcitx5/profile
@@ -175,6 +174,8 @@ function xr_ud
     # 安装 zlua
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
     echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
+    # 提示符
+    echo -e 'if status is-interactive\n    starship init fish | source\nend' | sudo tee /root/.config/fish/config.fish
     # xinit
     #echo 'exec i3' > ~/.xinitrc
     # 壁纸

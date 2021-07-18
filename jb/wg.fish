@@ -15,9 +15,15 @@ wg genkey | tee pri2 | wg pubkey >pub2
 chmod 600 pri1
 chmod 600 pri2
 
+function rand -a min -a max
+    set max (math $max - $min + 1)
+    set num (date +%s%N)
+    echo (math $num % $max + $min)
+end
+
 set interface (ip -o -4 route show to default | awk '{print $5}')
 set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-set port 54321
+set port (rand 10000 60000)
 
 # 打开流量转发
 if not sudo grep -q 'ip_forward' /etc/sysctl.d/99-sysctl.conf

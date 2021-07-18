@@ -66,8 +66,8 @@ function rj_av
             echo '下载 yay 失败'
         end
     end
-    # yay 安装 kmscon，starship
-    yay -S --noconfirm kmscon starship
+    # yay 安装 starship
+    yay -S --noconfirm starship
 end
 
 # uz 设定

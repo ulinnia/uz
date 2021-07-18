@@ -32,7 +32,7 @@ PrivateKey = "(cat pri1)"
 Address = 10.10.10.1
 ListenPort = "$port"
 PostUp   = nft add rule inet filter input udp dport "$port" accept; nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
-PostDown = nft flush table inet nat
+PostDown = nft flush releset; nft -f /etc/nftables.conf
 [Peer]
 PublicKey = "(cat pub2)"
 AllowedIPs = 10.10.10.2/32

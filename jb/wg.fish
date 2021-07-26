@@ -85,10 +85,10 @@ end
 function cli_ud
     set i 2
     while string match -qr '^[2-8]$' $i
-        read -p 'echo 输入成员数字[2-8]，按 q 退出：' cli
+        read -p 'echo 输入成员数字[2-8]，按 q 退出：' i
         if string match -qr '^[2-8]$' $i
-            cat cli/client"$i".conf
-            qrencode -t ansiutf8 <cli/client"$i".conf
+            cat client"$i".conf
+            qrencode -t ansiutf8 <client"$i".conf
         end
     end
 end

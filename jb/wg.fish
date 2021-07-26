@@ -95,7 +95,7 @@ end
 
 echo 输入 a 安装 wg0
 echo 输入 b 查看成员配置
-read -p 'echo '> '' i
+read -p 'echo "> "' i
 switch $i
 case a
     wg0_av

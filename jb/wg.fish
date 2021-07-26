@@ -83,7 +83,7 @@ AllowedIPs = 0.0.0.0/0
 end
 
 function cli_ud
-    while ture
+    while true
         read -p 'echo 输入成员数字[1-7]，按 q 退出：' i
         if string match -qr '^[1-7]$' $i
             cat client"$i".conf

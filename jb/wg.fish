@@ -10,7 +10,7 @@ end
 
 function wg0_av
     # 生成8对密钥，分别用作1服务器和7客户端使用
-    for i in (seq 8)
+    for i in (seq 0 7)
         wg genkey | tee pri"$i" | wg pubkey >pub"$i"
         # 设置密钥访问权限
         chmod 600 pri"$i"
@@ -36,14 +36,14 @@ function wg0_av
     # 生成服务端配置文件
     echo "\
 [Interface]
-PrivateKey = "(cat pri1)"
+PrivateKey = "(cat pri0)"
 Address = 10.10.10.1
 ListenPort = "$port"
 PostUp   = nft add rule inet filter input udp dport "$port" accept; nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
 PostDown = nft flush ruleset; nft -f /etc/nftables.conf
 " > wg0.conf
 
-    for i in (seq 2 8)
+    for i in (seq 7)
         echo "\
 [Peer]
 PublicKey = "(cat pub"$i")"
@@ -58,7 +58,7 @@ Address = 10.10.10."$i"
 DNS = 1.1.1.1
 
 [Peer]
-PublicKey = "(cat pub1)"
+PublicKey = "(cat pub0)"
 Endpoint = "$ip":"$port"
 AllowedIPs = 0.0.0.0/0
 " > client"$i".conf
@@ -83,12 +83,13 @@ AllowedIPs = 0.0.0.0/0
 end
 
 function cli_ud
-    set i 2
-    while string match -qr '^[2-8]$' $i
-        read -p 'echo 输入成员数字[2-8]，按 q 退出：' i
-        if string match -qr '^[2-8]$' $i
+    while ture
+        read -p 'echo 输入成员数字[1-7]，按 q 退出：' i
+        if string match -qr '^[1-7]$' $i
             cat client"$i".conf
             qrencode -t ansiutf8 <client"$i".conf
+        else
+            break
         end
     end
 end

@@ -7,13 +7,13 @@ cd $config_dir || begin
     echo 切换目录失败，程序退出
     exit
 end
-# 生成两对密钥，分别用作服务器和客户端使用
-wg genkey | tee pri1 | wg pubkey >pub1
-wg genkey | tee pri2 | wg pubkey >pub2
+# 生成8对密钥，分别用作1服务器和7客户端使用
+for i in (seq 8)
+    wg genkey | tee pri"$i" | wg pubkey >pub"$i"
+    # 设置密钥访问权限
+    chmod 600 pri"$i"
+end
 
-# 设置密钥访问权限
-chmod 600 pri1
-chmod 600 pri2
 
 function rand -a min -a max
     set max (math $max - $min + 1)
@@ -39,23 +39,27 @@ Address = 10.10.10.1
 ListenPort = "$port"
 PostUp   = nft add rule inet filter input udp dport "$port" accept; nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
 PostDown = nft flush releset; nft -f /etc/nftables.conf
-[Peer]
-PublicKey = "(cat pub2)"
-AllowedIPs = 10.10.10.2/32
 " > wg0.conf
 
-# 生成客户端配置文件
-echo "\
-[Interface]
-PrivateKey = "(cat pri2)"
-Address = 10.10.10.2
-DNS = 1.1.1.1
+for i in (seq 2 8)
+    echo "\
+    [Peer]
+    PublicKey = "(cat pub"$i")"
+    AllowedIPs = 10.10.10."$i"/32
+    " >> wg0.conf
+    # 生成客户端配置文件
+    echo "\
+    [Interface]
+    PrivateKey = "(cat pri"$i")"
+    Address = 10.10.10."$i"
+    DNS = 1.1.1.1
 
-[Peer]
-PublicKey = "(cat pub1)"
-Endpoint = "$ip":"$port"
-AllowedIPs = 0.0.0.0/0
-" > client.conf
+    [Peer]
+    PublicKey = "(cat pub1)"
+    Endpoint = "$ip":"$port"
+    AllowedIPs = 0.0.0.0/0
+    " > client"$i".conf
+end
 
 # 复制配置文件并启动
 sudo cp wg0.conf /etc/wireguard/ || begin
@@ -70,11 +74,10 @@ end
 # 开机自启
 sudo systemctl enable wg-quick@wg0
 
-# 显示客户端配置文件
-echo "----------以下是客户端配置文件，请保存并在客户端中使用----------"
-cat client.conf
-
-echo "----------以下是客户端配置二维码----------"
-qrencode -t ansiutf8 <client.conf
+echo "安装完成！"
+echo "以下指令以显示客户端配置文件"
+echo "cat client[2-8].conf"
+echo "以下指令显示客户端配置二维码"
+echo "qrencode -t ansiutf8 <client[2-8].conf"
 
 

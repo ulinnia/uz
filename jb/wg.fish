@@ -43,22 +43,22 @@ PostDown = nft flush ruleset; nft -f /etc/nftables.conf
 
 for i in (seq 2 8)
     echo "\
-    [Peer]
-    PublicKey = "(cat pub"$i")"
-    AllowedIPs = 10.10.10."$i"/32
-    " >> wg0.conf
+[Peer]
+PublicKey = "(cat pub"$i")"
+AllowedIPs = 10.10.10."$i"/32
+" >> wg0.conf
     # 生成客户端配置文件
     echo "\
-    [Interface]
-    PrivateKey = "(cat pri"$i")"
-    Address = 10.10.10."$i"
-    DNS = 1.1.1.1
+[Interface]
+PrivateKey = "(cat pri"$i")"
+Address = 10.10.10."$i"
+DNS = 1.1.1.1
 
-    [Peer]
-    PublicKey = "(cat pub1)"
-    Endpoint = "$ip":"$port"
-    AllowedIPs = 0.0.0.0/0
-    " > client"$i".conf
+[Peer]
+PublicKey = "(cat pub1)"
+Endpoint = "$ip":"$port"
+AllowedIPs = 0.0.0.0/0
+" > client"$i".conf
 end
 
 # 复制配置文件并启动
@@ -76,8 +76,8 @@ sudo systemctl enable wg-quick@wg0
 
 echo "安装完成！"
 echo "以下指令以显示客户端配置文件"
-echo "cat client[2-8].conf"
+echo "cat ~/.wireguard/client[2-8].conf"
 echo "以下指令显示客户端配置二维码"
-echo "qrencode -t ansiutf8 <client[2-8].conf"
+echo "qrencode -t ansiutf8 <~/.wireguard/client[2-8].conf"
 
 

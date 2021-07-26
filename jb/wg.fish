@@ -86,8 +86,10 @@ function cli_ud
     while true
         read -p 'echo 输入成员数字[1-7]，按 q 退出：' i
         if string match -qr '^[1-7]$' $i
+            echo
             cat client"$i".conf
             qrencode -t ansiutf8 <client"$i".conf
+            echo
         else
             break
         end

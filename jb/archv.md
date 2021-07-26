@@ -21,12 +21,12 @@
 
 ### Vultr 注册
 
-到 [Vultr 官网](Vultr) 注册账号，然后充值十刀。
+到 [Vultr 官网][Vultr] 注册账号，然后充值十刀。
 
 
 ### 创建实例
 
-进入 [Vultr 控制台](my-vultr)后，按下 蓝色加号 创建实例。
+进入 [Vultr 控制台][my-vultr]后，按下 蓝色加号 创建实例。
 
 [my-vultr]: https://my.vultr.com/
 

@@ -3,190 +3,61 @@
 
 ## 虛擬專用服务器 VPS 提供商
 
-[Linode][Linode]：速度与功能相对较好，但注册和安装繁琐，需要绑定双币信用卡和谷歌邮箱。
-
-[Vultr][Vultr]：速度差了点，但好在简单好用，支持支付宝。
-
-其他提供商一率不推荐（贵，乱收钱，速度差，无法按时计费，不提供非管理型VPS）。
-
-以下操作使用 Linode，Vultr 请跳转到 [Vultr 安装 Arch](#Vultr-安装-Arch)。
-
-[Linode]: https://www.linode.com/
+[Vultr][Vultr]：简单好用，功能全面，支持支付宝。
 
 [Vultr]: https://www.vultr.com/zh/
 
+[Linode][Linode]：注册和安装繁琐，需要绑定双币信用卡和谷歌邮箱。
 
-### Linode 注册
+[Linode]: https://www.linode.com/
 
-到 [Linode 官网][Linode] 注册账号 `Sign Up`，然后绑定一张信用卡。
+其他提供商一率不推荐（贵，乱收钱，速度差，无法按时计费，不提供非管理型VPS）。
+
+以下操作使用 Vultr
+
+
+## Vultr 安装 Arch
+
+
+### Vultr 注册
+
+到 [Vultr 官网](Vultr) 注册账号，然后充值十刀。
 
 
 ### 创建实例
 
-进入 Linode 控制台首页后，按下创建 `Create`，选择实例 `Linode`。
+进入 [Vultr 控制台](my-vultr)后，按下 蓝色加号 创建实例。
 
-- 选择发行版：映像 `Images` 栏位键入 `ar`，选择 `Arch Linux`
+[my-vultr]: https://my.vultr.com/
 
-- 地区：地区选择日本 `Tokyo 2, JP`
+- 选择服务器：选择云计算 `Cloud Compute`
 
-- 实例方案：共享处理器 `Shared CPU` 选择最小方案 `Nanode 1GB` 月付5刀
+- 服务器位置：选择东京 `Tokyo`
 
-- 实例标志：输入 `Arch-Linode-JP2`
+- 服务器类型：点击映像集 `ISO Library`，选择 `Arch Linux`
 
-- 根密码：随便打一串数字，因为用不到所以不用记住。
+- 服务器大小：选择最小方案 `$5/mo` 月付5刀
 
-最后按右手边的创建实例 `Create Linode`
+最后按部署 `Deploy Now`
 
-等待左上方棕色 `PROVISIONING` 变绿色 `RUNNING`
+等待实例运行 `Running`
 
-用 [站长工具][Chinaz] 测试实例的 IP 有没被墙。
+点击进入刚创建的实例
 
-如果没有被墙（地图大部分是绿色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例，重新创建实例。
-
-[Chinaz]: https://ping.chinaz.com/
-
-
-## 安装前的准备
-
-
-### 创建磁盘
-
-1. 首先，将实例关机 `Power Off`
-
-2. 点击存储 `Storage`
-
-3. 磁盘 `Disks`：将默认的两个磁盘 `Arch` 和 `Swap` 删除。
-
-4. 添加映像磁盘 `Add a Disk`：
-
-    - 创建空磁盘
-
-    - 标志：`iso`
-
-    - 文件系统：原始 `raw`
-
-    - 大小：`1024` MB
-
-5. 添加根磁盘：
-
-    - 创建空磁盘
-
-    - 标志：`Arch`
-
-    - 文件系统：原始
-
-    - 大小：默认最大值
-
-
-### 创建配置
-
-1. 点击配置 `Configurations`
-
-2. 将默认的两个配置 `Boot` 和 `Installer` 删除
-
-3. 添加映像配置：
-
-    - 标志：`iso`
-
-    - 启动设定：选择内核：直接磁盘 `Direct Disk`
-
-    - 块设备分配 `Assignment`：`/dev/sda` 选择 `Arch`，`sdb` 选择 `iso`
-
-    - 根设备 `Root Device`：选择 `sdb`
-
-    - 将文件系统/启动助手 `Filesystem/Boot Helpers` 下的勾选框全部取消。
-
-4. 添加启动配置：
-
-    - 标志：`Arch`
-
-    - 启动设定：选择内核：直接磁盘 `Direct Disk`
-
-    - 块设备分配：`sda` 选择 `Arch`
-
-    - 根设备：选择 `sda`
-
-    - 将文件系统/启动助手 `Filesystem/Boot Helpers` 下的勾选框全部取消。
-
-
-### 关闭监听程序
-
-点击设定 `Settings`
-
-点击关机监听 `Shutdown Watchdog`，将开关取消。
-
-
-### 安装 Arch Linux 映像
-
-点击 `...`，选择救援模式 `Rescue`
-
-`/dev/sda` 选择 `iso`，然后重启到救援模式。
-
-等待左上方棕色变绿色 `RUNNING`
-
-启动 LISH 控制台 `LISH Console`
-
-到 [Arch 下载站][Arch Download] 或 [Arch 日本镜像站][Arch Cat] 选择下载点，并将映像 `iso` 下载链接复制。
-
-在 LISH 控制台下命令，将网址替换成 iso 下载链接：
-
-`# curl https://mirrors.cat.net/archlinux/iso/2021.04.01/archlinux-2021.04.01-x86_64.iso | dd of=/dev/sda` 将映像写入 sda 磁盘
-
-`# sync; echo 3 > /proc/sys/vm/drop_caches` 清除快取
-
-关闭 LISH 控制台
-
-[Arch Download]: https://www.archlinux.org/download/
-
-[Arch Cat]: https://mirrors.cat.net/archlinux/iso/
-
-
-## 启动到 Live 环境
-
-点击配置 `Configurations`
-
-标志：`iso` 点击启动 `Boot`
-
-等待左上方棕色变绿色 `RUNNING`
-
-启动 LISH 控制台 `LISH Console`
-
-点击 `Glish`
+点击右上方的查看控制台 `View Console`，打开VNC
 
 进入映像的启动引导程序后，选择第一项：`Arch Linux install medium` 回车
 
+等待直到 `root@vultr ~ #` 出现
 
-### 联网
+用 [站长工具][chinaz] 测试实例的 IP 有没被墙。
 
-`# ping 1.1.1.1`
-测试有没连上网，如果连上了就跳到下节 [更新系统时间](#更新系统时间)
+如果没有被墙（地图大部分不是红色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例`Server Destroy`，重新创建实例。
 
-`# ip addr` 查看网卡
 
-比如我的网卡是 `ens3`
+### 检查网络
 
-`# vim /etc/systemd/network/w.network` 设置网络
-
-写入`网卡名称`和 VPS 提供的`IP地址/网络掩码、网路遮罩、默认网关`如下：
-
-```
-[Match]
-Name=ens3
-
-[Network]
-Address=111.111.111.111/24
-Netmask=255.255.255.0
-Gateway=111.111.111.1
-DNS=1.1.1.1
-```
-
-命令模式下按 `i` 输入，按 `ESC` 回到命令模式，`:x` 保存退出。
-
-`# systemctl enable --now systemd-networkd` 应用网络设定
-
-`# systemctl enable --now systemd-resolved` 应用 dns 解析
-
-等下`设置网络`时必须把这节重做一次。
+`# ping 1.1.1.1` 测试网络是否可用，安装过程中需要用到网络
 
 
 ### 更新系统时间
@@ -198,19 +69,19 @@ DNS=1.1.1.1
 
 `# lsblk` 查看硬盘设备
 
-我要把系统安装在 sda 这个硬盘中
+我要把系统安装在 vda 这个硬盘中
 
-`# parted /dev/sda` 打开分区
+`# parted /dev/vda` 打开分区
 
 命令提示符会从 `#` 变成 `(parted)`
 
 `(parted) mklabel gpt` 创建 GPT 分区表
 
-`(parted) mkpart grub 1m 3m` 创建启动分区 (sda1)
+`(parted) mkpart grub 1m 3m` 创建启动分区 (vda1)
 
 `(parted) set 1 bios_grub on` 设置启动分区
 
-`(parted) mkpart root 3m -1m` 创建根分区 (sda2)
+`(parted) mkpart root 3m -1m` 创建根分区 (vda2)
 
 `(parted) p` 查看分区结果
 
@@ -219,12 +90,12 @@ DNS=1.1.1.1
 
 ### 格式化分区
 
-`# mkfs.btrfs -L arch /dev/sda2` 格式化根分区为 Brtfs 格式
+`# mkfs.btrfs -L arch /dev/vda2` 格式化根分区为 Brtfs 格式
 
 
 ### 创建子卷
 
-`# mount /dev/sda2 /mnt` 挂载根分区
+`# mount /dev/vda2 /mnt` 挂载根分区
 
 `# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
 
@@ -233,7 +104,7 @@ DNS=1.1.1.1
 
 ### 挂载分区
 
-`# mount -o autodefrag,compress=zstd,subvol=a /dev/sda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
+`# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
 
 
 ## 安装
@@ -287,7 +158,7 @@ DNS=1.1.1.1
 
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
-`# echo Arch-Linode > /etc/hostname` 修改主机名
+`# echo Arch-Vultr > /etc/hostname` 修改主机名
 
 
 ### 网络配置
@@ -317,7 +188,7 @@ DNS=1.1.1.1
 
 ### 安装引导程序
 
-`# grub-install --target=i386-pc /dev/sda` 安装 grub
+`# grub-install --target=i386-pc /dev/vda` 安装 grub
 
 `# grub-mkconfig -o /boot/grub/grub.cfg` 生成主配置文件
 
@@ -328,20 +199,16 @@ DNS=1.1.1.1
 
 `# exit` 退出 chroot 环境
 
-关闭 LISH 视窗
+关闭 VNC 视窗
 
 
 ### 打开远程操作
 
-点击配置 `Configurations`
+返回 Vultr 的 `服务器信息` 页面
 
-标志：`Arch` 点击启动 `Boot`
+在 `设置` 选项卡上，单击 `自定义ISO`，然后单击 `删除ISO`
 
-等待左上方棕色变绿色 `RUNNING`
-
-启动 LISH 控制台 `LISH Console`
-
-点击 `Glish`
+单击 `服务器重新启动` 图标，然后单击 `View Console`
 
 
 ### 新建用户
@@ -373,53 +240,5 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
 `$ ssh-copy-id user@host` 上传公钥
 
 `$ ssh user@host` 登入主机
-
-
-## Vultr 安装 Arch
-
-
-### Vultr 注册
-
-到 [Vultr 官网](Vultr) 注册账号，然后充值十刀。
-
-
-### 创建实例
-
-进入Linode控制台首页后，按下 蓝色加号 创建实例。
-
-- 选择服务器：选择云计算 `Cloud Compute`
-
-- 服务器位置：选择东京 `Tokyo`
-
-- 服务器类型：点击映像集 `ISO Library`，选择 `Arch Linux`
-
-- 服务器大小：选择最小方案 `$5/mo` 月付5刀
-
-- 输入服务器标志 `server label`：输入 `Arch-Vultr-JP`
-
-最后按部署 `Deploy Now`
-
-等待状态变成 `Running`
-
-点击进入刚创建的实例
-
-点击右上方的查看控制台 `View Console`
-
-进入映像的启动引导程序后，选择第一项：`Arch Linux install medium` 回车
-
-等待直到 `root@archiso ~ #` 出现
-
-用 [站长工具][chinaz] 测试实例的 IP 有没被墙。
-
-如果没有被墙（地图大部分是绿色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例，重新创建实例。
-
-跳到 [联网](#联网)。注意：将 `sda` 替换为 `vda`，修改主机名 `Arch-Linode` 替换为
-`Arch-Vultr`，`打开远程操作` 一节替换为：
-
-返回 Vultr 的 `服务器信息` 页面
-
-在 `设置` 选项卡上，单击 `自定义ISO`，然后单击 `删除ISO`
-
-单击 `服务器重新启动` 图标，然后单击 `View Console`
 
 

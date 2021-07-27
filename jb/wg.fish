@@ -128,8 +128,6 @@ end
 
 function cli_ud
     set cli (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
-    echo 已存在成员：
-    echo $cli
     while true
         echo 已存在成员：
         echo $cli

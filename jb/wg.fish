@@ -127,7 +127,13 @@ AllowedIPs = 0.0.0.0/0
 end
 
 function cli_ud
+    set cli (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+    echo 已存在成员：
+    echo $cli
     while true
+        echo 已存在成员：
+        echo $cli
+
         echo 输入成员数字（查看配置）
         read -p 'echo "> "' i
         if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254

@@ -96,6 +96,7 @@ function cli_av
             if echo $cli | grep -qE '(^| )'$i'($| )'
                 sudo wg set wg0 peer (cat pub"$i") remove
                 sudo wg-quick save wg0
+                rm client"$i".conf pub"$i" pri"$i"
             else
                 wg genkey | tee pri"$i" | wg pubkey >pub"$i"
                 chmod 600 pri"$i"

@@ -127,7 +127,7 @@ end
 
 function cli_ud
     while true
-        echo 输入成员数字
+        echo 输入成员数字（查看配置）
         read -p 'echo "> "' i
         if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
             echo -e "\n=======请将此复制到 client"$i".conf 文件========\n"

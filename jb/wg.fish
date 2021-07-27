@@ -43,7 +43,7 @@ function wg0_av
     echo "\
 [Interface]
 PrivateKey = "(cat pri1)"
-Address = 10.10.10.1
+Address = 10.10.10.1/32
 ListenPort = "$port"
 PostUp   = nft add rule inet filter input udp dport "$port" accept; nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
 PostDown = nft flush ruleset; nft -f /etc/nftables.conf
@@ -92,7 +92,7 @@ function cli_av
 
         echo 输入成员数字（存在则删除，不存在则创建）
         read -p 'echo "> "' i
-        if test "$i" -ge 2 -a "$i" -le 254
+        if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
             if echo $cli | grep -qE '(^| )'$i'($| )'
                 sudo wg set wg0 peer (cat pub"$i") remove
                 sudo wg-quick save wg0
@@ -109,7 +109,7 @@ function cli_av
                 echo "\
 [Interface]
 PrivateKey = "(cat pri"$i")"
-Address = 10.10.10.2
+Address = 10.10.10."$i"
 DNS = 1.1.1.1
 
 [Peer]
@@ -129,7 +129,7 @@ function cli_ud
     while true
         echo 输入成员数字
         read -p 'echo "> "' i
-        if test "$i" -ge 2 -a "$i" -le 254
+        if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
             echo -e "\n=======请将此复制到 client"$i".conf 文件========\n"
             cat client"$i".conf
             echo -e "=============================================\n"

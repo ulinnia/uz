@@ -87,6 +87,7 @@ end
 function cli_av
     while true
         set cli (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+        echo
         echo 已存在成员：
         echo $cli
 
@@ -129,15 +130,19 @@ end
 function cli_ud
     set cli (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
     while true
+        echo
         echo 已存在成员：
         echo $cli
 
         echo 输入成员数字（查看配置）
         read -p 'echo "> "' i
         if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
-            echo -e "\n=======请将此复制到 client"$i".conf 文件========\n"
+            echo
+            echo "=======请将此复制到 client"$i".conf 文件========"
+            echo
             cat client"$i".conf
-            echo -e "=============================================\n"
+            echo "============================================="
+            echo
             qrencode -t ansiutf8 <client"$i".conf
             echo
         else

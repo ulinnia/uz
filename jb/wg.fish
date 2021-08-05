@@ -111,7 +111,6 @@ function cli_av
 [Interface]
 PrivateKey = "(cat pri"$i")"
 Address = 10.10.10."$i"
-DNS = 1.1.1.1
 
 [Peer]
 PublicKey = "(cat pub1)"

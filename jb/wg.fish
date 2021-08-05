@@ -58,7 +58,6 @@ AllowedIPs = 10.10.10.2/32
 [Interface]
 PrivateKey = "(cat pri2)"
 Address = 10.10.10.2
-DNS = 1.1.1.1
 
 [Peer]
 PublicKey = "(cat pub1)"

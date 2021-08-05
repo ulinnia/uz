@@ -8,6 +8,20 @@ cd $config_dir || begin
     exit
 end
 
+function yh_zj -a ip -a port -a i
+    echo "\
+[Interface]
+PrivateKey = "(cat pri"$i")"
+Address = 10.10.10."$i"
+
+[Peer]
+PublicKey = "(cat pub1)"
+Endpoint = "$ip":"$port"
+AllowedIPs = 0.0.0.0/0
+" > wg"$i".conf
+
+end
+
 function wg0_av
     set i (sudo wg)
     if test -n "$i"
@@ -51,26 +65,8 @@ PostDown = nft flush ruleset; nft -f /etc/nftables.conf
 [Peer]
 PublicKey = "(cat pub2)"
 AllowedIPs = 10.10.10.2/32
-" > wg0.conf
+" | sudo tee /etc/wireguard/wg0.conf
 
-    # 生成客户端配置文件
-    echo "\
-[Interface]
-PrivateKey = "(cat pri2)"
-Address = 10.10.10.2
-
-[Peer]
-PublicKey = "(cat pub1)"
-Endpoint = "$ip":"$port"
-AllowedIPs = 0.0.0.0/0
-" > client2.conf
-
-    # 复制配置文件并启动
-    sudo cp wg0.conf /etc/wireguard/ || begin
-        echo 复制失败,请检查/etc/wireguard目录或wg0.conf是否存在
-        exit
-    end
-    rm wg0.conf
     sudo wg-quick up wg0 || begin
         echo 启动wireguard失败，请检查/etc/wireguard/wg0.conf是否存在错误
         exit
@@ -79,69 +75,62 @@ AllowedIPs = 0.0.0.0/0
     # 开机自启
     sudo systemctl enable wg-quick@wg0
 
+    # 生成客户端配置文件
+    yh_zj $ip $port 2
+
     echo "安装完成！"
-    cli_av
+    yh_av
 end
 
-function cli_av
+function yh_av
+    set interface (ip -o -4 route show to default | awk '{print $5}')
+    set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+    set port (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=ListenPort = )\d+')
+
     while true
-        set cli (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+        set mem (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
         echo
         echo 已存在成员：
-        echo $cli
+        echo $mem
 
         echo 输入成员数字（存在则删除，不存在则创建）
         read -p 'echo "> "' i
         if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
-            if echo $cli | grep -qE '(^| )'$i'($| )'
+            if echo $mem | grep -qE '(^| )'$i'($| )'
                 sudo wg set wg0 peer (cat pub"$i") remove
                 sudo wg-quick save wg0
-                rm client"$i".conf pub"$i" pri"$i"
+                rm wg"$i".conf pub"$i" pri"$i"
             else
                 wg genkey | tee pri"$i" | wg pubkey >pub"$i"
                 chmod 600 pri"$i"
                 sudo wg set wg0 peer (cat pub"$i") allowed-ips 10.10.10."$i"/32
                 sudo wg-quick save wg0
-
-                set interface (ip -o -4 route show to default | awk '{print $5}')
-                set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                set port (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=ListenPort = )\d+')
-
-                echo "\
-[Interface]
-PrivateKey = "(cat pri"$i")"
-Address = 10.10.10."$i"
-
-[Peer]
-PublicKey = "(cat pub1)"
-Endpoint = "$ip":"$port"
-AllowedIPs = 0.0.0.0/0
-" > client"$i".conf
+                yh_zj $ip $port $i
             end
         else
             break
         end
     end
-    cli_ud
+    yh_ud
 end
 
-function cli_ud
-    set cli (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+function yh_ud
+    set mem (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
     while true
         echo
         echo 已存在成员：
-        echo $cli
+        echo $mem
 
         echo 输入成员数字（查看配置）
         read -p 'echo "> "' i
         if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
             echo
-            echo "========= /etc/wireguard/client"$i".conf ========="
+            echo "=========== /etc/wireguard/wg"$i".conf ==========="
             echo
-            cat client"$i".conf
+            cat wg"$i".conf
             echo "================================================"
             echo
-            qrencode -t ansiutf8 <client"$i".conf
+            qrencode -t ansiutf8 <wg"$i".conf
             echo
         else
             break
@@ -157,9 +146,9 @@ switch $i
 case a
     wg0_av
 case b
-    cli_av
+    yh_av
 case c
-    cli_ud
+    yh_ud
 end
 
 

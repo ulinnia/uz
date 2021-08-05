@@ -225,7 +225,7 @@ cert_refresh_delay = 240
 ##
 ## If more than one resolver is specified, they will be tried in sequence.
 
-fallback_resolvers = ['9.9.9.9:53', '8.8.8.8:53']
+fallback_resolvers = ['1.1.1.1:53']
 
 
 ## Always use the fallback resolver before the system DNS settings.
@@ -251,7 +251,7 @@ netprobe_timeout = 60
 ## On other operating systems, the connection will be initialized
 ## but nothing will be sent at all.
 
-netprobe_address = '9.9.9.9:53'
+netprobe_address = '1.1.1.1:53'
 
 
 ## Offline mode - Do not use any remote encrypted servers.

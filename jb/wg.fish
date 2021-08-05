@@ -138,10 +138,10 @@ function cli_ud
         read -p 'echo "> "' i
         if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
             echo
-            echo "=======请将此复制到 client"$i".conf 文件========"
+            echo "========= /etc/wireguard/client"$i".conf ========="
             echo
             cat client"$i".conf
-            echo "============================================="
+            echo "================================================"
             echo
             qrencode -t ansiutf8 <client"$i".conf
             echo

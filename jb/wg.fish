@@ -67,6 +67,10 @@ PublicKey = "(cat pub2)"
 AllowedIPs = 10.10.10.2/32
 " | sudo tee /etc/wireguard/wg0.conf
 
+    # 生成客户端配置文件
+    yh_zj $ip $port 2
+
+
     sudo wg-quick up wg0 || begin
         echo 启动wireguard失败，请检查/etc/wireguard/wg0.conf是否存在错误
         exit
@@ -74,9 +78,6 @@ AllowedIPs = 10.10.10.2/32
 
     # 开机自启
     sudo systemctl enable wg-quick@wg0
-
-    # 生成客户端配置文件
-    yh_zj $ip $port 2
 
     echo "安装完成！"
     yh_av

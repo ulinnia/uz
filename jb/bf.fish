@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
-# 根目录地址
-set root (string split ' ' (string match '* /' (df)))
+# 根分区名
+set 根分区 (string split ' ' (string match '* /' (df)))
 
 if df | grep -q ' /mnt'
     sudo umount /mnt; or begin
@@ -9,8 +9,8 @@ if df | grep -q ' /mnt'
         exit
     end
 end
-sudo mount $root[1] /mnt; or begin
-    echo 挂载根目录失败 $root[1]
+sudo mount $根分区[1] /mnt; or begin
+    echo 挂载根分区失败 $根分区[1]
     exit
 end
 sudo btrfs subvolume delete -c /mnt/b; or begin
@@ -25,6 +25,8 @@ and sudo mkinitcpio -g /boot/initramfs-linux-b.img; or begin
     exit
 end
 sudo umount /mnt
-echo 备份成功
+
+echo
+echo 备份成功！
 
 

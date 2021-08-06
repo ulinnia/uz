@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # root 用户不建议使用此脚本
-function yh_ud --description 'root 用户退出'
+function 拒绝根用户 --description 'root 用户退出'
     if test "$USER" = 'root'
         echo '请先退出root用户，并登陆新创建的用户。'
         exit 1
@@ -9,7 +9,7 @@ function yh_ud --description 'root 用户退出'
 end
 
 # 修改 pacman 配置
-function rj_ud
+function 软件包管理器
     # pacman 增加 multilib 源
     #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
@@ -23,38 +23,38 @@ function rj_ud
 end
 
 # 安装软件
-function rj_av
+function 软件安装
     # 更新系统
     sudo pacman -Syu --noconfirm
     # 缩写
-    set pacn sudo pacman -S --noconfirm
+    set pacs sudo pacman -S --noconfirm
     # btrfs 管理
-    $pacn btrfs-progs
+    $pacs btrfs-progs
 
     # 互联网
         # 网络连接
-        $pacn curl git wget
+        $pacs curl git wget
 
     # 工具
         # 终端
-        $pacn fcron fish neovim nnn qrencode
+        $pacs fcron fish neovim nnn qrencode
         # 查找
-        $pacn fzf htop tree
+        $pacs fzf htop tree
         # 新查找
-        $pacn fd ripgrep bat tldr exa
+        $pacs fd ripgrep bat tldr exa
         # 缓存，统计，兼容
-        $pacn pacman-contrib pkgstats vim zsh
+        $pacs pacman-contrib pkgstats vim zsh
 
     # 安全
         # 网络安全
-        $pacn dnscrypt-proxy nftables ntp openssh wireguard-tools
+        $pacs dnscrypt-proxy nftables ntp openssh wireguard-tools
 
     # 科学
         # 编程语言
-        $pacn lua
+        $pacs lua
 
     # 安装 yay
-    $pacn yay; or begin
+    $pacs yay; or begin
         # 删除 gnupg 目录及其文件
         sudo rm -R  /etc/pacman.d/gnupg/
         # 初始化密钥环
@@ -62,7 +62,7 @@ function rj_av
         # 验证主密钥
         sudo pacman-key --populate archlinux
         sudo pacman-key --populate archlinuxcn
-        $pacn yay; or begin
+        $pacs yay; or begin
             echo '下载 yay 失败'
         end
     end
@@ -71,7 +71,7 @@ function rj_av
 end
 
 # uz 设定
-function uz_ud
+function uz目录
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
     # 链接 uz
@@ -87,24 +87,25 @@ function uz_ud
 end
 
 # 复制设定
-function fv_ud
+function 复制设定
     # 创建目录
     mkdir -p ~/{a,xz,.config/{fish/conf.d,nvim/.backup}}
     sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
-    set pvwj ~/a/uz/pv/
+    set 配置文件 ~/a/uz/pv/
     # fish 设置环境变量
-    fish "$pvwj"hjbl.fish
-    sudo fish "$pvwj"hjbl.fish
+    fish "$配置文件"hjbl.fish
+    sudo fish "$配置文件"hjbl.fish
     # 链接配置文件
-    sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f "$pvwj"fhq /etc/nftables.conf
-    cp -f "$pvwj"vim.vim ~/.config/nvim/init.vim
-    sudo cp -f "$pvwj"vim.vim /root/.config/nvim/init.vim
+    sudo ln -f ~/a/uz/jb/bf.fish /root/bf.fish
+    sudo ln -f "$配置文件"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo ln -f "$配置文件"fhq /etc/nftables.conf
+    cp -f "$配置文件"vim.vim ~/.config/nvim/init.vim
+    sudo cp -f "$配置文件"vim.vim /root/.config/nvim/init.vim
 end
 
 # 写入设定
-function xr_ud
+function 写入设定
     # 主机表
     sudo sed -i '/localhost\|localdomain/d' /etc/hosts
     set interface (ip -o -4 route show to default | awk '{print $5}')
@@ -139,14 +140,14 @@ function xr_ud
 end
 
 # 自启动
-function zqd_ud
+function 自启动
     sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-    fcrontab ~/a/uz/pv/cron
+    sudo fcrontab ~/a/uz/pv/cron
 end
 
 # 交换文件
-function jhwj_ud
+function 交换文件
     if not test -e /swap/swap
         # 创建子卷
         sudo btrfs subvolume create /swap
@@ -180,22 +181,22 @@ end
 
 # ======= 主程序 =======
 
-yh_ud
+拒绝根用户
 switch $argv[1]
 case a
-    rj_av
+    软件安装
 case p
-    fv_ud
-    xr_ud
+    复制设定
+    写入设定
 case u
-    uz_ud
+    uz目录
 case '*'
-    rj_ud
-    rj_av
-    uz_ud
-    fv_ud
-    xr_ud
-    zqd_ud
-    jhwj_ud
+    软件包管理器
+    软件安装
+    uz目录
+    复制设定
+    写入设定
+    自启动
+    交换文件
 end
 

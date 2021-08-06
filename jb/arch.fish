@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # root 用户不建议使用此脚本
-function yh_ud --description 'root 用户退出'
+function 拒绝根用户 --description 'root 用户退出'
     if test "$USER" = 'root'
         echo '请先退出root用户，并登陆新创建的用户。'
         exit 1
@@ -9,7 +9,7 @@ function yh_ud --description 'root 用户退出'
 end
 
 # 修改 pacman 配置
-function rj_ud
+function 软件包管理器
     # pacman 增加 multilib 源
     #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
@@ -23,7 +23,7 @@ function rj_ud
 end
 
 # 判断显卡驱动
-function xk_ud
+function 显卡驱动
     if lspci -vnn | string match -iq '*vga*amd*radeon*'
         echo xf86-video-amdgpu
     else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
@@ -31,69 +31,69 @@ function xk_ud
     end
 end
 
-# 安装软件
-function rj_av
+# 软件安装
+function 软件安装
     # 更新系统
     sudo pacman -Syu --noconfirm
     # 同步包名数据库
     sudo pacman -Fy --noconfirm
     # 缩写
-    set pacn sudo pacman -S --noconfirm
+    set pacs sudo pacman -S --noconfirm
     # btrfs 管理，网络管理器，tlp
-    $pacn btrfs-progs networkmanager tlp tlp-rdw
+    $pacs btrfs-progs networkmanager tlp tlp-rdw
     # 声卡，触摸板，显卡驱动
-    $pacn alsa-utils pulseaudio-alsa xf86-input-libinput (xk_ud)
+    $pacs alsa-utils pulseaudio-alsa xf86-input-libinput (显卡驱动)
 
     # 互联网
         # 网络连接
-        $pacn curl firefox firefox-i18n-zh-cn git wget
+        $pacs curl firefox firefox-i18n-zh-cn git wget
 
     # 多媒体
         # wayland 显示服务器
-        $pacn wayland sway swaybg swayidle swaylock xorg-xwayland
+        $pacs wayland sway swaybg swayidle swaylock xorg-xwayland
         # 显示
-        $pacn imv p7zip vlc
+        $pacs imv p7zip vlc
         # xorg 显示服务器
-        #$pacn xorg xorg-xinit i3-gaps i3lock imagemagick rofi
+        #$pacs xorg xorg-xinit i3-gaps i3lock imagemagick rofi
         # 截图，菜单
-        $pacn grim slurp wofi qt5-wayland
+        $pacs grim slurp wofi qt5-wayland
 
     # 工具
         # 终端
-        $pacn alacritty fish i3status-rust neovim nnn
+        $pacs alacritty fish i3status-rust neovim nnn
         # 小企鹅输入法
-        $pacn fcitx5-im fcitx5-rime
+        $pacs fcitx5-im fcitx5-rime
         # 播放控制，亮度控制，电源工具
-        $pacn playerctl brightnessctl upower lm_sensors
+        $pacs playerctl brightnessctl upower lm_sensors
         # 查找
-        $pacn fzf htop tree
+        $pacs fzf htop tree
         # 新查找
-        $pacn fd ripgrep bat tldr exa
+        $pacs fd ripgrep bat tldr exa
         # mtp，蓝牙
-        $pacn libmtp pulseaudio-bluetooth bluez-utils
+        $pacs libmtp pulseaudio-bluetooth bluez-utils
         # 安装 arch
-        $pacn arch-install-scripts dosfstools parted
+        $pacs arch-install-scripts dosfstools parted
         # 缓存，统计，兼容
-        $pacn pacman-contrib pkgstats vim zsh
+        $pacs pacman-contrib pkgstats vim zsh
 
     # 文档
         # 繁简中日韩，emoji，Ubuntu字体
-        $pacn noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
+        $pacs noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
         # 电子书，办公
-        $pacn calibre libreoffice-fresh-zh-cn
+        $pacs calibre libreoffice-fresh-zh-cn
 
     # 安全
         # 网络安全
-        $pacn dnscrypt-proxy nftables ntp openssh wireguard-tools
+        $pacs dnscrypt-proxy nftables ntp openssh wireguard-tools
 
     # 科学
         # 编程语言
-        $pacn bash-language-server clang lua nodejs rust yarn
+        $pacs bash-language-server clang lua nodejs rust yarn
         # steam
-        #$pacn gamemode ttf-liberation wqy-microhei wqy-zenhei steam
+        #$pacs gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
     # 安装 yay
-    $pacn yay; or begin
+    $pacs yay; or begin
         # 删除 gnupg 目录及其文件
         sudo rm -R  /etc/pacman.d/gnupg/
         # 初始化密钥环
@@ -101,7 +101,7 @@ function rj_av
         # 验证主密钥
         sudo pacman-key --populate archlinux
         sudo pacman-key --populate archlinuxcn
-        $pacn yay; or begin
+        $pacs yay; or begin
             echo '下载 yay 失败'
         end
     end
@@ -112,7 +112,7 @@ function rj_av
 end
 
 # uz 设定
-function uz_ud
+function uz目录
     # 克隆 uz 仓库
     git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
     # 链接 uz
@@ -128,32 +128,32 @@ function uz_ud
 end
 
 # 复制设定
-function fv_ud
+function 复制设定
     # 创建目录
     mkdir -p ~/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,nvim/.backup,sway}}
     sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
-    set pvwj ~/a/uz/pv/
+    set 配置文件 ~/a/uz/pv/
     # fish 设置环境变量
-    fish "$pvwj"hjbl.fish
-    sudo fish "$pvwj"hjbl.fish
+    fish "$配置文件"hjbl.fish
+    sudo fish "$配置文件"hjbl.fish
     # 链接配置文件
-    sudo ln -f "$pvwj"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f "$pvwj"fhq /etc/nftables.conf
-    sudo ln -f "$pvwj"tlp /etc/tlp.conf
-    #sudo ln -f "$pvwj"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
-    ln -f "$pvwj"fish.fish ~/.config/fish/config.fish
-    ln -f "$pvwj"sway ~/.config/sway/config
-    #ln -f "$pvwj"i3 ~/.config/i3/config
-    ln -f "$pvwj"urf ~/.config/fcitx5/profile
-    ln -f "$pvwj"vtl.toml ~/.config/i3status-rust/config.toml
-    ln -f "$pvwj"vd.yml ~/.config/alacritty/alacritty.yml
-    ln -f "$pvwj"vim.vim ~/.config/nvim/init.vim
-    sudo cp -f "$pvwj"vim.vim /root/.config/nvim/init.vim
+    sudo ln -f "$配置文件"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo ln -f "$配置文件"fhq /etc/nftables.conf
+    sudo ln -f "$配置文件"tlp /etc/tlp.conf
+    #sudo ln -f "$配置文件"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
+    ln -f "$配置文件"fish.fish ~/.config/fish/config.fish
+    ln -f "$配置文件"sway ~/.config/sway/config
+    #ln -f "$配置文件"i3 ~/.config/i3/config
+    ln -f "$配置文件"urf ~/.config/fcitx5/profile
+    ln -f "$配置文件"vtl.toml ~/.config/i3status-rust/config.toml
+    ln -f "$配置文件"vd.yml ~/.config/alacritty/alacritty.yml
+    ln -f "$配置文件"vim.vim ~/.config/nvim/init.vim
+    sudo cp -f "$配置文件"vim.vim /root/.config/nvim/init.vim
 end
 
 # 写入设定
-function xr_ud
+function 写入设定
     # 主机表
     sudo sed -i '/localhost\|localdomain/d' /etc/hosts
     echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$hostname'.localdomain '$hostname | sudo tee -a /etc/hosts
@@ -192,7 +192,7 @@ end
 
 # 安装小鹤音形
 # http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
-function xhyx_av
+function 小鹤音形
     cd
     # 解压配置包
     7z x ~/a/uz/pv/flypy.7z
@@ -204,7 +204,7 @@ function xhyx_av
 end
 
 # 自启动
-function zqd_ud
+function 自启动
     sudo systemctl enable --now NetworkManager ;
     and sudo systemctl disable dhcpcd
     sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,tlp} ;
@@ -214,23 +214,23 @@ end
 
 # ======= 主程序 =======
 
-yh_ud
+拒绝根用户
 switch $argv[1]
 case a
-    rj_av
+    软件安装
 case p
-    fv_ud
-    xr_ud
+    复制设定
+    写入设定
 case u
-    uz_ud
+    uz目录
 case '*'
-    rj_ud
-    rj_av
-    uz_ud
-    fv_ud
-    xr_ud
-    xhyx_av
-    zqd_ud
+    软件包管理器
+    软件安装
+    uz目录
+    复制设定
+    写入设定
+    小鹤音形
+    自启动
 end
 
 

@@ -96,7 +96,7 @@ function 成员增减
 
         echo 输入成员数字（存在则删除，不存在则创建）
         read -p 'echo "> "' i
-        if string match -qr '^[0-9]+$' $i && test "$i" -ge 2 -a "$i" -le 254
+        if string match -qr '^[1-9][0-9]?$' $i && test "$i" -ge 2 -a "$i" -le 254
             if echo $成员 | grep -qE '(^| )'$i'($| )'
                 sudo wg set wg0 peer (cat pub"$i") remove
                 sudo wg-quick save wg0

@@ -47,7 +47,7 @@ function 软件安装
         $pacs wireguard-tools
         # 网络浏览
         $pacs firefox firefox-i18n-zh-cn
-        # 下载管理，文件传输服务
+        # 下载管理，文件传输
         $pacs curl git wget openssh
 
     # 多媒体
@@ -88,10 +88,8 @@ function 软件安装
         $pacs vim zsh
 
     # 文档
-        # 文本编辑
-        $pacs neovim
-        # 电子书阅读，办公软件套装，帮助手册
-        $pacs calibre libreoffice-fresh-zh-cn man
+        # 文本编辑，帮助手册，电子书阅读，办公软件套装
+        $pacs neovim man calibre libreoffice-fresh-zh-cn
         # 字体
         $pacs noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
 
@@ -130,7 +128,7 @@ function uz目录
     git clone https://github.com/rraayy246/uz $HOME/a/uz --depth 1
     # 链接 uz
     ln -s $HOME/a/uz $HOME
-    cd $HOME/a/uz
+    cd $HOME/uz
     # 记忆账号密码
     git config credential.helper store
     git config --global user.email 'rraayy246@gmail.com'
@@ -145,23 +143,23 @@ function 复制设定
     mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,nvim/.backup,sway}}
     sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
-    set 配置文件 $HOME/a/uz/pv/
+    set 配置文件 $HOME/a/uz/pv
     # fish 设置环境变量
-    fish "$配置文件"hjbl.fish
-    sudo fish "$配置文件"hjbl.fish
+    fish $配置文件/hjbl.fish
+    sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo ln -f "$配置文件"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f "$配置文件"fhq /etc/nftables.conf
-    sudo ln -f "$配置文件"tlp /etc/tlp.conf
-    #sudo ln -f "$配置文件"keyb /etc/X11/xorg.conf.d/00-keyboard.conf
-    ln -f "$配置文件"fish.fish $HOME/.config/fish/config.fish
-    ln -f "$配置文件"sway $HOME/.config/sway/config
-    #ln -f "$配置文件"i3 $HOME/.config/i3/config
-    ln -f "$配置文件"urf $HOME/.config/fcitx5/profile
-    ln -f "$配置文件"vtl.toml $HOME/.config/i3status-rust/config.toml
-    ln -f "$配置文件"vd.yml $HOME/.config/alacritty/alacritty.yml
-    ln -f "$配置文件"vim.vim $HOME/.config/nvim/init.vim
-    sudo rsync -a "$配置文件"vim.vim /root/.config/nvim/init.vim
+    sudo ln -f $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo ln -f $配置文件/fhq /etc/nftables.conf
+    sudo ln -f $配置文件/tlp /etc/tlp.conf
+    #sudo ln -f $配置文件/keyb /etc/X11/xorg.conf.d/00-keyboard.conf
+    ln -f $配置文件/fish.fish $HOME/.config/fish/config.fish
+    ln -f $配置文件/sway $HOME/.config/sway/config
+    #ln -f $配置文件/i3 $HOME/.config/i3/config
+    ln -f $配置文件/urf $HOME/.config/fcitx5/profile
+    ln -f $配置文件/vtl.toml $HOME/.config/i3status-rust/config.toml
+    ln -f $配置文件/vd.yml $HOME/.config/alacritty/alacritty.yml
+    ln -f $配置文件/vim.vim $HOME/.config/nvim/init.vim
+    sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
 end
 
 function 写入设定

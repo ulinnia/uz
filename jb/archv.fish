@@ -1,6 +1,5 @@
 #!/usr/bin/env fish
 
-# root 用户不建议使用此脚本
 function 拒绝根用户 --description 'root 用户退出'
     if test "$USER" = 'root'
         echo '请先退出root用户，并登陆新创建的用户。'
@@ -22,7 +21,6 @@ function 软件包管理器
     end
 end
 
-# 安装软件
 function 软件安装
     # 更新系统
     sudo pacman -Syu --noconfirm
@@ -32,22 +30,38 @@ function 软件安装
     $pacs btrfs-progs
 
     # 互联网
-        # 网络连接
-        $pacs curl git wget
+        # 虚拟私人网络
+        $pacs wireguard-tools
+        # 下载管理，文件传输
+        $pacs curl git wget openssh
 
     # 工具
-        # 终端
-        $pacs fcron fish neovim nnn qrencode
+        # 壳层
+        $pacs fish
+        # 文件管理，压缩，分区工具
+        $pacs nnn p7zip parted
+        # 时钟同步，文件同步
+        $pacs ntp rsync
+        # 系统监视
+        $pacs htop
         # 查找
-        $pacs fzf htop tree
+        $pacs fzf tree
         # 新查找
         $pacs fd ripgrep bat tldr exa
-        # 缓存，统计，兼容
-        $pacs pacman-contrib pkgstats vim zsh
+        # 定时任务，二维码
+        $pacs fcron qrencode
+        # 软件包缓存，软件统计
+        $pacs pacman-contrib pkgstats
+        # 兼容
+        $pacs vim zsh
+
+    # 文档
+        # 文本编辑，帮助手册
+        $pacs neovim man
 
     # 安全
-        # 网络安全
-        $pacs dnscrypt-proxy nftables ntp openssh wireguard-tools
+        # 域名加密，防火墙
+        $pacs dnscrypt-proxy nftables
 
     # 科学
         # 编程语言
@@ -66,17 +80,17 @@ function 软件安装
             echo '下载 yay 失败'
         end
     end
-    # yay 安装 starship
+    # yay 安装：终端提示符
     yay -S --noconfirm starship
 end
 
 # uz 设定
 function uz目录
     # 克隆 uz 仓库
-    git clone https://github.com/rraayy246/uz ~/a/uz --depth 1
+    git clone https://github.com/rraayy246/uz $HOME/a/uz --depth 1
     # 链接 uz
-    ln -s ~/a/uz ~/
-    cd ~/uz
+    ln -s $HOME/a/uz $HOME
+    cd $HOME/uz
     # 记忆账号密码
     git config credential.helper store
     git config --global user.email 'rraayy246@gmail.com'
@@ -86,25 +100,23 @@ function uz目录
     cd
 end
 
-# 复制设定
 function 复制设定
     # 创建目录
-    mkdir -p ~/{a,xz,.config/{fish/conf.d,nvim/.backup}}
+    mkdir -p $HOME/{a,xz,.config/{fish/conf.d,nvim/.backup}}
     sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
-    set 配置文件 ~/a/uz/pv/
+    set 配置文件 $HOME/a/uz/pv
     # fish 设置环境变量
-    fish "$配置文件"hjbl.fish
-    sudo fish "$配置文件"hjbl.fish
+    fish $配置文件/hjbl.fish
+    sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo ln -f ~/a/uz/jb/bf.fish /root/bf.fish
-    sudo ln -f "$配置文件"dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f "$配置文件"fhq /etc/nftables.conf
-    cp -f "$配置文件"vim.vim ~/.config/nvim/init.vim
-    sudo cp -f "$配置文件"vim.vim /root/.config/nvim/init.vim
+    sudo ln -f $HOME/a/uz/jb/bf.fish /root/bf.fish
+    sudo ln -f $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo ln -f $配置文件/fhq /etc/nftables.conf
+    rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
+    sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
 end
 
-# 写入设定
 function 写入设定
     # 主机表
     sudo sed -i '/localhost\|localdomain/d' /etc/hosts
@@ -117,36 +129,34 @@ function 写入设定
     end
     # grub 超时
     sudo sed -i '/set timeout=5/s/5/0/g' /boot/grub/grub.cfg
-    # dns
+    # 域名解析
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
     # ssh
     sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config
 
-    # 更改默认 shell 为 fish
+    # 更改默认壳层为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
     sudo sed -i '/root/s/bash/fish/' /etc/passwd
-    rm ~/.bash*
+    rm $HOME/.bash*
     # 安装 zlua
-    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O ~/.config/fish/conf.d/z.lua
-    echo 'source (lua ~/.config/fish/conf.d/z.lua --init fish | psub)' > ~/.config/fish/conf.d/z.fish
-    # 提示符
-    echo -e 'if status is-interactive\n    starship init fish | source\nend' > ~/.config/fish/config.fish
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O $HOME/.config/fish/conf.d/z.lua
+    echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > $HOME/.config/fish/conf.d/z.fish
+    # 终端提示符
+    echo -e 'if status is-interactive\n    starship init fish | source\nend' > $HOME/.config/fish/config.fish
     echo -e 'if status is-interactive\n    starship init fish | source\nend' | sudo tee /root/.config/fish/config.fish
 
-    # nvim 注释 plug 配置
-    sed -i '/^call plug#begin/,$s/^[^"]/"&/' ~/.config/nvim/init.vim
+    # nvim 注释插件配置
+    sed -i '/^call plug#begin/,$s/^[^"]/"&/' $HOME/.config/nvim/init.vim
     sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 end
 
-# 自启动
 function 自启动
     sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-    sudo fcrontab ~/a/uz/pv/cron
+    sudo fcrontab $HOME/a/uz/pv/cron
 end
 
-# 交换文件
 function 交换文件
     if not test -e /swap/swap
         # 创建子卷

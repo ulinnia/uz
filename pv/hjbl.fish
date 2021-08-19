@@ -41,7 +41,6 @@ abbr -Ua gst 'git status'
 
 # 其他
 abbr -Ua 1 'cd -'
-abbr -Ua fu 'fusermount -u ~/gz'
 abbr -Ua h 'htop'
 abbr -Ua la 'ls -a'
 abbr -Ua n 'nnn'

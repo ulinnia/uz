@@ -34,7 +34,7 @@ function 软件安装
     # 更新系统
     sudo pacman -Syu --noconfirm
     # 同步包名数据库
-    sudo pacman -Fy --noconfirm
+    #sudo pacman -Fy --noconfirm
     # 缩写
     set pacs sudo pacman -S --noconfirm
     # 文件系统管理，网络管理，电源管理

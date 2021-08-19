@@ -112,6 +112,7 @@ function 复制设定
     # 链接配置文件
     sudo ln -f $HOME/a/uz/jb/bf.fish /root/bf.fish
     sudo ln -f $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f $配置文件/fhq /etc/nftables.conf
     rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
     sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim

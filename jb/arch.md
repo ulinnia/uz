@@ -118,8 +118,6 @@
 
 ### 安装必须软件包
 
-`# pacman -Syy` 更新软件包数据库
-
 `# pacstrap /mnt base base-devel linux linux-firmware fish` 安装基本包和 fish
 
 

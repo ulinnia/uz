@@ -19,6 +19,11 @@ function 软件包管理器
         # 导入 GPG key
         sudo pacman -Syy --noconfirm archlinuxcn-keyring
     end
+    # 初始化密钥环
+    sudo pacman-key --init
+    # 验证主密钥
+    sudo pacman-key --populate archlinux
+    sudo pacman-key --populate archlinuxcn
 end
 
 # 判断显卡驱动
@@ -33,8 +38,6 @@ end
 function 软件安装
     # 更新系统
     sudo pacman -Syu --noconfirm
-    # 同步包名数据库
-    #sudo pacman -Fy --noconfirm
     # 缩写
     set pacs sudo pacman -S --noconfirm
     # 文件系统管理，网络管理，电源管理
@@ -78,8 +81,8 @@ function 软件安装
         $pacs fcron qrencode
         # 播放控制，亮度控制，电源工具
         $pacs playerctl brightnessctl upower
-        # 媒体传输，蓝牙
-        $pacs libmtp pulseaudio-bluetooth bluez-utils
+        # 蓝牙
+        $pacs pulseaudio-bluetooth bluez-utils
         # arch 安装脚本，兼容 fat32
         $pacs arch-install-scripts dosfstools
         # 软件包缓存，软件统计
@@ -88,8 +91,10 @@ function 软件安装
         $pacs vim zsh
 
     # 文档
-        # 文本编辑，帮助手册，电子书阅读，办公软件套装
-        $pacs neovim man calibre libreoffice-fresh-zh-cn
+        # 文本编辑，帮助手册
+        $pacs neovim man
+        # 电子书阅读，办公软件套装
+        $pacs calibre libreoffice-fresh-zh-cn
         # 字体
         $pacs noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
 
@@ -105,21 +110,12 @@ function 软件安装
 
     # 安装 yay
     $pacs yay; or begin
-        # 删除 gnupg 目录及其文件
-        sudo rm -R  /etc/pacman.d/gnupg/
-        # 初始化密钥环
-        sudo pacman-key --init
-        # 验证主密钥
-        sudo pacman-key --populate archlinux
-        sudo pacman-key --populate archlinuxcn
-        $pacs yay; or begin
-            echo '下载 yay 失败'
-        end
+        echo 'yay 下载失败'
     end
     # 修改 yay 配置
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
-    # yay 安装：媒体传输，终端提示符
-    yay -S --noconfirm jmtpfs starship
+    # yay 安装：终端提示符
+    yay -S --noconfirm starship
 end
 
 # uz 设定

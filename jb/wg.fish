@@ -129,7 +129,7 @@ function 成员配置
             echo
             echo 'echo "\\'
             cat wg"$i".conf
-            echo '" > /etc/wireguard/wg'$i'.conf'
+            echo '" | sudo tee /etc/wireguard/wg'$i'.conf'
             echo
             echo
             qrencode -t ansiutf8 <wg"$i".conf

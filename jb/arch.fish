@@ -145,6 +145,7 @@ function 复制设定
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
     sudo ln -f $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo ln -f $配置文件/fhq /etc/nftables.conf
     sudo ln -f $配置文件/tlp /etc/tlp.conf
     #sudo ln -f $配置文件/keyb /etc/X11/xorg.conf.d/00-keyboard.conf

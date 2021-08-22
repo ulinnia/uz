@@ -66,8 +66,8 @@ function 软件安装
         $pacs imv vlc
 
     # 工具
-        # 终端模拟，壳层
-        $pacs alacritty fish
+        # 终端模拟，壳层，文本编辑
+        $pacs alacritty fish neovim
         # 文件管理，压缩，分区工具
         $pacs nnn p7zip parted
         # 时钟同步，文件同步
@@ -94,10 +94,8 @@ function 软件安装
         $pacs vim zsh
 
     # 文档
-        # 文本编辑，帮助手册
-        $pacs neovim man
-        # 电子书阅读，办公软件套装
-        $pacs calibre libreoffice-fresh-zh-cn
+        # 电子书阅读，办公软件套装，帮助手册
+        $pacs calibre libreoffice-fresh-zh-cn man
         # 字体
         $pacs noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
 

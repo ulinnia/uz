@@ -28,9 +28,12 @@ end
 
 # 判断显卡驱动
 function 显卡驱动
-    if lspci -vnn | string match -iq '*vga*amd*radeon*'
+    if lspci -vnn | string match -iq '*vga*amd*'
         echo xf86-video-amdgpu
-    else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
+    else if lspci -vnn | string match -iq '*vga*intel*'
+        echo xf86-video-intel
+    else if lspci -vnn | string match -iq '*vga*nvidia*'
+        # 垃圾英伟达，能不用就不用。
         echo xf86-video-nouveau
     end
 end

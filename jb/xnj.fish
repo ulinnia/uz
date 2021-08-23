@@ -1,7 +1,7 @@
 # qemu，图形界面
 sudo pacman -S qemu libvirt virt-manager
 # 连接网络，UEFI 支持
-sudo pacman -S ebtables dnsmasq bridge-utils openbsd-netcat edk2-ovmf
+sudo pacman -S iptables-nft dnsmasq bridge-utils openbsd-netcat edk2-ovmf
 
 # 加入 libvirt 组以获得权限
 echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */
@@ -16,7 +16,7 @@ polkit.addRule(function(action, subject) {
 sudo usermod -a -G kvm (whoami)
 
 # 启动服务
-sudo systemctl enable --now libvirtd.service
+# sudo systemctl enable --now libvirtd.service
 
 echo '这个脚本将输出您的 PCI 设备是如何被分配到 IOMMU 组之中的。'
 echo 'shopt -s nullglob

@@ -42,16 +42,9 @@ function wg0设定
     chmod 600 pri1
     chmod 600 pri2
 
-    # 随机数
-    function 随机数 -a min -a max
-        set max (math $max - $min + 1)
-        set num (date +%s%N)
-        echo (math $num % $max + $min)
-    end
-
     set interface (ip -o -4 route show to default | awk '{print $5}')
     set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-    set port (随机数 10000 60000)
+    set port (random 10000 60000)
 
     # 生成服务端配置文件
     echo "\

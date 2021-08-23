@@ -28,9 +28,12 @@ end
 
 # 判断显卡驱动
 function 显卡驱动
-    if lspci -vnn | string match -iq '*vga*amd*radeon*'
+    if lspci -vnn | string match -iq '*vga*amd*'
         echo xf86-video-amdgpu
-    else if lspci -vnn | string match -iq '*vga*nvidia*geforce*'
+    else if lspci -vnn | string match -iq '*vga*intel*'
+        echo xf86-video-intel
+    else if lspci -vnn | string match -iq '*vga*nvidia*'
+        # 垃圾英伟达，能不用就不用。
         echo xf86-video-nouveau
     end
 end
@@ -63,8 +66,8 @@ function 软件安装
         $pacs imv vlc
 
     # 工具
-        # 终端模拟，壳层
-        $pacs alacritty fish
+        # 终端模拟，壳层，文本编辑
+        $pacs alacritty fish neovim
         # 文件管理，压缩，分区工具
         $pacs nnn p7zip parted
         # 时钟同步，文件同步
@@ -91,10 +94,8 @@ function 软件安装
         $pacs vim zsh
 
     # 文档
-        # 文本编辑，帮助手册
-        $pacs neovim man
-        # 电子书阅读，办公软件套装
-        $pacs calibre libreoffice-fresh-zh-cn
+        # 电子书阅读，办公软件套装，帮助手册
+        $pacs calibre libreoffice-fresh-zh-cn man
         # 字体
         $pacs noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
 

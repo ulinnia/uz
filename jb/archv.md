@@ -97,14 +97,31 @@
 
 `# mount /dev/vda2 /mnt` 挂载根分区
 
-`# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
+创建 根，家，快照，日志 子卷
+
+```
+# btrfs subvolume create /mnt/@
+# btrfs subvolume create /mnt/@home
+# btrfs subvolume create /mnt/@snapshots
+# btrfs subvolume create /mnt/@var_log
+```
 
 `# umount /mnt` 卸载根分区
 
 
 ### 挂载分区
 
-`# mount -o autodefrag,compress=zstd,subvol=a /dev/vda2 /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
+`# mount -o autodefrag,compress=zstd,subvol=@ /dev/vda2 /mnt` 挂载根分区的 @ 子卷并启用碎片整理和压缩
+
+`# mkdir -p /mnt/{home,.snapshots,var/log}` 创建目录
+
+挂载其他分区
+
+```
+# mount -o subvol=@home /dev/vda2 /mnt/home
+# mount -o subvol=@snapshots /dev/vda2 /mnt/.snapshots
+# mount -o subvol=@var_log /dev/vda2 /mnt/var/log
+```
 
 
 ## 安装

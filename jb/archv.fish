@@ -15,10 +15,15 @@ function 软件包管理器
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
     if not string match -q '*archlinuxcn*' < /etc/pacman.conf
-        echo -e '[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' | sudo tee -a /etc/pacman.conf
+        echo -e '[archlinuxcn]\nServer = https://repo.archlinuxcn.org/$arch' | sudo tee -a /etc/pacman.conf
         # 导入 GPG key
         sudo pacman -Syy --noconfirm archlinuxcn-keyring
     end
+    # 初始化密钥环
+    sudo pacman-key --init
+    # 验证主密钥
+    sudo pacman-key --populate archlinux
+    sudo pacman-key --populate archlinuxcn
 end
 
 function 软件安装
@@ -26,7 +31,7 @@ function 软件安装
     sudo pacman -Syu --noconfirm
     # 缩写
     set pacs sudo pacman -S --noconfirm
-    # btrfs 管理
+    # 文件系統管理
     $pacs btrfs-progs
 
     # 互联网
@@ -36,14 +41,16 @@ function 软件安装
         $pacs curl git wget openssh
 
     # 工具
-        # 壳层
-        $pacs fish
+        # 壳层，文本編輯
+        $pacs fish neovim
         # 文件管理，压缩，分区工具
         $pacs nnn p7zip parted
         # 时钟同步，文件同步
         $pacs ntp rsync
         # 系统监视
         $pacs htop
+        # 快照管理
+        $pacs snapper snap-pac
         # 查找
         $pacs fzf tree
         # 新查找
@@ -56,8 +63,8 @@ function 软件安装
         $pacs vim zsh
 
     # 文档
-        # 文本编辑，帮助手册
-        $pacs neovim man
+        # 帮助手册
+        $pacs man
 
     # 安全
         # 域名加密，防火墙
@@ -69,16 +76,7 @@ function 软件安装
 
     # 安装 yay
     $pacs yay; or begin
-        # 删除 gnupg 目录及其文件
-        sudo rm -R  /etc/pacman.d/gnupg/
-        # 初始化密钥环
-        sudo pacman-key --init
-        # 验证主密钥
-        sudo pacman-key --populate archlinux
-        sudo pacman-key --populate archlinuxcn
-        $pacs yay; or begin
-            echo '下载 yay 失败'
-        end
+        echo '下载 yay 失败'
     end
     # yay 安装：终端提示符
     yay -S --noconfirm starship
@@ -110,10 +108,10 @@ function 复制设定
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo ln -f $HOME/a/uz/jb/bf.fish /root/bf.fish
-    sudo ln -f $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo rsync -a $HOME/a/uz/jb/bf.fish /root/bf.fish
+    sudo rsync -a $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f $配置文件/fhq /etc/nftables.conf
+    sudo rsync -a $配置文件/fhq /etc/nftables.conf
     rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
     sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
 end
@@ -129,10 +127,20 @@ function 写入设定
         sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
     end
     # grub 超时
-    sudo sed -i '/set timeout=5/s/5/0/g' /boot/grub/grub.cfg
+    sudo sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
+    sudo sed -i '/set timeout=/s/5/0/g' /boot/grub/grub.cfg
     # 域名解析
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
+    # 创建 snapper 配置
+    if not string length -q (sudo ls -A /.snapshots)
+        sudo umount /.snapshots
+        sudo rmdir /.snapshots
+        sudo snapper -c root create-config /
+        sudo btrfs subvolume delete /.snapshots
+        sudo mkdir /.snapshots
+        sudo mount -a
+    end
     # ssh
     sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config
 
@@ -153,7 +161,7 @@ function 写入设定
 end
 
 function 自启动
-    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,sshd}
+    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,snapper-cleanup.timer,snapper-timeline.timer,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
     sudo fcrontab $HOME/a/uz/pv/cron
 end

@@ -15,7 +15,7 @@ function 软件包管理器
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
     if not string match -q '*archlinuxcn*' < /etc/pacman.conf
-        echo -e '[archlinuxcn]\nServer = https://repo.archlinuxcn.org/$arch' | sudo tee -a /etc/pacman.conf
+        echo -e '[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' | sudo tee -a /etc/pacman.conf
         # 导入 GPG key
         sudo pacman -Syy --noconfirm archlinuxcn-keyring
     end

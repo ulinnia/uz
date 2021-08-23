@@ -90,18 +90,34 @@
 
 `# mount /dev/mapper/ray /mnt` 挂载根分区
 
-`# btrfs subvolume create /mnt/a` 创建名为 a 的子卷
+`# cd /mnt` 移动到根分区
+
+创建 根，家，快照，日志 子卷
+
+```
+# btrfs subvolume create @
+# btrfs subvolume create @home
+# btrfs subvolume create @snapshots
+# btrfs subvolume create @var_log
+```
 
 `# umount /mnt` 卸载根分区
 
 
 ### 挂载分区
 
-`# mount -o autodefrag,compress=zstd,subvol=a /dev/mapper/ray /mnt` 挂载根分区的 a 子卷并启用碎片整理和压缩
+`# mount -o autodefrag,compress=zstd,subvol=@ /dev/mapper/ray /mnt` 挂载根分区的 @ 子卷并启用碎片整理和压缩
 
-`# mkdir /mnt/boot` 创建启动目录
+`# mkdir /mnt/{boot,home,.snapshots,var/log}` 创建目录
 
-`# mount /dev/nvme0n1p1 /mnt/boot` 挂载启动分区
+挂载其他分区
+
+```
+# mount /dev/nvme0n1p1 /mnt/boot
+# mount -o subvol=@home /dev/mapper/ray /mnt/home
+# mount -o subvol=@snapshots /dev/mapper/ray /mnt/.snapshots
+# mount -o subvol=@var_log /dev/mapper/ray /mnt/var/log
+```
 
 
 ## 安装

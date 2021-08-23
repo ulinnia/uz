@@ -74,6 +74,8 @@ function 软件安装
         $pacs ntp rsync
         # 系统监视，硬件监视
         $pacs htop lm_sensors
+        # 快照管理
+        $pacs snapper snap-pac
         # 输入法
         $pacs fcitx5-im fcitx5-rime
         # 查找
@@ -145,18 +147,18 @@ function 复制设定
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo ln -f $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo rsync -a $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo ln -f $配置文件/fhq /etc/nftables.conf
-    sudo ln -f $配置文件/tlp /etc/tlp.conf
-    #sudo ln -f $配置文件/keyb /etc/X11/xorg.conf.d/00-keyboard.conf
-    ln -f $配置文件/fish.fish $HOME/.config/fish/config.fish
-    ln -f $配置文件/sway $HOME/.config/sway/config
-    #ln -f $配置文件/i3 $HOME/.config/i3/config
-    ln -f $配置文件/urf $HOME/.config/fcitx5/profile
-    ln -f $配置文件/vtl.toml $HOME/.config/i3status-rust/config.toml
-    ln -f $配置文件/vd.yml $HOME/.config/alacritty/alacritty.yml
-    ln -f $配置文件/vim.vim $HOME/.config/nvim/init.vim
+    sudo rsync -a $配置文件/fhq /etc/nftables.conf
+    sudo rsync -a $配置文件/tlp /etc/tlp.conf
+    #sudo rsync -a $配置文件/keyb /etc/X11/xorg.conf.d/00-keyboard.conf
+    rsync -a $配置文件/fish.fish $HOME/.config/fish/config.fish
+    rsync -a $配置文件/sway $HOME/.config/sway/config
+    #rsync -a $配置文件/i3 $HOME/.config/i3/config
+    rsync -a $配置文件/urf $HOME/.config/fcitx5/profile
+    rsync -a $配置文件/vtl.toml $HOME/.config/i3status-rust/config.toml
+    rsync -a $配置文件/vd.yml $HOME/.config/alacritty/alacritty.yml
+    rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
     sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
 end
 
@@ -168,11 +170,16 @@ function 写入设定
     if not sudo grep -q '^[^#].*NOPASSWD:' /etc/sudoers
         sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
     end
-    # grub 超时
-    sudo sed -i '/set timeout=5/s/5/1/g' /boot/grub/grub.cfg
+    # grub 设置
+    sudo sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
+    if not sudo grep -q 'GRUB_DISABLE_OS_PROBER' /etc/default/grub
+        echo 'GRUB_DISABLE_OS_PROBER=false' | sudo tee -a /etc/default/grub
+    end
     # 域名解析
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
+    # 创建 snapper 配置
+    sudo snapper -c root create-config /
 
     # 更改默认壳层为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd
@@ -212,7 +219,7 @@ end
 function 自启动
     sudo systemctl enable --now NetworkManager
     and sudo systemctl disable dhcpcd
-    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,tlp}
+    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,snapper-cleanup.timer,snapper-timeline.timer,tlp}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
 end
 

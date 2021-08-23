@@ -18,7 +18,7 @@
 - daniwell
 - 新房昭之
 - 入间人间
-- 东尼·博赞 / Tony·Buzan
+- 东尼·博赞（Tony·Buzan）
 
 动漫。
 
@@ -76,6 +76,7 @@
 
 软件。
 
+- (完美的语言) 逻辑语（Lojban）
 - (文件系统) Btrfs
 - (英文字体) Ubuntu font
 - (浏览器) Firefox 火狐

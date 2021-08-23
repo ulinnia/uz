@@ -41,11 +41,12 @@ abbr -Ua gst 'git status'
 
 # 其他
 abbr -Ua 1 'cd -'
+abbr -Ua gx 'sudo pacman -Syu'
 abbr -Ua h 'htop'
 abbr -Ua la 'ls -a'
 abbr -Ua n 'nnn'
 abbr -Ua nm 'nmtui-connect'
-abbr -Ua gx 'sudo pacman -Syu'
+abbr -Ua rs 'rsync --info=progress2 -h'
 abbr -Ua s 'sudo'
 abbr -Ua sv 'sudo nvim'
 abbr -Ua u 'cd ~/uz'

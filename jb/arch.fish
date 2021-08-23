@@ -184,8 +184,9 @@ function 写入设定
         sudo umount /.snapshots
         sudo rmdir /.snapshots
         sudo snapper -c root create-config /
-        set 根分区 (string split ' ' (string match '* /' (df)))
-        sudo mount -o subvol=@snapshots $根分区[1] /.snapshots
+        sudo btrfs subvolume delete /.snapshots
+        sudo mkdir /.snapshots
+        sudo mount -a
     end
 
     # 更改默认壳层为 fish

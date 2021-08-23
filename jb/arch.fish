@@ -180,7 +180,13 @@ function 写入设定
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
     # 创建 snapper 配置
-    sudo snapper -c root create-config /
+    if not (sudo ls -A /.snapshots)
+        sudo umount /.snapshots
+        sudo rmdir /.snapshots
+        sudo snapper -c root create-config /
+        set 根分区 (string split ' ' (string match '* /' (df)))
+        sudo mount -o subvol=@snapshots $根分区[1] /.snapshots
+    end
 
     # 更改默认壳层为 fish
     sudo sed -i '/home/s/bash/fish/' /etc/passwd

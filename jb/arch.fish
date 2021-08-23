@@ -175,6 +175,7 @@ function 写入设定
     if not sudo grep -q 'GRUB_DISABLE_OS_PROBER' /etc/default/grub
         echo 'GRUB_DISABLE_OS_PROBER=false' | sudo tee -a /etc/default/grub
     end
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
     # 域名解析
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf

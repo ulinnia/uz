@@ -167,7 +167,7 @@
 
 ### 本地化
 
-`# sed -i '/\(en_US\|zh_CN\).UTF/s/#//' /etc/locale.gen` 修改本地化信息
+`# sed -i '/\(en_US\|zh_CN\).UTF-8/s/#//' /etc/locale.gen` 修改本地化信息
 
 `# locale-gen` 生成本地化信息
 

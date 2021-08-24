@@ -187,7 +187,6 @@ function 写入设定
         sudo btrfs subvolume delete /.snapshots
         sudo mkdir /.snapshots
         sudo mount -a
-        sudo sed -i '/TIMELINE_\(CREATE\|CLEANUP\)=/s/yes/no/' /etc/snapper/configs/root
     end
     # 防止快照索引
     if not sudo grep -q '.snapshot' /etc/updatedb.conf
@@ -232,7 +231,7 @@ end
 function 自启动
     sudo systemctl enable --now NetworkManager
     and sudo systemctl disable dhcpcd
-    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,snapper-cleanup.timer,snapper-timeline.timer,tlp}
+    sudo systemctl enable --now {bluetooth,dnscrypt-proxy,fcron,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,tlp}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
 end
 

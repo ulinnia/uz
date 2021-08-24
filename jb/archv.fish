@@ -140,7 +140,6 @@ function 写入设定
         sudo btrfs subvolume delete /.snapshots
         sudo mkdir /.snapshots
         sudo mount -a
-        sudo sed -i '/TIMELINE_\(CREATE\|CLEANUP\)=/s/yes/no/' /etc/snapper/configs/root
     end
     # 防止快照索引
     if not sudo grep -q '.snapshot' /etc/updatedb.conf
@@ -166,7 +165,7 @@ function 写入设定
 end
 
 function 自启动
-    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,snapper-cleanup.timer,snapper-timeline.timer,sshd}
+    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
     sudo fcrontab $HOME/a/uz/pv/cron
 end

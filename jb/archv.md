@@ -105,6 +105,7 @@
 # btrfs subvolume create /mnt/@
 # btrfs subvolume create /mnt/@home
 # btrfs subvolume create /mnt/@snapshots
+# btrfs subvolume create /mnt/@swap
 # btrfs subvolume create /mnt/@var_log
 ```
 
@@ -115,13 +116,14 @@
 
 `# mount -o autodefrag,compress=zstd,subvol=@ /dev/vda2 /mnt` 挂载根分区的 @ 子卷并启用碎片整理和压缩
 
-`# mkdir -p /mnt/{home,.snapshots,var/log}` 创建目录
+`# mkdir -p /mnt/{home,.snapshots,swap,var/log}` 创建目录
 
 挂载其他分区
 
 ```
 # mount -o subvol=@home /dev/vda2 /mnt/home
 # mount -o subvol=@snapshots /dev/vda2 /mnt/.snapshots
+# mount -o subvol=@swap /dev/vda2 /mnt/swap
 # mount -o subvol=@var_log /dev/vda2 /mnt/var/log
 ```
 

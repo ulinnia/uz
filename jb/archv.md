@@ -167,11 +167,7 @@
 
 ### 本地化
 
-`# vim /etc/locale.gen` 修改本地化信息
-
-移除 en_US.UTF-8 UTF-8 、zh_CN.UTF-8 UTF-8 前面的 # 后保存。
-
-按 `x` 删除当前光标所在处的字符，按 `u` 撤消最后执行的命令，`:x`  命令保存文件并退出。
+`# sed -i '/\(en_US\|zh_CN\).UTF/s/#//' /etc/locale.gen` 修改本地化信息
 
 `# locale-gen` 生成本地化信息
 

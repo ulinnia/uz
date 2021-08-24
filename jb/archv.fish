@@ -167,9 +167,7 @@ function 自启动
 end
 
 function 交换文件
-    if not test -e /swap/swap
-        # 创建子卷
-        sudo btrfs subvolume create /swap
+    if not test -e /swap/swap -a -d /swap
         # 创建空文件
         sudo touch /swap/swap
         # 禁止写时复制

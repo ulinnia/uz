@@ -179,7 +179,9 @@ function 交换文件
         # 禁止压缩
         sudo chattr -c /swap/swapfile
         # 文件大小
-        sudo fallocate -l 512M /swap/swapfile
+        set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
+        if test "$i" -gt 3; set i 3; end
+        sudo fallocate -l "$i"G /swap/swapfile
         # 设定拥有者读写
         sudo chmod 600 /swap/swapfile
         # 格式化交换文件

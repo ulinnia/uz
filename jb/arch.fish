@@ -235,6 +235,37 @@ function 自启动
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
 end
 
+function 交换文件
+    if not test -e /swap/swapfile -a -d /swap
+        # 创建空文件
+        sudo touch /swap/swapfile
+        # 禁止写时复制
+        sudo chattr +C /swap/swapfile
+        # 禁止压缩
+        sudo chattr -c /swap/swapfile
+        # 文件大小
+        set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
+        if test "$i" -gt 3; set i 3; end
+        sudo fallocate -l "$i"G /swap/swapfile
+        # 设定拥有者读写
+        sudo chmod 600 /swap/swapfile
+        # 格式化交换文件
+        sudo mkswap /swap/swapfile
+        # 启用交换文件
+        sudo swapon /swap/swapfile
+        # 写入 fstab
+        if not sudo grep -q '/swap/swapfile' /etc/fstab
+            echo '/swap/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
+        end
+
+        # 最大限度使用物理内存，生效
+        if not sudo grep -q 'swappiness' /etc/sysctl.d/99-sysctl.conf
+            echo 'vm.swappiness = 0' | sudo tee -a /etc/sysctl.d/99-sysctl.conf
+            sudo sysctl (bat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
+        end
+    end
+end
+
 
 # ======= 主程序 =======
 
@@ -255,6 +286,7 @@ case '*'
     写入设定
     小鹤音形
     自启动
+    交换文件
 end
 
 

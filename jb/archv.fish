@@ -167,24 +167,24 @@ function 自启动
 end
 
 function 交换文件
-    if not test -e /swap/swap -a -d /swap
+    if not test -e /swap/swapfile -a -d /swap
         # 创建空文件
-        sudo touch /swap/swap
+        sudo touch /swap/swapfile
         # 禁止写时复制
-        sudo chattr +C /swap/swap
+        sudo chattr +C /swap/swapfile
         # 禁止压缩
-        sudo chattr -c /swap/swap
+        sudo chattr -c /swap/swapfile
         # 文件大小
-        sudo fallocate -l 512M /swap/swap
+        sudo fallocate -l 512M /swap/swapfile
         # 设定拥有者读写
-        sudo chmod 600 /swap/swap
+        sudo chmod 600 /swap/swapfile
         # 格式化交换文件
-        sudo mkswap /swap/swap
+        sudo mkswap /swap/swapfile
         # 启用交换文件
-        sudo swapon /swap/swap
+        sudo swapon /swap/swapfile
         # 写入 fstab
-        if not sudo grep -q '/swap/swap' /etc/fstab
-            echo '/swap/swap none swap defaults 0 0' | sudo tee -a /etc/fstab
+        if not sudo grep -q '/swap/swapfile' /etc/fstab
+            echo '/swap/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
         end
 
         # 最大限度使用物理内存，生效

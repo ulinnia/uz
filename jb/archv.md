@@ -214,6 +214,8 @@
 
 `# exit` 退出 chroot 环境
 
+`# systemctl poweroff` 关闭服务器
+
 关闭 VNC 视窗
 
 
@@ -223,7 +225,7 @@
 
 在 `设置` 选项卡上，单击 `自定义 ISO`，然后单击 `删除 ISO`
 
-单击 `服务器重新启动` 图标，然后单击 `View Console`
+服务器重启后，单击 `View Console`，打开 VNC
 
 
 ### 新建用户

@@ -52,6 +52,8 @@
 
 用 [站长工具][chinaz] 测试实例的 IP 有没被墙。
 
+[chinaz]: https://ping.chinaz.com/
+
 如果没有被墙（地图大部分不是红色），那恭喜你，可以进行下个步骤。如果被墙了（地图全红），则删掉实例`Server Destroy`，重新创建实例。
 
 

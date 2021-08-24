@@ -97,8 +97,10 @@
 # btrfs subvolume create /mnt/@home
 # btrfs subvolume create /mnt/@snapshots
 # btrfs subvolume create /mnt/@swap
-# btrfs subvolume create /mnt/@var_log
+# btrfs subvolume create /mnt/@var
 ```
+
+`# chattr +C /mnt/@var` var 目录禁用写时复制
 
 `# umount /mnt` 卸载根分区
 
@@ -107,7 +109,7 @@
 
 `# mount -o autodefrag,compress=zstd,subvol=@ /dev/mapper/ray /mnt` 挂载根分区的 @ 子卷并启用碎片整理和压缩
 
-`# mkdir -p /mnt/{boot,home,.snapshots,swap,var/log}` 创建目录
+`# mkdir -p /mnt/{boot,home,.snapshots,swap,var}` 创建目录
 
 挂载其他分区
 
@@ -116,7 +118,7 @@
 # mount -o subvol=@home /dev/mapper/ray /mnt/home
 # mount -o subvol=@snapshots /dev/mapper/ray /mnt/.snapshots
 # mount -o subvol=@swap /dev/mapper/ray /mnt/swap
-# mount -o subvol=@var_log /dev/mapper/ray /mnt/var/log
+# mount -o subvol=@var /dev/mapper/ray /mnt/var
 ```
 
 

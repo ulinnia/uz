@@ -52,7 +52,7 @@ function 软件安装
         # 快照管理
         $pacs snapper snap-pac
         # 查找
-        $pacs fzf tree
+        $pacs fzf mlocate tree
         # 新查找
         $pacs fd ripgrep bat tldr exa
         # 定时任务，二维码
@@ -140,6 +140,11 @@ function 写入设定
         sudo btrfs subvolume delete /.snapshots
         sudo mkdir /.snapshots
         sudo mount -a
+        sudo sed -i '/TIMELINE_\(CREATE\|CLEANUP\)=/s/yes/no/' /etc/snapper/configs/root
+    end
+    # 防止快照索引
+    if not sudo grep -q '.snapshot' /etc/updatedb.conf
+        sudo sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
     end
     # ssh
     sudo sed -i '/#Port 22/s/#//' /etc/ssh/sshd_config

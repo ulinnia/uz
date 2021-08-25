@@ -108,7 +108,6 @@ function 复制设定
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo rsync -a $HOME/a/uz/jb/bf.fish /root/bf.fish
     sudo rsync -a $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo rsync -a $配置文件/fhq /etc/nftables.conf

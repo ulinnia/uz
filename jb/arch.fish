@@ -66,8 +66,8 @@ function 软件安装
         $pacs imv vlc
 
     # 工具
-        # 终端模拟，壳层，文本编辑
-        $pacs alacritty fish neovim
+        # 壳层，终端模拟，文本编辑
+        $pacs fish kitty neovim
         # 文件管理，压缩，分区工具
         $pacs nnn p7zip parted
         # 时钟同步，文件同步
@@ -157,7 +157,7 @@ function 复制设定
     #rsync -a $配置文件/i3 $HOME/.config/i3/config
     rsync -a $配置文件/urf $HOME/.config/fcitx5/profile
     rsync -a $配置文件/vtl.toml $HOME/.config/i3status-rust/config.toml
-    rsync -a $配置文件/vd.yml $HOME/.config/alacritty/alacritty.yml
+    rsync -a $配置文件/vd $HOME/.config/kitty/kitty.conf
     rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
     sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
 end

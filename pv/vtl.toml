@@ -50,6 +50,7 @@ format = "{volume}"
 [[block]]
 block = "time"
 interval = 1
-format = "%T 📅%F ⭐%w"
+format = "%a %F %T"
+locale = "zh_CN"
 
 

@@ -4,7 +4,7 @@ bold_font        auto
 italic_font      auto
 bold_italic_font auto
 # 字体大小
-font_size 17.0
+font_size 17
 
 # 默认光标颜色
 cursor #ebdbb2
@@ -16,9 +16,9 @@ cursor_blink_interval 0
 # 回滚的历史行数
 scrollback_lines 10000
 # 鼠标滚轮滚动的数量
-wheel_scroll_multiplier 5.0
+wheel_scroll_multiplier 7
 # 触摸板滚动的数量
-touch_scroll_multiplier 5.0
+touch_scroll_multiplier 7
 
 # 隐藏鼠标光标
 mouse_hide_wait -1

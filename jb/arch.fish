@@ -134,7 +134,7 @@ end
 
 function 复制设定
     # 创建目录
-    mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,nvim/.backup,sway}}
+    mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,lf,nvim/.backup,sway}}
     sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
     set 配置文件 $HOME/a/uz/pv
@@ -151,8 +151,12 @@ function 复制设定
     rsync -a $配置文件/sway.conf $HOME/.config/sway/config
     rsync -a $配置文件/fcitx5.conf $HOME/.config/fcitx5/profile
     rsync -a $配置文件/i3status.toml $HOME/.config/i3status-rust/config.toml
-    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
+    rsync -a $配置文件/lfrc $HOME/.config/lf/lfrc
+    rsync -a $配置文件/pv.sh $HOME/.config/lf/pv.sh
+
+    # 用户配置文件
     sudo rsync -a $配置文件/init.vim /root/.config/nvim/init.vim
+    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
 end
 
 function 写入设定

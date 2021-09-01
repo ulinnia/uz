@@ -96,7 +96,7 @@ end
 
 function 复制设定
     # 创建目录
-    mkdir -p $HOME/{a,xz,.config/{fish/conf.d,nvim/.backup}}
+    mkdir -p $HOME/{a,xz,.config/{fish/conf.d,lf,nvim/.backup}}
     sudo mkdir -p /root/.config/{fish,nvim}
     # 缩写
     set 配置文件 $HOME/a/uz/pv
@@ -107,8 +107,12 @@ function 复制设定
     sudo rsync -a $配置文件/dnscrypt.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo rsync -a $配置文件/nftables.conf /etc/nftables.conf
-    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
+    rsync -a $配置文件/lfrc $HOME/.config/lf/lfrc
+    rsync -a $配置文件/pv.sh $HOME/.config/lf/pv.sh
+
+    # 用户配置文件
     sudo rsync -a $配置文件/init.vim /root/.config/nvim/init.vim
+    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
 end
 
 function 写入设定

@@ -75,8 +75,8 @@ function 软件安装
         $pacs snapper snap-pac
         # 输入法
         $pacs fcitx5-im fcitx5-rime
-        # 查找
-        $pacs fzf mlocate tree
+        # 查找，高亮
+        $pacs fzf mlocate tree highlight
         # 新查找
         $pacs fd ripgrep bat tldr exa
         # 定时任务，二维码

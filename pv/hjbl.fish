@@ -13,12 +13,6 @@ set -Ux QT_IM_MODULE fcitx
 set -Ux XMODIFIERS @im=fcitx
 set -Ux SDL_IM_MODULE fcitx
 
-# nnn 书签，选择，插件，缓存
-set -Ux NNN_BMS 'a:~/a;x:~/xz;j:~;g:~/gz'
-set -Ux NNN_SEL '/tmp/.sel'
-set -Ux NNN_PLUG ''
-set -Ux NNN_FIFO '/tmp/nnn.fifo'
-
 # 默认编辑器
 set -Ux EDITOR nvim
 
@@ -44,8 +38,8 @@ abbr -Ua 1 'cd -'
 abbr -Ua gx 'sudo pacman -Syu'
 abbr -Ua h 'htop'
 abbr -Ua la 'ls -a'
-abbr -Ua n 'nnn'
 abbr -Ua nm 'nmtui-connect'
+abbr -Ua r 'ranger'
 abbr -Ua rs 'rsync --info=progress2 -h'
 abbr -Ua s 'sudo'
 abbr -Ua sv 'sudo nvim'

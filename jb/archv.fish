@@ -41,8 +41,8 @@ function 软件安装
     # 工具
         # 壳层，文本編輯，终端提示符
         $pacs fish neovim starship
-        # 压缩，分区工具，文件管理
-        $pacs p7zip parted ranger
+        # 文件管理，压缩，分区工具
+        $pacs lf p7zip parted
         # 时钟同步，文件同步
         $pacs ntp rsync
         # 系统监视

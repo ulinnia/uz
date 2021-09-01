@@ -9,8 +9,6 @@ end
 
 # 修改 pacman 配置
 function 软件包管理器
-    # pacman 增加 multilib 源
-    #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
@@ -59,7 +57,6 @@ function 软件安装
     # 多媒体
         # 显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
         $pacs wayland sway swaybg swayidle swaylock xorg-xwayland
-        #$pacs xorg xorg-xinit i3-gaps i3lock imagemagick rofi
         # 状态栏，截图，程序菜单，Qt 5 支持
         $pacs i3status-rust grim slurp wofi qt5-wayland
         # 图像查看，视频播放
@@ -68,8 +65,8 @@ function 软件安装
     # 工具
         # 壳层，终端模拟，文本编辑
         $pacs fish kitty neovim
-        # 文件管理，压缩，分区工具
-        $pacs nnn p7zip parted
+        # 压缩，分区工具，文件管理
+        $pacs p7zip parted ranger
         # 时钟同步，文件同步
         $pacs ntp rsync
         # 系统监视，硬件监视
@@ -147,19 +144,17 @@ function 复制设定
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo rsync -a $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo rsync -a $配置文件/dnscrypt.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo rsync -a $配置文件/fhq /etc/nftables.conf
-    sudo rsync -a $配置文件/tlp /etc/tlp.conf
-    #sudo rsync -a $配置文件/keyb /etc/X11/xorg.conf.d/00-keyboard.conf
-    rsync -a $配置文件/fish.fish $HOME/.config/fish/config.fish
-    rsync -a $配置文件/sway $HOME/.config/sway/config
-    #rsync -a $配置文件/i3 $HOME/.config/i3/config
-    rsync -a $配置文件/urf $HOME/.config/fcitx5/profile
-    rsync -a $配置文件/vtl.toml $HOME/.config/i3status-rust/config.toml
-    rsync -a $配置文件/vd $HOME/.config/kitty/kitty.conf
-    rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
-    sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
+    sudo rsync -a $配置文件/nftables.conf /etc/nftables.conf
+    sudo rsync -a $配置文件/tlp.conf /etc/tlp.conf
+    rsync -a $配置文件/config.fish $HOME/.config/fish/config.fish
+    rsync -a $配置文件/sway.conf $HOME/.config/sway/config
+    rsync -a $配置文件/fcitx5.conf $HOME/.config/fcitx5/profile
+    rsync -a $配置文件/i3status.toml $HOME/.config/i3status-rust/config.toml
+    rsync -a $配置文件/kitty.conf $HOME/.config/kitty/kitty.conf
+    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
+    sudo rsync -a $配置文件/init.vim /root/.config/nvim/init.vim
 end
 
 function 写入设定
@@ -202,8 +197,6 @@ function 写入设定
     echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > $HOME/.config/fish/conf.d/z.fish
     # 终端提示符
     echo -e 'if status is-interactive\n    starship init fish | source\nend' | sudo tee /root/.config/fish/config.fish
-    # xinit
-    #echo 'exec i3' > $HOME/.xinitrc
     # 壁纸
     wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O $HOME/a/vp/bv/hw.png
 

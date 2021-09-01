@@ -9,8 +9,6 @@ end
 
 # 修改 pacman 配置
 function 软件包管理器
-    # pacman 增加 multilib 源
-    #sudo sed -i '/^#\[multilib\]/,+1s/^#//g' /etc/pacman.conf
     # pacman 开启颜色
     sudo sed -i '/^#Color$/s/#//' /etc/pacman.conf
     # 加上 archlinuxcn 源
@@ -43,8 +41,8 @@ function 软件安装
     # 工具
         # 壳层，文本編輯
         $pacs fish neovim
-        # 文件管理，压缩，分区工具
-        $pacs nnn p7zip parted
+        # 压缩，分区工具，文件管理
+        $pacs p7zip parted ranger
         # 时钟同步，文件同步
         $pacs ntp rsync
         # 系统监视
@@ -108,11 +106,11 @@ function 复制设定
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo rsync -a $配置文件/dns /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    sudo rsync -a $配置文件/dnscrypt.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo rsync -a $配置文件/fhq /etc/nftables.conf
-    rsync -a $配置文件/vim.vim $HOME/.config/nvim/init.vim
-    sudo rsync -a $配置文件/vim.vim /root/.config/nvim/init.vim
+    sudo rsync -a $配置文件/nftables.conf /etc/nftables.conf
+    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
+    sudo rsync -a $配置文件/init.vim /root/.config/nvim/init.vim
 end
 
 function 写入设定

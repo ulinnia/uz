@@ -1,5 +1,6 @@
 # interpreter for shell commands
 set shell sh
+set info size
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
@@ -24,8 +25,8 @@ set scrolloff 10
 map <enter> shell
 
 # execute current file (must be executable)
-map x $$f
-map X !$f
+map x delete
+map . set hidden!
 
 # dedicated keys for file opener actions
 map o &mimeopen $f

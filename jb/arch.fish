@@ -63,8 +63,8 @@ function 软件安装
         $pacs imv vlc
 
     # 工具
-        # 壳层，终端模拟，文本编辑
-        $pacs fish kitty neovim
+        # 终端模拟，壳层，文本编辑，终端提示符
+        $pacs alacritty fish neovim starship
         # 压缩，分区工具，文件管理
         $pacs p7zip parted ranger
         # 时钟同步，文件同步
@@ -114,8 +114,6 @@ function 软件安装
     end
     # 修改 yay 配置
     yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
-    # yay 安装：终端提示符
-    yay -S --noconfirm starship
 end
 
 # uz 设定
@@ -148,11 +146,11 @@ function 复制设定
     sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
     sudo rsync -a $配置文件/nftables.conf /etc/nftables.conf
     sudo rsync -a $配置文件/tlp.conf /etc/tlp.conf
+    rsync -a $配置文件/alacritty.yml $HOME/.config/alacritty/alacritty.yml
     rsync -a $配置文件/config.fish $HOME/.config/fish/config.fish
     rsync -a $配置文件/sway.conf $HOME/.config/sway/config
     rsync -a $配置文件/fcitx5.conf $HOME/.config/fcitx5/profile
     rsync -a $配置文件/i3status.toml $HOME/.config/i3status-rust/config.toml
-    rsync -a $配置文件/kitty.conf $HOME/.config/kitty/kitty.conf
     rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
     sudo rsync -a $配置文件/init.vim /root/.config/nvim/init.vim
 end

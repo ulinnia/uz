@@ -39,8 +39,8 @@ function 软件安装
         $pacs curl git wget openssh
 
     # 工具
-        # 壳层，文本編輯
-        $pacs fish neovim
+        # 壳层，文本編輯，终端提示符
+        $pacs fish neovim starship
         # 压缩，分区工具，文件管理
         $pacs p7zip parted ranger
         # 时钟同步，文件同步
@@ -76,8 +76,6 @@ function 软件安装
     $pacs yay; or begin
         echo '下载 yay 失败'
     end
-    # yay 安装：终端提示符
-    yay -S --noconfirm starship
 end
 
 # uz 设定

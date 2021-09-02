@@ -38,6 +38,7 @@ map <enter> shell
 map x delete
 map . set hidden!
 map ad push %mkdir<space>
+map af push %nvim<space>
 map bh cd ~
 map bu cd ~/uz
 map R bulk-rename
@@ -63,11 +64,9 @@ cmd bulk-rename ${{
     lf -remote "send $id unselect"
 }}
 
-cmd open-with %"$@" $fx
-map ` push :open-with<space>
 
 # dedicated keys for file opener actions
-map o &mimeopen $f
+map o &mimeopen --no-ask $f
 map O $mimeopen --ask $f
 
 # define a custom 'open' command

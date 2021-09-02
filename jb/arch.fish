@@ -142,10 +142,12 @@ function 复制设定
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
     sudo rsync -a $配置文件/etc /
-    sudo rsync -a $配置文件/.config /root
     rsync -a $配置文件/.config $HOME
 
-    # 用户配置文件
+    # 根用户配置文件
+    sudo rsync -a $配置文件/.config /root
+    sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
+
 end
 
 function 写入设定
@@ -191,8 +193,6 @@ function 写入设定
     # 壁纸
     rsync -a $HOME/a/uz/img/hw.png $HOME/a/vp/bv/hw.png
 
-    # 根用户 nvim 注释插件配置
-    sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
     # 安装 vim-plug
     curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

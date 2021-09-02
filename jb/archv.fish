@@ -104,10 +104,12 @@ function 复制设定
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
     sudo rsync -a $配置文件/etc /
-    sudo rsync -a $配置文件/.config /root
     rsync -a $配置文件/.config $HOME
+    sed -i '/^call plug#begin/,$s/^[^"]/"&/' $HOME/.config/nvim/init.vim
 
-    # 用户配置文件
+    # 根用户配置文件
+    sudo rsync -a $配置文件/.config /root
+    sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 end
 
 function 写入设定
@@ -152,10 +154,6 @@ function 写入设定
     # 终端提示符
     echo -e 'if status is-interactive\n    starship init fish | source\nend' > $HOME/.config/fish/config.fish
     echo -e 'if status is-interactive\n    starship init fish | source\nend' | sudo tee /root/.config/fish/config.fish
-
-    # nvim 注释插件配置
-    sed -i '/^call plug#begin/,$s/^[^"]/"&/' $HOME/.config/nvim/init.vim
-    sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 end
 
 function 自启动

@@ -134,29 +134,18 @@ end
 
 function 复制设定
     # 创建目录
-    mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{alacritty,fcitx5,fish/conf.d,i3status-rust,lf,nvim/.backup,sway}}
-    sudo mkdir -p /root/.config/{fish,nvim}
+    mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{fish/conf.d,nvim/.backup}}
     # 缩写
     set 配置文件 $HOME/a/uz/pv
     # fish 设置环境变量
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo rsync -a $配置文件/dnscrypt.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo chmod 644 /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    sudo rsync -a $配置文件/nftables.conf /etc/nftables.conf
-    sudo rsync -a $配置文件/tlp.conf /etc/tlp.conf
-    rsync -a $配置文件/alacritty.yml $HOME/.config/alacritty/alacritty.yml
-    rsync -a $配置文件/config.fish $HOME/.config/fish/config.fish
-    rsync -a $配置文件/sway.conf $HOME/.config/sway/config
-    rsync -a $配置文件/fcitx5.conf $HOME/.config/fcitx5/profile
-    rsync -a $配置文件/i3status.toml $HOME/.config/i3status-rust/config.toml
-    rsync -a $配置文件/lfrc $HOME/.config/lf/lfrc
-    rsync -a $配置文件/pv.sh $HOME/.config/lf/pv.sh
+    sudo rsync -a $配置文件/etc/* /etc/
+    sudo rsync -a $配置文件/.config/* /root/.config/
+    rsync -a $配置文件/.config/* $HOME/.config/
 
     # 用户配置文件
-    sudo rsync -a $配置文件/init.vim /root/.config/nvim/init.vim
-    rsync -a $配置文件/init.vim $HOME/.config/nvim/init.vim
 end
 
 function 写入设定
@@ -200,7 +189,7 @@ function 写入设定
     # 终端提示符
     echo -e 'if status is-interactive\n    starship init fish | source\nend' | sudo tee /root/.config/fish/config.fish
     # 壁纸
-    wget -nv https://github.com/rraayy246/uz/raw/master/pv/hw.png -O $HOME/a/vp/bv/hw.png
+    rsync -a $HOME/a/uz/img/hw.png $HOME/a/vp/bv/hw.png
 
     # 根用户 nvim 注释插件配置
     sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim

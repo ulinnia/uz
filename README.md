@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="pv/PopTartCat.gif" alt="Nyan Cat">
+  <img src="img/PopTartCat.gif" alt="Nyan Cat">
 </p>
 
 - [彩虹猫](#彩虹猫)

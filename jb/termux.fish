@@ -41,11 +41,12 @@ function 复制设定
     mkdir -p $HOME/.config/{fish/conf.d,nvim/.backup}
     mkdir $HOME/storage/shared/a
     # 缩写
-    set 配置文件 $HOME/storage/shared/a/uz/pv/
+    set 配置文件 $HOME/storage/shared/a/uz/pv
     # fish 设置环境变量
-    fish "$配置文件"hjbl.fish
+    fish $配置文件/hjbl.fish
     # 链接配置文件
-    rsync -a "$配置文件"vim.vim $HOME/.config/nvim/init.vim
+    rsync -a $配置文件/.config $HOME
+    sed -i '/^call plug#begin/,$s/^[^"]/"&/' $HOME/.config/nvim/init.vim
 end
 
 # 写入设定
@@ -59,8 +60,6 @@ function 写入设定
     # 提示符
     echo -e 'if status is-interactive\n    starship init fish | source\nend' > $HOME/.config/fish/config.fish
 
-    # nvim 注释 plug 配置
-    sed -i '/^call plug#begin/,$s/^[^"]/"&/' $HOME/.config/nvim/init.vim
     # 下载 Ubuntu 字体
     curl -fsLo $HOME/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 end

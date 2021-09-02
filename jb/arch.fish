@@ -79,8 +79,8 @@ function 软件安装
         $pacs fzf mlocate tree highlight
         # 新查找
         $pacs fd ripgrep bat tldr exa
-        # 定时任务，二维码
-        $pacs fcron qrencode
+        # 定时任务，二维码，确定文件类型
+        $pacs fcron qrencode perl-file-mimeinfo
         # 播放控制，亮度控制，电源工具
         $pacs playerctl brightnessctl upower
         # 蓝牙

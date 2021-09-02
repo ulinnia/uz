@@ -1,6 +1,7 @@
 # interpreter for shell commands
 set shell sh
 
+set ratios '1:1'
 # 搜索期间每次击键后跳转到第一个匹配项
 set incsearch on
 # 滚动可以环绕文件列表
@@ -37,8 +38,34 @@ map <enter> shell
 # execute current file (must be executable)
 map x delete
 map . set hidden!
+map ad push %mkdir<space>
 map bh cd ~
 map bu cd ~/uz
+map R bulk-rename
+
+
+cmd bulk-rename ${{
+    old="$(mktemp)"
+    new="$(mktemp)"
+    fs="$(ls)"
+    printf '%s\n' "$fs" >"$old"
+    printf '%s\n' "$fs" >"$new"
+    $EDITOR "$new"
+    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+    paste "$old" "$new" | while IFS= read -r names; do
+        src="$(printf '%s' "$names" | cut -f1)"
+        dst="$(printf '%s' "$names" | cut -f2)"
+        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+            continue
+        fi
+        mv -- "$src" "$dst"
+    done
+    rm -- "$old" "$new"
+    lf -remote "send $id unselect"
+}}
+
+cmd open-with %"$@" $fx
+map ` push :open-with<space>
 
 # dedicated keys for file opener actions
 map o &mimeopen $f

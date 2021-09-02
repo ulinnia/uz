@@ -33,8 +33,8 @@ function 软件安装
     $pacs btrfs-progs
 
     # 互联网
-        # 虚拟私人网络
-        $pacs wireguard-tools
+        # 虚拟私人网络，邮件服务器
+        $pacs wireguard-tools postfix
         # 下载管理，文件传输
         $pacs curl git wget openssh
 
@@ -157,7 +157,7 @@ function 写入设定
 end
 
 function 自启动
-    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,sshd}
+    sudo systemctl enable --now {dnscrypt-proxy,fcron,nftables,ntpd,paccache.timer,pkgstats.timer,postfix,sshd}
     sudo systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
     sudo fcrontab $HOME/a/uz/pv/cron
 end

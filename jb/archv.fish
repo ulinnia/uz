@@ -103,9 +103,9 @@ function 复制设定
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo rsync -a $配置文件/etc/* /etc/
-    sudo rsync -a $配置文件/.config/* /root/.config/
-    rsync -a $配置文件/.config/* $HOME/.config/
+    sudo rsync -a $配置文件/etc /
+    sudo rsync -a $配置文件/.config /root
+    rsync -a $配置文件/.config $HOME
 
     # 用户配置文件
 end

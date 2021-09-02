@@ -38,7 +38,7 @@ map <enter> shell
 map x delete
 map . set hidden!
 map ad push %mkdir<space>
-map af push %nvim<space>
+map af push %touch<space>
 map bh cd ~
 map bu cd ~/uz
 map R bulk-rename

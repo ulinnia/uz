@@ -137,15 +137,16 @@ function 复制设定
     mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{fish/conf.d,nvim/.backup}}
     # 缩写
     set 配置文件 $HOME/a/uz/pv
+    set sync rsync -ah --delete --inplace --no-whole-file --info=progress2
     # fish 设置环境变量
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish
     # 链接配置文件
-    sudo rsync -a $配置文件/etc /
-    rsync -a $配置文件/.config $HOME
+    sudo $sync -a $配置文件/etc /
+    $sync -a $配置文件/.config $HOME
 
     # 根用户配置文件
-    sudo rsync -a $配置文件/.config /root
+    sudo $sync -a $配置文件/.config /root
     sudo sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 
 end

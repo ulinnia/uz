@@ -79,7 +79,6 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\
 
 " 折行
 set wrap " 自动折行
-set textwidth=80 " 设置行宽
 set linebreak " 不在单词内部折行
 "set wrapmargin=2 " 指定折行处与编辑窗口的右边缘之间空出的字符数
 

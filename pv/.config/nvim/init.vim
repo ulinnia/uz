@@ -66,8 +66,8 @@ set background=dark " 设定背景颜色
 " 行号
 set number " 启用绝对行号
 set relativenumber " 启用相对行号
-noremap <F6> :set nu! rnu!<CR>
 " 开关行号
+noremap <F6> :set nu! rnu!<CR>
 
 " 状态栏
 set ruler " 显示光标位置
@@ -313,6 +313,7 @@ let NERDTreeDirArrows = 1
 " ======= indentline =======
 let g:indent_guides_guide_size = 1 " 指定对齐线的尺寸
 let g:indent_guides_start_level = 2 " 从第二层开始可视化显示缩进
+nmap <F7> :IndentLinesToggle<CR>
 
 " ======= airline =======
 " 设置状态栏

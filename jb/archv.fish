@@ -99,7 +99,7 @@ function 复制设定
     mkdir -p $HOME/{a,xz,.config/{fish/conf.d,nvim/.backup}}
     # 缩写
     set 配置文件 $HOME/a/uz/pv
-    set sync rsync -ah --inplace --no-whole-file --info=progress2
+    set sync rsync -a --inplace --no-whole-file
     # fish 设置环境变量
     fish $配置文件/hjbl.fish
     sudo fish $配置文件/hjbl.fish

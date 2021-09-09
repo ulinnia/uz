@@ -109,8 +109,6 @@
 # btrfs subvolume create /mnt/@var
 ```
 
-`# chattr +C /mnt/@var` var 目录禁用写时复制
-
 `# umount /mnt` 卸载根分区
 
 

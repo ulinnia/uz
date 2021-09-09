@@ -124,7 +124,7 @@ function 写入设定
         sudo sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
     end
     # grub 超时
-    sudo sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
+    sudo sed -i '/GRUB_TIMEOUT=/s/5/0/' /etc/default/grub
     sudo sed -i '/set timeout=/s/5/0/g' /boot/grub/grub.cfg
     # 域名解析
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf

@@ -95,7 +95,7 @@
 ```
 # btrfs subvolume create /mnt/@
 # btrfs subvolume create /mnt/@home
-# btrfs subvolume create /mnt/@snapshots
+# btrfs subvolume create /mnt/@snap
 # btrfs subvolume create /mnt/@swap
 # btrfs subvolume create /mnt/@var
 ```
@@ -114,7 +114,7 @@
 ```
 # mount /dev/nvme0n1p1 /mnt/boot
 # mount -o subvol=@home /dev/mapper/ray /mnt/home
-# mount -o subvol=@snapshots /dev/mapper/ray /mnt/.snapshots
+# mount -o subvol=@snap /dev/mapper/ray /mnt/.snapshots
 # mount -o subvol=@swap /dev/mapper/ray /mnt/swap
 # mount -o subvol=@var /dev/mapper/ray /mnt/var
 ```

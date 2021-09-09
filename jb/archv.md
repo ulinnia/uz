@@ -104,7 +104,7 @@
 ```
 # btrfs subvolume create /mnt/@
 # btrfs subvolume create /mnt/@home
-# btrfs subvolume create /mnt/@snapshots
+# btrfs subvolume create /mnt/@snap
 # btrfs subvolume create /mnt/@swap
 # btrfs subvolume create /mnt/@var
 ```
@@ -122,7 +122,7 @@
 
 ```
 # mount -o subvol=@home /dev/vda2 /mnt/home
-# mount -o subvol=@snapshots /dev/vda2 /mnt/.snapshots
+# mount -o subvol=@snap /dev/vda2 /mnt/.snapshots
 # mount -o subvol=@swap /dev/vda2 /mnt/swap
 # mount -o subvol=@var /dev/vda2 /mnt/var
 ```

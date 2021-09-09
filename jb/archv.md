@@ -92,7 +92,7 @@
 
 ### 格式化分区
 
-`# mkfs.btrfs -L arch /dev/vda2` 格式化根分区为 Brtfs 格式
+`# mkfs.btrfs -fL arch /dev/vda2` 格式化根分区为 Brtfs 格式
 
 
 ### 创建子卷

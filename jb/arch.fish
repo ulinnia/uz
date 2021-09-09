@@ -176,6 +176,8 @@ function 写入设定
         sudo btrfs subvolume delete /.snapshots
         sudo mkdir /.snapshots
         sudo mount -a
+
+        sudo snapper -c home create-config /home
     end
     # 防止快照索引
     if not sudo grep -q '.snapshot' /etc/updatedb.conf

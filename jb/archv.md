@@ -216,7 +216,7 @@
 
 `# exit` 退出 chroot 环境
 
-`# systemctl poweroff` 关闭服务器
+`# poweroff` 关闭服务器
 
 关闭 VNC 视窗
 

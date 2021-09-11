@@ -1,6 +1,4 @@
 # 自动更新系统
 0 0 * * 0 fish -c 'pacman -Syu --noconfirm; and systemctl reboot'
-# 开机邮件通知
-@reboot fish -c 'echo 服务器已重启 | sendmail -f ray@minelcido.com rraayy246@gmail.com'
 
 

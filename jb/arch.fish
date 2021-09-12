@@ -96,7 +96,7 @@ function 软件安装
         # 电子书阅读，办公软件套装，帮助手册
         $pacs calibre libreoffice-fresh-zh-cn man
         # 字体
-        $pacs noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-font-family ttf-font-awesome
+        $pacs noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
 
     # 安全
         # 域名加密，防火墙

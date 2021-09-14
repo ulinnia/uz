@@ -65,14 +65,12 @@ function 软件安装
     # 工具
         # 终端模拟，壳层，文本编辑，终端提示符
         $pacs alacritty fish neovim starship
-        # 文件管理，压缩，分区工具
-        $pacs lf p7zip parted
+        # 文件管理，压缩，分区工具，快照管理
+        $pacs lf p7zip parted snapper
         # 时钟同步，文件同步
         $pacs ntp rsync
         # 系统监视，硬件监视
         $pacs htop lm_sensors
-        # 快照管理
-        $pacs snapper snap-pac
         # 输入法
         $pacs fcitx5-im fcitx5-rime
         # 查找，高亮

@@ -1,4 +1,4 @@
 # 自动更新系统
-0 0 * * 0 fish -c 'pacman -Syu --noconfirm; and systemctl reboot'
+@weekly fish -c 'pacman -Syu --noconfirm; and systemctl reboot'
 
 

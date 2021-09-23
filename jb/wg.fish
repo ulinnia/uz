@@ -44,7 +44,7 @@ function wg0设定
 
     set interface (ip -o -4 route show to default | awk '{print $5}')
     set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-    set port (random 10000 60000)
+    set port 51820
 
     # 生成服务端配置文件
     echo "\

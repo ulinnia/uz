@@ -35,4 +35,4 @@ function 处理器
     end
 end
 
-sudo sed -i '/GRUB_CMDLINE_LINUX_DEFAULT/s/quiet/& '$处理器'_iommu=on iommu=pt/' /etc/default/grub
+sudo sed -i '/GRUB_CMDLINE_LINUX_DEFAULT/s/quiet/& '(处理器)'_iommu=on iommu=pt/' /etc/default/grub

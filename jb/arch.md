@@ -59,7 +59,7 @@
 
 `(parted) set 1 boot on` 设置 esp 为启动分区
 
-`(parted) mkpart root 513m -1m` 创建根分区 (nvme0n1p2)
+`(parted) mkpart arch 513m -1m` 创建根分区 (nvme0n1p2)
 
 `(parted) p` 查看分区结果
 
@@ -83,7 +83,7 @@
 
 如果格式化失败，可能是硬盘设备存在 Device Mapper：`dmsetup status` 显示 dm 状态 `dmsetup remove <dev-id>` 删除 dm
 
-`# mkfs.btrfs -f /dev/mapper/ray` 格式化根分区为 Brtfs 格式
+`# mkfs.btrfs -fL arch /dev/mapper/ray` 格式化根分区为 Brtfs 格式
 
 
 ### 创建子卷
@@ -142,7 +142,7 @@
 
 ### Fstab
 
-`# genfstab -U /mnt >> /mnt/etc/fstab` 生成 fstab 文件
+`# genfstab -L /mnt >> /mnt/etc/fstab` 生成 fstab 文件
 
 可选用 `cat /mnt/etc/fstab` 检查 fstab 文件
 
@@ -182,7 +182,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
-`# echo Arch > /etc/hostname` 修改主机名
+`# echo arch > /etc/hostname` 修改主机名
 
 
 ### 网络配置

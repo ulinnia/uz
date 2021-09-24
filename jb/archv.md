@@ -83,7 +83,7 @@
 
 `(parted) set 1 bios_grub on` 设置启动分区
 
-`(parted) mkpart root 3m -1m` 创建根分区 (vda2)
+`(parted) mkpart arch 3m -1m` 创建根分区 (vda2)
 
 `(parted) p` 查看分区结果
 
@@ -175,7 +175,7 @@
 
 `# echo LANG=en_US.UTF-8 > /etc/locale.conf` 将系统语言设置为英文，避免乱码
 
-`# echo Arch-Vultr > /etc/hostname` 修改主机名
+`# echo arch-vultr > /etc/hostname` 修改主机名
 
 
 ### 网络配置

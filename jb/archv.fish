@@ -128,7 +128,7 @@ function 写入设定
     echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' | sudo tee /etc/resolv.conf
     sudo chattr +i /etc/resolv.conf
     # 创建 snapper 配置
-    if not string length -q (sudo ls -A /.snapshots)
+    if not sudo snapper list-configs | grep -q 'root'
         sudo umount /.snapshots
         sudo rmdir /.snapshots
         sudo snapper -c root create-config /

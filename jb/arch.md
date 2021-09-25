@@ -107,12 +107,12 @@
 
 `# mount -o autodefrag,compress=zstd,subvol=@ /dev/mapper/ray /mnt` 挂载根分区的 @ 子卷并启用碎片整理和压缩
 
-`# mkdir -p /mnt/{boot,home,.snapshots,swap,var}` 创建目录
+`# mkdir -p /mnt/{boot/efi,home,.snapshots,swap,var}` 创建目录
 
 挂载其他分区
 
 ```
-# mount /dev/nvme0n1p1 /mnt/boot
+# mount /dev/nvme0n1p1 /mnt/boot/efi
 # mount -o subvol=@home /dev/mapper/ray /mnt/home
 # mount -o subvol=@snap /dev/mapper/ray /mnt/.snapshots
 # mount -o subvol=@swap /dev/mapper/ray /mnt/swap
@@ -224,7 +224,7 @@ amd-ucode 为 AMD CPU 微码，使用 Intel CPU 者替换成 intel-ucode
 
 ### 安装引导程序
 
-`# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub` 安装 grub
+`# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub` 安装 grub
 
 如果是安装在可移动设备上，要再加上 `--removable` 参数。
 

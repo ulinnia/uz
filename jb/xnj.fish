@@ -16,7 +16,7 @@ polkit.addRule(function(action, subject) {
 sudo usermod -a -G kvm (whoami)
 
 # 启动服务
-sudo systemctl enable --now libvirtd.service
+sudo systemctl enable --now libvirtd
 
 echo '这个脚本将输出您的 PCI 设备是如何被分配到 IOMMU 组之中的。'
 echo 'shopt -s nullglob

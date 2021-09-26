@@ -214,13 +214,27 @@ mount_subvol(){
 base_install(){
     # 更新密钥环
     pacman -Sy archlinux-keyring
+
     # 镜像排序
     N "sorting mirror..."
-    pacman -S --noconfirm reflector
+    pacman -S --noconfirm reflector &>/dev/null
     reflector --latest 100 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
 
     # 安装必须软件包
     pacstrap /mnt base base-devel linux linux-firmware fish reflector
+}
+
+# 切换根目录
+arch_chroot(){
+    # 生成 fstab 文件
+    genfstab -L /mnt >> /mnt/etc/fstab
+
+    # 下载脚本
+    wget $git_url/raw/master/jb/arch.fish -O /mnt/arch.fish
+    chmod +x /mnt/arch.fish
+
+    # 切换根目录
+    arch-chroot /mnt /bin/fish -c "/arch.fish"
 }
 
 # 主程序
@@ -232,6 +246,10 @@ main(){
     connect_internet
     Y "(2/5) create disk partition..."
     disk_partition
+    Y "(3/5) install the basic package..."
+    base_install
+    Y "(4/5) switch root directory..."
+    arch_chroot
 }
 
 main

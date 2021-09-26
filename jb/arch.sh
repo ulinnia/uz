@@ -210,6 +210,19 @@ mount_subvol(){
     fi
 }
 
+# 安装基础包
+base_install(){
+    # 更新密钥环
+    pacman -Sy archlinux-keyring
+    # 镜像排序
+    N "sorting mirror..."
+    cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+
+    # 安装必须软件包
+    pacstrap /mnt base base-devel linux linux-firmware fish reflector
+}
+
 # 主程序
 main(){
     init_variable

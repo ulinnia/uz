@@ -216,8 +216,8 @@ base_install(){
     pacman -Sy archlinux-keyring
     # 镜像排序
     N "sorting mirror..."
-    cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-    rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+    pacman -S --noconfirm reflector
+    reflector --latest 100 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
 
     # 安装必须软件包
     pacstrap /mnt base base-devel linux linux-firmware fish reflector

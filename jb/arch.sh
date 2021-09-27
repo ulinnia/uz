@@ -2,49 +2,48 @@
 
 # 输出颜色
 N(){ echo -e "$1"; }
-G(){ echo -e "\033[32m$1\033[0m"; }
-Y(){ echo -e "\033[33m$1\033[0m"; }
-R(){ echo -e "\033[31m$1\033[0m"; }
+G(){ echo -e '\033[32m'$1'\033[0m'; }
+Y(){ echo -e '\033[33m'$1'\033[0m'; }
+R(){ echo -e '\033[31m'$1'\033[0m'; }
 
 # 初始变量
 init_variable(){
-    IFS=' '
-    git_url="https://github.com/rraayy246/uz"
-    localtime="Asia/Shanghai"
-    base_pkg="base base-devel linux linux-firmware fish"
-    PASS="7777777"
+    git_url='https://github.com/rraayy246/uz'
+    localtime='Asia/Shanghai'
+    base_pkg='base base-devel linux linux-firmware fish'
+    PASS='7777777'
 }
 
 # 系统检查
 system_check(){
     # 请用超级用户执行此脚本
-    if [ "$USER" != "root" ]; then
-        R "please use super user to execute this script."
-        R "use command: 'sudo su' and try again."
+    if test "$USER" != 'root'; then
+        R 'please use super user to execute this script.'
+        R 'use command: "sudo su" and try again.'
         exit 1
     fi
 
     # 系统变量
-    if [ -d /sys/firmware/efi ]; then
-        bios_type="uefi"
+    if test -d /sys/firmware/efi; then
+        bios_type='uefi'
     else
-        bios_type="bios"
+        bios_type='bios'
     fi
-    if lscpu | grep GenuineIntel &>/dev/null ; then
-        cpu_vendor="intel"
-    elif lscpu | grep AuthenticAMD &>/dev/null ; then
-        cpu_vendor="amd"
+    if lscpu | grep GenuineIntel &>/dev/null; then
+        cpu_vendor='intel'
+    elif lscpu | grep AuthenticAMD &>/dev/null; then
+        cpu_vendor='amd'
     fi
 }
 
 # 帮助文档
 doc_help(){
-    G "a script to install arch linux on live environment."
+    G 'a script to install arch linux on live environment.'
     N
-    N "Optional arguments:"
-    N "  -h --help     Show this help message and exit."
-    N "  -s --ssh      Open SSH service and exit."
-    N "  -w --wifi     Connect to a WIFI and exit."
+    N 'Optional arguments:'
+    N '  -h --help     Show this help message and exit.'
+    N '  -s --ssh      Open SSH service and exit.'
+    N '  -w --wifi     Connect to a WIFI and exit.'
 }
 
 # 选项功能
@@ -67,7 +66,7 @@ options(){
 
 # 连接网络
 connect_internet(){
-    if ! network_check;then
+    if ! network_check; then
         # 启动 DHCP
         dhcpcd &>/dev/null
         while ! network_check; do
@@ -83,7 +82,7 @@ connect_wifi(){
 
     iwctl station $iw_dev scan
     iwctl station $iw_dev get-networks
-    read -rp "R 'ssid you want to connect to: '" ssid ans
+    read -rp 'R "ssid you want to connect to: "' ssid ans
     iwctl station $iw_dev connect $ssid
 }
 
@@ -92,10 +91,10 @@ network_check(){
     if ping -c 1 -w 1 1.1.1.1 &>/dev/null; then
         # 更新系统时间
         timedatectl set-ntp true
-        G "Network connection is successful."
+        G 'Network connection is successful.'
         return 0
     else
-        R "Network connection failed."
+        R 'Network connection failed.'
         return 1
     fi
 }
@@ -107,26 +106,26 @@ open_ssh(){
     local interface=$(ip -o -4 route show to default | awk '{print $5}')
     local ip=$(ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
     G
-    G "$ ssh $USER@$ip"
-    G "passwd = $PASS"
+    G '$ ssh '$USER'@'$ip
+    G 'passwd = '$PASS
     G
 }
 
 # 磁盘分区
 disk_partition(){
-    R "automatic partition or manual partition: "
+    R 'automatic partition or manual partition: '
     select ans in 'automatic' 'manual'; do
-        if [ "$ans" != "" ]; then
+        if test "$ans" != ''; then
             break
         fi
     done
 
-    if [ "$ans" == "automatic" ]; then
+    if test "$ans" == 'automatic'; then
         # 选择硬盘
         select_part root
         # 创建 GPT 分区表
         parted /dev/$part mklabel gpt
-        if [ "$bios_type" == "uefi" ]; then
+        if test "$bios_type" == 'uefi'; then
             # 创建启动分区
             parted /dev/$part mkpart esp 1m 513m
             # 设置 esp 为启动分区
@@ -144,18 +143,18 @@ disk_partition(){
 
         # 自动选择分区
         if echo "$part" | grep -q 'nvme'; then
-            part_boot="/dev/${part}p1"
-            part_root="/dev/${part}p2"
+            part_boot='/dev/'$part'p1'
+            part_root='/dev/'$part'p2'
         else
-            part_boot="/dev/${part}1"
-            part_root="/dev/${part}2"
+            part_boot='/dev/'$part'1'
+            part_root='/dev/'$part'2'
         fi
     else
         # 手动选择分区
         select_part boot
-        part_boot="/dev/${part}"
+        part_boot='/dev/'$part
         select_part root
-        part_root="/dev/${part}"
+        part_root='/dev/'$part
     fi
     mount_subvol
 }
@@ -165,12 +164,12 @@ select_part(){
     # 列出现有分区
     lsblk
     list_part=$(sudo lsblk -l | awk '{ print $1 }')
-    R "select a partition as the $1 partition: "
-    R "(enter a non-number for manual operation)"
+    R 'select a partition as the '$1' partition: '
+    R '(enter a non-number for manual operation)'
     # 选择分区
     select part in ${list_part[@]/NAME}; do
-        if [ "$part" == "" ]; then
-            R "type 'exit' to continue selecting partition"
+        if test "$part" == ''; then
+            R 'type "exit" to continue selecting partition'
             bash
             continue
         fi
@@ -223,7 +222,7 @@ mount_subvol(){
     # 避免 /var/lib 资料遗失
     mount --bind /mnt/usr/var/lib /mnt/var/lib
     # efi 目录挂载
-    if test "$bios_type" == "uefi"; then
+    if test "$bios_type" == 'uefi'; then
         mkdir -p /mnt/boot/efi
         mount $part_root /mnt/boot/efi
     fi
@@ -235,7 +234,7 @@ base_install(){
     pacman -Sy archlinux-keyring
 
     # 镜像排序
-    N "sorting mirror..."
+    N 'sorting mirror...'
     pacman -S --noconfirm reflector &>/dev/null
     reflector --latest 9 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
 
@@ -253,7 +252,7 @@ arch_chroot(){
     chmod +x /mnt/arch.fish
 
     # 切换根目录
-    arch-chroot /mnt /bin/fish -c "/arch.fish"
+    arch-chroot /mnt /bin/fish -c '/arch.fish'
 }
 
 # 主程序
@@ -261,13 +260,9 @@ main(){
     init_variable
     system_check
     options $@
-    Y "(1/5) connect to internet..."
     connect_internet
-    Y "(2/5) create disk partition..."
     disk_partition
-    Y "(3/5) install the basic package..."
     base_install
-    Y "(4/5) switch root directory..."
     arch_chroot
 }
 

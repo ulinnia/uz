@@ -6,6 +6,13 @@ G(){ echo -e '\033[32m'$1'\033[0m'; }
 Y(){ echo -e '\033[33m'$1'\033[0m'; }
 R(){ echo -e '\033[31m'$1'\033[0m'; }
 
+# 初始变量
+var_init(){
+    git_url='https://github.com/rraayy246/uz'
+    base_pkg='base base-devel linux linux-firmware fish reflector'
+    PASS='7777777'
+}
+
 # 系统检查
 system_check(){
     # 请用超级用户执行此脚本
@@ -26,13 +33,6 @@ system_check(){
     elif lscpu | grep GenuineIntel &>/dev/null; then
         cpu_vendor='intel'
     fi
-}
-
-# 初始变量
-var_init(){
-    git_url='https://github.com/rraayy246/uz'
-    base_pkg='base base-devel linux linux-firmware fish reflector'
-    PASS='7777777'
 }
 
 # 用户输入变量
@@ -268,8 +268,8 @@ arch_chroot(){
 # 主程序
 main(){
     var_init
-    var_user
     system_check
+    var_user
     options $@
     connect_internet
     disk_partition

@@ -221,6 +221,7 @@ mount_subvol(){
     mount -o subvol=cache/$username $part_root /mnt/home/$username/.cache
 
     # 避免 /var/lib 资料遗失
+    mkdir -p /mnt/{usr/var/lib,var/lib}
     mount --bind /mnt/usr/var/lib /mnt/var/lib
     # efi 目录挂载
     if test "$bios_type" == 'uefi'; then

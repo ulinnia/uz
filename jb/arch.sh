@@ -6,13 +6,6 @@ G(){ echo -e '\033[32m'$1'\033[0m'; }
 Y(){ echo -e '\033[33m'$1'\033[0m'; }
 R(){ echo -e '\033[31m'$1'\033[0m'; }
 
-# 初始变量
-init_variable(){
-    git_url='https://github.com/rraayy246/uz'
-    base_pkg='base base-devel linux linux-firmware fish reflector'
-    PASS='7777777'
-}
-
 # 系统检查
 system_check(){
     # 请用超级用户执行此脚本
@@ -33,6 +26,19 @@ system_check(){
     elif lscpu | grep GenuineIntel &>/dev/null; then
         cpu_vendor='intel'
     fi
+}
+
+# 初始变量
+var_init(){
+    git_url='https://github.com/rraayy246/uz'
+    base_pkg='base base-devel linux linux-firmware fish reflector'
+    PASS='7777777'
+}
+
+# 用户输入变量
+var_user(){
+    read -rp 'R "enter your username"' username ans
+    read -rp 'R "enter your hostname"' hostname ans
 }
 
 # 帮助文档
@@ -178,9 +184,6 @@ select_part(){
 
 # 挂载子卷
 mount_subvol(){
-    # 输入用户名
-    read -rp 'R "input your username: "' username ans
-
     mkfs.btrfs -fL arch $part_root
     mount $part_root /mnt
 
@@ -242,6 +245,9 @@ base_install(){
 
 # 切换根目录
 arch_chroot(){
+    # 设置主机名
+    echo $hostname > /etc/hostname
+
     # 生成 fstab 文件
     genfstab -L /mnt >> /mnt/etc/fstab
 
@@ -255,7 +261,8 @@ arch_chroot(){
 
 # 主程序
 main(){
-    init_variable
+    var_init
+    var_user
     system_check
     options $@
     connect_internet

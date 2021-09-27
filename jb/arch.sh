@@ -121,6 +121,7 @@ disk_partition(){
     done
 
     if [ "$ans" == "automatic" ]; then
+        # 选择根分区
         select_part root
         # 创建 GPT 分区表
         parted /dev/$part mklabel gpt
@@ -139,20 +140,33 @@ disk_partition(){
             # 创建根分区
             parted /dev/$part mkpart arch 3m -1m
         fi
+
+        # 自动选择分区
+        if echo "$part" | grep -q 'nvme'; then
+            part_boot="/dev/${part}p1"
+            part_root="/dev/${part}p2"
+        else
+            part_boot="/dev/${part}1"
+            part_root="/dev/${part}2"
+        fi
+    else
+        # 手动选择分区
+        select_part boot
+        part_boot="/dev/${part}"
+        select_part root
+        part_root="/dev/${part}"
+        mount_subvol
     fi
-    select_part boot
-    part_boot="/dev/${part}"
-    select_part root
-    part_root="/dev/${part}"
-    mount_subvol
 }
 
 # 选择分区
 select_part(){
+    # 列出现有分区
     lsblk
     list_part=$(sudo lsblk -l | awk '{ print $1 }')
     R "select a partition as the $1 partition: "
     R "(enter a non-number for manual operation)"
+    # 选择分区
     select part in ${list_part[@]/NAME}; do
         if [ "$part" == "" ]; then
             R "type 'exit' to continue selecting partition"

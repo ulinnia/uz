@@ -8,6 +8,7 @@ R(){ echo -e "\033[31m$1\033[0m"; }
 
 # 初始变量
 init_variable(){
+    IFS=' '
     git_url="https://github.com/rraayy246/uz"
     localtime="Asia/Shanghai"
     base_pkg="base base-devel linux linux-firmware fish"
@@ -82,7 +83,7 @@ connect_wifi(){
 
     iwctl station $iw_dev scan
     iwctl station $iw_dev get-networks
-    read -rp "R 'ssid you want to connect to: '" ssid
+    read -rp "R 'ssid you want to connect to: '" ssid ans
     iwctl station $iw_dev connect $ssid
 }
 
@@ -155,8 +156,8 @@ disk_partition(){
         part_boot="/dev/${part}"
         select_part root
         part_root="/dev/${part}"
-        mount_subvol
     fi
+    mount_subvol
 }
 
 # 选择分区
@@ -179,6 +180,9 @@ select_part(){
 
 # 挂载子卷
 mount_subvol(){
+    # 输入用户名
+    read -rp 'R "input your username: "' username ans
+
     mkfs.btrfs -fL arch $part_root
     mount $part_root /mnt
 
@@ -192,6 +196,7 @@ mount_subvol(){
     btrfs subvolume create /mnt/snap/root
     btrfs subvolume create /mnt/snap/home
     btrfs subvolume create /mnt/cache
+    btrfs subvolume create /mnt/cache/$username
     umount /mnt
 
     # 挂载子卷
@@ -213,7 +218,7 @@ mount_subvol(){
     mount -o subvol=var $part_root /mnt/var
     mount -o subvol=snap/root $part_root /mnt/.snapshots
     mount -o subvol=snap/home $part_root /mnt/home/.snapshots
-    mount -o subvol=cache $part_root /mnt/home/$username/.cache
+    mount -o subvol=cache/$username $part_root /mnt/home/$username/.cache
 
     # 避免 /var/lib 资料遗失
     mount --bind /mnt/usr/var/lib /mnt/var/lib

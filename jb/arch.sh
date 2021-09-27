@@ -222,8 +222,8 @@ mount_subvol(){
     mount --bind /mnt/usr/var/lib /mnt/var/lib
     # efi 目录挂载
     if test "$bios_type" == 'uefi'; then
-        mkdir -p /mnt/boot/efi
-        mount $part_root /mnt/boot/efi
+        mkdir -p /mnt/efi
+        mount $part_root /mnt/efi
     fi
 }
 

@@ -218,7 +218,7 @@ base_install(){
     # 镜像排序
     N "sorting mirror..."
     pacman -S --noconfirm reflector &>/dev/null
-    reflector --latest 100 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
+    reflector --latest 9 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
 
     # 安装必须软件包
     pacstrap /mnt base base-devel linux linux-firmware fish reflector

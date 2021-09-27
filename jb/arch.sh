@@ -121,7 +121,7 @@ disk_partition(){
     done
 
     if [ "$ans" == "automatic" ]; then
-        # 选择根分区
+        # 选择硬盘
         select_part root
         # 创建 GPT 分区表
         parted /dev/$part mklabel gpt

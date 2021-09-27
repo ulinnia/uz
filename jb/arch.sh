@@ -28,10 +28,10 @@ system_check(){
     else
         bios_type='bios'
     fi
-    if lscpu | grep GenuineIntel &>/dev/null; then
-        cpu_vendor='intel'
-    elif lscpu | grep AuthenticAMD &>/dev/null; then
+    if lscpu | grep AuthenticAMD &>/dev/null; then
         cpu_vendor='amd'
+    elif lscpu | grep GenuineIntel &>/dev/null; then
+        cpu_vendor='intel'
     fi
 }
 
@@ -47,7 +47,7 @@ doc_help(){
 
 # 选项功能
 options(){
-    case ${1} in
+    case "$1" in
         -h | --help)
             doc_help
             exit 0;
@@ -100,7 +100,7 @@ network_check(){
 
 # 连接 ssh
 open_ssh(){
-    echo "${USER}:${PASS}" | chpasswd &>/dev/null
+    echo $USER':'$PASS | chpasswd &>/dev/null
     systemctl start sshd
     local interface=$(ip -o -4 route show to default | awk '{print $5}')
     local ip=$(ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')

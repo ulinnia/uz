@@ -9,8 +9,7 @@ R(){ echo -e '\033[31m'$1'\033[0m'; }
 # 初始变量
 init_variable(){
     git_url='https://github.com/rraayy246/uz'
-    localtime='Asia/Shanghai'
-    base_pkg='base base-devel linux linux-firmware fish'
+    base_pkg='base base-devel linux linux-firmware fish reflector'
     PASS='7777777'
 }
 
@@ -238,7 +237,7 @@ base_install(){
     reflector --latest 9 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
 
     # 安装必须软件包
-    pacstrap /mnt base base-devel linux linux-firmware fish reflector
+    pacstrap /mnt $base_pkg
 }
 
 # 切换根目录

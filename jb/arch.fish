@@ -24,6 +24,13 @@ function system_check
     end
 
     # 系统变量
+    # 是不是虚拟机
+    if (systemd-detect-virt) == 'none'
+        set is_virt 0
+    else
+        set is_virt 1
+    end
+    # 引导加载程序
     if test -d /sys/firmware/efi
         set bios_type 'uefi'
         set base_pkg $base_pkg 'efibootmgr'
@@ -31,6 +38,7 @@ function system_check
         set bios_type 'bios'
         set base_pkg $base_pkg 'dosfstools'
     end
+    # cpu 型号
     if lscpu | grep AuthenticAMD &>/dev/null
         set cpu_vendor 'amd'
         set base_pkg $base_pkg 'amd-ucode'
@@ -50,8 +58,8 @@ end
 
 # 用户输入变量
 function var_user
-    read -rp 'R "enter your username"' username
-    read -rp 'R "enter your hostname"' hostname
+    set username (ls /home)
+    set hostname (cat /etc/hostname)
 end
 
 # 本地化
@@ -61,6 +69,7 @@ function local_set
     sed -i '/\(en_US\|zh_CN\).UTF-8/s/#//' /etc/locale.gen
     locale-gen
     echo LANG=en_US.UTF-8 > /etc/locale.conf
+    echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$hostname'.localdomain '$hostname | sudo tee -a /etc/hosts
 end
 
 # 主程序
@@ -68,6 +77,7 @@ function main
     system_check
     var_init
     var_user
+    local_set
 end
 
 main

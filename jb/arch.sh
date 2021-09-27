@@ -248,6 +248,9 @@ arch_chroot(){
     # 设置主机名
     echo $hostname > /etc/hostname
 
+    # 复制镜像
+    cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
+
     # 生成 fstab 文件
     genfstab -L /mnt >> /mnt/etc/fstab
 

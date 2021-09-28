@@ -74,11 +74,19 @@ function system_var
     #   分区类型
     #   仓库地址
     #   ssh 密码
+    #
+    # 用户变量
+    #
+    #   用户名
+    #   主机名
 
     set area 'Asia/Shanghai'
     set disk_type 'gpt'
     set git_url 'https://github.com/rraayy246/uz'
     set PASS '7777777'
+
+    set username (ls /home)
+    set hostname (cat /etc/hostname)
 end
 
 function pkg_var
@@ -216,20 +224,21 @@ function init_var
     #   颜色变量
     #   系统变量
     #   软件包变量
+    #   自启动变量
 
     color_var
     system_var
     pkg_var
+    auto_start_var
 end
 
-# 用户输入变量
-function var_user
-    set username (ls /home)
-    set hostname (cat /etc/hostname)
-end
-
-# pacman 安装软件包
 function pacman_install
+
+    # pacman 安装软件包
+    #
+    #   试三次
+    #       如果成功安装则离开
+
     for i in (seq 3)
         if pacman -S --noconfirm --needed $argv
             break

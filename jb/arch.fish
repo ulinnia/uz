@@ -1,61 +1,92 @@
 #!/usr/bin/env fish
 
-# 输出颜色
-function N
-    echo -e $argv[1]
-end
-function G
-    echo -e '\033[32m'$argv[1]'\033[0m'
-end
-function Y
-    echo -e '\033[33m'$argv[1]'\033[0m'
-end
-function R
-    echo -e '\033[31m'$argv[1]'\033[0m'
-end
-
-# 初始变量
-function var_init
-    set git_url 'https://github.com/rraayy246/uz'
-    set base_pkg 'btrfs-progs dhcpcd grub os-prober vim'
-    set area 'Asia/Shanghai'
-    set PASS '7777777'
-end
-
-# 系统检查
 function system_check
-    # 请用超级用户执行此脚本
+
+    # 系统检查
+    #
+    #   是否为根用户
+    #   是否为虚拟机
+    #   引导程序类型
+    #   根分区位置
+    #   cpu 提供商
+
     if test "$USER" != 'root'
-        R 'please use super user to execute this script.'
-        R 'use command: "sudo su" and try again.'
+        echo -e $r'please use super user to execute this script.'$h
+        echo -e $r'use command: "sudo su" and try again.'$h
         exit 1
     end
 
-    # 系统变量
-    # 是不是虚拟机
     if (systemd-detect-virt) == 'none'
         set is_virt 0
     else
         set is_virt 1
     end
-    # 引导加载程序
+
     if test -d /sys/firmware/efi
         set bios_type 'uefi'
-        set base_pkg $base_pkg 'efibootmgr'
     else
         set bios_type 'bios'
-        set base_pkg $base_pkg 'dosfstools'
     end
-    # 根分区
+
     set root_part (df | awk '$6=="/" {print $1}')
-    # cpu 型号
+
     if lscpu | grep -q 'AuthenticAMD'
         set cpu_vendor 'amd'
-        set base_pkg $base_pkg 'amd-ucode'
     else if lscpu | grep -q 'GenuineIntel'
         set cpu_vendor 'intel'
-        set base_pkg $base_pkg 'intel-ucode'
     end
+end
+
+function color_var
+
+    # 颜色变量
+
+    set r '\033[1;31m'  # 红
+    set g '\033[1;32m'  # 绿
+    set y '\033[1;33m'  # 黄
+    set b '\033[1;36m'  # 蓝
+    set w '\033[1;37m'  # 白
+    set h '\033[0m'     # 后缀
+end
+
+function system_var
+
+    # 系统配置变量
+
+    set git_url 'https://github.com/rraayy246/uz'
+    set area 'Asia/Shanghai'
+    set PASS '7777777'
+end
+
+function pkg_var
+
+    # 软件包变量
+    #
+    #   必要包
+    #   cpu 的微码
+    #   引导程序
+
+    set base_pkg 'btrfs-progs dhcpcd vim'
+
+    switch $cpu_vendor
+        case amd
+            set base_pkg $base_pkg 'amd-ucode'
+        case intel
+            set base_pkg $base_pkg 'intel-ucode'
+    end
+
+    switch $bios_type
+        case uefi
+            set base_pkg $base_pkg 'efibootmgr grub os-prober'
+        case bios
+            set base_pkg $base_pkg 'grub os-prober'
+    end
+end
+
+function init_var
+    color_var
+    system_var
+    pkg_var
 end
 
 # 用户输入变量
@@ -110,9 +141,10 @@ function local_set
     passwd
 
     # 安装引导程序
-    if test "$bios_type" == 'uefi'
+    switch $bios_type
+    case uefi
         grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=grub
-    else
+    case bios
         if echo $root_part | grep -q 'nvme'
             set grub_part (echo $i | sed 's/p[0-9]$//')
         else
@@ -133,64 +165,64 @@ function 软件安装
     pacman_install alsa-utils pulseaudio-alsa xf86-input-libinput (显卡驱动)
 
     # 互联网
-        # 虛拟私人网络
-        pacman_install wireguard-tools
-        # 网络浏览
-        pacman_install firefox firefox-i18n-zh-cn
-        # 下载管理，文件传输
-        pacman_install curl git wget openssh
+    # 虛拟私人网络
+    pacman_install wireguard-tools
+    # 网络浏览
+    pacman_install firefox firefox-i18n-zh-cn
+    # 下载管理，文件传输
+    pacman_install curl git wget openssh
 
     # 多媒体
-        # 显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
-        pacman_install wayland sway swaybg swayidle swaylock xorg-xwayland
-        # 状态栏，截图，程序菜单，Qt 5 支持
-        pacman_install i3status-rust grim slurp wofi qt5-wayland
-        # 图像查看，视频播放
-        pacman_install imv vlc
+    # 显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
+    pacman_install wayland sway swaybg swayidle swaylock xorg-xwayland
+    # 状态栏，截图，程序菜单，Qt 5 支持
+    pacman_install i3status-rust grim slurp wofi qt5-wayland
+    # 图像查看，视频播放
+    pacman_install imv vlc
 
     # 工具
-        # 终端模拟，壳层，文本编辑，终端提示符
-        pacman_install alacritty fish neovim starship
-        # 文件管理，压缩，分区工具，快照管理
-        pacman_install lf p7zip parted snapper
-        # 时钟同步，文件同步
-        pacman_install ntp rsync
-        # 系统监视，硬件监视
-        pacman_install htop lm_sensors
-        # 输入法
-        pacman_install fcitx5-im fcitx5-rime
-        # 查找，高亮
-        pacman_install fzf mlocate tree highlight
-        # 新查找
-        pacman_install fd ripgrep bat tldr exa
-        # 定时任务，二维码，确定文件类型
-        pacman_install fcron qrencode perl-file-mimeinfo
-        # 播放控制，亮度控制，电源工具
-        pacman_install playerctl brightnessctl upower
-        # 蓝牙
-        pacman_install pulseaudio-bluetooth bluez-utils
-        # arch 安装脚本，兼容 fat32
-        pacman_install arch-install-scripts dosfstools
-        # 软件包缓存，软件统计
-        pacman_install pacman-contrib pkgstats
-        # 兼容
-        pacman_install vim zsh
+    # 终端模拟，壳层，文本编辑，终端提示符
+    pacman_install alacritty fish neovim starship
+    # 文件管理，压缩，分区工具，快照管理
+    pacman_install lf p7zip parted snapper
+    # 时钟同步，文件同步
+    pacman_install ntp rsync
+    # 系统监视，硬件监视
+    pacman_install htop lm_sensors
+    # 输入法
+    pacman_install fcitx5-im fcitx5-rime
+    # 查找，高亮
+    pacman_install fzf mlocate tree highlight
+    # 新查找
+    pacman_install fd ripgrep bat tldr exa
+    # 定时任务，二维码，确定文件类型
+    pacman_install fcron qrencode perl-file-mimeinfo
+    # 播放控制，亮度控制，电源工具
+    pacman_install playerctl brightnessctl upower
+    # 蓝牙
+    pacman_install pulseaudio-bluetooth bluez-utils
+    # arch 安装脚本，兼容 fat32
+    pacman_install arch-install-scripts dosfstools
+    # 软件包缓存，软件统计
+    pacman_install pacman-contrib pkgstats
+    # 兼容
+    pacman_install vim zsh
 
     # 文档
-        # 电子书阅读，办公软件套装，帮助手册
-        pacman_install calibre libreoffice-fresh-zh-cn man
-        # 字体
-        pacman_install noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
+    # 电子书阅读，办公软件套装，帮助手册
+    pacman_install calibre libreoffice-fresh-zh-cn man
+    # 字体
+    pacman_install noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
 
     # 安全
-        # 域名加密，防火墙
-        pacman_install dnscrypt-proxy nftables
+    # 域名加密，防火墙
+    pacman_install dnscrypt-proxy nftables
 
     # 科学
-        # 编程语言
-        pacman_install bash-language-server clang lua nodejs rust yarn
-        # 游戏
-        #pacman_install gamemode ttf-liberation wqy-microhei wqy-zenhei steam
+    # 编程语言
+    pacman_install bash-language-server clang lua nodejs rust yarn
+    # 游戏
+    #pacman_install gamemode ttf-liberation wqy-microhei wqy-zenhei steam
 
     # 安装 yay
     pacman_install yay; or begin
@@ -284,7 +316,7 @@ function 写入设定
 
     # 安装 vim-plug
     curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     # 插件下载
     nvim +PlugInstall +qall
 end
@@ -341,9 +373,8 @@ end
 
 # 主程序
 function main
-    var_init
     system_check
-    var_user
+    init_var
     pacman_set
     local_set
 end

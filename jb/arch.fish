@@ -9,6 +9,7 @@ function system_check
     #   引导程序类型
     #   根分区位置
     #   cpu 提供商
+    #   gpu 提供商
 
     if test "$USER" != 'root'
         echo -e $r'please use super user to execute this script.'$h
@@ -16,10 +17,10 @@ function system_check
         exit 1
     end
 
-    if (systemd-detect-virt) == 'none'
-        set is_virt 0
+    if test (systemd-detect-virt) = 'none'
+        set not_virt 1
     else
-        set is_virt 1
+        set not_virt 0
     end
 
     if test -d /sys/firmware/efi
@@ -30,10 +31,20 @@ function system_check
 
     set root_part (df | awk '$6=="/" {print $1}')
 
-    if lscpu | grep -q 'AuthenticAMD'
-        set cpu_vendor 'amd'
-    else if lscpu | grep -q 'GenuineIntel'
-        set cpu_vendor 'intel'
+    if test $not_virt
+        if lscpu | grep -q 'AuthenticAMD'
+            set cpu_vendor 'amd'
+        else if lscpu | grep -q 'GenuineIntel'
+            set cpu_vendor 'intel'
+        end
+
+        if lspci | grep 'VGA' | grep -q 'AMD'
+            set gpu_vendor 'amd'
+        else if lspci | grep 'VGA' | grep -q 'Intel'
+            set gpu_vendor 'intel'
+        else if lspci | grep 'VGA' | grep -q 'NVIDIA'
+            set gpu_vendor 'nvidia'
+        end
     end
 end
 
@@ -53,8 +64,9 @@ function system_var
 
     # 系统配置变量
 
-    set git_url 'https://github.com/rraayy246/uz'
     set area 'Asia/Shanghai'
+    set disk_type 'gpt'
+    set git_url 'https://github.com/rraayy246/uz'
     set PASS '7777777'
 end
 
@@ -63,23 +75,35 @@ function pkg_var
     # 软件包变量
     #
     #   必要包
-    #   cpu 的微码
+    #   cpu 微码
     #   引导程序
+    #   gpu 驱动
 
     set base_pkg 'btrfs-progs dhcpcd vim'
 
-    switch $cpu_vendor
-        case amd
-            set base_pkg $base_pkg 'amd-ucode'
-        case intel
-            set base_pkg $base_pkg 'intel-ucode'
-    end
-
     switch $bios_type
         case uefi
-            set base_pkg $base_pkg 'efibootmgr grub os-prober'
+            set boot_pkg 'efibootmgr grub os-prober'
         case bios
-            set base_pkg $base_pkg 'grub os-prober'
+            set boot_pkg 'grub os-prober'
+    end
+
+    if test $not_virt
+        switch $cpu_vendor
+            case amd
+                set ucode_pkg 'amd-ucode'
+            case intel
+                set ucode_pkg 'intel-ucode'
+        end
+
+        switch $gpu_vendor
+            case amd
+                set gpu_driver_pkg 'xf86-video-amdgpu'
+            case intel
+                set gpu_driver_pkg 'xf86-video-intel'
+            case nvidia
+                set gpu_driver_pkg 'xf86-video-nouveau'
+        end
     end
 end
 

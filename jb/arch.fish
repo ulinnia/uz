@@ -8,8 +8,10 @@ function system_check
     #   是否为虚拟机
     #   引导程序类型
     #   根分区位置
-    #   cpu 提供商
-    #   gpu 提供商
+    #
+    #   如果不是虚拟机
+    #       cpu 提供商
+    #       gpu 提供商
 
     if test "$USER" != 'root'
         echo -e $r'please use super user to execute this script.'$h
@@ -82,12 +84,12 @@ function pkg_var
     #   同步：时钟同步，文件同步
     #   查找：查找，高亮
     #   新查找
-    #   定时任务，二维码，确定文件类型
+    #   系统：定时任务，系统监视
     #   arch 安装脚本，兼容 fat32
-    #   软件包缓存，软件统计
+    #   软件：软件包缓存，软件统计
     #   兼容
-    #   安全
-    #   编程语言
+    #   安全：DNS 加密，防火墙
+    #   特殊依赖：lua 语言，确定文件类型，二维码
     #
     #   如果不是虚拟机
     #       桌面软件包变量
@@ -106,12 +108,12 @@ function pkg_var
     set sync_pkg ntp rsync
     set search_pkg fzf mlocate tree highlight
     set new_search_pkg fd ripgrep bat tldr exa
-    set cron_pkg fcron qrencode perl-file-mimeinfo
+    set system_pkg fcron htop
     set arch_inst_pkg arch-install-scripts dosfstools
     set soft_pkg pacman-contrib pkgstats
     set compatible_pkg vim zsh
     set security_pkg dnscrypt-proxy nftables
-    set program_pkg bash-language-server clang lua nodejs rust yarn
+    set depend_pkg lua perl-file-mimeinfo qrencode
 
     if test $not_virt
         desktop_pkg_var
@@ -137,6 +139,7 @@ function desktop_pkg_var
     #   桌面控制：亮度控制，播放控制，硬件监视，电源工具
     #   办公：电子书阅读，办公软件套装，帮助手册
     #   字体
+    #   编程语言
 
     switch $cpu_vendor
         case amd
@@ -168,6 +171,11 @@ function desktop_pkg_var
     set control_pkg brightnessctl playerctl lm_sensors upower
     set office_pkg calibre libreoffice-fresh-zh-cn
     set font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
+    set program_pkg bash-language-server clang nodejs rust yarn
+end
+
+function auto_start_var
+    set auto_start dnscrypt-proxy fcron nftables ntpd paccache.timer pkgstats.timer sshd
 end
 
 function init_var

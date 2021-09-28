@@ -28,9 +28,9 @@ system_check(){
     else
         bios_type='bios'
     fi
-    if lscpu | grep AuthenticAMD &>/dev/null; then
+    if lscpu | grep -q 'AuthenticAMD'; then
         cpu_vendor='amd'
-    elif lscpu | grep GenuineIntel &>/dev/null; then
+    elif lscpu | grep -q 'GenuineIntel'; then
         cpu_vendor='intel'
     fi
 }

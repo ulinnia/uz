@@ -49,10 +49,10 @@ function system_check
     # 根分区
     set root_part (df | awk '$6=="/" {print $1}')
     # cpu 型号
-    if lscpu | grep AuthenticAMD &>/dev/null
+    if lscpu | grep -q 'AuthenticAMD'
         set cpu_vendor 'amd'
         set base_pkg $base_pkg 'amd-ucode'
-    else if lscpu | grep GenuineIntel &>/dev/null
+    else if lscpu | grep -q 'GenuineIntel'
         set cpu_vendor 'intel'
         set base_pkg $base_pkg 'intel-ucode'
     end
@@ -113,7 +113,7 @@ function local_set
     if test $bios_type == 'uefi'
         grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=grub
     else
-        if echo $root_part | grep 'nvme'
+        if echo $root_part | grep -q 'nvme'
             set grub_part (echo $i | sed 's/p[0-9]$//')
         else
             set grub_part (echo $i | sed 's/[0-9]$//')

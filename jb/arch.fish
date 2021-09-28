@@ -82,19 +82,18 @@ function pkg_var
     #
     #   引导程序
     #
-    #   必要
+    #   必要：文件系统，壳，DHCP，镜像排序，文本编辑
     #   网络：下载管理，文件传输
-    #   终端：壳层，文本编辑，终端提示符
-    #   文件操作：文件管理，压缩，分区工具，快照管理
+    #   终端：文本编辑，终端提示符
+    #   文件操作：文件管理，压缩，快照管理
     #   同步：时钟同步，文件同步
     #   查找：查找，高亮
     #   新查找
     #   系统：定时任务，系统监视
-    #   arch 安装脚本，兼容 fat32
-    #   软件：软件包缓存，软件统计
-    #   兼容
+    #   arch 安装脚本，兼容 fat32，分区工具
+    #   软件：手册，软件包缓存，软件统计
     #   安全：DNS 加密，防火墙
-    #   特殊依赖：lua 语言，确定文件类型，二维码
+    #   特殊依赖：lua 语言，文件类型，二维码
     #
     #   如果不是虚拟机
     #       桌面软件包变量
@@ -108,17 +107,16 @@ function pkg_var
 
     set base_pkg btrfs-progs fish dhcpcd reflector vim
     set network_pkg curl git openssh wget wireguard-tools
-    set terminal_pkg fish neovim starship
-    set file_pkg lf p7zip parted snapper
+    set terminal_pkg neovim starship
+    set file_pkg lf p7zip snapper
     set sync_pkg ntp rsync
     set search_pkg fzf mlocate tree highlight
     set new_search_pkg fd ripgrep bat tldr exa
     set system_pkg fcron htop
-    set arch_inst_pkg arch-install-scripts dosfstools
-    set soft_pkg pacman-contrib pkgstats
-    set compatible_pkg vim zsh
+    set arch_inst_pkg arch-install-scripts dosfstools parted
+    set soft_pkg man pacman-contrib pkgstats
     set security_pkg dnscrypt-proxy nftables
-    set depend_pkg lua perl-file-mimeinfo qrencode
+    set depend_pkg lua perl-file-mimeinfo qrencode zsh
 
     if test $not_virt
         desktop_pkg_var

@@ -74,37 +74,100 @@ function pkg_var
 
     # 软件包变量
     #
-    #   必要包
-    #   cpu 微码
     #   引导程序
-    #   gpu 驱动
-
-    set base_pkg 'btrfs-progs dhcpcd vim'
+    #   必要
+    #   网络：下载管理，文件传输
+    #   终端：壳层，文本编辑，终端提示符
+    #   文件操作：文件管理，压缩，分区工具，快照管理
+    #   同步：时钟同步，文件同步
+    #   查找：查找，高亮
+    #   新查找
+    #   定时任务，二维码，确定文件类型
+    #   arch 安装脚本，兼容 fat32
+    #   软件包缓存，软件统计
+    #   兼容
+    #   安全
+    #   编程语言
+    #
+    #   如果不是虚拟机
+    #       桌面软件包变量
 
     switch $bios_type
         case uefi
-            set boot_pkg 'efibootmgr grub os-prober'
+            set boot_pkg efibootmgr grub os-prober
         case bios
-            set boot_pkg 'grub os-prober'
+            set boot_pkg grub os-prober
     end
+
+    set base_pkg btrfs-progs fish dhcpcd reflector vim
+    set network_pkg curl git openssh wget wireguard-tools
+    set terminal_pkg fish neovim starship
+    set file_pkg lf p7zip parted snapper
+    set sync_pkg ntp rsync
+    set search_pkg fzf mlocate tree highlight
+    set new_search_pkg fd ripgrep bat tldr exa
+    set cron_pkg fcron qrencode perl-file-mimeinfo
+    set arch_inst_pkg arch-install-scripts dosfstools
+    set soft_pkg pacman-contrib pkgstats
+    set compatible_pkg vim zsh
+    set security_pkg dnscrypt-proxy nftables
+    set program_pkg bash-language-server clang lua nodejs rust yarn
 
     if test $not_virt
-        switch $cpu_vendor
-            case amd
-                set ucode_pkg 'amd-ucode'
-            case intel
-                set ucode_pkg 'intel-ucode'
-        end
-
-        switch $gpu_vendor
-            case amd
-                set gpu_driver_pkg 'xf86-video-amdgpu'
-            case intel
-                set gpu_driver_pkg 'xf86-video-intel'
-            case nvidia
-                set gpu_driver_pkg 'xf86-video-nouveau'
-        end
+        desktop_pkg_var
     end
+end
+
+function desktop_pkg_var
+
+    # 桌面软件包变量
+    #
+    #   cpu 微码
+    #   gpu 驱动
+    #   声音驱动
+    #   蓝牙驱动
+    #   触摸板驱动
+    #   整合驱动
+    #   管理：网络管理，电源管理
+    #   显示：显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
+    #   桌面：终端模拟，状态栏，截图，程序菜单，Qt 5 支持
+    #   浏览器
+    #   多媒体：图像查看，视频播放
+    #   输入法
+    #   桌面控制：亮度控制，播放控制，硬件监视，电源工具
+    #   办公：电子书阅读，办公软件套装，帮助手册
+    #   字体
+
+    switch $cpu_vendor
+        case amd
+            set ucode_pkg amd-ucode
+        case intel
+            set ucode_pkg intel-ucode
+    end
+
+    switch $gpu_vendor
+        case amd
+            set gpu_pkg xf86-video-amdgpu
+        case intel
+            set gpu_pkg xf86-video-intel
+        case nvidia
+            set gpu_pkg xf86-video-nouveau
+    end
+
+    set audio_pkg alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+    set bluetooth_pkg bluez bluez-utils blueman
+    set touch_pkg libinput
+
+    set driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
+    set manager_pkg networkmanager tlp tlp-rdw
+    set display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
+    set desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
+    set browser_pkg firefox firefox-i18n-zh-cn
+    set media_pkg imv vlc
+    set input_pkg fcitx5-im fcitx5-rime
+    set control_pkg brightnessctl playerctl lm_sensors upower
+    set office_pkg calibre libreoffice-fresh-zh-cn
+    set font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
 end
 
 function init_var

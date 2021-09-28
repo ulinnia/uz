@@ -94,19 +94,20 @@ function pkg_var
     # 软件包变量
     #
     #   引导程序
-    #
     #   必要：文件系统，壳，DHCP，镜像排序，文本编辑
+    #
     #   网络：下载管理，文件传输
     #   终端：文本编辑，终端提示符
     #   文件操作：文件管理，压缩，快照管理
     #   同步：时间同步，文件同步
     #   查找：查找，高亮
     #   新查找
-    #   系统：定时任务，系统监视
-    #   arch 安装脚本，兼容 fat32，分区工具
+    #   系统：定时任务，系统监视，手册，软件包缓存，软件统计
+    #   维护：arch 安装脚本，兼容 fat32，分区工具
     #   软件：手册，软件包缓存，软件统计
     #   安全：DNS 加密，防火墙
     #   特殊依赖：lua 语言，文件类型，二维码
+    #   AUR 软件
     #
     #   如果不是虚拟机
     #       桌面软件包变量
@@ -117,19 +118,19 @@ function pkg_var
         case bios
             set boot_pkg grub os-prober
     end
-
     set base_pkg btrfs-progs fish dhcpcd reflector vim
+
     set network_pkg curl git openssh wget wireguard-tools
     set terminal_pkg neovim starship
     set file_pkg lf p7zip snapper
     set sync_pkg chrony rsync
     set search_pkg fzf mlocate tree highlight
     set new_search_pkg fd ripgrep bat tldr exa
-    set system_pkg fcron htop
-    set arch_inst_pkg arch-install-scripts dosfstools parted
-    set soft_pkg man pacman-contrib pkgstats
+    set system_pkg fcron htop man pacman-contrib pkgstats
+    set maintain_pkg arch-install-scripts dosfstools parted
     set security_pkg dnscrypt-proxy nftables
     set depend_pkg lua perl-file-mimeinfo qrencode zsh
+    set aur_pkg yay
 
     if test $not_virt
         desktop_pkg_var
@@ -246,132 +247,110 @@ function pacman_install
     end
 end
 
-# 修改 pacman 设定
 function pacman_set
-    # pacman 开启颜色
+
+    # 修改 pacman 设定
+    #
+    #   开启颜色
+    #
+    #   加上 archlinuxcn 源
+    #       导入 GPG key
+    #
+    #   初始化密钥环
+    #   验证主密钥
+
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
-    # 加上 archlinuxcn 源
+
     if ! grep -q 'archlinuxcn' /etc/pacman.conf
         echo -e '[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' >> /etc/pacman.conf
-        # 导入 GPG key
         pacman -Syy --noconfirm archlinuxcn-keyring
     end
-    # 初始化密钥环
+
     pacman-key --init
-    # 验证主密钥
     pacman-key --populate archlinux
     pacman-key --populate archlinuxcn
 end
 
-# 本地化
 function local_set
-    # 安装基本软件包
-    pacman_install $base_pkg
-    # 设置时区
+
+    # 本地化
+    #
+    #   安装引导程序和必要软件包
+    #
+    #   设置时区
+    #   同步时钟
+    #
+    #   语言信息
+    #
+    #   主机表
+    #
+    #   设定根密码
+    #
+    #   安装引导程序
+    #   生成 grub 主配置文件
+
+    pacman_install $boot_pkg $base_pkg
+
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
-    # 同步时钟
     hwclock --systohc
-    # 语言信息
+
     sed -i '/\(en_US\|zh_CN\).UTF-8/s/#//' /etc/locale.gen
     locale-gen
     echo LANG=en_US.UTF-8 > /etc/locale.conf
-    # 主机表
+
     echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$hostname'.localdomain '$hostname >> /etc/hosts
 
-    # 设定根密码
-    R 'enter your root passwd: '
+    echo -e $r'enter your root passwd: '$h
     passwd
 
-    # 安装引导程序
     switch $bios_type
-    case uefi
-        grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=grub
-    case bios
-        if echo $root_part | grep -q 'nvme'
-            set grub_part (echo $i | sed 's/p[0-9]$//')
-        else
-            set grub_part (echo $i | sed 's/[0-9]$//')
-        end
-        grub-install --target=i386-pc $grub_part
+        case uefi
+            grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=grub
+        case bios
+            if echo $root_part | grep -q 'nvme'
+                set grub_part (echo $i | sed 's/p[0-9]$//')
+            else
+                set grub_part (echo $i | sed 's/[0-9]$//')
+            end
+            grub-install --target=i386-pc $grub_part
     end
-    # 生成 grub 主配置文件
     grub-mkconfig -o /boot/grub/grub.cfg
 end
 
-function 软件安装
-    # 更新系统
+function pkg_install
+
+    # 安装软件包
+    #
+    #   更新系统
+    #
+    #   网络，终端
+    #   文件操作，同步
+    #   查找，新查找
+    #   系统，维护
+    #   安全，特殊依赖，AUR 软件
+    #
+    #   如果不是虚拟机
+    #       驱动，管理
+    #       显示，桌面
+    #       浏览器，多媒体
+    #       输入法，桌面控制
+    #       办公，字体，编程语言
+
     pacman -Syu --noconfirm
-    # 文件系统管理，网络管理，电源管理
-    pacman_install btrfs-progs networkmanager tlp tlp-rdw
-    # 声卡，触摸板，显卡驱动
-    pacman_install alsa-utils pulseaudio-alsa xf86-input-libinput (显卡驱动)
 
-    # 互联网
-    # 虛拟私人网络
-    pacman_install wireguard-tools
-    # 网络浏览
-    pacman_install firefox firefox-i18n-zh-cn
-    # 下载管理，文件传输
-    pacman_install curl git wget openssh
+    pacman_install $network_pkg $terminal_pkg
+    pacman_install $file_pkg $sync_pkg
+    pacman_install $search_pkg $new_search_pk
+    pacman_install $system_pkg $maintain_pkg
+    pacman_install $security_pkg $depend_pkg $aur_pkg
 
-    # 多媒体
-    # 显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
-    pacman_install wayland sway swaybg swayidle swaylock xorg-xwayland
-    # 状态栏，截图，程序菜单，Qt 5 支持
-    pacman_install i3status-rust grim slurp wofi qt5-wayland
-    # 图像查看，视频播放
-    pacman_install imv vlc
-
-    # 工具
-    # 终端模拟，壳层，文本编辑，终端提示符
-    pacman_install alacritty fish neovim starship
-    # 文件管理，压缩，分区工具，快照管理
-    pacman_install lf p7zip parted snapper
-    # 时钟同步，文件同步
-    pacman_install ntp rsync
-    # 系统监视，硬件监视
-    pacman_install htop lm_sensors
-    # 输入法
-    pacman_install fcitx5-im fcitx5-rime
-    # 查找，高亮
-    pacman_install fzf mlocate tree highlight
-    # 新查找
-    pacman_install fd ripgrep bat tldr exa
-    # 定时任务，二维码，确定文件类型
-    pacman_install fcron qrencode perl-file-mimeinfo
-    # 播放控制，亮度控制，电源工具
-    pacman_install playerctl brightnessctl upower
-    # 蓝牙
-    pacman_install pulseaudio-bluetooth bluez-utils
-    # arch 安装脚本，兼容 fat32
-    pacman_install arch-install-scripts dosfstools
-    # 软件包缓存，软件统计
-    pacman_install pacman-contrib pkgstats
-    # 兼容
-    pacman_install vim zsh
-
-    # 文档
-    # 电子书阅读，办公软件套装，帮助手册
-    pacman_install calibre libreoffice-fresh-zh-cn man
-    # 字体
-    pacman_install noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
-
-    # 安全
-    # 域名加密，防火墙
-    pacman_install dnscrypt-proxy nftables
-
-    # 科学
-    # 编程语言
-    pacman_install bash-language-server clang lua nodejs rust yarn
-    # 游戏
-    #pacman_install gamemode ttf-liberation wqy-microhei wqy-zenhei steam
-
-    # 安装 yay
-    pacman_install yay; or begin
-        echo 'yay 下载失败'
+    if test $not_virt
+        pacman_install $driver_pkg $manager_pkg
+        pacman_install $display_pkg $desktop_pkg
+        pacman_install $browser_pkg $media_pkg
+        pacman_install $input_pkg $control_pkg
+        pacman_install $office_pkg $font_pkg $program_pkg
     end
-    # 修改 yay 配置
-    yay --aururl 'https://aur.tuna.tsinghua.edu.cn' --save
 end
 
 # uz 设定

@@ -68,7 +68,12 @@ end
 
 function system_var
 
-    # 系统配置变量
+    # 系统变量
+    #
+    #   地理区域
+    #   分区类型
+    #   仓库地址
+    #   ssh 密码
 
     set area 'Asia/Shanghai'
     set disk_type 'gpt'
@@ -86,7 +91,7 @@ function pkg_var
     #   网络：下载管理，文件传输
     #   终端：文本编辑，终端提示符
     #   文件操作：文件管理，压缩，快照管理
-    #   同步：时钟同步，文件同步
+    #   同步：时间同步，文件同步
     #   查找：查找，高亮
     #   新查找
     #   系统：定时任务，系统监视
@@ -109,7 +114,7 @@ function pkg_var
     set network_pkg curl git openssh wget wireguard-tools
     set terminal_pkg neovim starship
     set file_pkg lf p7zip snapper
-    set sync_pkg ntp rsync
+    set sync_pkg chrony rsync
     set search_pkg fzf mlocate tree highlight
     set new_search_pkg fd ripgrep bat tldr exa
     set system_pkg fcron htop
@@ -168,7 +173,7 @@ function desktop_pkg_var
     set touch_pkg libinput
 
     set driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
-    set manager_pkg networkmanager tlp tlp-rdw
+    set manager_pkg networkmanager tlp
     set display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
     set desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
     set browser_pkg firefox firefox-i18n-zh-cn
@@ -181,10 +186,37 @@ function desktop_pkg_var
 end
 
 function auto_start_var
-    set auto_start dnscrypt-proxy fcron nftables ntpd paccache.timer pkgstats.timer sshd
+
+    # 自启动变量
+    #
+    #   自启动：时间同步，DNS 加密，定时任务，防火墙，软件包缓存，软件统计，ssh
+    #   禁用：不安全 DNS
+    #
+    #   如果不是虚拟机
+    #       不启动：DHCP（网络管理 替换掉 DHCP）
+    #       自启动：蓝牙，网络管理，电源管理
+    #   否则
+    #       自启动：DHCP
+
+    set start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer sshd
+    set mask_auto systemd-resolved
+
+    if test $not_virt
+        set stop_auto $stop_auto dhcpcd
+        set start_auto $start_auto bluetooth NetworkManager tlp
+    else
+        set start_auto $start_auto dhcpcd
+    end
 end
 
 function init_var
+
+    # 初始变量
+    #
+    #   颜色变量
+    #   系统变量
+    #   软件包变量
+
     color_var
     system_var
     pkg_var

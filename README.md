@@ -135,7 +135,7 @@ cdhsmcq 彩虹猫
 请先[安装 arch](jb/arch.md)
 
 ```shell
-curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
+curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh | bash
 ```
 
 
@@ -144,7 +144,7 @@ curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.fish | fish
 请先[安装 arch](jb/archv.md)
 
 ```shell
-curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.fish | fish
+curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/archv.sh | bash
 ```
 
 

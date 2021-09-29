@@ -24,32 +24,32 @@ function system_check
     end
 
     if test (systemd-detect-virt) = 'none'
-        set not_virt 1
+        set -g not_virt 1
     else
-        set not_virt 0
+        set -g not_virt 0
     end
 
     if test -d /sys/firmware/efi
-        set bios_type 'uefi'
+        set -g bios_type 'uefi'
     else
-        set bios_type 'bios'
+        set -g bios_type 'bios'
     end
 
-    set root_part (df | awk '$6=="/" {print $1}')
+    set -g root_part (df | awk '$6=="/" {print $1}')
 
     if test $not_virt
         if lscpu | grep -q 'AuthenticAMD'
-            set cpu_vendor 'amd'
+            set -g cpu_vendor 'amd'
         else if lscpu | grep -q 'GenuineIntel'
-            set cpu_vendor 'intel'
+            set -g cpu_vendor 'intel'
         end
 
         if lspci | grep 'VGA' | grep -q 'AMD'
-            set gpu_vendor 'amd'
+            set -g gpu_vendor 'amd'
         else if lspci | grep 'VGA' | grep -q 'Intel'
-            set gpu_vendor 'intel'
+            set -g gpu_vendor 'intel'
         else if lspci | grep 'VGA' | grep -q 'NVIDIA'
-            set gpu_vendor 'nvidia'
+            set -g gpu_vendor 'nvidia'
         end
     end
 end
@@ -58,12 +58,12 @@ function color_var
 
     # 颜色变量
 
-    set r '\033[1;31m'  # 红
-    set g '\033[1;32m'  # 绿
-    set y '\033[1;33m'  # 黄
-    set b '\033[1;36m'  # 蓝
-    set w '\033[1;37m'  # 白
-    set h '\033[0m'     # 后缀
+    set -g r '\033[1;31m'  # 红
+    set -g g '\033[1;32m'  # 绿
+    set -g y '\033[1;33m'  # 黄
+    set -g b '\033[1;36m'  # 蓝
+    set -g w '\033[1;37m'  # 白
+    set -g h '\033[0m'     # 后缀
 end
 
 function system_var
@@ -80,13 +80,13 @@ function system_var
     #   用户名：第一个匹配的用户
     #   uz 目录存放地址
 
-    set area 'Asia/Shanghai'
-    set disk_type 'gpt'
-    set git_url 'https://github.com/rraayy246/uz'
+    set -g area 'Asia/Shanghai'
+    set -g disk_type 'gpt'
+    set -g git_url 'https://github.com/rraayy246/uz'
 
-    set host_name (cat /etc/hostname)
-    set user_name (ls /home | head -n 1)
-    set uz_dir '/home/'$user_name'/a/uz'
+    set -g host_name (cat /etc/hostname)
+    set -g user_name (ls /home | head -n 1)
+    set -g uz_dir '/home/'$user_name'/a/uz'
 end
 
 function pkg_var
@@ -114,23 +114,23 @@ function pkg_var
 
     switch $bios_type
         case uefi
-            set boot_pkg efibootmgr grub os-prober
+            set -g boot_pkg efibootmgr grub os-prober
         case bios
-            set boot_pkg grub os-prober
+            set -g boot_pkg grub os-prober
     end
-    set base_pkg btrfs-progs fish dhcpcd reflector vim
+    set -g base_pkg btrfs-progs fish dhcpcd reflector vim
 
-    set network_pkg curl git openssh wget wireguard-tools
-    set terminal_pkg neovim starship
-    set file_pkg lf p7zip snapper
-    set sync_pkg chrony rsync
-    set search_pkg fzf mlocate tree highlight
-    set new_search_pkg fd ripgrep bat tldr exa
-    set system_pkg fcron htop man pacman-contrib pkgstats
-    set maintain_pkg arch-install-scripts dosfstools parted
-    set security_pkg dnscrypt-proxy nftables
-    set depend_pkg lua perl-file-mimeinfo qrencode zsh
-    set aur_pkg yay
+    set -g network_pkg curl git openssh wget wireguard-tools
+    set -g terminal_pkg neovim starship
+    set -g file_pkg lf p7zip snapper
+    set -g sync_pkg chrony rsync
+    set -g search_pkg fzf mlocate tree highlight
+    set -g new_search_pkg fd ripgrep bat tldr exa
+    set -g system_pkg fcron htop man pacman-contrib pkgstats
+    set -g maintain_pkg arch-install-scripts dosfstools parted
+    set -g security_pkg dnscrypt-proxy nftables
+    set -g depend_pkg lua perl-file-mimeinfo qrencode zsh
+    set -g aur_pkg yay
 
     if test $not_virt
         desktop_pkg_var
@@ -163,35 +163,35 @@ function desktop_pkg_var
 
     switch $cpu_vendor
         case amd
-            set ucode_pkg amd-ucode
+            set -g ucode_pkg amd-ucode
         case intel
-            set ucode_pkg intel-ucode
+            set -g ucode_pkg intel-ucode
     end
 
     switch $gpu_vendor
         case amd
-            set gpu_pkg xf86-video-amdgpu
+            set -g gpu_pkg xf86-video-amdgpu
         case intel
-            set gpu_pkg xf86-video-intel
+            set -g gpu_pkg xf86-video-intel
         case nvidia
-            set gpu_pkg xf86-video-nouveau
+            set -g gpu_pkg xf86-video-nouveau
     end
 
-    set audio_pkg alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
-    set bluetooth_pkg bluez bluez-utils blueman
-    set touch_pkg libinput
+    set -g audio_pkg alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+    set -g bluetooth_pkg bluez bluez-utils blueman
+    set -g touch_pkg libinput
 
-    set driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
-    set manager_pkg networkmanager tlp
-    set display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
-    set desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
-    set browser_pkg firefox firefox-i18n-zh-cn
-    set media_pkg imv vlc
-    set input_pkg fcitx5-im fcitx5-rime
-    set control_pkg brightnessctl playerctl lm_sensors upower
-    set office_pkg calibre libreoffice-fresh-zh-cn
-    set font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
-    set program_pkg bash-language-server clang nodejs rust yarn
+    set -g driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
+    set -g manager_pkg networkmanager tlp
+    set -g display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
+    set -g desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
+    set -g browser_pkg firefox firefox-i18n-zh-cn
+    set -g media_pkg imv vlc
+    set -g input_pkg fcitx5-im fcitx5-rime
+    set -g control_pkg brightnessctl playerctl lm_sensors upower
+    set -g office_pkg calibre libreoffice-fresh-zh-cn
+    set -g font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
+    set -g program_pkg bash-language-server clang nodejs rust yarn
 end
 
 function auto_start_var
@@ -208,14 +208,14 @@ function auto_start_var
     #   否则
     #       自启动：DHCP
 
-    set mask_auto systemd-resolved
-    set start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer sshd
+    set -g mask_auto systemd-resolved
+    set -g start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer sshd
 
     if test $not_virt
-        set stop_auto $stop_auto dhcpcd
-        set start_auto $start_auto bluetooth NetworkManager tlp
+        set -g stop_auto $stop_auto dhcpcd
+        set -g start_auto $start_auto bluetooth NetworkManager tlp
     else
-        set start_auto $start_auto dhcpcd
+        set -g start_auto $start_auto dhcpcd
     end
 end
 
@@ -357,9 +357,9 @@ function local_set
             grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=grub
         case bios
             if echo $root_part | grep -q 'nvme'
-                set grub_part (echo $i | sed 's/p[0-9]$//')
+                set grub_part (echo $root_part | sed 's/p[0-9]$//')
             else
-                set grub_part (echo $i | sed 's/[0-9]$//')
+                set grub_part (echo $root_part | sed 's/[0-9]$//')
             end
             grub-install --target=i386-pc $grub_part
     end

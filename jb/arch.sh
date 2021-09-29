@@ -259,6 +259,8 @@ arch_chroot(){
 
     # 生成 fstab 文件
     genfstab -L /mnt >> /mnt/etc/fstab
+    cp -a /mnt/var/lib /mnt/usr/var/lib
+    rm -rf /mnt/var/lib/*
     mount --bind /mnt/usr/var/lib /mnt/var/lib
     echo '/usr/var/lib /var/lib none defaults,bind 0 0' >> /mnt/etc/fstab
 

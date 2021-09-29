@@ -342,7 +342,7 @@ function local_set
     echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$host_name'.localdomain '$host_name >> /etc/hosts
 
     echo -e $r'input a passwd for root: '$h
-    passwd root
+    passwd
 
     useradd -g wheel $user_name
     echo -e $r'input a passwd for '$user_name': '$h

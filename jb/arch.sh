@@ -190,6 +190,7 @@ mount_subvol(){
     # 创建子卷
     btrfs subvolume create /mnt/@
     btrfs subvolume create /mnt/home
+    btrfs subvolume create /mnt/srv
     btrfs subvolume create /mnt/swap
     btrfs subvolume create /mnt/tmp
     btrfs subvolume create /mnt/var
@@ -204,20 +205,23 @@ mount_subvol(){
     mount -o autodefrag,compress=zstd,subvol=@ $part_root /mnt
 
     mkdir /mnt/btrfs
-    mount $part_root /mnt/btrfs
     mkdir /mnt/home
-    mount -o subvol=home $part_root /mnt/home
+    mkdir /mnt/srv
     mkdir /mnt/swap
-    mount -o subvol=swap $part_root /mnt/swap
     mkdir /mnt/tmp
-    mount -o subvol=tmp $part_root /mnt/tmp
     mkdir /mnt/var
-    mount -o subvol=var $part_root /mnt/var
     mkdir /mnt/.snapshots
-    mount -o subvol=snap/root $part_root /mnt/.snapshots
     mkdir /mnt/home/.snapshots
-    mount -o subvol=snap/home $part_root /mnt/home/.snapshots
     mkdir -p /mnt/home/$username/.cache
+
+    mount $part_root /mnt/btrfs
+    mount -o subvol=home $part_root /mnt/home
+    mount -o subvol=srv $part_root /mnt/srv
+    mount -o subvol=swap $part_root /mnt/swap
+    mount -o subvol=tmp $part_root /mnt/tmp
+    mount -o subvol=var $part_root /mnt/var
+    mount -o subvol=snap/root $part_root /mnt/.snapshots
+    mount -o subvol=snap/home $part_root /mnt/home/.snapshots
     mount -o subvol=cache/$username $part_root /mnt/home/$username/.cache
 
     # 避免 /var/lib 资料遗失

@@ -228,6 +228,7 @@ mount_subvol(){
 
     # 避免 /var/lib 资料遗失
     mkdir -p /mnt/{usr/var/lib,var/lib}
+    mount --bind /mnt/usr/var/lib /mnt/var/lib
     # efi 目录挂载
     if test "$bios_type" == 'uefi'; then
         mkdir /mnt/efi
@@ -258,9 +259,8 @@ arch_chroot(){
     cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
 
     # 生成 fstab 文件
+    umount /mnt/var/lib
     genfstab -L /mnt >> /mnt/etc/fstab
-    cp -a /mnt/var/lib /mnt/usr/var
-    rm -rf /mnt/var/lib/*
     mount --bind /mnt/usr/var/lib /mnt/var/lib
     echo '/usr/var/lib /var/lib none defaults,bind 0 0' >> /mnt/etc/fstab
 

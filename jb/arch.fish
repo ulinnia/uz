@@ -234,19 +234,37 @@ function init_var
     auto_start_var
 end
 
-function pacman_install
+function doc_help
 
-    # pacman 安装软件包
-    #
-    #   参数：
-    #       要安装的软件包列表
-    #
-    #   一次性安装太多软件包容易安装失败，
-    #   所以就连试三次，增加安装成功的几率。
+    # 帮助文档
 
-    for i in (seq 3)
-        if pacman -S --noconfirm --needed $argv
-            break
+    echo $g'a script to install and configure arch software'$h
+    echo
+    echo 'Optional arguments:'
+    echo '  -h --help     Show this help message and exit.'
+    echo '  -i --install  install and configure arch and exit.'
+end
+
+function options
+
+    # 选项功能
+
+    for i in (count $argv)
+        switch $argv[i]
+            case -h --help
+                doc_help
+                exit 0
+            case -i --install
+                pacman_set
+                local_set
+                swap_file
+                pkg_install
+                uz_config
+                config_copy
+                config_write
+                flypy_inst
+                auto_start
+                exit 0
         end
     end
 end
@@ -271,6 +289,23 @@ function pacman_set
     pacman-key --init
     pacman-key --populate archlinux
     pacman-key --populate archlinuxcn
+end
+
+function pacman_install
+
+    # pacman 安装软件包
+    #
+    #   参数：
+    #       要安装的软件包列表
+    #
+    #   一次性安装太多软件包容易安装失败，
+    #   所以就连试三次，增加安装成功的几率。
+
+    for i in (seq 3)
+        if pacman -S --noconfirm --needed $argv
+            break
+        end
+    end
 end
 
 function local_set
@@ -409,7 +444,7 @@ function pkg_install
     end
 end
 
-function uz
+function uz_config
 
     # uz 目录
     #
@@ -430,7 +465,7 @@ function uz
     cd
 end
 
-function sync_file
+function sync_dir
 
     # 文件同步
     #
@@ -463,10 +498,10 @@ function config_copy
     fish $uz_dir/pv/hjbl.fish
     su $user_name -c 'fish '$uz_dir'/pv/hjbl.fish'
 
-    sync_file root:root $uz_dir/pv/etc /
-    sync_file $user_name:wheel $uz_dir/pv/.config /home/$user_name
+    sync_dir root:root $uz_dir/pv/etc /
+    sync_dir $user_name:wheel $uz_dir/pv/.config /home/$user_name
 
-    sync_file root:root $uz_dir/pv/.config /root
+    sync_dir root:root $uz_dir/pv/.config /root
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 
 end
@@ -571,6 +606,7 @@ end
 function main
     system_check
     init_var
+    options $argv
     pacman_set
     config_copy
 end

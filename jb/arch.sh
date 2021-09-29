@@ -226,7 +226,6 @@ mount_subvol(){
 
     # 避免 /var/lib 资料遗失
     mkdir -p /mnt/{usr/var/lib,var/lib}
-    mount --bind /mnt/usr/var/lib /mnt/var/lib
     # efi 目录挂载
     if test "$bios_type" == 'uefi'; then
         mkdir /mnt/efi
@@ -258,9 +257,10 @@ arch_chroot(){
 
     # 生成 fstab 文件
     genfstab -L /mnt >> /mnt/etc/fstab
+    echo '/usr/var/lib /var/lib none defaults,bind 0 0' >> /mnt/etc/fstab
 
     # 下载脚本
-    wget $git_url/raw/master/jb/arch.fish -O /mnt/arch.fish
+    curl -L $git_url/raw/master/jb/arch.fish -o /mnt/arch.fish
     chmod +x /mnt/arch.fish
 
     # 切换根目录

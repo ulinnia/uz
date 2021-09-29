@@ -229,7 +229,7 @@ mount_subvol(){
     # efi 目录挂载
     if test "$bios_type" == 'uefi'; then
         mkdir /mnt/efi
-        mount $part_root /mnt/efi
+        mount $part_boot /mnt/efi
     fi
 }
 

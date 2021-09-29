@@ -249,23 +249,21 @@ function options
 
     # 选项功能
 
-    for i in (count $argv)
-        switch $argv[i]
-            case -h --help
-                doc_help
-                exit 0
-            case -i --install
-                pacman_set
-                local_set
-                swap_file
-                pkg_install
-                uz_config
-                config_copy
-                config_write
-                flypy_inst
-                auto_start
-                exit 0
-        end
+    switch $argv[1]
+        case -h --help
+            doc_help
+            exit 0
+        case -i --install
+            pacman_set
+            local_set
+            swap_file
+            pkg_install
+            uz_config
+            config_copy
+            config_write
+            flypy_inst
+            auto_start
+            exit 0
     end
 end
 
@@ -607,7 +605,7 @@ function main
     system_check
     init_var
     options $argv
-    pacman_set
+    pacman_install
     config_copy
 end
 

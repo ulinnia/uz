@@ -605,7 +605,7 @@ function main
     system_check
     init_var
     options $argv
-    pacman_install
+    pkg_install
     config_copy
 end
 

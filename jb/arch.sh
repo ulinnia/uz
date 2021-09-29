@@ -211,8 +211,6 @@ mount_subvol(){
     mkdir /mnt/tmp
     mkdir /mnt/var
     mkdir /mnt/.snapshots
-    mkdir /mnt/home/.snapshots
-    mkdir -p /mnt/home/$username/.cache
 
     mount $part_root /mnt/btrfs
     mount -o subvol=home $part_root /mnt/home
@@ -221,6 +219,10 @@ mount_subvol(){
     mount -o subvol=tmp $part_root /mnt/tmp
     mount -o subvol=var $part_root /mnt/var
     mount -o subvol=snap/root $part_root /mnt/.snapshots
+
+    mkdir /mnt/home/.snapshots
+    mkdir -p /mnt/home/$username/.cache
+
     mount -o subvol=snap/home $part_root /mnt/home/.snapshots
     mount -o subvol=cache/$username $part_root /mnt/home/$username/.cache
 

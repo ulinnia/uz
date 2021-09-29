@@ -264,7 +264,7 @@ arch_chroot(){
     chmod +x /mnt/arch.fish
 
     # 切换根目录
-    arch-chroot /mnt /bin/fish -c '/arch.fish -i'
+    arch-chroot /mnt fish /arch.fish -i
     # 切换根目录结束
     rm /mnt/arch.fish
     umount -R /mnt

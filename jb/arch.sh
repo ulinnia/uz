@@ -252,7 +252,7 @@ base_install(){
 # 切换根目录
 arch_chroot(){
     # 设置主机名
-    echo $hostname > /etc/hostname
+    echo $hostname > /mnt/etc/hostname
 
     # 复制镜像
     cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d

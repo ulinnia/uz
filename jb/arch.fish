@@ -209,7 +209,7 @@ function auto_start_var
     #       自启动：DHCP
 
     set -g mask_auto systemd-resolved
-    set -g start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector sshd
+    set -g start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
 
     if test $not_virt
         set -g stop_auto $stop_auto dhcpcd

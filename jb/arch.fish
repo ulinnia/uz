@@ -453,7 +453,7 @@ function uz_config
     #   默认合并分支
 
     git clone https://github.com/rraayy246/uz $uz_dir --depth 1
-    ln -s $uz_dir /home/$user_name
+    ln -sf $uz_dir /home/$user_name
 
     cd $uz_dir
     git config credential.helper store

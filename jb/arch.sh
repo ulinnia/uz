@@ -237,7 +237,7 @@ mount_subvol(){
 # 安装基础包
 base_install(){
     # 更新密钥环
-    pacman -Sy archlinux-keyring
+    pacman -Sy --noconfirm archlinux-keyring
 
     # 镜像排序
     N 'sorting mirror...'

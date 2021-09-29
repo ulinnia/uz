@@ -286,5 +286,5 @@ main(){
     arch_chroot
 }
 
-main
+main $@
 

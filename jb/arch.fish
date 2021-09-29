@@ -73,20 +73,20 @@ function system_var
     #   地理区域
     #   分区类型
     #   仓库地址
-    #   ssh 密码
     #
     # 用户变量
     #
-    #   用户名
     #   主机名
+    #   用户名：第一个匹配的用户
+    #   uz 目录存放地址
 
     set area 'Asia/Shanghai'
     set disk_type 'gpt'
     set git_url 'https://github.com/rraayy246/uz'
-    set PASS '7777777'
 
-    set username (ls /home)
-    set hostname (cat /etc/hostname)
+    set host_name (cat /etc/hostname)
+    set user_name (ls /home | head -n 1)
+    set uz_dir '/home/'$user_name'/a/uz'
 end
 
 function pkg_var
@@ -198,17 +198,18 @@ function auto_start_var
 
     # 自启动变量
     #
-    #   自启动：时间同步，DNS 加密，定时任务，防火墙，软件包缓存，软件统计，ssh
     #   禁用：不安全 DNS
+    #   自启动：时间同步，DNS 加密，定时任务，防火墙，软件包缓存，软件统计，ssh
     #
     #   如果不是虚拟机
-    #       不启动：DHCP（网络管理 替换掉 DHCP）
+    #       不启动：DHCP
     #       自启动：蓝牙，网络管理，电源管理
+    #           网络管理 替换掉 DHCP，同时打开会出问题。
     #   否则
     #       自启动：DHCP
 
-    set start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer sshd
     set mask_auto systemd-resolved
+    set start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer sshd
 
     if test $not_virt
         set stop_auto $stop_auto dhcpcd
@@ -237,8 +238,11 @@ function pacman_install
 
     # pacman 安装软件包
     #
-    #   试三次
-    #       如果成功安装则离开
+    #   参数：
+    #       要安装的软件包列表
+    #
+    #   一次性安装太多软件包容易安装失败，
+    #   所以就连试三次，增加安装成功的几率。
 
     for i in (seq 3)
         if pacman -S --noconfirm --needed $argv
@@ -261,10 +265,8 @@ function pacman_set
 
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
 
-    if ! grep -q 'archlinuxcn' /etc/pacman.conf
-        echo -e '[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' >> /etc/pacman.conf
-        pacman -Syy --noconfirm archlinuxcn-keyring
-    end
+    echo -e '[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' >> /etc/pacman.conf
+    pacman -Syy --noconfirm archlinuxcn-keyring
 
     pacman-key --init
     pacman-key --populate archlinux
@@ -275,21 +277,27 @@ function local_set
 
     # 本地化
     #
-    #   安装引导程序和必要软件包
-    #
     #   设置时区
     #   同步时钟
     #
     #   语言信息
+    #       设置成英文避免显示问题
     #
     #   主机表
     #
     #   设定根密码
     #
+    #   添加用户
+    #   设定用户密码
+    #   添加用户组超级权限
+    #   更改目录拥有者为用户
+    #
+    #   安装引导程序和必要软件包
+    #
     #   安装引导程序
+    #
+    #   设定 grub 超时为 1
     #   生成 grub 主配置文件
-
-    pacman_install $boot_pkg $base_pkg
 
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
     hwclock --systohc
@@ -298,10 +306,18 @@ function local_set
     locale-gen
     echo LANG=en_US.UTF-8 > /etc/locale.conf
 
-    echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$hostname'.localdomain '$hostname >> /etc/hosts
+    echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$host_name'.localdomain '$host_name >> /etc/hosts
 
-    echo -e $r'enter your root passwd: '$h
+    echo -e $r'input a passwd for root: '$h
     passwd
+
+    useradd -g wheel $user_name
+    echo -e $r'input a passwd for '$user_name': '$h
+    passwd $user_name
+    sed -i '/# %wheel ALL=(ALL) NOPASSWD: ALL/s/# //' /etc/sudoers
+    chown -R $user_name:wheel /home/$user_name
+
+    pacman_install $boot_pkg $base_pkg
 
     switch $bios_type
         case uefi
@@ -314,7 +330,47 @@ function local_set
             end
             grub-install --target=i386-pc $grub_part
     end
+
+    sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
+    echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
+end
+
+function swap_file
+
+    # 交换文件
+    #
+    #   创建空文件
+    #   禁止写时复制
+    #   禁止压缩
+    #
+    #   文件大小
+    #       跟随内存大小，最多 3 G
+    #
+    #   设定拥有者读写
+    #   格式化交换文件
+    #   启用交换文件
+    #
+    #   写入 fstab
+    #
+    #   最大限度使用物理内存
+
+    touch /swap/swapfile
+    chattr +C /swap/swapfile
+    chattr -c /swap/swapfile
+
+    set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
+    if test "$i" -gt 3; set i 3; end
+    fallocate -l "$i"G /swap/swapfile
+
+    chmod 600 /swap/swapfile
+    mkswap /swap/swapfile
+    swapon /swap/swapfile
+
+    echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
+
+    echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
+    sysctl (cat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
 end
 
 function pkg_install
@@ -353,143 +409,162 @@ function pkg_install
     end
 end
 
-# uz 设定
-function uz目录
-    # 克隆 uz 仓库
-    git clone https://github.com/rraayy246/uz $HOME/a/uz --depth 1
-    # 链接 uz
-    ln -s $HOME/a/uz $HOME
-    cd $HOME/uz
-    # 记忆账号密码
+function uz
+
+    # uz 目录
+    #
+    #   克隆 uz 仓库
+    #   软链接 uz 到用户根目录
+    #
+    #   记忆账号密码
+    #   默认合并分支
+
+    git clone https://github.com/rraayy246/uz $uz_dir --depth 1
+    ln -s $uz_dir /home/$user_name
+
+    cd $uz_dir
     git config credential.helper store
     git config --global user.email 'rraayy246@gmail.com'
     git config --global user.name 'ray'
-    # 默认合并分支
     git config --global pull.rebase false
     cd
 end
 
 function sync_file
-    rsync -a --inplace --no-whole-file $argv
+
+    # 文件同步
+    #
+    #   参数：
+    #       拥有者
+    #       源目录
+    #       目标目录
+    #
+    #   文件复制后，调整拥有者参数。
+
+    rsync -a --inplace --no-whole-file --chown $argv
 end
 
-function 复制设定
-    # 创建目录
-    mkdir -p $HOME/{a/vp/bv,gz,xz,.config/{fish/conf.d,nvim/.backup}}
-    # 缩写
-    set 配置文件 $HOME/a/uz/pv
-    # fish 设置环境变量
-    fish $配置文件/hjbl.fish
-    su $username fish $配置文件/hjbl.fish
-    # 链接配置文件
-    sync_file -a $配置文件/etc /
-    sync_file -a $配置文件/.config $HOME
+function config_copy
 
-    # 根用户配置文件
-    sync_file -a $配置文件/.config /root
+    # 设定复制
+    #
+    #   创建目录
+    #
+    #   fish 设置环境变量
+    #
+    #   链接配置文件
+    #
+    #   根用户配置文件
+    #       把 vim 配置文件的插件内容注释掉，
+    #       因为根用户很少用到插件。
+
+    mkdir -p /home/$user_name/{a/vp/bv,gz,xz,.config/{fish/conf.d,nvim/.backup}}
+
+    fish $uz_dir/pv/hjbl.fish
+    su $user_name -c 'fish '$uz_dir'/pv/hjbl.fish'
+
+    sync_file root:root $uz_dir/pv/etc /
+    sync_file $user_name:wheel $uz_dir/pv/.config /home/$user_name
+
+    sync_file root:root $uz_dir/pv/.config /root
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 
 end
 
-function 写入设定
-    # 主机表
-    sed -i '/localhost\|localdomain/d' /etc/hosts
-    # sudo 免密码
-    if ! grep -q '^[^#].*NOPASSWD:' /etc/sudoers
-        sed -i 's/(ALL) ALL/(ALL) NOPASSWD: ALL/g' /etc/sudoers
-    end
-    # grub 设置
-    sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
-    if ! grep -q 'GRUB_DISABLE_OS_PROBER' /etc/default/grub
-        echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub
-    end
-    grub-mkconfig -o /boot/grub/grub.cfg
-    # 域名解析
-    echo -e 'nameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
-    chattr +i /etc/resolv.conf
-    # 创建 snapper 配置
+function config_write
+
+    # 设定写入
+    #
+    #   创建 snapper 配置：root，srv，home
+    #       因为 snapper 在创建配置时，不允许目录被其他子卷占用，
+    #       所以先把目录卸载，创建 snapper 配置文件，再把子卷挂载回去。
+    #
+    #   防止快照被索引
+    #   更改默认壳层为 fish
+    #
+    #   安装 zlua
+    #
+    #   终端提示符用 starship
+    #   下载初始壁纸
+    #
+    #   安装 vim-plug
+    #       插件下载
+    #
+    #   DNS 指向本地
+    #       禁止修改
+
     if ! snapper list-configs | grep -q 'root'
         umount /.snapshots
+        umount /srv/.snapshots
+        umount /home/$user_name/.snapshots
+
         rmdir /.snapshots
+        rmdir /srv/.snapshots
+        rmdir /home/$user_name/.snapshots
+
         snapper -c root create-config /
-        btrfs subvolume delete /.snapshots
-        mkdir /.snapshots
-        mount -a
-
+        snapper -c srv create-config /srv
         snapper -c home create-config /home
-    end
-    # 防止快照索引
-    if ! grep -q '.snapshot' /etc/updatedb.conf
-        sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
-    end
 
-    # 更改默认壳层为 fish
-    sed -i '/home/s/bash/fish/' /etc/passwd
-    sed -i '/root/s/bash/fish/' /etc/passwd
-    rm $HOME/.bash*
-    # 安装 zlua
-    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O $HOME/.config/fish/conf.d/z.lua
-    echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > $HOME/.config/fish/conf.d/z.fish
-    # 终端提示符
+        btrfs subvolume delete /.snapshots
+        btrfs subvolume delete /srv/.snapshots
+        btrfs subvolume delete /home/$user_name/.snapshots
+
+        mkdir /.snapshots
+        mkdir /srv/.snapshots
+        mkdir /home/$user_name/.snapshots
+
+        mount -a
+    end
+    sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
+
+    sed -i '/home\|root/s/bash/fish/' /etc/passwd
+
+    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O /home/$user_name/.config/fish/conf.d/z.lua
+    echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > /home/$user_name/.config/fish/conf.d/z.fish
+
     echo -e 'if status is-interactive\n    starship init fish | source\nend' > /root/.config/fish/config.fish
-    # 壁纸
-    rsync -a $HOME/a/uz/img/hw.png $HOME/a/vp/bv/hw.png
+    rsync -a /home/$user_name/a/uz/img/hw.png /home/$user_name/a/vp/bv/hw.png
 
-    # 安装 vim-plug
-    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    # 插件下载
+    curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     nvim +PlugInstall +qall
+
+    echo -e 'nameserver ::1\nnameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
+    chattr +i /etc/resolv.conf
 end
 
-# 安装小鹤音形
-# http://flypy.ys168.com/ 小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
-function 小鹤音形
-    # 解压配置包
-    7z x $HOME/a/uz/pv/flypy.7z -o$HOME
-    mkdir -p $HOME/.local/share/fcitx5
-    rsync -a --delete --inplace --no-whole-file $HOME/rime $HOME/.local/share/fcitx5
-    rm -rf $HOME/rime
-    # 重新加载输入法
+function flypy_inst
+
+    # 安装小鹤音形
+    #
+    #   原网址：http://flypy.ys168.com/
+    #   原名称：小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
+    #
+    #   解压配置包
+    #   复制到配置文件目录
+    #
+    #   重新加载输入法
+
+    7z x /home/$user_name/a/uz/pv/flypy.7z -o/home/$user_name
+    mkdir -p /home/$user_name/.local/share/fcitx5
+    rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
+    rm -rf /home/$user_name/rime
+
     fcitx5-remote -r
 end
 
-function 自启动
-    systemctl enable --now NetworkManager
-    and systemctl disable dhcpcd
-    systemctl enable --now {bluetooth,dnscrypt-proxy,fcron,NetworkManager-dispatcher,nftables,ntpd,paccache.timer,pkgstats.timer,tlp}
-    systemctl mask {systemd-resolved,systemd-rfkill.service,systemd-rfkill.socket}
-end
+function auto_start
 
-function 交换文件
-    if ! test -e /swap/swapfile -a -d /swap
-        # 创建空文件
-        touch /swap/swapfile
-        # 禁止写时复制
-        chattr +C /swap/swapfile
-        # 禁止压缩
-        chattr -c /swap/swapfile
-        # 文件大小
-        set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
-        if test "$i" -gt 3; set i 3; end
-        fallocate -l "$i"G /swap/swapfile
-        # 设定拥有者读写
-        chmod 600 /swap/swapfile
-        # 格式化交换文件
-        mkswap /swap/swapfile
-        # 启用交换文件
-        swapon /swap/swapfile
-        # 写入 fstab
-        if ! grep -q '/swap/swapfile' /etc/fstab
-            echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
-        end
+    # 自启动
+    #
+    #   不启动
+    #   禁用
+    #   自启动
 
-        # 最大限度使用物理内存，生效
-        if ! grep -q 'swappiness' /etc/sysctl.d/99-sysctl.conf
-            echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
-            sysctl (bat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
-        end
-    end
+    systemctl disable $stop_auto
+    systemctl mask $mask_auto
+    systemctl enable --now $start_auto
 end
 
 # 主程序
@@ -497,7 +572,7 @@ function main
     system_check
     init_var
     pacman_set
-    local_set
+    config_copy
 end
 
 main

@@ -609,5 +609,5 @@ function main
     config_copy
 end
 
-main
+main $argv
 

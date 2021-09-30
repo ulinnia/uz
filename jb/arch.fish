@@ -12,138 +12,6 @@ function color_var
     set --global h '\033[0m'     # 后缀
 end
 
-function doc_help
-
-    # 帮助文档
-    #
-    #   参数：
-    #       LANG: 系统设定的语言
-
-    color_var
-
-    if echo $LANG | grep '^zh'
-        echo -e $g'用于安装和配置 arch 的脚本'$h
-        echo
-        echo '可选参数：'
-        echo '  -h --help     显示此帮助消息。'
-        echo '  -i --install  本地化和配置 arch.'
-        echo '  -l --live     从临时环境安装基本 arch.'
-    else
-        echo -e $g'a script to install and configure arch software'$h
-        echo
-        echo 'Optional arguments:'
-        echo '  -h --help     Show this help message.'
-        echo '  -i --install  localization and configuration arch.'
-        echo '  -l --live     install the base arch from the live environment.'
-    end
-
-    exit 0
-end
-
-function input_option
-
-    # 选项参数
-    #
-    #   参数：
-    #       argv: 输入的选项参数
-
-    switch $argv
-        case -h --help
-            doc_help
-        case -i --install
-            set --prepend var_stack 'passwd_root' 'passwd_user'
-            install_process
-        case '*'
-            error wrong_option $argv
-    end
-end
-
-function input_parameters
-
-    # 输入参数
-    #
-    #   参数：
-    #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
-    #                  由这个 '变量堆' 来存放必要的参数名字。
-    #       argv: 所有的输入参数
-    #       input: 单个输入参数
-    #
-    #   流程：
-    #       先把所有参数分成单一的参数以进行解读。
-    #       如果参数的开头为 '-'，则作为选项参数进行匹配。
-    #       如果参数开头不为 '-'，则作为普通参数，
-    #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
-    #       检查是否缺少必要参数。
-
-    set --global var_stack overflow
-
-    for input in (count $argv)
-        if echo $input | grep -q '^-'
-            input_option $input
-        else
-            if test $var_stack[1] = 'overflow'
-                error wrong_parameter $input
-            else
-                set --global $var_stack[1] $option
-                set --erase var_stack[1]
-            end
-        end
-    end
-
-    if test $var_stack[1] = 'overflow'
-        set --erase var_stack
-    else
-        set --erase var_stack[-1]
-        error missing_parameter $var_stack
-    end
-end
-
-function error
-
-    # 输出错误类型
-    #
-    #   参数：
-    #       argv[1]: 错误类型
-    #       argv[2]: 造成错误的输入
-
-    color_var
-    switch $argv[1]
-        case missing_parameter
-            echo -e $r'missing parameter "'$argv[2]'"!'$h
-            echo
-            doc_help
-        case wrong_option
-            echo -e $r'invalid option "'$argv[2]'"!'$h
-            echo
-            doc_help
-        case wrong_parameter
-            echo -e $r'unexpected parameters "'$argv[2]'"!'$h
-            echo
-            doc_help
-        case '*'
-            echo -e $r'unknown error type!'$h
-            exit 0
-    end
-end
-
-function install_process
-
-    # arch 安装流程
-
-    pacman_set
-    local_set
-    swap_file
-    pkg_install
-    uz_config
-    config_copy
-    config_write
-    flypy_inst
-    auto_start
-    chown_home
-
-    exit 0
-end
-
 function system_var
 
     # 系统变量
@@ -366,6 +234,43 @@ function system_check
     end
 end
 
+function swap_file
+
+    # 交换文件
+    #
+    #   创建空文件
+    #   禁止写时复制
+    #   禁止压缩
+    #
+    #   文件大小
+    #       跟随内存大小，最多 3 G
+    #
+    #   设定拥有者读写
+    #   格式化交换文件
+    #   启用交换文件
+    #
+    #   写入 fstab
+    #
+    #   最大限度使用物理内存
+
+    touch /swap/swapfile
+    chattr +C /swap/swapfile
+    chattr -c /swap/swapfile
+
+    set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
+    if test "$i" -gt 3; set i 3; end
+    fallocate -l "$i"G /swap/swapfile
+
+    chmod 600 /swap/swapfile
+    mkswap /swap/swapfile
+    swapon /swap/swapfile
+
+    echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
+
+    echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
+    sysctl (cat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
+end
+
 function pacman_set
 
     # 修改 pacman 设定
@@ -466,43 +371,6 @@ function local_set
     sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
     echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
-end
-
-function swap_file
-
-    # 交换文件
-    #
-    #   创建空文件
-    #   禁止写时复制
-    #   禁止压缩
-    #
-    #   文件大小
-    #       跟随内存大小，最多 3 G
-    #
-    #   设定拥有者读写
-    #   格式化交换文件
-    #   启用交换文件
-    #
-    #   写入 fstab
-    #
-    #   最大限度使用物理内存
-
-    touch /swap/swapfile
-    chattr +C /swap/swapfile
-    chattr -c /swap/swapfile
-
-    set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
-    if test "$i" -gt 3; set i 3; end
-    fallocate -l "$i"G /swap/swapfile
-
-    chmod 600 /swap/swapfile
-    mkswap /swap/swapfile
-    swapon /swap/swapfile
-
-    echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
-
-    echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
-    sysctl (cat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
 end
 
 function pkg_install
@@ -703,8 +571,143 @@ function chown_home
     chown -R $user_name:wheel /home/$user_name
 end
 
-# 主程序
+function doc_help
+
+    # 帮助文档
+    #
+    #   参数：
+    #       LANG: 系统设定的语言
+
+    color_var
+
+    if echo $LANG | grep -q '^zh'
+        echo
+        echo -e $g'用于安装和配置 arch 的脚本'$h
+        echo
+        echo '可选参数：'
+        echo '  -h --help     显示此帮助消息。'
+        echo '  -i --install  本地化和配置 arch.'
+        echo '  -l --live     从临时环境安装基本 arch.'
+        echo
+    else
+        echo
+        echo -e $g'a script to install and configure arch software'$h
+        echo
+        echo 'Optional arguments:'
+        echo '  -h --help     Show this help message.'
+        echo '  -i --install  localization and configuration arch.'
+        echo '  -l --live     install the base arch from the live environment.'
+        echo
+    end
+
+    exit 0
+end
+
+function input_option
+
+    # 选项参数
+    #
+    #   参数：
+    #       argv: 输入的选项参数
+
+    switch $argv
+        case -h --help
+            doc_help
+        case -i --install
+            set --prepend var_stack 'passwd_root' 'passwd_user'
+            install_process
+        case '*'
+            error wrong_option $argv
+    end
+end
+
+function input_parameters
+
+    # 输入参数
+    #
+    #   参数：
+    #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
+    #                  由这个 '变量堆' 来存放必要的参数名字。
+    #       argv: 所有的输入参数
+    #       input: 单个输入参数
+    #
+    #   流程：
+    #       先把所有参数分成单一的参数以进行解读。
+    #       如果参数的开头为 '-'，则作为选项参数进行匹配。
+    #       如果参数开头不为 '-'，则作为普通参数，
+    #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
+    #       检查是否缺少必要参数。
+
+    set --global var_stack overflow
+
+    for input in $argv
+        if echo $input | grep -q '^-'
+            input_option $input
+        else
+            if test $var_stack[1] = 'overflow'
+                error wrong_parameter $input
+            else
+                set --global $var_stack[1] $option
+                set --erase var_stack[1]
+            end
+        end
+    end
+
+    if test $var_stack[1] = 'overflow'
+        set --erase var_stack
+    else
+        set --erase var_stack[-1]
+        error missing_parameter $var_stack
+    end
+end
+
+function error
+
+    # 输出错误类型
+    #
+    #   参数：
+    #       argv[1]: 错误类型
+    #       argv[2]: 造成错误的输入
+
+    color_var
+    switch $argv[1]
+        case missing_parameter
+            echo -e $r'missing parameter "'$argv[2]'"!'$h
+            doc_help
+        case wrong_option
+            echo -e $r'invalid option "'$argv[2]'"!'$h
+            doc_help
+        case wrong_parameter
+            echo -e $r'unexpected parameter "'$argv[2]'"!'$h
+            doc_help
+        case '*'
+            echo -e $r'unknown error type!'$h
+            exit 0
+    end
+end
+
+function install_process
+
+    # arch 安装流程
+
+    pacman_set
+    local_set
+    swap_file
+    pkg_install
+    uz_config
+    config_copy
+    config_write
+    flypy_inst
+    auto_start
+    chown_home
+
+    exit 0
+end
+
 function main
+
+    # 主程序
+
     input_parameters $argv
     system_check
     init_var

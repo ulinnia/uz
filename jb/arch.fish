@@ -610,13 +610,13 @@ function input_option
 
     switch $argv
         case -h --help
-            set --prepend action 'doc_help'
+            set --global action 'doc_help'
         case -i --install
             set --prepend var_stack 'passwd_root' 'passwd_user'
-            set --prepend action 'install_process'
+            set --global action 'install_process'
         case -l --live
             set --prepend var_stack 'passwd_root' 'passwd_user'
-            set --prepend action 'live_install'
+            set --global action 'live_install'
         case '*'
             error wrong_option $argv
     end
@@ -627,11 +627,11 @@ function input_parameters
     # 输入参数
     #
     #   参数：
-    #       action: 解析完参数之后的特殊行为，由选项参数决定
     #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
     #                  由这个 '变量堆' 来存放必要的参数名字。
     #       argv: 所有的输入参数
     #       input: 单个输入参数
+    #       action: 解析完参数之后的特殊行为，由选项参数宣告
     #
     #   流程：
     #       先把所有参数分成单一的参数以进行解读。
@@ -639,8 +639,9 @@ function input_parameters
     #       如果参数开头不为 '-'，则作为普通参数，
     #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
     #       检查是否缺少必要参数。
+    #       删除 var_stack 变量以节省内存
+    #       如果 action 变量长度非零则执行
 
-    set --global action 'no'
     set --global var_stack 'overflow'
 
     for input in $argv
@@ -649,22 +650,21 @@ function input_parameters
         else
             if test $var_stack[1] = 'overflow'
                 error wrong_parameter $input
-            else
-                set --global $var_stack[1] $option
-                set --erase var_stack[1]
             end
+            set --global $var_stack[1] $input
+            set --erase var_stack[1]
         end
     end
 
-    if test $var_stack[1] = 'overflow'
-        set --erase var_stack
-    else
+    if test $var_stack[1] != 'overflow'
         set --erase var_stack[-1]
         error missing_parameter $var_stack
     end
 
-    if test $action[1] != 'no'
-        $action[1]
+    set --erase var_stack
+
+    if test -n "$action"
+        $action
     end
 end
 

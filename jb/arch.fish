@@ -675,6 +675,7 @@ function error
     #       argv[1]: 错误类型
     #       argv[2]: 造成错误的输入
 
+    echo
     switch $argv[1]
         case missing_parameter
             echo -e $r'missing parameter "'$h$argv[2]$r'"!'$h

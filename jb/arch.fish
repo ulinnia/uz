@@ -636,11 +636,11 @@ function input_parameters
     #       action: 参数解析完后执行的命令，由选项参数宣告
     #
     #   流程：
-    #       先把所有参数分成单一的参数以进行解读。
-    #       如果参数的开头为 '-'，则作为选项参数进行匹配。
-    #       如果参数开头不为 '-'，则作为普通参数，
-    #           以 变量堆 的第一个名字进行宣告，并移除已使用的 变量堆 名字。
-    #       检查是否缺少必要参数。
+    #       先把所有参数分成单一的参数以进行解读
+    #       如果参数的开头为 '-'，则当作选项参数进行匹配
+    #           否则当作普通参数，以 '变量堆' 的第一个名字进行宣告，
+    #           并移除已使用的 '变量堆' 名字。
+    #       检查是否缺少必要参数
     #       删除 var_stack 变量以节省内存
     #       如果 action 变量存在则执行
 
@@ -667,6 +667,7 @@ function input_parameters
 
     if set -q action
         $action
+        exit 0
     end
 end
 
@@ -691,12 +692,11 @@ function error
             doc_help
         case '*'
             echo -e $r'unknown error type!'$h
-            exit 0
     end
+    exit 1
 end
 
 function live_install
-    exit 0
 end
 
 function install_process
@@ -713,8 +713,6 @@ function install_process
     flypy_inst
     auto_start
     chown_home
-
-    exit 0
 end
 
 function main

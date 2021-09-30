@@ -588,7 +588,6 @@ function doc_help
         echo '  -h --help     显示此帮助消息。'
         echo '  -i --install  本地化和配置 arch.'
         echo '  -l --live     从临时环境安装基本 arch.'
-        echo
     else
         echo
         echo -e $g'a script to install and configure arch software'$h
@@ -597,7 +596,6 @@ function doc_help
         echo '  -h --help     Show this help message.'
         echo '  -i --install  localization and configuration arch.'
         echo '  -l --live     install the base arch from the live environment.'
-        echo
     end
 
     exit 0

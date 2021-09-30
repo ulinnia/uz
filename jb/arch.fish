@@ -578,22 +578,22 @@ function doc_help
     #   参数：
     #       LANG: 系统设定的语言
 
-    if echo $LANG | grep -q '^zh'
-        echo
-        echo -e $g'用于安装和配置 arch 的脚本'$h
-        echo
-        echo '可选参数：'
-        echo '  -h --help     显示此帮助消息。'
-        echo '  -i --install  本地化和配置 arch.'
-        echo '  -l --live     从临时环境安装基本 arch.'
-    else
-        echo
-        echo -e $g'a script to install and configure arch software'$h
-        echo
-        echo 'Optional arguments:'
-        echo '  -h --help     Show this help message.'
-        echo '  -i --install  localization and configuration arch.'
-        echo '  -l --live     install the base arch from the live environment.'
+    echo
+    switch (echo $LANG | grep -o '^..')
+        case zh
+            echo -e $g'用于安装和配置 arch 的脚本'$h
+            echo
+            echo '可选参数：'
+            echo '  -h --help     显示此帮助消息。'
+            echo '  -i --install  本地化和配置 arch.'
+            echo '  -l --live     从临时环境安装基本 arch.'
+        case '*'
+            echo -e $g'a script to install and configure arch software'$h
+            echo
+            echo 'Optional arguments:'
+            echo '  -h --help     Show this help message.'
+            echo '  -i --install  localization and configuration arch.'
+            echo '  -l --live     install the base arch from the live environment.'
     end
 end
 

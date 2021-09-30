@@ -30,9 +30,27 @@ function system_var
     set --global disk_type 'gpt'
     set --global git_url 'https://github.com/rraayy246/uz'
 
-    set --global host_name (cat /etc/hostname)
-    set --global user_name (ls /home | head -n 1)
-    set --global uz_dir '/home/'$user_name'/a/uz'
+    if test $action = 'install_process'
+        set --global host_name (cat /etc/hostname)
+        set --global user_name (ls /home | head -n 1)
+        set --global uz_dir '/home/'$user_name'/a/uz'
+    end
+end
+
+function user_var
+
+    # 使用者输入变量
+    #
+    #   参数：
+    #       user_name: 用户名称
+    #       host_name: 主机名
+    #       root_pass: 根用户密码
+    #       user_pass: 用户密码
+
+    read --global -p 'echo $r"enter your "$h"username: "' user_name
+    read --global -p 'echo $r"enter your "$h"hostname: "' host_name
+    read --global --silent -p 'echo $r"enter your "$h"root passwd: "' root_pass
+    read --global --silent -p 'echo $r"enter your "$h"user passwd: "' user_pass
 end
 
 function pkg_var
@@ -198,15 +216,7 @@ function system_check
     #       gpu 提供商
 
     if test "$USER" != 'root'
-        echo -e $r'please use super user to execute this script.'$h
-        echo -e $r'use command: "sudo su" and try again.'$h
-        exit 1
-    end
-
-    if test (systemd-detect-virt) = 'none'
-        set --global not_virt 1
-    else
-        set --global not_virt 0
+        error not_root
     end
 
     if test -d /sys/firmware/efi
@@ -215,21 +225,29 @@ function system_check
         set --global bios_type 'bios'
     end
 
-    set --global root_part (df | awk '$6=="/" {print $1}')
-
-    if test $not_virt
-        if lscpu | grep -q 'AuthenticAMD'
-            set --global cpu_vendor 'amd'
-        else if lscpu | grep -q 'GenuineIntel'
-            set --global cpu_vendor 'intel'
+    if test $action = 'install_process'
+        if test (systemd-detect-virt) = 'none'
+            set --global not_virt 1
+        else
+            set --global not_virt 0
         end
 
-        if lspci | grep 'VGA' | grep -q 'AMD'
-            set --global gpu_vendor 'amd'
-        else if lspci | grep 'VGA' | grep -q 'Intel'
-            set --global gpu_vendor 'intel'
-        else if lspci | grep 'VGA' | grep -q 'NVIDIA'
-            set --global gpu_vendor 'nvidia'
+        set --global root_part (df | awk '$6=="/" {print $1}')
+
+        if test $not_virt
+            if lscpu | grep -q 'AuthenticAMD'
+                set --global cpu_vendor 'amd'
+            else if lscpu | grep -q 'GenuineIntel'
+                set --global cpu_vendor 'intel'
+            end
+
+            if lspci | grep 'VGA' | grep -q 'AMD'
+                set --global gpu_vendor 'amd'
+            else if lspci | grep 'VGA' | grep -q 'Intel'
+                set --global gpu_vendor 'intel'
+            else if lspci | grep 'VGA' | grep -q 'NVIDIA'
+                set --global gpu_vendor 'nvidia'
+            end
         end
     end
 end
@@ -680,6 +698,9 @@ function error
         case missing_parameter
             echo -e $r'missing parameter "'$h$argv[2]$r'"!'$h
             doc_help
+        case not_root
+            echo -e $r'please use super user to execute this script.'$h
+            echo -e $r'use command: "sudo su" and try again.'$h
         case wrong_option
             echo -e $r'invalid option "'$h$argv[2]$r'"!'$h
             doc_help

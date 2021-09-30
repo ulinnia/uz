@@ -263,6 +263,7 @@ function options
             config_write
             flypy_inst
             auto_start
+            chown_home
             exit 0
     end
 end
@@ -598,6 +599,10 @@ function auto_start
     systemctl disable $stop_auto
     systemctl mask $mask_auto
     systemctl enable --now $start_auto
+end
+
+function chown_home
+    chown -R $user_name:wheel /home/$user_name
 end
 
 # 主程序

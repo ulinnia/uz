@@ -614,6 +614,9 @@ function input_option
         case -i --install
             set --prepend var_stack 'passwd_root' 'passwd_user'
             install_process
+        case -l --live
+            set --prepend var_stack 'passwd_root' 'passwd_user'
+            exit 0
         case '*'
             error wrong_option $argv
     end

@@ -578,8 +578,6 @@ function doc_help
     #   参数：
     #       LANG: 系统设定的语言
 
-    color_var
-
     if echo $LANG | grep -q '^zh'
         echo
         echo -e $g'用于安装和配置 arch 的脚本'$h
@@ -597,8 +595,6 @@ function doc_help
         echo '  -i --install  localization and configuration arch.'
         echo '  -l --live     install the base arch from the live environment.'
     end
-
-    exit 0
 end
 
 function input_option
@@ -679,20 +675,20 @@ function error
     #       argv[1]: 错误类型
     #       argv[2]: 造成错误的输入
 
-    color_var
     switch $argv[1]
         case missing_parameter
-            echo -e $r'missing parameter "'$argv[2]'"!'$h
+            echo -e $r'missing parameter "'$h$argv[2]$r'"!'$h
             doc_help
         case wrong_option
-            echo -e $r'invalid option "'$argv[2]'"!'$h
+            echo -e $r'invalid option "'$h$argv[2]$r'"!'$h
             doc_help
         case wrong_parameter
-            echo -e $r'unexpected parameter "'$argv[2]'"!'$h
+            echo -e $r'unexpected parameter "'$h$argv[2]$r'"!'$h
             doc_help
         case '*'
             echo -e $r'unknown error type!'$h
     end
+
     exit 1
 end
 
@@ -719,6 +715,7 @@ function main
 
     # 主程序
 
+    color_var
     input_parameters $argv
     system_check
     init_var

@@ -616,7 +616,7 @@ function input_option
             set --append action install_process
         case -l --live
             set --prepend var_stack 'passwd_root' 'passwd_user'
-            exit 0
+            set --append action live_install
         case '*'
             error wrong_option $argv
     end
@@ -627,7 +627,7 @@ function input_parameters
     # 输入参数
     #
     #   参数：
-    #       action: 解析完参数之后的行为，由选项参数决定
+    #       action: 解析完参数之后的特殊行为，由选项参数决定
     #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
     #                  由这个 '变量堆' 来存放必要的参数名字。
     #       argv: 所有的输入参数
@@ -689,6 +689,10 @@ function error
             echo -e $r'unknown error type!'$h
             exit 0
     end
+end
+
+function live_install
+    exit 0
 end
 
 function install_process

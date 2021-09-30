@@ -1,69 +1,147 @@
 #!/usr/bin/env fish
 
-function system_check
-
-    # 系统检查
-    #
-    #   是否为根用户
-    #
-    #   是否为虚拟机
-    #
-    #   引导程序类型
-    #
-    #   根分区位置
-    #
-    #   如果不是虚拟机
-    #       cpu 提供商
-    #
-    #       gpu 提供商
-
-    if test "$USER" != 'root'
-        echo -e $r'please use super user to execute this script.'$h
-        echo -e $r'use command: "sudo su" and try again.'$h
-        exit 1
-    end
-
-    if test (systemd-detect-virt) = 'none'
-        set -g not_virt 1
-    else
-        set -g not_virt 0
-    end
-
-    if test -d /sys/firmware/efi
-        set -g bios_type 'uefi'
-    else
-        set -g bios_type 'bios'
-    end
-
-    set -g root_part (df | awk '$6=="/" {print $1}')
-
-    if test $not_virt
-        if lscpu | grep -q 'AuthenticAMD'
-            set -g cpu_vendor 'amd'
-        else if lscpu | grep -q 'GenuineIntel'
-            set -g cpu_vendor 'intel'
-        end
-
-        if lspci | grep 'VGA' | grep -q 'AMD'
-            set -g gpu_vendor 'amd'
-        else if lspci | grep 'VGA' | grep -q 'Intel'
-            set -g gpu_vendor 'intel'
-        else if lspci | grep 'VGA' | grep -q 'NVIDIA'
-            set -g gpu_vendor 'nvidia'
-        end
-    end
-end
-
 function color_var
 
     # 颜色变量
 
-    set -g r '\033[1;31m'  # 红
-    set -g g '\033[1;32m'  # 绿
-    set -g y '\033[1;33m'  # 黄
-    set -g b '\033[1;36m'  # 蓝
-    set -g w '\033[1;37m'  # 白
-    set -g h '\033[0m'     # 后缀
+    set --global r '\033[1;31m'  # 红
+    set --global g '\033[1;32m'  # 绿
+    set --global y '\033[1;33m'  # 黄
+    set --global b '\033[1;36m'  # 蓝
+    set --global w '\033[1;37m'  # 白
+    set --global h '\033[0m'     # 后缀
+end
+
+function doc_help
+
+    # 帮助文档
+    #
+    #   参数：
+    #       LANG: 系统设定的语言
+
+    color_var
+
+    if echo $LANG | grep '^zh'
+        echo -e $g'用于安装和配置 arch 的脚本'$h
+        echo
+        echo '可选参数：'
+        echo '  -h --help     显示此帮助消息。'
+        echo '  -i --install  本地化和配置 arch.'
+        echo '  -l --live     从临时环境安装基本 arch.'
+    else
+        echo -e $g'a script to install and configure arch software'$h
+        echo
+        echo 'Optional arguments:'
+        echo '  -h --help     Show this help message.'
+        echo '  -i --install  localization and configuration arch.'
+        echo '  -l --live     install the base arch from the live environment.'
+    end
+
+    exit 0
+end
+
+function input_option
+
+    # 选项参数
+    #
+    #   参数：
+    #       argv: 输入的选项参数
+
+    switch $argv
+        case -h --help
+            doc_help
+        case -i --install
+            set --prepend var_stack 'passwd_root' 'passwd_user'
+            install_process
+        case '*'
+            error wrong_option $argv
+    end
+end
+
+function input_parameters
+
+    # 输入参数
+    #
+    #   参数：
+    #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
+    #                  由这个 '变量堆' 来存放必要的参数名字。
+    #       argv: 所有的输入参数
+    #       input: 单个输入参数
+    #
+    #   流程：
+    #       先把所有参数分成单一的参数以进行解读。
+    #       如果参数的开头为 '-'，则作为选项参数进行匹配。
+    #       如果参数开头不为 '-'，则作为普通参数，
+    #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
+    #       检查是否缺少必要参数。
+
+    set --global var_stack overflow
+
+    for input in (count $argv)
+        if echo $input | grep -q '^-'
+            input_option $input
+        else
+            if test $var_stack[1] = 'overflow'
+                error wrong_parameter $input
+            else
+                set --global $var_stack[1] $option
+                set --erase var_stack[1]
+            end
+        end
+    end
+
+    if test $var_stack[1] = 'overflow'
+        set --erase var_stack
+    else
+        set --erase var_stack[-1]
+        error missing_parameter $var_stack
+    end
+end
+
+function error
+
+    # 输出错误类型
+    #
+    #   参数：
+    #       argv[1]: 错误类型
+    #       argv[2]: 造成错误的输入
+
+    color_var
+    switch $argv[1]
+        case missing_parameter
+            echo -e $r'missing parameter "'$argv[2]'"!'$h
+            echo
+            doc_help
+        case wrong_option
+            echo -e $r'invalid option "'$argv[2]'"!'$h
+            echo
+            doc_help
+        case wrong_parameter
+            echo -e $r'unexpected parameters "'$argv[2]'"!'$h
+            echo
+            doc_help
+        case '*'
+            echo -e $r'unknown error type!'$h
+            exit 0
+    end
+end
+
+function install_process
+
+    # arch 安装流程
+
+    pacman_set
+    local_set
+    swap_file
+    pkg_install
+    uz_config
+    config_copy
+    config_write
+    flypy_inst
+    auto_start
+    chown_home
+
+    exit 0
 end
 
 function system_var
@@ -80,13 +158,13 @@ function system_var
     #   用户名：第一个匹配的用户
     #   uz 目录存放地址
 
-    set -g area 'Asia/Shanghai'
-    set -g disk_type 'gpt'
-    set -g git_url 'https://github.com/rraayy246/uz'
+    set --global area 'Asia/Shanghai'
+    set --global disk_type 'gpt'
+    set --global git_url 'https://github.com/rraayy246/uz'
 
-    set -g host_name (cat /etc/hostname)
-    set -g user_name (ls /home | head -n 1)
-    set -g uz_dir '/home/'$user_name'/a/uz'
+    set --global host_name (cat /etc/hostname)
+    set --global user_name (ls /home | head -n 1)
+    set --global uz_dir '/home/'$user_name'/a/uz'
 end
 
 function pkg_var
@@ -114,23 +192,23 @@ function pkg_var
 
     switch $bios_type
         case uefi
-            set -g boot_pkg efibootmgr grub os-prober
+            set --global boot_pkg efibootmgr grub os-prober
         case bios
-            set -g boot_pkg grub os-prober
+            set --global boot_pkg grub os-prober
     end
-    set -g base_pkg btrfs-progs fish dhcpcd reflector vim
+    set --global base_pkg btrfs-progs fish dhcpcd reflector vim
 
-    set -g network_pkg curl git openssh wget wireguard-tools
-    set -g terminal_pkg neovim starship
-    set -g file_pkg lf p7zip snapper
-    set -g sync_pkg chrony rsync
-    set -g search_pkg fzf mlocate tree highlight
-    set -g new_search_pkg fd ripgrep bat tldr exa
-    set -g system_pkg fcron htop man pacman-contrib pkgstats
-    set -g maintain_pkg arch-install-scripts dosfstools parted
-    set -g security_pkg dnscrypt-proxy nftables
-    set -g depend_pkg lua perl-file-mimeinfo qrencode zsh
-    set -g aur_pkg yay
+    set --global network_pkg curl git openssh wget wireguard-tools
+    set --global terminal_pkg neovim starship
+    set --global file_pkg lf p7zip snapper
+    set --global sync_pkg chrony rsync
+    set --global search_pkg fzf mlocate tree highlight
+    set --global new_search_pkg fd ripgrep bat tldr exa
+    set --global system_pkg fcron htop man pacman-contrib pkgstats
+    set --global maintain_pkg arch-install-scripts dosfstools parted
+    set --global security_pkg dnscrypt-proxy nftables
+    set --global depend_pkg lua perl-file-mimeinfo qrencode zsh
+    set --global aur_pkg yay
 
     if test $not_virt
         desktop_pkg_var
@@ -163,35 +241,35 @@ function desktop_pkg_var
 
     switch $cpu_vendor
         case amd
-            set -g ucode_pkg amd-ucode
+            set --global ucode_pkg amd-ucode
         case intel
-            set -g ucode_pkg intel-ucode
+            set --global ucode_pkg intel-ucode
     end
 
     switch $gpu_vendor
         case amd
-            set -g gpu_pkg xf86-video-amdgpu
+            set --global gpu_pkg xf86-video-amdgpu
         case intel
-            set -g gpu_pkg xf86-video-intel
+            set --global gpu_pkg xf86-video-intel
         case nvidia
-            set -g gpu_pkg xf86-video-nouveau
+            set --global gpu_pkg xf86-video-nouveau
     end
 
-    set -g audio_pkg alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
-    set -g bluetooth_pkg bluez bluez-utils blueman
-    set -g touch_pkg libinput
+    set --global audio_pkg alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+    set --global bluetooth_pkg bluez bluez-utils blueman
+    set --global touch_pkg libinput
 
-    set -g driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
-    set -g manager_pkg networkmanager tlp
-    set -g display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
-    set -g desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
-    set -g browser_pkg firefox firefox-i18n-zh-cn
-    set -g media_pkg imv vlc
-    set -g input_pkg fcitx5-im fcitx5-rime
-    set -g control_pkg brightnessctl playerctl lm_sensors upower
-    set -g office_pkg calibre libreoffice-fresh-zh-cn
-    set -g font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
-    set -g program_pkg bash-language-server clang nodejs rust yarn
+    set --global driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
+    set --global manager_pkg networkmanager tlp
+    set --global display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
+    set --global desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
+    set --global browser_pkg firefox firefox-i18n-zh-cn
+    set --global media_pkg imv vlc
+    set --global input_pkg fcitx5-im fcitx5-rime
+    set --global control_pkg brightnessctl playerctl lm_sensors upower
+    set --global office_pkg calibre libreoffice-fresh-zh-cn
+    set --global font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
+    set --global program_pkg bash-language-server clang nodejs rust yarn
 end
 
 function auto_start_var
@@ -208,14 +286,14 @@ function auto_start_var
     #   否则
     #       自启动：DHCP
 
-    set -g mask_auto systemd-resolved
-    set -g start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
+    set --global mask_auto systemd-resolved
+    set --global start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
 
     if test $not_virt
-        set -g stop_auto $stop_auto dhcpcd
-        set -g start_auto $start_auto bluetooth NetworkManager tlp
+        set --global stop_auto $stop_auto dhcpcd
+        set --global start_auto $start_auto bluetooth NetworkManager tlp
     else
-        set -g start_auto $start_auto dhcpcd
+        set --global start_auto $start_auto dhcpcd
     end
 end
 
@@ -234,37 +312,57 @@ function init_var
     auto_start_var
 end
 
-function doc_help
+function system_check
 
-    # 帮助文档
+    # 系统检查
+    #
+    #   是否为根用户
+    #
+    #   是否为虚拟机
+    #
+    #   引导程序类型
+    #
+    #   根分区位置
+    #
+    #   如果不是虚拟机
+    #       cpu 提供商
+    #
+    #       gpu 提供商
 
-    echo $g'a script to install and configure arch software'$h
-    echo
-    echo 'Optional arguments:'
-    echo '  -h --help     Show this help message and exit.'
-    echo '  -i --install  install and configure arch and exit.'
-end
+    if test "$USER" != 'root'
+        echo -e $r'please use super user to execute this script.'$h
+        echo -e $r'use command: "sudo su" and try again.'$h
+        exit 1
+    end
 
-function options
+    if test (systemd-detect-virt) = 'none'
+        set --global not_virt 1
+    else
+        set --global not_virt 0
+    end
 
-    # 选项功能
+    if test -d /sys/firmware/efi
+        set --global bios_type 'uefi'
+    else
+        set --global bios_type 'bios'
+    end
 
-    switch $argv[1]
-        case -h --help
-            doc_help
-            exit 0
-        case -i --install
-            pacman_set
-            local_set
-            swap_file
-            pkg_install
-            uz_config
-            config_copy
-            config_write
-            flypy_inst
-            auto_start
-            chown_home
-            exit 0
+    set --global root_part (df | awk '$6=="/" {print $1}')
+
+    if test $not_virt
+        if lscpu | grep -q 'AuthenticAMD'
+            set --global cpu_vendor 'amd'
+        else if lscpu | grep -q 'GenuineIntel'
+            set --global cpu_vendor 'intel'
+        end
+
+        if lspci | grep 'VGA' | grep -q 'AMD'
+            set --global gpu_vendor 'amd'
+        else if lspci | grep 'VGA' | grep -q 'Intel'
+            set --global gpu_vendor 'intel'
+        else if lspci | grep 'VGA' | grep -q 'NVIDIA'
+            set --global gpu_vendor 'nvidia'
+        end
     end
 end
 
@@ -607,9 +705,9 @@ end
 
 # 主程序
 function main
+    input_parameters $argv
     system_check
     init_var
-    options $argv
     pkg_install
     config_copy
 end

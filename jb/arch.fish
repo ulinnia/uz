@@ -610,13 +610,13 @@ function input_option
 
     switch $argv
         case -h --help
-            doc_help
+            set --prepend action 'doc_help'
         case -i --install
             set --prepend var_stack 'passwd_root' 'passwd_user'
-            set --append action install_process
+            set --prepend action 'install_process'
         case -l --live
             set --prepend var_stack 'passwd_root' 'passwd_user'
-            set --append action live_install
+            set --prepend action 'live_install'
         case '*'
             error wrong_option $argv
     end
@@ -640,8 +640,8 @@ function input_parameters
     #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
     #       检查是否缺少必要参数。
 
-    set --global action ''
-    set --global var_stack overflow
+    set --global action 'no'
+    set --global var_stack 'overflow'
 
     for input in $argv
         if echo $input | grep -q '^-'
@@ -663,7 +663,9 @@ function input_parameters
         error missing_parameter $var_stack
     end
 
-    $action
+    if test $action[1] != 'no'
+        $action[1]
+    end
 end
 
 function error

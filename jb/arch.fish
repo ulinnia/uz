@@ -607,6 +607,8 @@ function input_option
     #
     #   参数：
     #       argv: 输入的选项参数
+    #       action: 参数解析完后执行的命令
+    #       var_stack: 选项参数需要的额外变量
 
     switch $argv
         case -h --help
@@ -631,7 +633,7 @@ function input_parameters
     #                  由这个 '变量堆' 来存放必要的参数名字。
     #       argv: 所有的输入参数
     #       input: 单个输入参数
-    #       action: 解析完参数之后的特殊行为，由选项参数宣告
+    #       action: 参数解析完后执行的命令，由选项参数宣告
     #
     #   流程：
     #       先把所有参数分成单一的参数以进行解读。
@@ -640,7 +642,7 @@ function input_parameters
     #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
     #       检查是否缺少必要参数。
     #       删除 var_stack 变量以节省内存
-    #       如果 action 变量长度非零则执行
+    #       如果 action 变量存在则执行
 
     set --global var_stack 'overflow'
 
@@ -663,7 +665,7 @@ function input_parameters
 
     set --erase var_stack
 
-    if test -n "$action"
+    if set -q action
         $action
     end
 end

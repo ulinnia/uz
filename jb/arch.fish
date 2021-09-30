@@ -613,7 +613,7 @@ function input_option
             doc_help
         case -i --install
             set --prepend var_stack 'passwd_root' 'passwd_user'
-            install_process
+            set --append action install_process
         case -l --live
             set --prepend var_stack 'passwd_root' 'passwd_user'
             exit 0
@@ -627,6 +627,7 @@ function input_parameters
     # 输入参数
     #
     #   参数：
+    #       action: 解析完参数之后的行为，由选项参数决定
     #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
     #                  由这个 '变量堆' 来存放必要的参数名字。
     #       argv: 所有的输入参数
@@ -639,6 +640,7 @@ function input_parameters
     #           以 变量堆的第一个名字进行宣告，并移除已使用的 变量堆 名字。
     #       检查是否缺少必要参数。
 
+    set --global action ''
     set --global var_stack overflow
 
     for input in $argv
@@ -660,6 +662,8 @@ function input_parameters
         set --erase var_stack[-1]
         error missing_parameter $var_stack
     end
+
+    $action
 end
 
 function error

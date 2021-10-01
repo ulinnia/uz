@@ -16,65 +16,72 @@ function system_var
 
     # 系统变量
     #
-    #   地理区域
-    #   分区类型
-    #   仓库地址
-    #
-    # 用户变量
-    #
-    #   主机名
-    #   用户名：第一个匹配的用户
-    #   uz 目录存放地址
+    #   变量：
+    #       area:       地理区域
+    #       disk_type:  分区类型
+    #       git_url:    仓库地址
 
-    set --global area 'Asia/Shanghai'
-    set --global disk_type 'gpt'
-    set --global git_url 'https://github.com/rraayy246/uz'
-
-    if test $action = 'install_process'
-        set --global host_name (cat /etc/hostname)
-        set --global user_name (ls /home | head -n 1)
-        set --global uz_dir '/home/'$user_name'/a/uz'
-    end
+    set --global area       'Asia/Shanghai'
+    set --global disk_type  'gpt'
+    set --global git_url    'https://github.com/rraayy246/uz'
 end
 
 function user_var
 
-    # 使用者输入变量
+    # 用户变量
     #
-    #   参数：
-    #       user_name: 用户名称
-    #       host_name: 主机名
-    #       root_pass: 根用户密码
-    #       user_pass: 用户密码
+    #   变量：
+    #       user_name:  用户名称
+    #       host_name:  主机名
+    #       root_pass:  根用户密码
+    #       user_pass:  用户密码
+    #       uz_dir:     uz 目录存放地址
+    #       user_mkdir: 用户新建目录
+    #
+    #   如果处于 临时环境流程，则由用户手动输入，
+    #   否则自动判断。
 
-    read --global -p 'echo $r"enter your "$h"username: "' user_name
-    read --global -p 'echo $r"enter your "$h"hostname: "' host_name
-    read --global --silent -p 'echo $r"enter your "$h"root passwd: "' root_pass
-    read --global --silent -p 'echo $r"enter your "$h"user passwd: "' user_pass
+    if test $action = 'live_install'
+        read --global -p            'echo -e $r"enter your "$h"username: "'     user_name
+        read --global -p            'echo -e $r"enter your "$h"hostname: "'     host_name
+        read --global -p --silent   'echo -e $r"enter your "$h"root passwd: "'  root_pass
+        read --global -p --silent   'echo -e $r"enter your "$h"user passwd: "'  user_pass
+    else
+        set --global host_name  (cat /etc/hostname)
+        set --global user_name  (ls /home | head -n 1)
+        set --global uz_dir     "/home/$user_name/a/uz"
+        set --global user_mkdir 'a/vp/bv' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
+    end
 end
 
 function pkg_var
 
     # 软件包变量
     #
-    #   引导程序
-    #   必要：文件系统，壳，DHCP，镜像排序，文本编辑
+    #   变量：
+    #       base_pkg:   基本：文件系统，壳，DHCP，镜像排序，文本编辑
+    #       bios_type:  引导程序类型
+    #       boot_pkg:   引导程序包
     #
-    #   网络：下载管理，文件传输
-    #   终端：文本编辑，终端提示符
-    #   文件操作：文件管理，压缩，快照管理
-    #   同步：时间同步，文件同步
-    #   查找：查找，高亮
-    #   新查找
-    #   系统：定时任务，系统监视，手册，软件包缓存，软件统计
-    #   维护：arch 安装脚本，兼容 fat32，分区工具
-    #   软件：手册，软件包缓存，软件统计
-    #   安全：DNS 加密，防火墙
-    #   特殊依赖：lua 语言，文件类型，二维码
-    #   AUR 软件
+    #       network_pkg:    网络：下载管理，文件传输
+    #       terminal_pkg:   终端：文本编辑，终端提示符
+    #       file_pkg:       文件操作：文件管理，压缩，快照管理
+    #       sync_pkg:       同步：时间同步，文件同步
+    #       search_pkg:     查找：查找，高亮
+    #       new_search_pkg: 新查找
+    #       system_pkg:     系统：定时任务，系统监视，手册，软件包缓存，软件统计
+    #       maintain_pkg:   维护：arch 安装脚本，兼容 fat32，分区工具
+    #       security_pkg:   安全：DNS 加密，防火墙
+    #       depend_pkg:     特殊依赖：lua 语言，文件类型，二维码
+    #       aur_pkg:        AUR 软件
     #
-    #   如果不是虚拟机
-    #       桌面软件包变量
+    #   如果处于 临时环境流程，则宣告 基本包 后返回
+    #   如果不是虚拟机，则加载 图形软件包变量
+
+    if test $action = 'live_install'
+        set --global base_pkg btrfs-progs fish dhcpcd reflector vim
+        return
+    end
 
     switch $bios_type
         case uefi
@@ -82,48 +89,49 @@ function pkg_var
         case bios
             set --global boot_pkg grub os-prober
     end
-    set --global base_pkg btrfs-progs fish dhcpcd reflector vim
 
-    set --global network_pkg curl git openssh wget wireguard-tools
-    set --global terminal_pkg neovim starship
-    set --global file_pkg lf p7zip snapper
-    set --global sync_pkg chrony rsync
-    set --global search_pkg fzf mlocate tree highlight
+    set --global network_pkg    curl git openssh wget wireguard-tools
+    set --global terminal_pkg   neovim starship
+    set --global file_pkg       lf p7zip snapper
+    set --global sync_pkg       chrony rsync
+    set --global search_pkg     fzf mlocate tree highlight
     set --global new_search_pkg fd ripgrep bat tldr exa
-    set --global system_pkg fcron htop man pacman-contrib pkgstats
-    set --global maintain_pkg arch-install-scripts dosfstools parted
-    set --global security_pkg dnscrypt-proxy nftables
-    set --global depend_pkg lua perl-file-mimeinfo qrencode zsh
-    set --global aur_pkg yay
+    set --global system_pkg     fcron htop man pacman-contrib pkgstats
+    set --global maintain_pkg   arch-install-scripts dosfstools parted
+    set --global security_pkg   dnscrypt-proxy nftables
+    set --global depend_pkg     lua perl-file-mimeinfo qrencode zsh
+    set --global aur_pkg        yay
 
     if test $not_virt
-        desktop_pkg_var
+        graphic_pkg_var
     end
 end
 
-function desktop_pkg_var
+function graphic_pkg_var
 
-    # 桌面软件包变量
+    # 图形软件包变量
     #
-    #   cpu 微码
+    #   变量：
+    #       cpu_vendor: cpu 提供商
+    #       ucode_pkg:  cpu 微码
+    #       gpu_vendor: gpu 提供商
+    #       gpu_pkg:    gpu 驱动
     #
-    #   gpu 驱动
+    #       audio_pkg:      声音驱动
+    #       bluetooth_pkg:  蓝牙驱动
+    #       touch_pkg:      触摸板驱动
     #
-    #   声音驱动
-    #   蓝牙驱动
-    #   触摸板驱动
-    #
-    #   整合驱动
-    #   管理：网络管理，电源管理
-    #   显示：显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
-    #   桌面：终端模拟，状态栏，截图，程序菜单，Qt 5 支持
-    #   浏览器
-    #   多媒体：图像查看，视频播放
-    #   输入法
-    #   桌面控制：亮度控制，播放控制，硬件监视，电源工具
-    #   办公：电子书阅读，办公软件套装，帮助手册
-    #   字体
-    #   编程语言
+    #       driver_pkg:     整合驱动
+    #       manager_pkg:    管理：网络管理，电源管理
+    #       display_pkg:    显示：显示服务，平铺窗口，壁纸，超时，锁屏，兼容 Xorg
+    #       desktop_pkg:    桌面：终端模拟，状态栏，截图，程序菜单，Qt 5 支持
+    #       browser_pkg:    浏览器
+    #       media_pkg:      多媒体：图像查看，视频播放
+    #       input_pkg:      输入法
+    #       control_pkg:    桌面控制：亮度控制，播放控制，硬件监视，电源工具
+    #       office_pkg:     办公：电子书阅读，办公软件套装，帮助手册
+    #       font_pkg:       字体
+    #       program_pkg:    编程语言
 
     switch $cpu_vendor
         case amd
@@ -141,79 +149,79 @@ function desktop_pkg_var
             set --global gpu_pkg xf86-video-nouveau
     end
 
-    set --global audio_pkg alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
-    set --global bluetooth_pkg bluez bluez-utils blueman
-    set --global touch_pkg libinput
+    set audio_pkg       alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+    set bluetooth_pkg   bluez bluez-utils blueman
+    set touch_pkg       libinput
 
-    set --global driver_pkg $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
-    set --global manager_pkg networkmanager tlp
-    set --global display_pkg wayland sway swaybg swayidle swaylock xorg-xwayland
-    set --global desktop_pkg alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
-    set --global browser_pkg firefox firefox-i18n-zh-cn
-    set --global media_pkg imv vlc
-    set --global input_pkg fcitx5-im fcitx5-rime
-    set --global control_pkg brightnessctl playerctl lm_sensors upower
-    set --global office_pkg calibre libreoffice-fresh-zh-cn
-    set --global font_pkg noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
-    set --global program_pkg bash-language-server clang nodejs rust yarn
+    set --global driver_pkg     $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
+    set --global manager_pkg    networkmanager tlp
+    set --global display_pkg    wayland sway swaybg swayidle swaylock xorg-xwayland
+    set --global desktop_pkg    alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
+    set --global browser_pkg    firefox firefox-i18n-zh-cn
+    set --global media_pkg      imv vlc
+    set --global input_pkg      fcitx5-im fcitx5-rime
+    set --global control_pkg    brightnessctl playerctl lm_sensors upower
+    set --global office_pkg     calibre libreoffice-fresh-zh-cn
+    set --global font_pkg       noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
+    set --global program_pkg    bash-language-server clang nodejs rust yarn
 end
 
 function auto_start_var
 
     # 自启动变量
     #
-    #   禁用：不安全 DNS
-    #   自启动：时间同步，DNS 加密，定时任务，防火墙，软件包缓存，软件统计，ssh
+    #   变量：
+    #       mask_auto:  禁用：不安全 DNS
+    #       auto_start: 自启动：时间同步，DNS 加密，定时任务，防火墙，软件包缓存，软件统计，ssh
+    #       stop_auto:  不启动
     #
-    #   如果不是虚拟机
-    #       不启动：DHCP
-    #       自启动：蓝牙，网络管理，电源管理
-    #           网络管理 替换掉 DHCP，同时打开会出问题。
-    #   否则
-    #       自启动：DHCP
+    #   如果不是虚拟机，则网络管理 替换掉 DHCP，同时打开两者会出问题，
+    #   并自启动：蓝牙，网络管理，电源管理
+    #   否则自启动：DHCP
 
-    set --global mask_auto systemd-resolved
+    set --global mask_auto  systemd-resolved
     set --global start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
 
     if test $not_virt
-        set --global stop_auto $stop_auto dhcpcd
+        set --global stop_auto  $stop_auto dhcpcd
         set --global start_auto $start_auto bluetooth NetworkManager tlp
     else
         set --global start_auto $start_auto dhcpcd
     end
 end
 
-function init_var
+function cpu_gpu_var
 
-    # 初始变量
+    # cpu 和 gpu 变量
     #
-    #   颜色变量
-    #   系统变量
-    #   软件包变量
-    #   自启动变量
+    #   变量：
+    #       cpu_vendor: cpu 提供商
+    #       gpu_vendor: gpu 提供商
 
-    color_var
-    system_var
-    pkg_var
-    auto_start_var
+    if lscpu | grep -q 'AuthenticAMD'
+        set --global cpu_vendor 'amd'
+    else if lscpu | grep -q 'GenuineIntel'
+        set --global cpu_vendor 'intel'
+    end
+
+    if lspci | grep 'VGA' | grep -q 'AMD'
+        set --global gpu_vendor 'amd'
+    else if lspci | grep 'VGA' | grep -q 'Intel'
+        set --global gpu_vendor 'intel'
+    else if lspci | grep 'VGA' | grep -q 'NVIDIA'
+        set --global gpu_vendor 'nvidia'
+    end
 end
 
 function system_check
 
     # 系统检查
     #
-    #   是否为根用户
-    #
-    #   是否为虚拟机
-    #
-    #   引导程序类型
-    #
-    #   根分区位置
-    #
-    #   如果不是虚拟机
-    #       cpu 提供商
-    #
-    #       gpu 提供商
+    #   变量：
+    #       USER:       当下用户名
+    #       bios_type:  引导程序类型
+    #       not_virt:   不是虚拟环境
+    #       root_part:  根目录的分区
 
     if test "$USER" != 'root'
         error not_root
@@ -235,19 +243,7 @@ function system_check
         set --global root_part (df | awk '$6=="/" {print $1}')
 
         if test $not_virt
-            if lscpu | grep -q 'AuthenticAMD'
-                set --global cpu_vendor 'amd'
-            else if lscpu | grep -q 'GenuineIntel'
-                set --global cpu_vendor 'intel'
-            end
-
-            if lspci | grep 'VGA' | grep -q 'AMD'
-                set --global gpu_vendor 'amd'
-            else if lspci | grep 'VGA' | grep -q 'Intel'
-                set --global gpu_vendor 'intel'
-            else if lspci | grep 'VGA' | grep -q 'NVIDIA'
-                set --global gpu_vendor 'nvidia'
-            end
+            cpu_gpu_var
         end
     end
 end
@@ -256,28 +252,32 @@ function swap_file
 
     # 交换文件
     #
-    #   创建空文件
-    #   禁止写时复制
-    #   禁止压缩
+    #   变量：
+    #       swap_size: 交换文件的大小
     #
-    #   文件大小
-    #       跟随内存大小，最多 3 G
+    #   流程：
+    #       创建空文件
+    #       禁止写时复制
+    #       禁止压缩
     #
-    #   设定拥有者读写
-    #   格式化交换文件
-    #   启用交换文件
+    #       文件大小
+    #           跟随内存大小，最多 3 G
     #
-    #   写入 fstab
+    #       设定拥有者读写
+    #       格式化交换文件
+    #       启用交换文件
     #
-    #   最大限度使用物理内存
+    #       写入 fstab
+    #
+    #       最大限度使用物理内存
 
     touch /swap/swapfile
     chattr +C /swap/swapfile
     chattr -c /swap/swapfile
 
-    set i (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
-    if test "$i" -gt 3; set i 3; end
-    fallocate -l "$i"G /swap/swapfile
+    set swap_size (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
+    if test $swap_size -gt 3; set i 3; end
+    fallocate -l "$swap_size"G /swap/swapfile
 
     chmod 600 /swap/swapfile
     mkswap /swap/swapfile
@@ -293,13 +293,14 @@ function pacman_set
 
     # 修改 pacman 设定
     #
-    #   开启颜色
+    #   流程：
+    #       开启颜色
     #
-    #   加上 archlinuxcn 源
-    #       导入 GPG key
+    #       加上 archlinuxcn 源
+    #           导入 GPG key
     #
-    #   初始化密钥环
-    #   验证主密钥
+    #       初始化密钥环
+    #       验证主密钥
 
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
 
@@ -332,34 +333,39 @@ function local_set
 
     # 本地化
     #
-    #   设置时区
-    #   同步时钟
+    #   流程：
+    #       设置时区
+    #       同步时钟
     #
-    #   语言信息
-    #       设置成英文避免显示问题
+    #       语言信息
+    #           设置成英文避免显示问题
     #
-    #   主机表
+    #       主机表
     #
-    #   设定根密码
+    #       设定根密码
     #
-    #   添加用户
-    #   设定用户密码
-    #   添加用户组超级权限
-    #   更改目录拥有者为用户
+    #       添加用户
+    #       设定用户密码
+    #       添加用户组超级权限
+    #       更改目录拥有者为用户
     #
-    #   安装引导程序和必要软件包
+    #       安装引导程序和必要软件包
     #
-    #   安装引导程序
+    #       安装引导程序
     #
-    #   设定 grub 超时为 1
-    #   生成 grub 主配置文件
+    #       设定 grub 超时为 1
+    #       生成 grub 主配置文件
+
+    system_var
+    user_var
+    pkg_var
 
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
     hwclock --systohc
 
     sed -i '/\(en_US\|zh_CN\).UTF-8/s/#//' /etc/locale.gen
     locale-gen
-    echo LANG=en_US.UTF-8 > /etc/locale.conf
+    echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 
     echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$host_name'.localdomain '$host_name >> /etc/hosts
 
@@ -370,7 +376,7 @@ function local_set
     sed -i '/# %wheel ALL=(ALL) NOPASSWD: ALL/s/# //' /etc/sudoers
     chown -R $user_name:wheel /home/$user_name
 
-    pacman_install $boot_pkg $base_pkg
+    pacman_install $boot_pkg
 
     switch $bios_type
         case uefi
@@ -393,20 +399,7 @@ function pkg_install
 
     # 安装软件包
     #
-    #   更新系统
-    #
-    #   网络，终端
-    #   文件操作，同步
-    #   查找，新查找
-    #   系统，维护
-    #   安全，特殊依赖，AUR 软件
-    #
-    #   如果不是虚拟机
-    #       驱动，管理
-    #       显示，桌面
-    #       浏览器，多媒体
-    #       输入法，桌面控制
-    #       办公，字体，编程语言
+    #   更新系统，然后安装软件包
 
     pacman -Syu --noconfirm
 
@@ -425,17 +418,29 @@ function pkg_install
     end
 end
 
+function su_user
+
+    # 以用户执行
+    #
+    #   避免创建出的目录或文件，用户无权操作。
+
+    cd /home/$user_name
+    su $user_name -c "$argv"
+    cd
+end
+
 function uz_config
 
     # uz 目录
     #
-    #   克隆 uz 仓库
-    #   软链接 uz 到用户根目录
+    #   流程：
+    #       克隆 uz 仓库
+    #       软链接 uz 到用户根目录
     #
-    #   记忆账号密码
-    #   默认合并分支
+    #       记忆账号密码
+    #       默认合并分支
 
-    git clone https://github.com/rraayy246/uz $uz_dir --depth 1
+    su_user git clone https://github.com/rraayy246/uz $uz_dir --depth 1
     ln -sf $uz_dir /home/$user_name
 
     cd $uz_dir
@@ -451,38 +456,43 @@ function sync_dir
     # 文件同步
     #
     #   参数：
-    #       拥有者
     #       源目录
     #       目标目录
     #
-    #   文件复制后，调整拥有者参数。
+    #   如果目标目录为用户的目录，则切换为用户执行复制，
+    #   以免用户无权操作。
 
-    rsync -a --inplace --no-whole-file --chown $argv
+    if echo $argv[2] | grep -q '^/home'
+        su_user rsync -a --inplace --no-whole-file $argv
+    else
+        rsync -a --inplace --no-whole-file $argv
+    end
 end
 
 function config_copy
 
     # 设定复制
     #
-    #   创建目录
+    #   流程：
+    #       创建目录
     #
-    #   fish 设置环境变量
+    #       fish 设置环境变量
     #
-    #   链接配置文件
+    #       链接配置文件
     #
-    #   根用户配置文件
-    #       把 vim 配置文件的插件内容注释掉，
-    #       因为根用户很少用到插件。
+    #       根用户配置文件
+    #           把 vim 配置文件的插件内容注释掉，
+    #           因为根用户很少用到插件。
 
-    mkdir -p /home/$user_name/{a/vp/bv,gz,xz,.config/{fish/conf.d,nvim/.backup}}
+    su $user_name -c "mkdir -p /home/$user_name/$user_mkdir"
 
     fish $uz_dir/pv/hjbl.fish
-    su $user_name -c 'fish '$uz_dir'/pv/hjbl.fish'
+    su $user_name -c "fish $uz_dir/pv/hjbl.fish"
 
-    sync_dir root:root $uz_dir/pv/etc /
-    sync_dir $user_name:wheel $uz_dir/pv/.config /home/$user_name
+    sync_dir $uz_dir/pv/etc /
+    sync_dir $uz_dir/pv/.config /home/$user_name
 
-    sync_dir root:root $uz_dir/pv/.config /root
+    sync_dir $uz_dir/pv/.config /root
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 
 end
@@ -491,44 +501,37 @@ function config_write
 
     # 设定写入
     #
-    #   创建 snapper 配置：root，srv，home
-    #       因为 snapper 在创建配置时，不允许目录被其他子卷占用，
-    #       所以先把目录卸载，创建 snapper 配置文件，再把子卷挂载回去。
+    #   流程：
+    #       创建 snapper 配置：root，srv，home
+    #           因为 snapper 在创建配置时，不允许目录被其他子卷占用，
+    #           所以先把目录卸载，创建 snapper 配置文件，再把子卷挂载回去。
     #
-    #   防止快照被索引
-    #   更改默认壳层为 fish
+    #       防止快照被索引
+    #       更改默认壳层为 fish
     #
-    #   安装 zlua
+    #       安装 zlua
     #
-    #   终端提示符用 starship
-    #   下载初始壁纸
+    #       终端提示符用 starship
+    #       下载初始壁纸
     #
-    #   安装 vim-plug
-    #       插件下载
+    #       安装 vim-plug
+    #           插件下载
     #
-    #   DNS 指向本地
-    #       禁止修改
+    #       DNS 指向本地
+    #           禁止修改
 
     if ! snapper list-configs | grep -q 'root'
-        umount /.snapshots
-        umount /srv/.snapshots
-        umount /home/$user_name/.snapshots
+        set snap_dir / /srv/ /home/
 
-        rmdir /.snapshots
-        rmdir /srv/.snapshots
-        rmdir /home/$user_name/.snapshots
+        umount $snap_dir'.snapshots'
+        rmdir $snap_dir'.snapshots'
 
         snapper -c root create-config /
         snapper -c srv create-config /srv
         snapper -c home create-config /home
 
-        btrfs subvolume delete /.snapshots
-        btrfs subvolume delete /srv/.snapshots
-        btrfs subvolume delete /home/$user_name/.snapshots
-
-        mkdir /.snapshots
-        mkdir /srv/.snapshots
-        mkdir /home/$user_name/.snapshots
+        btrfs subvolume delete $snap_dir'.snapshots'
+        mkdir $snap_dir'.snapshots'
 
         mount -a
     end
@@ -536,15 +539,15 @@ function config_write
 
     sed -i '/home\|root/s/bash/fish/' /etc/passwd
 
-    wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O /home/$user_name/.config/fish/conf.d/z.lua
-    echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > /home/$user_name/.config/fish/conf.d/z.fish
+    su_user wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O /home/$user_name/.config/fish/conf.d/z.lua
+    su_user echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > /home/$user_name/.config/fish/conf.d/z.fish
 
-    echo -e 'if status is-interactive\n    starship init fish | source\nend' > /root/.config/fish/config.fish
-    rsync -a /home/$user_name/a/uz/img/hw.png /home/$user_name/a/vp/bv/hw.png
+    echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /root/.config/fish/config.fish
+    sync_dir /home/$user_name/a/uz/img/hw.png /home/$user_name/a/vp/bv/hw.png
 
-    curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    nvim +PlugInstall +qall
+    su_user nvim +PlugInstall +qall
 
     echo -e 'nameserver ::1\nnameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
     chattr +i /etc/resolv.conf
@@ -562,9 +565,9 @@ function flypy_inst
     #
     #   重新加载输入法
 
-    7z x /home/$user_name/a/uz/pv/flypy.7z -o/home/$user_name
-    mkdir -p /home/$user_name/.local/share/fcitx5
-    rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
+    su_user 7z x /home/$user_name/a/uz/pv/flypy.7z -o/home/$user_name
+    su_user mkdir -p /home/'$user_name'/.local/share/fcitx5
+    su_user rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
     rm -rf /home/$user_name/rime
 
     fcitx5-remote -r
@@ -578,20 +581,18 @@ function auto_start
     #   禁用
     #   自启动
 
+    auto_start_var
+
     systemctl disable $stop_auto
     systemctl mask $mask_auto
     systemctl enable --now $start_auto
-end
-
-function chown_home
-    chown -R $user_name:wheel /home/$user_name
 end
 
 function doc_help
 
     # 帮助文档
     #
-    #   参数：
+    #   变量：
     #       LANG: 系统设定的语言
 
     echo
@@ -618,7 +619,9 @@ function input_option
     # 选项参数
     #
     #   参数：
-    #       argv: 输入的选项参数
+    #       argv: 被认为是选项输入的，匹配 '^-' 的单项输入
+    #
+    #   变量：
     #       action: 参数解析完后执行的命令
     #       var_stack: 选项参数需要的额外变量
 
@@ -641,9 +644,11 @@ function input_parameters
     # 输入参数
     #
     #   参数：
+    #       argv: 所有的输入参数
+    #
+    #   变量：
     #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
     #                  由这个 '变量堆' 来存放必要的参数名字。
-    #       argv: 所有的输入参数
     #       input: 单个输入参数
     #       action: 参数解析完后执行的命令，由选项参数宣告
     #
@@ -713,22 +718,31 @@ function error
 end
 
 function live_install
+
+    # 临时环境流程
+
+    system_check
+    connect_network
+    disk_partition
+    mount_subvol
+    base_install
+    arch_chroot
 end
 
 function install_process
 
     # arch 安装流程
 
+    system_check
+    swap_file
     pacman_set
     local_set
-    swap_file
     pkg_install
     uz_config
     config_copy
     config_write
     flypy_inst
     auto_start
-    chown_home
 end
 
 function main

@@ -265,6 +265,32 @@ function network_check
     end
 end
 
+function select
+
+    # 选择
+    #
+    #   参数：
+    #       argv: 输入可供选择的选项
+    #
+    #   输出：
+    #       使用者选择的选项
+    #
+    #   如果 ans 包含非数字，或小于 0， 或大于清单长度，则重新输入。
+
+    set ans 0
+
+    for i in (seq (count $argv))
+        echo $i. $argv[$i]
+    end
+
+    while echo -- $ans | grep -q '[^0-9]'; or test $ans -le 0 -o $ans -gt (count $argv)
+        read -p 'echo "> "' ans
+        set ans $ans[1]
+    end
+
+    echo -- $argv[$ans]
+end
+
 function connect_network
 
     # 连接无线网络
@@ -306,35 +332,58 @@ function open_ssh
 end
 
 function disk_partition
+    echo -e $r'automatic partition or manual partition: '$h
+
+    if test (select 'automatic' 'manual') = 'automatic'
+        # 选择硬盘
+        # 创建 GPT 分区表
+        set part (select_part root)
+        parted /dev/$part mklabel gpt
+        if test $bios_type = 'uefi'
+            # 创建启动分区
+            parted /dev/$part mkpart esp 1m 513m
+            # 设置 esp 为启动分区
+            parted /dev/$part set 1 boot on
+            # 创建根分区
+            parted /dev/$part mkpart arch 513m -1m
+        else
+            # 创建启动分区
+            parted /dev/$part mkpart grub 1m 3m
+            # 设置 grub 为启动分区
+            parted /dev/$part set 1 bios_grub on
+            # 创建根分区
+            parted /dev/$part mkpart arch 3m -1m
+        end
+
+        # 自动选择分区
+        if echo $part | grep -q 'nvme'
+            set --global boot_part /dev/$part'p1'
+            set --global root_part /dev/$part'p2'
+        else
+            set --global boot_part /dev/$part'1'
+            set --global root_part /dev/$part'2'
+        end
+    else
+        # 手动选择分区
+        set --global boot_part /dev/(select_part boot)
+        set --global part_root /dev/(select_part root)
+    end
+
+    mount_subvol
 end
 
 function select_part
-end
 
-function select
-
-    # 选择
+    # 选择分区
     #
-    #   参数：
-    #       argv: 输入可供选择的选项
-    #
-    #   输出：
-    #       使用者选择的选项
-    #
-    #   如果 ans 包含非数字，或小于 0， 或大于清单长度，则重新输入。
+    #   流程：
+    #       列出现有分区
+    #       选择分区
 
-    set ans 0
-
-    for i in (seq (count $argv))
-        echo $i. $argv[$i]
-    end
-
-    while echo -- $ans | grep -q '[^0-9]'; or test $ans -le 0 -o $ans -gt (count $argv)
-        read -p 'echo "> "' ans
-        set ans $ans[1]
-    end
-
-    echo -- $argv[$ans]
+    set list_part (lsblk -l | awk '{ print $1 }' | grep '^\(nvme\|sd.\|vd.\)')
+    lsblk
+    echo -e $r'select a partition as the '$h$argv$r' partition: '$h
+    echo (select $list_part)
 end
 
 function mount_subvol

@@ -311,11 +311,45 @@ end
 function select_part
 end
 
-function mount_subvol
-    mkfs.btrfs -fL arch $part_root
-    mount $part_root /mnt
+function select
 
-    # 创建子卷
+    # 选择
+    #
+    #   参数：
+    #       argv: 输入可供选择的选项
+    #
+    #   输出：
+    #       使用者选择的选项
+
+    set ans 0
+
+    for i in (seq (count $argv))
+        echo $i. $argv[$i]
+    end
+
+    while echo -- $ans | grep -q '[^0-9]'; or test $ans -le 0 -o $ans -gt (count $argv)
+        read -p 'echo "> "' ans
+        set ans $ans[1]
+    end
+
+    echo -- $argv[$ans]
+end
+
+function mount_subvol
+
+    # 挂载子卷
+    #
+    #   流程：
+    #       格式化根分区
+    #       创建子卷
+    #       挂载子卷
+    #       避免 /var/lib 资料遗失
+    #           将 /usr/var/lib 挂载到 /var/lib
+    #       efi 目录挂载
+
+    mkfs.btrfs -fL arch $root_part
+    mount $root_part /mnt
+
     btrfs subvolume create /mnt/@
     btrfs subvolume create /mnt/home
     btrfs subvolume create /mnt/srv
@@ -326,11 +360,10 @@ function mount_subvol
     btrfs subvolume create /mnt/snap/root
     btrfs subvolume create /mnt/snap/home
     btrfs subvolume create /mnt/cache
-    btrfs subvolume create /mnt/cache/$username
+    btrfs subvolume create /mnt/cache/$user_name
     umount /mnt
 
-    # 挂载子卷
-    mount -o autodefrag,compress=zstd,subvol=@ $part_root /mnt
+    mount -o autodefrag,compress=zstd,subvol=@ $root_part /mnt
 
     mkdir /mnt/btrfs
     mkdir /mnt/home
@@ -340,27 +373,26 @@ function mount_subvol
     mkdir /mnt/var
     mkdir /mnt/.snapshots
 
-    mount $part_root /mnt/btrfs
-    mount -o subvol=home $part_root /mnt/home
-    mount -o subvol=srv $part_root /mnt/srv
-    mount -o subvol=swap $part_root /mnt/swap
-    mount -o subvol=tmp $part_root /mnt/tmp
-    mount -o subvol=var $part_root /mnt/var
-    mount -o subvol=snap/root $part_root /mnt/.snapshots
+    mount $root_part /mnt/btrfs
+    mount -o subvol=home $root_part /mnt/home
+    mount -o subvol=srv $root_part /mnt/srv
+    mount -o subvol=swap $root_part /mnt/swap
+    mount -o subvol=tmp $root_part /mnt/tmp
+    mount -o subvol=var $root_part /mnt/var
+    mount -o subvol=snap/root $root_part /mnt/.snapshots
 
     mkdir /mnt/home/.snapshots
-    mkdir -p /mnt/home/$username/.cache
+    mkdir -p /mnt/home/$user_name/.cache
 
-    mount -o subvol=snap/home $part_root /mnt/home/.snapshots
-    mount -o subvol=cache/$username $part_root /mnt/home/$username/.cache
+    mount -o subvol=snap/home $root_part /mnt/home/.snapshots
+    mount -o subvol=cache/$user_name $root_part /mnt/home/$user_name/.cache
 
-    # 避免 /var/lib 资料遗失
-    mkdir -p /mnt/{usr/var/lib,var/lib}
-    mount --bind /mnt/usr/var/lib /mnt/var/lib
-    # efi 目录挂载
+    mkdir -p        /mnt/usr/var/lib /mnt/var/lib
+    mount --bind    /mnt/usr/var/lib /mnt/var/lib
+
     if test $bios_type = 'uefi'
         mkdir /mnt/efi
-        mount $part_boot /mnt/efi
+        mount $boot_part /mnt/efi
     end
 end
 
@@ -377,7 +409,7 @@ function base_install
 
     N 'sorting mirror...'
     pacman -S --noconfirm reflector &>/dev/null
-    reflector --latest 9 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
+    reflector --latest 5 --protocol https --save /etc/pacman.d/mirrorlist --sort rate
 
     pacstrap /mnt $base_pkg
 end

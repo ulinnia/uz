@@ -369,10 +369,10 @@ function local_set
 
     echo -e '127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t'$host_name'.localdomain '$host_name >> /etc/hosts
 
-    echo 'root:'$root_pass | chpasswd
+    echo "root:$root_pass" | chpasswd
 
     useradd -g wheel $user_name
-    echo $user_name':'$user_pass | chpasswd
+    echo "$user_name:$user_pass" | chpasswd
     sed -i '/# %wheel ALL=(ALL) NOPASSWD: ALL/s/# //' /etc/sudoers
     chown -R $user_name:wheel /home/$user_name
 

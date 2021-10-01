@@ -79,7 +79,7 @@ function pkg_var
     #   如果不是虚拟机，则加载 图形软件包变量
 
     if test $action = 'live_install'
-        set --global base_pkg btrfs-progs fish dhcpcd reflector vim
+        set --global base_pkg base base-devel linux linux-firmware btrfs-progs fish dhcpcd reflector vim
         return
     end
 
@@ -248,6 +248,40 @@ function system_check
     end
 end
 
+function network_check
+
+    # 网络检查
+    #
+    #   如果能连上网络，则返回 0
+
+    if ping -c 1 -w 1 1.1.1.1 &>/dev/null
+        # 更新系统时间
+        timedatectl set-ntp true
+        echo -e $g'network connection is successful.'$h
+        return 0
+    else
+        R 'Network connection failed.'
+        return 1
+    end
+end
+
+function connect_network
+
+    # 连接无线网络
+    #
+    # 变量：
+    #   iw_dev: 取得网络设备名称
+
+    set iw_dev (iw dev | awk '$1=="Interface"{print $2}')
+
+    while ! network_check
+        iwctl station $iw_dev scan
+        iwctl station $iw_dev get-networks
+        read -p 'echo -e $r"ssid you want to connect to: "$h' ssid
+        iwctl station $iw_dev connect $ssid[1]
+    end
+end
+
 function open_ssh
 
     # 打开 ssh
@@ -269,6 +303,115 @@ function open_ssh
         echo -e $g'$ ssh '$USER'@'$ip$h
         echo -e $g"passwd = $root_pass"$h
     end
+end
+
+function disk_partition
+end
+
+function select_part
+end
+
+function mount_subvol
+    mkfs.btrfs -fL arch $part_root
+    mount $part_root /mnt
+
+    # 创建子卷
+    btrfs subvolume create /mnt/@
+    btrfs subvolume create /mnt/home
+    btrfs subvolume create /mnt/srv
+    btrfs subvolume create /mnt/swap
+    btrfs subvolume create /mnt/tmp
+    btrfs subvolume create /mnt/var
+    btrfs subvolume create /mnt/snap
+    btrfs subvolume create /mnt/snap/root
+    btrfs subvolume create /mnt/snap/home
+    btrfs subvolume create /mnt/cache
+    btrfs subvolume create /mnt/cache/$username
+    umount /mnt
+
+    # 挂载子卷
+    mount -o autodefrag,compress=zstd,subvol=@ $part_root /mnt
+
+    mkdir /mnt/btrfs
+    mkdir /mnt/home
+    mkdir /mnt/srv
+    mkdir /mnt/swap
+    mkdir /mnt/tmp
+    mkdir /mnt/var
+    mkdir /mnt/.snapshots
+
+    mount $part_root /mnt/btrfs
+    mount -o subvol=home $part_root /mnt/home
+    mount -o subvol=srv $part_root /mnt/srv
+    mount -o subvol=swap $part_root /mnt/swap
+    mount -o subvol=tmp $part_root /mnt/tmp
+    mount -o subvol=var $part_root /mnt/var
+    mount -o subvol=snap/root $part_root /mnt/.snapshots
+
+    mkdir /mnt/home/.snapshots
+    mkdir -p /mnt/home/$username/.cache
+
+    mount -o subvol=snap/home $part_root /mnt/home/.snapshots
+    mount -o subvol=cache/$username $part_root /mnt/home/$username/.cache
+
+    # 避免 /var/lib 资料遗失
+    mkdir -p /mnt/{usr/var/lib,var/lib}
+    mount --bind /mnt/usr/var/lib /mnt/var/lib
+    # efi 目录挂载
+    if test $bios_type = 'uefi'
+        mkdir /mnt/efi
+        mount $part_boot /mnt/efi
+    end
+end
+
+function base_install
+
+    # 安装基本软件包
+    #
+    #   流程：
+    #       更新密钥环
+    #       镜像排序
+    #       安装基本软件包
+
+    pacman -Sy --noconfirm archlinux-keyring
+
+    N 'sorting mirror...'
+    pacman -S --noconfirm reflector &>/dev/null
+    reflector --latest 9 --protocol https --save /etc/pacman.d/mirrorlist --sort delay
+
+    pacstrap /mnt $base_pkg
+end
+
+function arch_chroot
+
+    # 切换根目录
+    #
+    #   流程：
+    #       设置主机名
+    #       复制镜像
+    #
+    #       生成 fstab 文件
+    #
+    #       下载脚本
+    #
+    #       切换根目录
+    #       切换根目录结束
+
+    echo $host_name > /mnt/etc/hostname
+    cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
+
+    umount /mnt/var/lib
+    genfstab -L /mnt >> /mnt/etc/fstab
+    mount --bind /mnt/usr/var/lib /mnt/var/lib
+    echo '/usr/var/lib /var/lib none defaults,bind 0 0' >> /mnt/etc/fstab
+
+    rsync (status -f) /mnt/arch.fish
+    chmod +x /mnt/arch.fish
+
+    arch-chroot /mnt /arch.fish --install $root_pass $user_pass
+    #rm /mnt/arch.fish
+    #umount -R /mnt
+    echo -e $r'please reboot.'$h
 end
 
 function swap_file

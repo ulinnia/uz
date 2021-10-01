@@ -484,10 +484,10 @@ function config_copy
     #           把 vim 配置文件的插件内容注释掉，
     #           因为根用户很少用到插件。
 
-    su $user_name -c "mkdir -p /home/$user_name/$user_mkdir"
+    su_user mkdir -p /home/$user_name/$user_mkdir
 
     fish $uz_dir/pv/hjbl.fish
-    su $user_name -c "fish $uz_dir/pv/hjbl.fish"
+    su_user fish $uz_dir/pv/hjbl.fish
 
     sync_dir $uz_dir/pv/etc /
     sync_dir $uz_dir/pv/.config /home/$user_name
@@ -566,7 +566,7 @@ function flypy_inst
     #   重新加载输入法
 
     su_user 7z x /home/$user_name/a/uz/pv/flypy.7z -o/home/$user_name
-    su_user mkdir -p /home/'$user_name'/.local/share/fcitx5
+    su_user mkdir -p /home/$user_name/.local/share/fcitx5
     su_user rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
     rm -rf /home/$user_name/rime
 

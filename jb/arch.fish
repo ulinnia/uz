@@ -248,6 +248,29 @@ function system_check
     end
 end
 
+function open_ssh
+
+    # 打开 ssh
+    #
+    #   如果 ssh 未启动，则设定密码并启动 ssh.
+
+    if test (systemctl is-active sshd) = 'active'
+        echo
+        echo -e $r'ssh has started.'$h
+    else
+        set interface   (ip -o -4 route show to default | awk '{print $5}')
+        set ip          (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+
+        read -p --silent 'echo -e $r"enter your "$h"root passwd: "' root_pass
+        echo "$USER:$root_pass" | chpasswd
+        systemctl start sshd
+
+        echo
+        echo -e $g'$ ssh '$USER'@'$ip$h
+        echo -e $g"passwd = $root_pass"$h
+    end
+end
+
 function swap_file
 
     # 交换文件
@@ -604,6 +627,8 @@ function doc_help
             echo '  -h --help     显示此帮助消息。'
             echo '  -i --install  本地化和配置 arch.'
             echo '  -l --live     从临时环境安装基本 arch.'
+            echo '  -s --ssh      打开 ssh 服务。'
+            echo '  -w --wifi     连接到无线网络。'
         case '*'
             echo -e $g'a script to install and configure arch software'$h
             echo
@@ -611,6 +636,8 @@ function doc_help
             echo '  -h --help     Show this help message.'
             echo '  -i --install  localization and configuration arch.'
             echo '  -l --live     install the base arch from the live environment.'
+            echo '  -s --ssh      open ssh service.'
+            echo '  -w --wifi     connect to a wifi.'
     end
 end
 
@@ -624,16 +651,22 @@ function input_option
     #   变量：
     #       action: 参数解析完后执行的命令
     #       var_stack: 选项参数需要的额外变量
+    #       is_option: 如果为 假，则不再匹配选项参数，后来参数皆当作普通参数
 
     switch $argv
         case -h --help
             set --global action 'doc_help'
         case -i --install
-            set --prepend var_stack 'passwd_root' 'passwd_user'
+            set --prepend var_stack 'root_pass' 'user_pass'
             set --global action 'install_process'
         case -l --live
-            set --prepend var_stack 'passwd_root' 'passwd_user'
             set --global action 'live_install'
+        case -s --ssh
+            set --global action 'open_ssh'
+        case -w --wifi
+            set --global action 'connect_network'
+        case --
+            set is_option false
         case '*'
             error wrong_option $argv
     end
@@ -647,6 +680,7 @@ function input_parameters
     #       argv: 所有的输入参数
     #
     #   变量：
+    #       is_option: 如果为 假，则不再匹配选项参数，后来参数皆当作普通参数
     #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
     #                  由这个 '变量堆' 来存放必要的参数名字。
     #       input: 单个输入参数
@@ -661,10 +695,11 @@ function input_parameters
     #       删除 var_stack 变量以节省内存
     #       如果 action 变量存在则执行
 
+    set --global is_option true
     set --global var_stack 'overflow'
 
     for input in $argv
-        if echo $input | grep -q '^-'
+        if echo -- $input | grep -q '^-'; and $is_option
             input_option $input
         else
             if test $var_stack[1] = 'overflow'
@@ -680,7 +715,7 @@ function input_parameters
         error missing_parameter $var_stack
     end
 
-    set --erase var_stack
+    set --erase is_option var_stack
 
     if set -q action
         $action

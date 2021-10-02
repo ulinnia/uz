@@ -737,9 +737,6 @@ function config_copy
     #
     #       链接配置文件
     #
-    #       根用户配置文件
-    #           把 vim 配置文件的插件内容注释掉，
-    #           因为根用户很少用到插件。
 
     su_user mkdir -p /home/$user_name/$user_mkdir
 
@@ -768,7 +765,8 @@ function config_write
     #       安装 zlua
     #
     #       终端提示符用 starship
-    #       下载初始壁纸
+    #       把根用户的 vim 配置文件的插件内容注释掉，
+    #           因为根用户很少用到插件。
     #
     #       安装 vim-plug
     #           插件下载

@@ -1,7 +1,7 @@
 # qemu，图形界面
 sudo pacman -S --noconfirm qemu libvirt virt-manager
 # 连接网络，UEFI 支持
-sudo pacman -S --noconfirm iptables-nft dnsmasq bridge-utils openbsd-netcat edk2-ovmf
+echo -e 'y\n\n' | sudo pacman -S --noconfirm iptables-nft dnsmasq bridge-utils openbsd-netcat edk2-ovmf
 
 # 加入 libvirt 组以获得权限
 echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */

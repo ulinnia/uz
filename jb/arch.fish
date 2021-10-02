@@ -286,7 +286,7 @@ function select
         echo $i. $list[$i]
     end
 
-    while echo -- $ans | grep -q '^[1-9][0-9]*$'; or test $ans -gt (count $list)
+    while ! echo -- $ans | grep -q '^[1-9][0-9]*$'; or test $ans -gt (count $list)
         read -p 'echo "> "' ans
     end
 

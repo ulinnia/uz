@@ -502,7 +502,7 @@ function base_install
 
     echo 'sorting mirror...'
     pacman -S --needed --noconfirm reflector &>/dev/null
-    reflector --latest 5 --protocol https --save /etc/pacman.d/mirrorlist --sort rate
+    reflector --latest 9 --protocol https --save /etc/pacman.d/mirrorlist --sort rate
 
     pacstrap /mnt $base_pkg
 end

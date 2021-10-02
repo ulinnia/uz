@@ -1,7 +1,7 @@
 # qemu，图形界面
-sudo pacman -S qemu libvirt virt-manager
+sudo pacman -S --noconfirm qemu libvirt virt-manager
 # 连接网络，UEFI 支持
-sudo pacman -S iptables-nft dnsmasq bridge-utils openbsd-netcat edk2-ovmf
+sudo pacman -S --noconfirm iptables-nft dnsmasq bridge-utils openbsd-netcat edk2-ovmf
 
 # 加入 libvirt 组以获得权限
 echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */
@@ -35,4 +35,4 @@ function 处理器
     end
 end
 
-sudo sed -i '/GRUB_CMDLINE_LINUX_DEFAULT/s/quiet/& '(处理器)'_iommu=on iommu=pt/' /etc/default/grub
+#sudo sed -i '/GRUB_CMDLINE_LINUX_DEFAULT/s/quiet/& '(处理器)'_iommu=on iommu=pt/' /etc/default/grub

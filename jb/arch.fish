@@ -744,10 +744,8 @@ function config_copy
     su_user fish $uz_dir/pv/hjbl.fish
 
     sync_dir $uz_dir/pv/etc /
-    sync_dir $uz_dir/pv/.config /home/$user_name
-
     sync_dir $uz_dir/pv/.config /root
-
+    sync_dir $uz_dir/pv/.config /home/$user_name
 end
 
 function config_write
@@ -765,8 +763,7 @@ function config_write
     #       安装 zlua
     #
     #       终端提示符用 starship
-    #       把根用户的 vim 配置文件的插件内容注释掉，
-    #           因为根用户很少用到插件。
+    #       把根用户的 vim 配置文件的插件内容注释掉
     #
     #       安装 vim-plug
     #           插件下载
@@ -809,6 +806,7 @@ function config_write
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         su_user nvim +PlugInstall +qall
     else
+        echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
     end
 end

@@ -343,6 +343,8 @@ function disk_partition
     #       启用启动分区
     #       创建根分区
 
+    user_var
+
     echo -e $r'automatic partition or manual partition: '$h
 
     if test (select 'automatic' 'manual') = 'automatic'
@@ -457,6 +459,8 @@ function base_install
     #       更新密钥环
     #       镜像排序
     #       安装基本软件包
+
+    pkg_var
 
     pacman -Sy --noconfirm archlinux-keyring
 

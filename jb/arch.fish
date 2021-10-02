@@ -689,9 +689,7 @@ function su_user
     #
     #   避免创建出的目录或文件，用户无权操作。
 
-    cd /home/$user_name
-    su $user_name -c "$argv"
-    cd
+    sudo -u $user_name $argv
 end
 
 function uz_config
@@ -710,9 +708,9 @@ function uz_config
 
     cd $uz_dir
     git config credential.helper store
-    git config --global user.email 'rraayy246@gmail.com'
-    git config --global user.name 'ray'
-    git config --global pull.rebase false
+    su_user git config --global user.email 'rraayy246@gmail.com'
+    su_user git config --global user.name 'ray'
+    su_user git config --global pull.rebase false
     cd
 end
 

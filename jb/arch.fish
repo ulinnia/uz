@@ -286,9 +286,8 @@ function select
         echo $i. $list[$i]
     end
 
-    while echo -- $ans | grep -q '[^0-9]'; or test $ans -le 0 -o $ans -gt (count $list)
+    while echo -- $ans | grep -q '^[1-9][0-9]*$'; or test $ans -gt (count $list)
         read -p 'echo "> "' ans
-        set ans $ans[1]
     end
 
     set --global $argv[1] $list[$ans]
@@ -473,7 +472,7 @@ function base_install
 
     pacman -Sy --noconfirm archlinux-keyring
 
-    N 'sorting mirror...'
+    echo 'sorting mirror...'
     pacman -S --needed --noconfirm reflector &>/dev/null
     reflector --latest 5 --protocol https --save /etc/pacman.d/mirrorlist --sort rate
 

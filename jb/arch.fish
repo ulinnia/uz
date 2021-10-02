@@ -260,7 +260,7 @@ function network_check
         echo -e $g'network connection is successful.'$h
         return 0
     else
-        R 'Network connection failed.'
+        echo -e $r'Network connection failed.'$h
         return 1
     end
 end

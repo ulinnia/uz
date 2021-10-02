@@ -670,7 +670,7 @@ function pkg_install
 
     pacman_install $network_pkg $terminal_pkg
     pacman_install $file_pkg $sync_pkg
-    pacman_install $search_pkg $new_search_pk
+    pacman_install $search_pkg $new_search_pkg
     pacman_install $system_pkg $maintain_pkg
     pacman_install $security_pkg $depend_pkg $aur_pkg
 

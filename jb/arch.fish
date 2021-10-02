@@ -736,22 +736,7 @@ function config_write
     #       DNS 指向本地
     #           禁止修改
 
-    if ! snapper list-configs | grep -q 'root'
-        set snap_dir / /srv/ /home/
-
-        umount $snap_dir'.snapshots'
-        rmdir $snap_dir'.snapshots'
-
-        snapper -c root create-config /
-        snapper -c srv create-config /srv
-        snapper -c home create-config /home
-
-        btrfs subvolume delete $snap_dir'.snapshots'
-        mkdir $snap_dir'.snapshots'
-
-        mount -a
-    end
-    sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
+    snapper_set
 
     sed -i '/home\|root/s/bash/fish/' /etc/passwd
 
@@ -776,6 +761,24 @@ function config_write
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
     end
+end
+
+function snapper_set
+    set snap_dir / /srv/ /home/
+
+    umount $snap_dir'.snapshots'
+    rmdir $snap_dir'.snapshots'
+
+    snapper -c root create-config /
+    snapper -c srv create-config /srv
+    snapper -c home create-config /home
+
+    btrfs subvolume delete $snap_dir'.snapshots'
+    mkdir $snap_dir'.snapshots'
+
+    mount -a
+
+    sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
 end
 
 function virtualizer_set

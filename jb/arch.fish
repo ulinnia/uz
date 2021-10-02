@@ -805,6 +805,8 @@ function config_write
         su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         su_user nvim +PlugInstall +qall
+
+        virtualizer_set
     else
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim

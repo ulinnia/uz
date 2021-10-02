@@ -26,6 +26,32 @@ function system_var
     set --global git_url    'https://github.com/rraayy246/uz'
 end
 
+function read_format
+
+    # 读取格式
+    #
+    #   参数：
+    #       argv[1]: 要宣告的变量名
+    #       argv[2]: 提示语
+    #       argv[3]: 匹配的格式
+    #
+    #   只读取特定格式，且进行再确认。
+
+    set ans ''
+    while true
+        read -p 'echo -e "$argv[2]"' ans
+        if echo -- "$ans" | grep -q $argv[3]
+            read -p 'echo -e "are you sure? "' sure
+            if test "$sure" = 'y' -o "$sure" = ''
+                break
+            end
+        else
+            echo -e $r'wrong format.'$h
+        end
+    end
+    set --global $argv[1] "$ans"
+end
+
 function user_var
 
     # 用户变量
@@ -42,10 +68,10 @@ function user_var
     #   否则自动判断。
 
     if test $action = 'live_install'
-        read --global          -p   'echo -e $r"enter your "$h"username: "'     user_name
-        read --global          -p   'echo -e $r"enter your "$h"hostname: "'     host_name
-        read --global --silent -p   'echo -e $r"enter your "$h"root passwd: "'  root_pass
-        read --global --silent -p   'echo -e $r"enter your "$h"user passwd: "'  user_pass
+        read_format user_name $r'enter your '$h'username: '     '^[a-z][-a-z0-9]*$'
+        read_format host_name $r'enter your '$h'hostname: '     '^[a-zA-Z][-a-zA-Z0-9]*$'
+        read_format root_pass $r'enter your '$h'root passwd: '  '^[-_,.a-zA-Z0-9]*$'
+        read_format user_pass $r'enter your '$h'user passwd: '  '^[-_,.a-zA-Z0-9]*$'
     else
         set --global host_name  (cat /etc/hostname)
         set --global user_name  (ls /home | head -n 1)
@@ -507,7 +533,7 @@ function arch_chroot
     rsync (status -f) /mnt/arch.fish
     chmod +x /mnt/arch.fish
 
-    arch-chroot /mnt /arch.fish --install $root_pass $user_pass
+    arch-chroot /mnt /arch.fish --install "$root_pass" "$user_pass"
     rm /mnt/arch.fish
     #umount -R /mnt
     echo -e $r'please reboot.'$h

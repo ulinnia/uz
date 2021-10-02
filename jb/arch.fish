@@ -42,10 +42,10 @@ function user_var
     #   否则自动判断。
 
     if test $action = 'live_install'
-        read --global -p            'echo -e $r"enter your "$h"username: "'     user_name
-        read --global -p            'echo -e $r"enter your "$h"hostname: "'     host_name
-        read --global -p --silent   'echo -e $r"enter your "$h"root passwd: "'  root_pass
-        read --global -p --silent   'echo -e $r"enter your "$h"user passwd: "'  user_pass
+        read --global          -p   'echo -e $r"enter your "$h"username: "'     user_name
+        read --global          -p   'echo -e $r"enter your "$h"hostname: "'     host_name
+        read --global --silent -p   'echo -e $r"enter your "$h"root passwd: "'  root_pass
+        read --global --silent -p   'echo -e $r"enter your "$h"user passwd: "'  user_pass
     else
         set --global host_name  (cat /etc/hostname)
         set --global user_name  (ls /home | head -n 1)
@@ -467,7 +467,7 @@ function base_install
     pacman -Sy --noconfirm archlinux-keyring
 
     N 'sorting mirror...'
-    pacman -S --noconfirm reflector &>/dev/null
+    pacman -S --needed --noconfirm reflector &>/dev/null
     reflector --latest 5 --protocol https --save /etc/pacman.d/mirrorlist --sort rate
 
     pacstrap /mnt $base_pkg
@@ -580,7 +580,7 @@ function pacman_install
     #   所以就连试三次，增加安装成功的几率。
 
     for i in (seq 3)
-        if pacman -S --noconfirm --needed $argv
+        if pacman -S --needed --noconfirm $argv
             break
         end
     end

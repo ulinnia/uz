@@ -332,30 +332,33 @@ function open_ssh
 end
 
 function disk_partition
+
+    # 硬盘分区
+    #
+    #   流程：
+    #       选择硬盘
+    #       创建 GPT 分区表
+    #
+    #       创建启动分区
+    #       启用启动分区
+    #       创建根分区
+
     echo -e $r'automatic partition or manual partition: '$h
 
     if test (select 'automatic' 'manual') = 'automatic'
-        # 选择硬盘
-        # 创建 GPT 分区表
         set part (select_part root)
+
         parted /dev/$part mklabel gpt
         if test $bios_type = 'uefi'
-            # 创建启动分区
             parted /dev/$part mkpart esp 1m 513m
-            # 设置 esp 为启动分区
             parted /dev/$part set 1 boot on
-            # 创建根分区
             parted /dev/$part mkpart arch 513m -1m
         else
-            # 创建启动分区
             parted /dev/$part mkpart grub 1m 3m
-            # 设置 grub 为启动分区
             parted /dev/$part set 1 bios_grub on
-            # 创建根分区
             parted /dev/$part mkpart arch 3m -1m
         end
 
-        # 自动选择分区
         if echo $part | grep -q 'nvme'
             set --global boot_part /dev/$part'p1'
             set --global root_part /dev/$part'p2'
@@ -364,7 +367,6 @@ function disk_partition
             set --global root_part /dev/$part'2'
         end
     else
-        # 手动选择分区
         set --global boot_part /dev/(select_part boot)
         set --global part_root /dev/(select_part root)
     end

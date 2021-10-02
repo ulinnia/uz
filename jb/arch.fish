@@ -204,11 +204,11 @@ function cpu_gpu_var
         set --global cpu_vendor 'intel'
     end
 
-    if lspci | grep 'VGA' | grep -q 'AMD'
+    if lspci | grep '3D\|VGA' | grep -q 'AMD'
         set --global gpu_vendor 'amd'
-    else if lspci | grep 'VGA' | grep -q 'Intel'
+    else if lspci | grep '3D\|VGA' | grep -q 'Intel'
         set --global gpu_vendor 'intel'
-    else if lspci | grep 'VGA' | grep -q 'NVIDIA'
+    else if lspci | grep '3D\|VGA' | grep -q 'NVIDIA'
         set --global gpu_vendor 'nvidia'
     end
 end
@@ -314,13 +314,15 @@ function open_ssh
     #
     #   如果 ssh 未启动，则设定密码并启动 ssh.
 
+    set interface   (ip -o -4 route show to default | awk '{print $5}')
+    set ip          (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+
     if test (systemctl is-active sshd) = 'active'
         echo
         echo -e $r'ssh has started.'$h
+        echo
+        echo -e $g'$ ssh '$USER'@'$ip$h
     else
-        set interface   (ip -o -4 route show to default | awk '{print $5}')
-        set ip          (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-
         read -p --silent 'echo -e $r"enter your "$h"root passwd: "' root_pass
         echo "$USER:$root_pass" | chpasswd
         systemctl start sshd

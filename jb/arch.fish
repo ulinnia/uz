@@ -750,7 +750,6 @@ function config_copy
     sync_dir $uz_dir/pv/.config /home/$user_name
 
     sync_dir $uz_dir/pv/.config /root
-    sed -i '/^call plug#begin/,$s/^[^"]/"&/' /root/.config/nvim/init.vim
 
 end
 
@@ -800,6 +799,7 @@ function config_write
     su_user echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > /home/$user_name/.config/fish/conf.d/z.fish
 
     echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /root/.config/fish/config.fish
+    sed -i '/^call plug#begin/,$ s/^/"/' /root/.config/nvim/init.vim
 
     echo -e 'nameserver ::1\nnameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
     chattr +i /etc/resolv.conf
@@ -810,6 +810,8 @@ function config_write
         su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         su_user nvim +PlugInstall +qall
+    else
+        sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
     end
 end
 

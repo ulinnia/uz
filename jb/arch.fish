@@ -270,7 +270,9 @@ function select
     # 选择
     #
     #   参数：
-    #       argv: 输入可供选择的选项
+    #       argv[1]:        储存选择结果的变数名
+    #       list:           可供选择的选项
+    #       argv[2..-1]:    输入可供选择的选项
     #
     #   输出：
     #       使用者选择的选项
@@ -278,17 +280,18 @@ function select
     #   如果 ans 包含非数字，或小于 0， 或大于清单长度，则重新输入。
 
     set ans 0
+    set list $argv[2..-1]
 
-    for i in (seq (count $argv))
-        echo $i. $argv[$i]
+    for i in (seq (count $list))
+        echo $i. $list[$i]
     end
 
-    while echo -- $ans | grep -q '[^0-9]'; or test $ans -le 0 -o $ans -gt (count $argv)
+    while echo -- $ans | grep -q '[^0-9]'; or test $ans -le 0 -o $ans -gt (count $list)
         read -p 'echo "> "' ans
         set ans $ans[1]
     end
 
-    echo -- $argv[$ans]
+    set --global $argv[1] $list[$ans]
 end
 
 function connect_network
@@ -349,8 +352,9 @@ function disk_partition
 
     echo -e $r'automatic partition or manual partition: '$h
 
-    if test (select 'automatic' 'manual') = 'automatic'
-        set part (select_part root)
+    select ans 'automatic' 'manual'
+    if test $ans = 'automatic'
+        select_part part
 
         parted /dev/$part mklabel gpt
         if test $bios_type = 'uefi'
@@ -371,8 +375,8 @@ function disk_partition
             set --global root_part /dev/$part'2'
         end
     else
-        set --global boot_part /dev/(select_part boot)
-        set --global part_root /dev/(select_part root)
+        select_part boot_part
+        select_part root_part
     end
 
     mount_subvol
@@ -382,6 +386,9 @@ function select_part
 
     # 选择分区
     #
+    #   参数：
+    #       argv: 要宣告的变量名
+    #
     #   流程：
     #       列出现有分区
     #       选择分区
@@ -389,7 +396,7 @@ function select_part
     set list_part (lsblk -l | awk '{ print $1 }' | grep '^\(nvme\|sd.\|vd.\)')
     lsblk
     echo -e $r'select a partition as the '$h$argv$r' partition: '$h
-    echo (select $list_part)
+    select $argv $list_part
 end
 
 function mount_subvol

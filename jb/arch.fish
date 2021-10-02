@@ -513,47 +513,6 @@ function arch_chroot
     echo -e $r'please reboot.'$h
 end
 
-function swap_file
-
-    # 交换文件
-    #
-    #   变量：
-    #       swap_size: 交换文件的大小
-    #
-    #   流程：
-    #       创建空文件
-    #       禁止写时复制
-    #       禁止压缩
-    #
-    #       文件大小
-    #           跟随内存大小，最多 3 G
-    #
-    #       设定拥有者读写
-    #       格式化交换文件
-    #       启用交换文件
-    #
-    #       写入 fstab
-    #
-    #       最大限度使用物理内存
-
-    touch /swap/swapfile
-    chattr +C /swap/swapfile
-    chattr -c /swap/swapfile
-
-    set swap_size (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
-    if test $swap_size -gt 3; set i 3; end
-    fallocate -l "$swap_size"G /swap/swapfile
-
-    chmod 600 /swap/swapfile
-    mkswap /swap/swapfile
-    swapon /swap/swapfile
-
-    echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
-
-    echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
-    sysctl (cat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
-end
-
 function pacman_set
 
     # 修改 pacman 设定
@@ -882,6 +841,47 @@ function auto_start
     systemctl enable --now $start_auto
 end
 
+function swap_file
+
+    # 交换文件
+    #
+    #   变量：
+    #       swap_size: 交换文件的大小
+    #
+    #   流程：
+    #       创建空文件
+    #       禁止写时复制
+    #       禁止压缩
+    #
+    #       文件大小
+    #           跟随内存大小，最多 3 G
+    #
+    #       设定拥有者读写
+    #       格式化交换文件
+    #       启用交换文件
+    #
+    #       写入 fstab
+    #
+    #       最大限度使用物理内存
+
+    touch /swap/swapfile
+    chattr +C /swap/swapfile
+    chattr -c /swap/swapfile
+
+    set swap_size (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
+    if test $swap_size -gt 3; set i 3; end
+    fallocate -l "$swap_size"G /swap/swapfile
+
+    chmod 600 /swap/swapfile
+    mkswap /swap/swapfile
+    swapon /swap/swapfile
+
+    echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
+
+    echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
+    sysctl (cat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
+end
+
 function doc_help
 
     # 帮助文档
@@ -1040,7 +1040,6 @@ function install_process
     # arch 安装流程
 
     system_check
-    swap_file
     pacman_set
     local_set
     pkg_install
@@ -1049,6 +1048,7 @@ function install_process
     config_write
     flypy_inst
     auto_start
+    swap_file
 end
 
 function main

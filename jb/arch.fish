@@ -508,7 +508,7 @@ function arch_chroot
     chmod +x /mnt/arch.fish
 
     arch-chroot /mnt /arch.fish --install $root_pass $user_pass
-    #rm /mnt/arch.fish
+    rm /mnt/arch.fish
     #umount -R /mnt
     echo -e $r'please reboot.'$h
 end

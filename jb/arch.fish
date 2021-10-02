@@ -808,6 +808,34 @@ function config_write
     chattr +i /etc/resolv.conf
 end
 
+function virtualizer_set
+
+    # 虚拟机设置
+    #
+    #   qemu，图形界面
+    #   连接网络，UEFI 支持
+    #   加入 libvirt 组以获得权限
+    #   加入 kvm 组
+    #   启动服务
+
+    pacman_install qemu libvirt virt-manager
+
+    echo -e 'y\n\n' | sudo pacman -S --needed iptables-nft
+    pacman_install dnsmasq bridge-utils openbsd-netcat edk2-ovmf
+
+    echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */
+polkit.addRule(function(action, subject) {
+  if (action.id == "org.libvirt.unix.manage" &&
+    subject.isInGroup("kvm")) {
+      return polkit.Result.YES;
+  }
+});' | sudo tee /etc/polkit-1/rules.d/50-libvirt.rules
+
+    usermod -a -G kvm $user_name
+
+    sudo systemctl enable --now libvirtd
+end
+
 function flypy_inst
 
     # 安装小鹤音形

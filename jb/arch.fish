@@ -376,6 +376,8 @@ function disk_partition
     else
         select_part boot_part
         select_part root_part
+        set boot_part /dev/$boot_part
+        set root_part /dev/$root_part
     end
 
     mount_subvol

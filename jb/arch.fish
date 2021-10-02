@@ -102,7 +102,7 @@ function pkg_var
     set --global depend_pkg     lua perl-file-mimeinfo qrencode zsh
     set --global aur_pkg        yay
 
-    if test $not_virt
+    if $use_graphic
         graphic_pkg_var
     end
 end
@@ -182,7 +182,7 @@ function auto_start_var
     set --global mask_auto  systemd-resolved
     set --global start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
 
-    if test $not_virt
+    if $use_graphic
         set --global stop_auto  $stop_auto dhcpcd
         set --global start_auto $start_auto bluetooth NetworkManager tlp
     else
@@ -220,7 +220,7 @@ function system_check
     #   变量：
     #       USER:       当下用户名
     #       bios_type:  引导程序类型
-    #       not_virt:   不是虚拟环境
+    #       use_graphic:使用图形界面
     #       root_part:  根目录的分区
 
     if test "$USER" != 'root'
@@ -235,14 +235,14 @@ function system_check
 
     if test $action = 'install_process'
         if test (systemd-detect-virt) = 'none'
-            set --global not_virt 1
+            set --global use_graphic true
         else
-            set --global not_virt 0
+            set --global use_graphic false
         end
 
         set --global root_part (df | awk '$6=="/" {print $1}')
 
-        if test $not_virt
+        if $use_graphic
             cpu_gpu_var
         end
     end
@@ -666,7 +666,7 @@ function pkg_install
     pacman_install $system_pkg $maintain_pkg
     pacman_install $security_pkg $depend_pkg $aur_pkg
 
-    if test $not_virt
+    if $use_graphic
         pacman_install $driver_pkg $manager_pkg
         pacman_install $display_pkg $desktop_pkg
         pacman_install $browser_pkg $media_pkg
@@ -800,14 +800,17 @@ function config_write
     su_user echo 'source (lua $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > /home/$user_name/.config/fish/conf.d/z.fish
 
     echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /root/.config/fish/config.fish
-    sync_dir /home/$user_name/a/uz/img/hw.png /home/$user_name/a/vp/bv/hw.png
-
-    su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    su_user nvim +PlugInstall +qall
 
     echo -e 'nameserver ::1\nnameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
     chattr +i /etc/resolv.conf
+
+    if $use_graphic
+        sync_dir /home/$user_name/a/uz/img/hw.png /home/$user_name/a/vp/bv/hw.png
+
+        su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        su_user nvim +PlugInstall +qall
+    end
 end
 
 function virtualizer_set

@@ -673,7 +673,9 @@ function su_user
     #
     #   避免创建出的目录或文件，用户无权操作。
 
+    cd /home/$user_name
     sudo -u $user_name $argv
+    cd
 end
 
 function uz_config
@@ -851,7 +853,7 @@ function flypy_inst
     su_user rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
     rm -rf /home/$user_name/rime
 
-    fcitx5-remote -r
+    #fcitx5-remote -r
 end
 
 function auto_start

@@ -444,6 +444,7 @@ function mount_subvol
     btrfs subvolume create /mnt/var
     btrfs subvolume create /mnt/snap
     btrfs subvolume create /mnt/snap/root
+    btrfs subvolume create /mnt/snap/srv
     btrfs subvolume create /mnt/snap/home
     btrfs subvolume create /mnt/cache
     btrfs subvolume create /mnt/cache/$user_name
@@ -468,9 +469,11 @@ function mount_subvol
     mount -o subvol=var $root_part /mnt/var
     mount -o subvol=snap/root $root_part /mnt/.snapshots
 
+    mkdir /mnt/srv/.snapshots
     mkdir /mnt/home/.snapshots
     mkdir -p /mnt/home/$user_name/.cache
 
+    mount -o subvol=snap/srv $root_part /mnt/srv/.snapshots
     mount -o subvol=snap/home $root_part /mnt/home/.snapshots
     mount -o subvol=cache/$user_name $root_part /mnt/home/$user_name/.cache
 

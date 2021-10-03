@@ -367,8 +367,6 @@ function disk_partition
     #       启用启动分区
     #       创建根分区
 
-    user_var
-
     echo -e $r'automatic partition or manual partition: '$h
 
     select ans 'automatic' 'manual'
@@ -607,7 +605,6 @@ function local_set
     #       生成 grub 主配置文件
 
     system_var
-    user_var
     pkg_var
 
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
@@ -1069,6 +1066,7 @@ function live_install
 
     system_check
     connect_network
+    user_var
     disk_partition
     mount_subvol
     base_install
@@ -1081,6 +1079,7 @@ function install_process
 
     system_check
     pacman_set
+    user_var
     local_set
     pkg_install
     uz_config
@@ -1101,6 +1100,7 @@ function main
     config_copy
     config_write
     after_set
+    auto_start
 end
 
 main $argv

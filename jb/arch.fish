@@ -1095,6 +1095,7 @@ function main
     color_var
     input_parameters $argv
     system_check
+    pkg_var
     pkg_install
     user_var
     config_copy

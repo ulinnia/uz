@@ -144,7 +144,7 @@ bash -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh)"
 请先[安装 arch](jb/archv.md)
 
 ```shell
-curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh | bash
+bash -c "$(curl -fsSL https://github.com/rraayy246/uz/raw/master/jb/arch.sh)"
 ```
 
 

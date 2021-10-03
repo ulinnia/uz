@@ -767,8 +767,6 @@ function config_write
     #       DNS 指向本地
     #           禁止修改
 
-    snapper_set
-
     sed -i '/home\|root/s/bash/fish/' /etc/passwd
 
     su_user wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O /home/$user_name/.config/fish/conf.d/z.lua
@@ -785,31 +783,13 @@ function config_write
 
         su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        su_user nvim +PlugInstall +qall
 
         virtualizer_set
+        flypy_inst
     else
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
     end
-end
-
-function snapper_set
-    set snap_dir / /srv/ /home/
-
-    umount $snap_dir'.snapshots'
-    rmdir $snap_dir'.snapshots'
-
-    snapper -c root create-config /
-    snapper -c srv create-config /srv
-    snapper -c home create-config /home
-
-    btrfs subvolume delete $snap_dir'.snapshots'
-    mkdir $snap_dir'.snapshots'
-
-    mount -a
-
-    sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
 end
 
 function virtualizer_set
@@ -851,8 +831,6 @@ function flypy_inst
     su_user mkdir -p /home/$user_name/.local/share/fcitx5
     su_user rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
     rm -rf /home/$user_name/rime
-
-    #fcitx5-remote -r
 end
 
 function auto_start
@@ -868,6 +846,39 @@ function auto_start
     systemctl disable $stop_auto
     systemctl mask $mask_auto
     systemctl enable --now $start_auto
+end
+
+function after_set
+    echo -e 'nameserver ::1\nnameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
+    chattr +i /etc/resolv.conf
+
+    su_user nvim +PlugInstall +qall
+
+    if ! snapper list-configs | grep -q 'root'
+        snapper_set
+    end
+
+    if test -d /swap -a ! -e /swap/swapfile
+        swap_file
+    end
+end
+
+function snapper_set
+    set snap_dir / /srv/ /home/
+
+    umount $snap_dir'.snapshots'
+    rmdir $snap_dir'.snapshots'
+
+    snapper -c root create-config /
+    snapper -c srv create-config /srv
+    snapper -c home create-config /home
+
+    btrfs subvolume delete $snap_dir'.snapshots'
+    mkdir $snap_dir'.snapshots'
+
+    mount -a
+
+    sed -i '/PRUNENAMES/s/.git/& .snapshot/' /etc/updatedb.conf
 end
 
 function swap_file
@@ -1075,9 +1086,7 @@ function install_process
     uz_config
     config_copy
     config_write
-    flypy_inst
     auto_start
-    swap_file
 end
 
 function main
@@ -1087,9 +1096,11 @@ function main
     color_var
     input_parameters $argv
     system_check
-    init_var
     pkg_install
+    user_var
     config_copy
+    config_write
+    after_set
 end
 
 main $argv

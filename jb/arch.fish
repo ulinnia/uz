@@ -439,6 +439,7 @@ function mount_subvol
     #       efi 目录挂载
 
     mkfs.btrfs -fL arch $root_part
+    sleep 1
     mount $root_part /mnt
 
     btrfs subvolume create /mnt/@
@@ -452,7 +453,9 @@ function mount_subvol
     btrfs subvolume create /mnt/snap/home
     btrfs subvolume create /mnt/cache
     btrfs subvolume create /mnt/cache/$user_name
+
     umount /mnt
+    sleep 1
 
     mount -o autodefrag,compress=zstd,subvol=@ $root_part /mnt
 

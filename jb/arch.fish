@@ -391,6 +391,10 @@ function disk_partition
             set --global boot_part /dev/$part'1'
             set --global root_part /dev/$part'2'
         end
+
+        if test $bios_type = 'uefi'
+            mkfs.fat -F32 $boot_part
+        end
     else
         select_part boot_part
         select_part root_part

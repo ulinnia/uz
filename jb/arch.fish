@@ -431,6 +431,8 @@ function mount_subvol
     #           将 /usr/var/lib 挂载到 /var/lib
     #       efi 目录挂载
 
+    umount -fR /mnt &>/dev/null
+
     mkfs.btrfs -fL arch $root_part
     mount $root_part /mnt
 

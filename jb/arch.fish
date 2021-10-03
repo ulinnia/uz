@@ -897,7 +897,7 @@ function swap_file
     chattr -c /swap/swapfile
 
     set swap_size (math 'ceil('(free -m | sed -n '2p' | awk '{print $2}')' / 1024)')
-    if test $swap_size -gt 3; set i 3; end
+    if test $swap_size -gt 3; set swap_size 3; end
     fallocate -l "$swap_size"G /swap/swapfile
 
     chmod 600 /swap/swapfile

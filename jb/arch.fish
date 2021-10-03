@@ -111,9 +111,9 @@ function pkg_var
 
     switch $bios_type
         case uefi
-            set --global boot_pkg efibootmgr grub os-prober
+            set --global boot_pkg efibootmgr grub
         case bios
-            set --global boot_pkg grub os-prober
+            set --global boot_pkg grub
     end
 
     set --global network_pkg    curl git openssh wget wireguard-tools
@@ -636,8 +636,7 @@ function local_set
             grub-install --target=i386-pc $grub_part
     end
 
-    sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
-    echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub
+    sed -i '/GRUB_TIMEOUT=/s/5/0/' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
 end
 

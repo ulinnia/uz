@@ -781,7 +781,7 @@ function config_write
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         su_user nvim +PlugInstall +qall
 
-        virtualizer_set
+        #virtualizer_set
     else
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
@@ -831,7 +831,7 @@ polkit.addRule(function(action, subject) {
 
     usermod -a -G kvm $user_name
 
-    sudo systemctl enable --now libvirtd
+    systemctl enable --now libvirtd
 end
 
 function flypy_inst

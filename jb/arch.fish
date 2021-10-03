@@ -345,20 +345,13 @@ function open_ssh
     set interface   (ip -o -4 route show to default | awk '{print $5}')
     set ip          (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
-    if test (systemctl is-active sshd) = 'active'
-        echo
-        echo -e $r'ssh has started.'$h
-        echo
-        echo -e $g'$ ssh '$USER'@'$ip$h
-    else
-        read -p --silent 'echo -e $r"enter your "$h"root passwd: "' root_pass
-        echo "$USER:$root_pass" | chpasswd
-        systemctl start sshd
+    read -p --silent 'echo -e $r"enter your "$h"root passwd: "' root_pass
+    echo "$USER:$root_pass" | chpasswd
+    systemctl start sshd
 
-        echo
-        echo -e $g'$ ssh '$USER'@'$ip$h
-        echo -e $g"passwd = $root_pass"$h
-    end
+    echo
+    echo -e $g'$ ssh '$USER'@'$ip$h
+    echo -e $g"passwd = $root_pass"$h
 end
 
 function disk_partition

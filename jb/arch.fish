@@ -1070,7 +1070,7 @@ function install_process
     system_check
     pacman_set
     local_set
-    pkg_install
+    pkg_install &>/dev/null
     uz_config
     config_copy
     config_write

@@ -377,11 +377,11 @@ function disk_partition
         if test $bios_type = 'uefi'
             parted /dev/$part mkpart esp 1m 513m
             parted /dev/$part set 1 boot on
-            parted /dev/$part mkpart arch 513m -1m
+            parted /dev/$part mkpart arch 513m 100%
         else
             parted /dev/$part mkpart grub 1m 3m
             parted /dev/$part set 1 bios_grub on
-            parted /dev/$part mkpart arch 3m -1m
+            parted /dev/$part mkpart arch 3m 100%
         end
 
         if echo $part | grep -q 'nvme'

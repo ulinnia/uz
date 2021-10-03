@@ -67,7 +67,7 @@ function user_var
     #   如果处于 临时环境流程，则由用户手动输入，
     #   否则自动判断。
 
-    if test $action = 'live_install'
+    if test "$action" = 'live_install'
         read_format user_name $r'enter your '$h'username: '     '^[a-z][-a-z0-9]*$'
         read_format host_name $r'enter your '$h'hostname: '     '^[a-zA-Z][-a-zA-Z0-9]*$'
         read_format root_pass $r'enter your '$h'root passwd: '  '^[-_,.a-zA-Z0-9]*$'
@@ -104,7 +104,7 @@ function pkg_var
     #   如果处于 临时环境流程，则宣告 基本包 后返回
     #   如果不是虚拟机，则加载 图形软件包变量
 
-    if test $action = 'live_install'
+    if test "$action" = 'live_install'
         set --global base_pkg base base-devel linux linux-firmware btrfs-progs fish dhcpcd reflector vim
         return
     end
@@ -260,7 +260,7 @@ function system_check
         set --global bios_type 'bios'
     end
 
-    if test $action = 'install_process'
+    if test "$action" != 'live_install'
         if test (systemd-detect-virt) = 'none'
             set --global use_graphic true
         else
@@ -494,8 +494,6 @@ function base_install
     #       镜像排序
     #       安装基本软件包
 
-    pkg_var
-
     pacman -Sy --noconfirm archlinux-keyring
 
     echo 'sorting mirror...'
@@ -603,9 +601,6 @@ function local_set
     #
     #       设定 grub 超时为 1
     #       生成 grub 主配置文件
-
-    system_var
-    pkg_var
 
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
     hwclock --systohc
@@ -1028,6 +1023,8 @@ function input_parameters
     if set -q action
         $action
         exit 0
+    else
+        set --global action 'no'
     end
 end
 
@@ -1069,6 +1066,7 @@ function live_install
     user_var
     disk_partition
     mount_subvol
+    pkg_var
     base_install
     arch_chroot
 end
@@ -1079,7 +1077,9 @@ function install_process
 
     system_check
     pacman_set
+    system_var
     user_var
+    pkg_var
     local_set
     pkg_install
     uz_config

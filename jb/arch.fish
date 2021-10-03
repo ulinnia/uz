@@ -187,6 +187,7 @@ function graphic_pkg_var
     set --global media_pkg      imv vlc
     set --global input_pkg      fcitx5-im fcitx5-rime
     set --global control_pkg    brightnessctl playerctl lm_sensors upower
+    set --global virtual_pkg    qemu libvirt virt-manager dnsmasq bridge-utils openbsd-netcat edk2-ovmf
     set --global office_pkg     calibre libreoffice-fresh-zh-cn
     set --global font_pkg       noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
     set --global program_pkg    bash-language-server clang nodejs rust yarn
@@ -652,18 +653,21 @@ function pkg_install
 
     pacman -Syu --noconfirm
 
-    pacman_install $network_pkg $terminal_pkg
-    pacman_install $file_pkg $sync_pkg
-    pacman_install $search_pkg $new_search_pkg
-    pacman_install $system_pkg $maintain_pkg
-    pacman_install $security_pkg $depend_pkg $aur_pkg
+    pacman_install $network_pkg     $terminal_pkg
+    pacman_install $file_pkg        $sync_pkg
+    pacman_install $search_pkg      $new_search_pkg
+    pacman_install $system_pkg      $maintain_pkg
+    pacman_install $security_pkg    $depend_pkg $aur_pkg
+
+    echo -e 'y\n\n' | pacman -S --needed iptables-nft
 
     if $use_graphic
-        pacman_install $driver_pkg $manager_pkg
+        pacman_install $driver_pkg  $manager_pkg
         pacman_install $display_pkg $desktop_pkg
         pacman_install $browser_pkg $media_pkg
-        pacman_install $input_pkg $control_pkg
-        pacman_install $office_pkg $font_pkg $program_pkg
+        pacman_install $input_pkg   $control_pkg
+        pacman_install $virtual_pkg $office_pkg
+        pacman_install $font_pkg    $program_pkg
     end
 end
 
@@ -783,7 +787,7 @@ function config_write
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         su_user nvim +PlugInstall +qall
 
-        #virtualizer_set
+        virtualizer_set
     else
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
@@ -818,18 +822,13 @@ function virtualizer_set
     #   加入 kvm 组
     #   启动服务
 
-    pacman_install qemu libvirt virt-manager
-
-    echo -e 'y\n\n' | sudo pacman -S --needed iptables-nft
-    pacman_install dnsmasq bridge-utils openbsd-netcat edk2-ovmf
-
     echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */
 polkit.addRule(function(action, subject) {
   if (action.id == "org.libvirt.unix.manage" &&
     subject.isInGroup("kvm")) {
       return polkit.Result.YES;
   }
-});' | sudo tee /etc/polkit-1/rules.d/50-libvirt.rules
+});' | tee /etc/polkit-1/rules.d/50-libvirt.rules
 
     usermod -a -G kvm $user_name
 
@@ -1072,7 +1071,7 @@ function install_process
     system_check
     pacman_set
     local_set
-    pkg_install &>/dev/null
+    pkg_install
     uz_config
     config_copy
     config_write

@@ -841,9 +841,6 @@ function auto_start
 end
 
 function after_set
-    echo -e 'nameserver ::1\nnameserver 127.0.0.1\noptions edns0 single-request-reopen' > /etc/resolv.conf
-    chattr +i /etc/resolv.conf
-
     su_user nvim +PlugInstall +qall
 
     if ! snapper list-configs | grep -q 'root'

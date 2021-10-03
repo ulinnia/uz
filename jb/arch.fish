@@ -345,7 +345,7 @@ function open_ssh
     set interface   (ip -o -4 route show to default | awk '{print $5}')
     set ip          (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
-    read -p --silent 'echo -e $r"enter your "$h"root passwd: "' root_pass
+    read --silent -p 'echo -e $r"enter your "$h"root passwd: "' root_pass
     echo "$USER:$root_pass" | chpasswd
     systemctl start sshd
 

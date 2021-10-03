@@ -24,7 +24,7 @@ set $menu wofi --show run
 
 ### 输出配置
 # 随机壁纸
-set $wallpapers_path $HOME/a/vp/bv
+set $wallpapers_path $HOME/a/pixra/bimple
 output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 
 ### 空闲配置

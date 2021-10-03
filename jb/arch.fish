@@ -76,7 +76,7 @@ function user_var
         set --global host_name  (cat /etc/hostname)
         set --global user_name  (ls /home | head -n 1)
         set --global uz_dir     "/home/$user_name/a/uz"
-        set --global user_mkdir 'a/vp/bv' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
+        set --global user_mkdir 'a/pixra/bimple' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
     end
 end
 
@@ -775,7 +775,7 @@ function config_write
     chattr +i /etc/resolv.conf
 
     if $use_graphic
-        sync_dir /home/$user_name/a/uz/img/hw.png /home/$user_name/a/vp/bv/hw.png
+        sync_dir /home/$user_name/a/uz/img/hw.png /home/$user_name/a/pixra/bimple/hw.png
 
         su_user curl -fLo /home/$user_name/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

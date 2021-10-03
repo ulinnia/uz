@@ -41,7 +41,7 @@ function read_format
     while true
         read -p 'echo -e "$argv[2]"' ans
         if echo -- "$ans" | grep -q $argv[3]
-            read -p 'echo -e "are you sure? "' sure
+            read -p 'echo -e "$ans, are you sure? "' sure
             if test "$sure" = 'y' -o "$sure" = ''
                 break
             end

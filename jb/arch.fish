@@ -102,7 +102,7 @@ function pkg_var
     #       aur_pkg:        AUR 软件
     #
     #   如果处于 临时环境流程，则宣告 基本包 后返回
-    #   如果不是虚拟机，则加载 图形软件包变量
+    #   如果使用图形界面，则加载 图形软件包变量
 
     if test "$action" = 'live_install'
         set --global base_pkg base base-devel linux linux-firmware btrfs-progs fish dhcpcd reflector vim
@@ -155,6 +155,7 @@ function graphic_pkg_var
     #       media_pkg:      多媒体：图像查看，视频播放
     #       input_pkg:      输入法
     #       control_pkg:    桌面控制：亮度控制，播放控制，硬件监视，电源工具
+    #       virtual_pkg:    虚拟机：qemu，虚拟网络，uefi 支持
     #       office_pkg:     办公：电子书阅读，办公软件套装，帮助手册
     #       font_pkg:       字体
     #       program_pkg:    编程语言
@@ -202,18 +203,18 @@ function auto_start_var
     #       auto_start: 自启动：时间同步，DNS 加密，定时任务，防火墙，软件包缓存，软件统计，ssh
     #       stop_auto:  不启动
     #
-    #   如果不是虚拟机，则网络管理 替换掉 DHCP，同时打开两者会出问题，
-    #   并自启动：蓝牙，网络管理，电源管理
+    #   如果使用图形界面，则网络管理 替换掉 DHCP，同时打开两者会出问题，
+    #   并自启动：蓝牙，虚拟化，网络管理，电源管理
     #   否则自启动：DHCP
 
     set --global mask_auto  systemd-resolved
     set --global start_auto chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
 
     if $use_graphic
-        set --global stop_auto  $stop_auto dhcpcd
-        set --global start_auto $start_auto bluetooth NetworkManager tlp
+        set --global --append stop_auto     dhcpcd
+        set --global --append start_auto    bluetooth libvirtd NetworkManager tlp
     else
-        set --global start_auto $start_auto dhcpcd
+        set --global --append start_auto    dhcpcd
     end
 end
 
@@ -418,8 +419,8 @@ function select_part
 
     set list_part (lsblk -l | awk '{ print $1 }' | grep '^\(nvme\|sd.\|vd.\)')
     lsblk
-    echo -e $r'select a partition as the '$h$argv$r' partition: '$h
-    select $argv $list_part
+    echo -e $r'select a partition as the '$h$argv[1]$r' partition: '$h
+    select $argv[1] $list_part
 end
 
 function mount_subvol
@@ -603,7 +604,7 @@ function local_set
     #
     #       安装引导程序
     #
-    #       设定 grub 超时为 1
+    #       设定 grub 超时为 0
     #       生成 grub 主配置文件
 
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
@@ -744,11 +745,7 @@ function config_write
     # 设定写入
     #
     #   流程：
-    #       创建 snapper 配置：root，srv，home
-    #           因为 snapper 在创建配置时，不允许目录被其他子卷占用，
-    #           所以先把目录卸载，创建 snapper 配置文件，再把子卷挂载回去。
     #
-    #       防止快照被索引
     #       更改默认壳层为 fish
     #
     #       安装 zlua
@@ -756,11 +753,13 @@ function config_write
     #       终端提示符用 starship
     #       把根用户的 vim 配置文件的插件内容注释掉
     #
-    #       安装 vim-plug
-    #           插件下载
-    #
     #       DNS 指向本地
     #           禁止修改
+    #
+    #       如果使用图形界面
+    #           安装 vim-plug
+    #           虚拟机设定
+    #           输入法设定
 
     sed -i '/home\|root/s/bash/fish/' /etc/passwd
 
@@ -789,13 +788,10 @@ end
 
 function virtualizer_set
 
-    # 虚拟机设置
+    # 虚拟机设定
     #
-    #   qemu，图形界面
-    #   连接网络，UEFI 支持
     #   加入 libvirt 组以获得权限
     #   加入 kvm 组
-    #   启动服务
 
     echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */
 polkit.addRule(function(action, subject) {
@@ -806,8 +802,6 @@ polkit.addRule(function(action, subject) {
 });' | tee /etc/polkit-1/rules.d/50-libvirt.rules
 
     usermod -a -G kvm $user_name
-
-    systemctl enable --now libvirtd
 end
 
 function flypy_inst
@@ -819,8 +813,6 @@ function flypy_inst
     #
     #   解压配置包
     #   复制到配置文件目录
-    #
-    #   重新加载输入法
 
     su_user 7z x /home/$user_name/a/uz/pv/flypy.7z -o/home/$user_name
     su_user mkdir -p /home/$user_name/.local/share/fcitx5
@@ -844,6 +836,17 @@ function auto_start
 end
 
 function after_set
+
+    # 系统装完后设定
+    #
+    #   流程：
+    #       下载 nvim 插件
+    #       snapper 设定
+    #       交换文件
+    #
+    #   这些设定似乎要在系统安装完后才能设定，
+    #   如果在安装期间设定，则会失败。
+
     su_user nvim +PlugInstall +qall
 
     if ! snapper list-configs | grep -q 'root'
@@ -856,6 +859,16 @@ function after_set
 end
 
 function snapper_set
+
+    # snapper 设定
+    #
+    #   流程：
+    #       创建 snapper 配置：root，srv，home
+    #           因为 snapper 在创建配置时，不允许目录被其他子卷占用，
+    #           所以先把目录卸载，创建 snapper 配置文件，再把子卷挂载回去。
+    #
+    #       防止快照被索引
+
     set snap_dir / /srv/ /home/
 
     umount $snap_dir'.snapshots'

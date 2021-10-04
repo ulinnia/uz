@@ -56,7 +56,10 @@ exec --no-startup-id fcitx5
     bindsym $mod+Return exec $term
 
     # 启动火狐
-    bindsym $mod+Shift+f exec firefox
+    bindsym $mod+z exec firefox
+
+    # 打开虚拟机
+    bindsym $mod+x exec virt-manager
 
     # 关闭聚焦窗口
     bindsym $mod+q kill

@@ -129,6 +129,8 @@ function pkg_var
     set --global aur_pkg        yay
 
     if $use_graphic
+        set --append boot_pkg os-prober
+
         graphic_pkg_var
     end
 end
@@ -604,7 +606,7 @@ function local_set
     #
     #       安装引导程序
     #
-    #       设定 grub 超时为 0
+    #       设定 grub 超时为 1
     #       生成 grub 主配置文件
 
     ln -sf /usr/share/zoneinfo/$area /etc/localtime
@@ -637,7 +639,11 @@ function local_set
             grub-install --target=i386-pc $grub_part
     end
 
-    sed -i '/GRUB_TIMEOUT=/s/5/0/' /etc/default/grub
+    if $use_graphic
+        echo 'GRUB_DISABLE_OS_PROBER=false' > /etc/default/grub
+    end
+
+    sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
 end
 

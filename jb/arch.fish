@@ -640,7 +640,7 @@ function local_set
     end
 
     if $use_graphic
-        echo 'GRUB_DISABLE_OS_PROBER=false' > /etc/default/grub
+        echo 'GRUB_DISABLE_OS_PROBER=false' >> /etc/default/grub
     end
 
     sed -i '/GRUB_TIMEOUT=/s/5/1/' /etc/default/grub

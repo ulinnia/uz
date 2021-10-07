@@ -853,7 +853,9 @@ function after_set
     #   这些设定似乎要在系统安装完后才能设定，
     #   如果在安装期间设定，则会失败。
 
-    su_user nvim +PlugInstall +qall
+    if $use_graphic
+        su_user nvim +PlugInstall +qall
+    end
 
     if ! snapper list-configs | grep -q 'root'
         snapper_set

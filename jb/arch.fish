@@ -789,6 +789,8 @@ function config_write
     else
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
+
+        fcrontab $uz_dir/pv/cron
     end
 end
 

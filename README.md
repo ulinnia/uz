@@ -77,6 +77,7 @@
 软件。
 
 - (完美的语言) 逻辑语（Lojban）
+- (操作系统) Arch Linux
 - (文件系统) Btrfs
 - (英文字体) Ubuntu font
 - (浏览器) Firefox 火狐
@@ -102,7 +103,7 @@
 
 硬件。
 
-- (人体工学键盘) kinesis advantage 2
+- (键盘) Mistel Barocco MD770
 - (轨迹球) Kensington Pro Fit Ergo
 - (耳机) 韶音 AS800
 - (闪存盘) Lexar JumpDrive M45

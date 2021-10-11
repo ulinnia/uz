@@ -59,25 +59,37 @@ function user_var
     #   变量：
     #       user_name:  用户名称
     #       host_name:  主机名
-    #       root_pass:  根用户密码
-    #       user_pass:  用户密码
     #       uz_dir:     uz 目录存放地址
     #       user_mkdir: 用户新建目录
     #
-    #   如果处于 临时环境流程，则由用户手动输入，
-    #   否则自动判断。
+    #   如果不处于 临时环境流程，则自动设置变量。
 
-    if test "$action" = 'live_install'
-        read_format user_name $r'enter your '$h'username: '     '^[a-z][-a-z0-9]*$'
-        read_format host_name $r'enter your '$h'hostname: '     '^[a-zA-Z][-a-zA-Z0-9]*$'
-        read_format root_pass $r'enter your '$h'root passwd: '  '^[-_,.a-zA-Z0-9]*$'
-        read_format user_pass $r'enter your '$h'user passwd: '  '^[-_,.a-zA-Z0-9]*$'
-    else
+    if test "$action" != 'live_install'
         set --global host_name  (cat /etc/hostname)
         set --global user_name  (ls /home | head -n 1)
         set --global uz_dir     "/home/$user_name/a/uz"
         set --global user_mkdir 'a/pixra/bimple' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
+        set --global mirror_key 'archlinuxcn' \
+                                'blackarch'
+        set --global mirror_url 'mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' \
+                                'mirrors.tuna.tsinghua.edu.cn/blackarch/$repo/os/$arch'
     end
+end
+
+function enter_user_var
+
+    # 输入用户变量
+    #
+    #   变量：
+    #       user_name:  用户名称
+    #       host_name:  主机名
+    #       root_pass:  根用户密码
+    #       user_pass:  用户密码
+
+    read_format user_name $r'enter your '$h'username: '     '^[a-z][-a-z0-9]*$'
+    read_format host_name $r'enter your '$h'hostname: '     '^[a-zA-Z][-a-zA-Z0-9]*$'
+    read_format root_pass $r'enter your '$h'root passwd: '  '^[-_,.a-zA-Z0-9]*$'
+    read_format user_pass $r'enter your '$h'user passwd: '  '^[-_,.a-zA-Z0-9]*$'
 end
 
 function pkg_var
@@ -243,6 +255,12 @@ function cpu_gpu_var
     end
 end
 
+function set_var
+    system_var
+    user_var
+    pkg_var
+end
+
 function system_check
 
     # 系统检查
@@ -376,7 +394,7 @@ function disk_partition
     if test $ans = 'automatic'
         select_part part
 
-        parted /dev/$part mklabel gpt
+        parted /dev/$part mklabel $disk_type
         if test $bios_type = 'uefi'
             parted /dev/$part mkpart esp 1m 513m
             parted /dev/$part set 1 boot on
@@ -549,20 +567,28 @@ function pacman_set
     #   流程：
     #       开启颜色
     #
-    #       加上 archlinuxcn 源
-    #           导入 GPG key
+    #       加上额外镜像源
     #
     #       初始化密钥环
+    #       验证主密钥
+    #
+    #       导入 GPG key
     #       验证主密钥
 
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
 
-    echo -e '[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' >> /etc/pacman.conf
-    pacman -Syy --noconfirm archlinuxcn-keyring
+    for i in (count $mirror_key)
+        echo -e '['$mirror_key[$i]']\nServer = https://'$mirror_url[$i] >> /etc/pacman.conf
+    end
 
     pacman-key --init
     pacman-key --populate archlinux
-    pacman-key --populate archlinuxcn
+    pacman -Syy
+
+    for i in $mirror_key
+        pacman -S --noconfirm $i-keyring
+        pacman-key --populate $i
+    end
 end
 
 function pacman_install
@@ -1084,12 +1110,10 @@ function live_install
 
     # 临时环境流程
 
-    system_check
     connect_network
-    user_var
+    enter_user_var
     disk_partition
     mount_subvol
-    pkg_var
     base_install
     arch_chroot
 end
@@ -1098,11 +1122,7 @@ function install_process
 
     # arch 安装流程
 
-    system_check
     pacman_set
-    system_var
-    user_var
-    pkg_var
     local_set
     pkg_install
     uz_config
@@ -1116,11 +1136,10 @@ function main
     # 主程序
 
     color_var
-    input_parameters $argv
     system_check
-    pkg_var
+    set_var
+    input_parameters $argv
     pkg_install
-    user_var
     config_copy
     config_write
     after_set

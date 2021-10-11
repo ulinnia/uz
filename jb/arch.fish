@@ -578,8 +578,8 @@ function pacman_set
 
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
 
-    for i in (count $mirror_key)
-        echo -e '['$mirror_key[$i]']\nServer = https://'$mirror_url[$i] >> /etc/pacman.conf
+    for i in (seq (count $mirror_key))
+        echo -e '['$mirror_key[$i]']\nSigLevel = Optional TrustAll\nServer = https://'$mirror_url[$i] >> /etc/pacman.conf
     end
 
     pacman-key --init
@@ -590,6 +590,8 @@ function pacman_set
         pacman -S --noconfirm $i-keyring
         pacman-key --populate $i
     end
+
+    sed -i '/TrustAll/d' /etc/pacman.conf
 end
 
 function pacman_install

@@ -69,6 +69,7 @@ function user_var
         set --global user_name  (ls /home | head -n 1)
         set --global uz_dir     "/home/$user_name/a/uz"
         set --global user_mkdir 'a/pixra/bimple' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
+
         set --global mirror_key 'archlinuxcn' \
                                 'blackarch'
         set --global mirror_url 'mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' \

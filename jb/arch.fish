@@ -326,7 +326,7 @@ function select
     #   输出：
     #       使用者选择的选项
     #
-    #   如果 ans 包含非数字，或小于 0， 或大于清单长度，则重新输入。
+    #   如果 ans 包含非数字，或大于清单长度，则重新输入。
 
     set ans 0
     set list $argv[2..-1]
@@ -335,8 +335,16 @@ function select
         echo $i. $list[$i]
     end
 
-    while ! echo -- $ans | grep -q '^[1-9][0-9]*$'; or test $ans -gt (count $list)
+    while true
         read -p 'echo "> "' ans
+        if echo -- $ans | grep -q '^[1-9][0-9]*$'; and test $ans -le (count $list)
+            read -p 'echo -e "$list[$ans], are you sure? "' sure
+            if test "$sure" = 'y' -o "$sure" = ''
+                break
+            end
+        else
+            echo -e $r'wrong format.'$h
+        end
     end
 
     set --global $argv[1] $list[$ans]

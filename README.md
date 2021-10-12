@@ -103,7 +103,7 @@
 
 硬件。
 
-- (键盘) Mistel Barocco MD770 RGB BT
+- (键盘) Mistel Barocco MD770, Dactyl
 - (轨迹球) Kensington Pro Fit Ergo
 - (耳机) 韶音 AS800
 - (闪存盘) Lexar JumpDrive M45

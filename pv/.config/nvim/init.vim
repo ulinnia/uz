@@ -6,16 +6,16 @@ let mapleader = "\<space>"
 
 " 映射
 map ; :
-map <LEADER>/ :!<left>
-map Q :q<CR>
-map S :w<CR>
+map <leader>/ :!<left>
+map <leader>q :q<CR>
+map <leader>w :w<CR>
 " 占位符 <++>
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+noremap <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>c4l
 " 替换
 noremap \s :%s//g<left><left>
 " 空格变跳格
-nnoremap <LEADER>tt :%s/    /\t/g
-vnoremap <LEADER>tt :s/    /\t/g
+nnoremap <leader>tt :%s/    /\t/g
+vnoremap <leader>tt :s/    /\t/g
 " 不移动光标移动
 noremap <C-K> 5<C-y>
 noremap <C-J> 5<C-e>
@@ -42,16 +42,16 @@ noremap sj :set splitbelow<CR>:split<CR>
 noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap sl :set splitright<CR>:vsplit<CR>
 " 分屏移动
-noremap <LEADER>w <C-w>w
-noremap <LEADER>h <C-w>h
-noremap <LEADER>j <C-w>j
-noremap <LEADER>k <C-w>k
-noremap <LEADER>l <C-w>l
+noremap <leader>w <C-w>w
+noremap <leader>h <C-w>h
+noremap <leader>j <C-w>j
+noremap <leader>k <C-w>k
+noremap <leader>l <C-w>l
 " 分屏调整大小
-noremap <LEADER><up> :res +5<CR>
-noremap <LEADER><down> :res -5<CR>
-noremap <LEADER><left> :vertical resize-5<CR>
-noremap <LEADER><right> :vertical resize+5<CR>
+noremap <leader><up> :res +5<CR>
+noremap <leader><down> :res -5<CR>
+noremap <leader><left> :vertical resize-5<CR>
+noremap <leader><right> :vertical resize+5<CR>
 " 分屏排列
 noremap sg <C-w>t<C-w>K
 noremap sv <C-w>t<C-w>H
@@ -107,7 +107,7 @@ set foldenable " zM开始折叠，zR关闭折叠
 set foldmethod=indent " 设置缩进折叠
 set foldcolumn=0 " 设置折叠区域的宽度
 set foldlevel=1 " 设置折叠层数为
-noremap <silent> <LEADER>o za
+noremap <silent> <leader>o za
 " 开关折叠
 
 " 编辑
@@ -117,7 +117,7 @@ set autochdir " 自动切换当前目录为当前文件所在的目录
 " 搜索
 set history=1000 " 历史指令数
 set hlsearch " 搜索时高亮显示被找到的文本
-noremap <LEADER><CR> :nohlsearch<CR>
+noremap <leader><CR> :nohlsearch<CR>
 " 禁止高亮搜索
 set incsearch " 实时搜索
 set nowrapscan " 禁止在搜索到文件两端时重新搜索

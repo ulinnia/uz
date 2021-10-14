@@ -7,8 +7,8 @@ let mapleader = "\<space>"
 " 映射
 map ; :
 map <leader>/ :!<left>
-map <leader>q :q<CR>
-map <leader>w :w<CR>
+map Q :q<CR>
+map S :w<CR>
 " 占位符 <++>
 noremap <leader><leader> <Esc>/<++><CR>:nohlsearch<CR>c4l
 " 替换

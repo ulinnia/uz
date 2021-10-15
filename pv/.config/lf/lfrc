@@ -35,6 +35,7 @@ set scrolloff 10
 map <enter> shell
 
 # execute current file (must be executable)
+map ; read
 map x delete
 map . set hidden!
 map ad push %mkdir<space>

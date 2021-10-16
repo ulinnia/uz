@@ -130,10 +130,10 @@ function pkg_var
     end
 
     set --global network_pkg    curl git openssh wget wireguard-tools
-    set --global terminal_pkg   neovim starship
+    set --global terminal_pkg   neovim python-pynvim starship
     set --global file_pkg       lf p7zip snapper
     set --global sync_pkg       chrony rsync
-    set --global search_pkg     fzf mlocate tree highlight
+    set --global search_pkg     ctags fzf mlocate tree highlight
     set --global new_search_pkg fd ripgrep bat tldr exa
     set --global system_pkg     fcron htop man pacman-contrib pkgstats
     set --global maintain_pkg   arch-install-scripts dosfstools parted

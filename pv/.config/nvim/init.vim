@@ -34,6 +34,16 @@ noremap <leader>j <C-w>j
 noremap <leader>k <C-w>k
 noremap <leader>l <C-w>l
 
+" 命令模式移动
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
+cnoremap <c-b> <left>
+cnoremap <c-f> <right>
+cnoremap <m-b> <s-left>
+cnoremap <m-w> <s-right>
+
 " ======= 分页分屏 =======
 
 " 分页
@@ -211,6 +221,7 @@ let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-fish',
   \ 'coc-highlight',
+  \ 'coc-pyright',
   \ 'coc-rust-analyzer',
   \ 'coc-sh',
   \ 'coc-vimlsp']

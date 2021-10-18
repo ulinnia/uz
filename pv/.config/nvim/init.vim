@@ -42,7 +42,7 @@ cnoremap <c-n> <down>
 cnoremap <c-b> <left>
 cnoremap <c-f> <right>
 cnoremap <m-b> <s-left>
-cnoremap <m-w> <s-right>
+cnoremap <m-f> <s-right>
 
 " ======= 分页分屏 =======
 

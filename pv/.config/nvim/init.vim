@@ -194,7 +194,8 @@ endfunc
 call plug#begin('~/.config/nvim/plug')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'dag/vim-fish'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'

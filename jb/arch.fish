@@ -755,9 +755,9 @@ function sync_dir
     #   以免用户无权操作。
 
     if echo $argv[2] | grep -q '^/home'
-        su_user rsync -a --inplace --no-whole-file $argv
-    else
         rsync -a --inplace --no-whole-file $argv
+    else
+        rsync -rlptD --inplace --no-whole-file $argv
     end
 end
 

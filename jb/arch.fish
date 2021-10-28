@@ -69,11 +69,6 @@ function user_var
         set --global user_name  (ls /home | head -n 1)
         set --global uz_dir     "/home/$user_name/a/uz"
         set --global user_mkdir 'a/pixra/bimple' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
-
-        set --global mirror_key 'archlinuxcn' \
-                                'blackarch'
-        set --global mirror_url 'mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' \
-                                'mirrors.tuna.tsinghua.edu.cn/blackarch/$repo/os/$arch'
     end
 end
 
@@ -576,30 +571,26 @@ function pacman_set
     #   流程：
     #       开启颜色
     #
-    #       加上额外镜像源
+    #       下载 archlinuxcn 镜像列表
+    #       去掉注释
+    #       加上镜像源
     #
     #       初始化密钥环
     #       验证主密钥
     #
     #       导入 GPG key
-    #       验证主密钥
 
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
 
-    for i in (seq (count $mirror_key))
-        echo -e '['$mirror_key[$i]']\nSigLevel = Optional TrustAll\nServer = https://'$mirror_url[$i] >> /etc/pacman.conf
-    end
+    curl -fsLo /etc/pacman.d/archlinuxcn-mirrorlist https://raw.githubusercontent.com/archlinuxcn/mirrorlist-repo/master/archlinuxcn-mirrorlist
+    sed -i '/Server =/s/^#//' /etc/pacman.d/archlinuxcn-mirrorlist
+    echo -e '[archlinuxcn]\nInclude = /etc/pacman.d/archlinuxcn-mirrorlist' >> /etc/pacman.conf
 
     pacman-key --init
     pacman-key --populate archlinux
-    pacman -Syy
-
-    for i in $mirror_key
-        pacman -S --noconfirm $i-keyring
-        pacman-key --populate $i
-    end
-
-    sed -i '/TrustAll/d' /etc/pacman.conf
+    pacman-key --populate archlinuxcn
+    pacman -S --noconfirm archlinuxcn-keyring
+    pacman -Syy --noconfirm
 end
 
 function pacman_install

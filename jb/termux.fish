@@ -57,7 +57,7 @@ function 写入设定
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O $HOME/.config/fish/conf.d/z.lua
     echo 'source (lua5.4 $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > $HOME/.config/fish/conf.d/z.fish
     # 提示符
-    echo -e 'if status is-interactive\n    starship init fish | source\nend' > $HOME/.config/fish/config.fish
+    echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > $HOME/.config/fish/config.fish
 
     # 下载 Ubuntu 字体
     curl -fsLo $HOME/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf

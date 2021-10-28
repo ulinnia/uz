@@ -53,7 +53,6 @@ end
 function 写入设定
     # 设 fish 为默认 shell
     chsh -s fish
-    rm $HOME/.bash*
     # 安装 zlua
     wget -nv https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O $HOME/.config/fish/conf.d/z.lua
     echo 'source (lua5.4 $HOME/.config/fish/conf.d/z.lua --init fish | psub)' > $HOME/.config/fish/conf.d/z.fish

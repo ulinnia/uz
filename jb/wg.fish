@@ -52,7 +52,7 @@ function wg0设定
 PrivateKey = "(cat pri1)"
 Address = 10.10.10.1/32
 ListenPort = "$port"
-PostUp   = nft add rule inet filter input udp dport "$port" accept; nft add rule inet filter forward iifname wg0 accept; nft add rule inet filter forward oifname wg0 accept; nft add rule inet nat postrouting oifname "$interface" masquerade
+PostUp   = nft add rule inet nat postrouting oifname "$interface" masquerade
 PostDown = nft flush ruleset; nft -f /etc/nftables.conf
 
 [Peer]

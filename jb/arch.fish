@@ -51,19 +51,20 @@ function system_check
         set --global bios_type 'bios'
     end
 
-    if test $action != 'live_install'
-        if test (systemd-detect-virt) = 'none'
-            set --global use_graphical_interface true
-        else
-            set --global use_graphical_interface false
-        end
+end
 
-        set --global root_part  (df | awk '$6=="/" {print $1}')
-        set --global host_name  (cat /etc/hostname)
-        set --global user_name  (ls /home | head -n 1)
-        set --global uz_dir     "/home/$user_name/a/uz"
-        set --global user_mkdir 'a/pixra/bimple' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
+function set_user_var
+    if test (systemd-detect-virt) = 'none'
+        set --global use_graphical_interface true
+    else
+        set --global use_graphical_interface false
     end
+
+    set --global root_part  (df | awk '$6=="/" {print $1}')
+    set --global host_name  (cat /etc/hostname)
+    set --global user_name  (ls /home | head -n 1)
+    set --global uz_dir     "/home/$user_name/a/uz"
+    set --global user_mkdir 'a/pixra/bimple' gz xz '.config/fish/conf.d' '.config/nvim/.backup'
 end
 
 function network_connected
@@ -552,7 +553,7 @@ function set_auto_start
     systemctl mask $mask_auto_start
 end
 
-function after_set
+function installed_set
 
     #   这些设定似乎要在系统安装完后才能设定，
     #   如果在安装期间设定，则会失败。
@@ -688,6 +689,7 @@ function input_parameters
     #       删除 var_stack 变量以节省内存
     #       如果 action 变量存在则执行
 
+    set --global action 'arch_sync'
     set --global enable_option true
     set --global var_stack 'overflow'
 
@@ -714,7 +716,7 @@ function input_parameters
         $action
         exit 0
     else
-        set --global action 'no'
+        arch_sync
     end
 end
 
@@ -760,6 +762,7 @@ function install_process
 
     # arch 安装流程
 
+    set_user_var
     set_pacman
     set_localization
     install_pkg
@@ -769,15 +772,19 @@ function install_process
     set_auto_start
 end
 
+function arch_sync
+    set_user_var
+    install_pkg
+    config_copy
+    config_write
+    installed_set
+    set_auto_start
+end
+
 function main
     echo_color
     system_check
     input_parameters $argv
-    install_pkg
-    config_copy
-    config_write
-    after_set
-    set_auto_start
 end
 
 main $argv

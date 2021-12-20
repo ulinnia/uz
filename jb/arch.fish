@@ -639,7 +639,7 @@ function help_doc
     end
 end
 
-function option_parameter
+function match_option
 
     #   参数：
     #       1. 被认为是选项输入的，匹配 '^-' 的单项输入
@@ -669,10 +669,8 @@ end
 
 function input_parameters
 
-    # 输入参数
-    #
     #   参数：
-    #       argv: 所有的输入参数
+    #       1+. 所有的输入参数
     #
     #   变量：
     #       enable_option: 如果为 假，则不再匹配选项参数，后来参数皆当作普通参数
@@ -695,7 +693,7 @@ function input_parameters
 
     for input in $argv
         if echo -- $input | grep -q '^-'; and $enable_option
-            option_parameter $input
+            match_option $input
         else
             if test $var_stack[1] = 'overflow'
                 error wrong_parameter $input
@@ -722,13 +720,10 @@ end
 
 function error
 
-    # 输出错误类型
-    #
     #   参数：
-    #       argv[1]: 错误类型
-    #       argv[2]: 造成错误的输入
+    #       1. 错误类型
+    #       2. 造成错误的输入
 
-    echo
     switch $argv[1]
         case missing_parameter
             echo -e $r'missing parameter "'$h$argv[2]$r'"!'$h
@@ -775,9 +770,6 @@ function install_process
 end
 
 function main
-
-    # 主程序
-
     echo_color
     system_check
     input_parameters $argv

@@ -1,26 +1,22 @@
 #!/usr/bin/env fish
 
 function echo_color
-    set --global r '\033[1;31m'  # 红
-    set --global g '\033[1;32m'  # 绿
-    set --global y '\033[1;33m'  # 黄
-    set --global b '\033[1;36m'  # 蓝
-    set --global w '\033[1;37m'  # 白
-    set --global h '\033[0m'     # 后缀
+    set --global r '\033[1;31m' # 红
+    set --global g '\033[1;32m' # 绿
+    set --global y '\033[1;33m' # 黄
+    set --global b '\033[1;36m' # 蓝
+    set --global w '\033[1;37m' # 白
+    set --global h '\033[0m'    # 后缀
 end
 
-function read_format_only
-
-    # 只读取特定格式，且进行再确认。
-    #
-    #   参数：
-    #       1. 要宣告的变量名
-    #       2. 提示语
-    #       3. 匹配的格式
+function only_read_specific_format
+    set var_name_to_be_set $argv[1]
+    set output_hint        $argv[2]
+    set matching_format    $argv[3]
 
     while true
-        read -p 'echo -e "$argv[2]"' ans
-        if echo -- "$ans" | grep -q $argv[3]
+        read -p 'echo -e "$output_hint"' ans
+        if echo -- "$ans" | grep -q $matching_format
             read -p 'echo -e "$ans, are you sure? "' sure
             if test "$sure" = 'y' -o "$sure" = ''
                 break
@@ -30,17 +26,17 @@ function read_format_only
         end
     end
 
-    set --global $argv[1] "$ans"
+    set --global $var_name_to_be_set "$ans"
 end
 
 function enter_user_var
-    read_format_only user_name $r'enter'$h' your username: '    '^[a-z][-a-z0-9]*$'
-    read_format_only host_name $r'enter'$h' your hostname: '    '^[a-zA-Z][-a-zA-Z0-9]*$'
-    read_format_only root_pass $r'enter'$h' your root passwd: ' '^[-_,.a-zA-Z0-9]*$'
-    read_format_only user_pass $r'enter'$h' your user passwd: ' '^[-_,.a-zA-Z0-9]*$'
+    only_read_specific_format user_name $r'enter'$h' your username: '    '^[a-z][-a-z0-9]*$'
+    only_read_specific_format host_name $r'enter'$h' your hostname: '    '^[a-zA-Z][-a-zA-Z0-9]*$'
+    only_read_specific_format root_pass $r'enter'$h' your root passwd: ' '^[-_,.a-zA-Z0-9]*$'
+    only_read_specific_format user_pass $r'enter'$h' your user passwd: ' '^[-_,.a-zA-Z0-9]*$'
 end
 
-function system_check
+function system_env_check
     if test $USER != 'root'
         error not_root
     end
@@ -50,7 +46,6 @@ function system_check
     else
         set --global bios_type 'bios'
     end
-
 end
 
 function set_user_var
@@ -68,9 +63,6 @@ function set_user_var
 end
 
 function network_connected
-
-    # 如果能连上网络，则返回 0
-
     if ping -c 1 -w 1 1.1.1.1 &>/dev/null
         timedatectl set-ntp true
         echo -e $g'network connection is successful.'$h
@@ -82,24 +74,17 @@ function network_connected
 end
 
 function select
+    set var_name_to_be_set $argv[1]
+    set option_list        $argv[2..-1]
 
-    #   参数：
-    #       1. 储存选择结果的变数名
-    #       2+. 输入可供选择的选项
-    #
-    #   输出：
-    #       使用者选择的选项
-
-    set list $argv[2..-1]
-
-    for i in (seq (count $list))
-        echo $i. $list[$i]
+    for i in (seq (count $option_list))
+        echo $i. $option_list[$i]
     end
 
     while true
         read -p 'echo "> "' ans
-        if echo -- $ans | grep -q '^[1-9][0-9]*$'; and test $ans -le (count $list)
-            read -p 'echo -e "$list[$ans], are you sure? "' sure
+        if echo -- $ans | grep -q '^[1-9][0-9]*$'; and test $ans -le (count $option_list)
+            read -p 'echo -e "$option_list[$ans], are you sure? "' sure
             if test "$sure" = 'y' -o "$sure" = ''
                 break
             end
@@ -108,7 +93,7 @@ function select
         end
     end
 
-    set --global $argv[1] $list[$ans]
+    set --global $var_name_to_be_set $option_list[$ans]
 end
 
 function connect_network
@@ -123,10 +108,10 @@ function connect_network
 end
 
 function open_ssh
-    set interface   (ip -o -4 route show to default | awk '{print $5}')
-    set ip          (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+    set interface (ip -o -4 route show to default | awk '{print $5}')
+    set ip        (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
-    read_format_only root_pass $r'enter'$h' your root passwd: ' '^[-_,.a-zA-Z0-9]*$'
+    only_read_specific_format root_pass $r'enter'$h' your root passwd: ' '^[-_,.a-zA-Z0-9]*$'
     echo "$USER:$root_pass" | chpasswd
     systemctl start sshd
 
@@ -174,9 +159,7 @@ function disk_partition
 end
 
 function select_partition
-
-    #   参数：
-    #       1. 要宣告的变量名
+    set var_name_to_be_set $argv[1]
 
     set list_part (lsblk -l | awk '{ print $1 }' | grep '^\(nvme\|sd.\|vd.\)')
     lsblk
@@ -296,12 +279,11 @@ function pacman_install
 
     # 一次性安装太多软件包容易安装失败，
     # 所以就连试三次，增加安装成功的几率。
-    #
-    #   参数：
-    #       1+. 要安装的软件包列表
+
+    set install_pkg_list $argv
 
     for i in (seq 3)
-        if pacman -S --needed --noconfirm $argv
+        if pacman -S --needed --noconfirm $install_pkg_list
             break
         end
     end
@@ -362,25 +344,25 @@ function set_boot_loader
 end
 
 function install_pkg
-    set network_pkg     curl git openssh wget wireguard-tools
-    set terminal_pkg    neovim python-pynvim starship
-    set file_pkg        lf p7zip snapper
-    set sync_pkg        chrony rsync
-    set search_pkg      ctags fzf mlocate tree highlight
-    set new_search_pkg  fd ripgrep bat tldr exa
-    set system_pkg      fcron htop man pacman-contrib pkgstats
-    set maintain_pkg    arch-install-scripts dosfstools parted
-    set security_pkg    dnscrypt-proxy nftables
-    set depend_pkg      lua perl-file-mimeinfo qrencode zsh
-    set aur_pkg         yay
+    set network_pkg    curl git openssh wget wireguard-tools
+    set terminal_pkg   neovim python-pynvim starship
+    set file_pkg       lf p7zip snapper
+    set sync_pkg       chrony rsync
+    set search_pkg     ctags fzf mlocate tree highlight
+    set new_search_pkg fd ripgrep bat tldr exa
+    set system_pkg     fcron htop man pacman-contrib pkgstats
+    set maintain_pkg   arch-install-scripts dosfstools parted
+    set security_pkg   dnscrypt-proxy nftables
+    set depend_pkg     lua perl-file-mimeinfo qrencode zsh
+    set aur_pkg        yay
 
     pacman -Syu --noconfirm
 
-    pacman_install $network_pkg     $terminal_pkg
-    pacman_install $file_pkg        $sync_pkg
-    pacman_install $search_pkg      $new_search_pkg
-    pacman_install $system_pkg      $maintain_pkg
-    pacman_install $security_pkg    $depend_pkg $aur_pkg
+    pacman_install $network_pkg  $terminal_pkg
+    pacman_install $file_pkg     $sync_pkg
+    pacman_install $search_pkg   $new_search_pkg
+    pacman_install $system_pkg   $maintain_pkg
+    pacman_install $security_pkg $depend_pkg $aur_pkg
 
     # iptables-nft 不能直接装，需要进行确认
     echo -e 'y\n\n' | pacman -S --needed iptables-nft
@@ -407,22 +389,22 @@ function install_graphic_pkg
         set gpu_pkg xf86-video-nouveau
     end
 
-    set audio_pkg       alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
-    set bluetooth_pkg   bluez bluez-utils blueman
-    set touch_pkg       libinput
+    set audio_pkg     alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+    set bluetooth_pkg bluez bluez-utils blueman
+    set touch_pkg     libinput
 
-    set driver_pkg      $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
-    set manager_pkg     networkmanager tlp
-    set display_pkg     wayland sway swaybg swayidle swaylock xorg-xwayland
-    set desktop_pkg     alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
-    set browser_pkg     firefox firefox-i18n-zh-cn
-    set media_pkg       imv vlc
-    set input_pkg       fcitx5-im fcitx5-rime
-    set control_pkg     brightnessctl playerctl lm_sensors upower
-    set virtual_pkg     qemu libvirt virt-manager dnsmasq bridge-utils openbsd-netcat edk2-ovmf
-    set office_pkg      calibre libreoffice-fresh-zh-cn
-    set font_pkg        noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
-    set program_pkg     bash-language-server clang nodejs rust yarn
+    set driver_pkg    $ucode_pkg $gpu_pkg $audio_pkg $bluetooth_pkg $touch_pkg
+    set manager_pkg   networkmanager tlp
+    set display_pkg   wayland sway swaybg swayidle swaylock xorg-xwayland
+    set desktop_pkg   alacritty i3status-rust grim slurp wofi lm_sensors qt5-wayland
+    set browser_pkg   firefox firefox-i18n-zh-cn
+    set media_pkg     imv vlc
+    set input_pkg     fcitx5-im fcitx5-rime
+    set control_pkg   brightnessctl playerctl lm_sensors upower
+    set virtual_pkg   qemu libvirt virt-manager dnsmasq bridge-utils openbsd-netcat edk2-ovmf
+    set office_pkg    calibre libreoffice-fresh-zh-cn
+    set font_pkg      noto-fonts-cjk noto-fonts-emoji ttf-font-awesome ttf-ubuntu-font-family
+    set program_pkg   bash-language-server clang nodejs rust yarn
 
     pacman_install $driver_pkg  $manager_pkg
     pacman_install $display_pkg $desktop_pkg
@@ -460,15 +442,14 @@ function sync_uz_dir
 
     # 如果目标目录非用户的目录，则不复制所有者信息，
     # 以免其他程序无权限操作。
-    #
-    #   参数：
-    #       1. 源目录
-    #       2. 目标目录
 
-    if echo $argv[2] | grep -q '^/home'
-        rsync -a --inplace --no-whole-file $uz_dir/$argv
+    set src_uz_dir $argv[1]
+    set dest_dir   $argv[2]
+
+    if echo $dest_dir | grep -q '^/home'
+        rsync -a --inplace --no-whole-file $uz_dir/$src_uz_dir $dest_dir
     else
-        rsync -rlptD --inplace --no-whole-file $uz_dir/$argv
+        rsync -rlptD --inplace --no-whole-file $uz_dir/$src_uz_dir $dest_dir
     end
 end
 
@@ -541,9 +522,9 @@ function set_auto_start
     set enable_auto_start chronyd dnscrypt-proxy fcron nftables paccache.timer pkgstats.timer reflector.timer sshd
 
     if $use_graphical_interface
+        # dhcpcd 和 NetworkManager 不能同时启动
         set --append disable_auto_start dhcpcd
         set --append enable_auto_start  bluetooth libvirtd NetworkManager tlp
-        # dhcpcd 和 NetworkManager 不能同时启动
     else
         set --append enable_auto_start  dhcpcd
     end
@@ -721,23 +702,21 @@ function input_parameters
 end
 
 function error
+    set error_type  $argv[1]
+    set error_input $argv[2]
 
-    #   参数：
-    #       1. 错误类型
-    #       2. 造成错误的输入
-
-    switch $argv[1]
+    switch $error_type
         case missing_parameter
-            echo -e $r'missing parameter "'$h$argv[2]$r'"!'$h
+            echo -e $r'missing parameter "'$h$error_input$r'"!'$h
             help_doc
         case not_root
             echo -e $r'please use super user to execute this script.'$h
             echo -e $r'use command: "sudo su" and try again.'$h
         case wrong_option
-            echo -e $r'invalid option "'$h$argv[2]$r'"!'$h
+            echo -e $r'invalid option "'$h$error_input$r'"!'$h
             help_doc
         case wrong_parameter
-            echo -e $r'unexpected parameter "'$h$argv[2]$r'"!'$h
+            echo -e $r'unexpected parameter "'$h$error_input$r'"!'$h
             help_doc
         case '*'
             echo -e $r'unknown error type!'$h
@@ -783,7 +762,7 @@ end
 
 function main
     echo_color
-    system_check
+    system_env_check
     input_parameters $argv
 end
 

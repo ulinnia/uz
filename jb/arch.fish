@@ -15,9 +15,7 @@ function set_echo_color
 end
 
 function parsing_parameters
-    set parameter_list $argv
-
-    switch $parameter_list[1]
+    switch $argv[1]
         case -h --help
             help_doc
         case -i --install

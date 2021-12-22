@@ -1,12 +1,71 @@
 #!/usr/bin/env fish
 
-function echo_color
+function main
+    set_echo_color
+    parsing_parameters $argv
+end
+
+function set_echo_color
     set --global r '\033[1;31m' # 红
     set --global g '\033[1;32m' # 绿
     set --global y '\033[1;33m' # 黄
     set --global b '\033[1;36m' # 蓝
     set --global w '\033[1;37m' # 白
     set --global h '\033[0m'    # 后缀
+end
+
+function parsing_parameters
+    set parameter_list $argv
+
+    switch $parameter_list[1]
+        case -h --help
+            help_doc
+        case -i --install
+            set --global root_pass $argv[2]
+            set --global user_pass $argv[3]
+
+            basic_arch_install_proc
+        case -l --live
+            live_env_install_proc
+        case -s --ssh
+            open_ssh
+        case -w --wifi
+            connect_network
+        case '*'
+            arch_sync_proc
+    end
+end
+
+function live_env_install_proc
+    system_env_check
+    connect_network
+    enter_user_var
+    disk_partition
+    mount_subvol
+    install_basic_pkg
+    change_root_dir
+end
+
+function basic_arch_install_proc
+    system_env_check
+    set_user_var
+    set_pacman
+    set_localization
+    install_pkg
+    set_uz_repo
+    config_copy
+    config_write
+    set_auto_start
+end
+
+function arch_sync_proc
+    system_env_check
+    set_user_var
+    install_pkg
+    config_copy
+    config_write
+    installed_set
+    set_auto_start
 end
 
 function only_read_specific_format
@@ -621,149 +680,19 @@ function help_doc
     end
 end
 
-function match_option
-
-    #   参数：
-    #       1. 被认为是选项输入的，匹配 '^-' 的单项输入
-    #
-    #   变量：
-    #       action: 参数解析完后执行的命令
-    #       var_stack: 选项参数需要的额外变量
-
-    switch $argv
-        case -h --help
-            set --global action 'help_doc'
-        case -i --install
-            set --prepend var_stack 'root_pass' 'user_pass'
-            set --global action 'install_process'
-        case -l --live
-            set --global action 'live_install'
-        case -s --ssh
-            set --global action 'open_ssh'
-        case -w --wifi
-            set --global action 'connect_network'
-        case --
-            set enable_option false
-        case '*'
-            error wrong_option $argv
-    end
-end
-
-function input_parameters
-
-    #   参数：
-    #       1+. 所有的输入参数
-    #
-    #   变量：
-    #       enable_option: 如果为 假，则不再匹配选项参数，后来参数皆当作普通参数
-    #       var_stack: 对于某些选项参数，需要输入其他参数才能起作用，
-    #                  由这个 '变量堆' 来存放必要的参数名字。
-    #       input: 单个输入参数
-    #       action: 参数解析完后执行的命令，由选项参数宣告
-    #
-    #   流程：
-    #       先把所有参数分成单一的参数以进行解读
-    #       如果参数的开头为 '-'，则当作选项参数进行匹配
-    #           否则当作普通参数，以 '变量堆' 的第一个名字进行宣告，
-    #           并移除已使用的 '变量堆' 名字。
-    #       检查是否缺少必要参数
-    #       删除 var_stack 变量以节省内存
-    #       如果 action 变量存在则执行
-
-    set --global action 'arch_sync'
-    set --global enable_option true
-    set --global var_stack 'overflow'
-
-    for input in $argv
-        if echo -- $input | grep -q '^-'; and $enable_option
-            match_option $input
-        else
-            if test $var_stack[1] = 'overflow'
-                error wrong_parameter $input
-            end
-            set --global $var_stack[1] $input
-            set --erase var_stack[1]
-        end
-    end
-
-    if test $var_stack[1] != 'overflow'
-        set --erase var_stack[-1]
-        error missing_parameter $var_stack
-    end
-
-    set --erase enable_option var_stack
-
-    if set -q action
-        $action
-        exit 0
-    else
-        arch_sync
-    end
-end
-
 function error
     set error_type  $argv[1]
     set error_input $argv[2]
 
     switch $error_type
-        case missing_parameter
-            echo -e $r'missing parameter "'$h$error_input$r'"!'$h
-            help_doc
         case not_root
             echo -e $r'please use super user to execute this script.'$h
             echo -e $r'use command: "sudo su" and try again.'$h
-        case wrong_option
-            echo -e $r'invalid option "'$h$error_input$r'"!'$h
-            help_doc
-        case wrong_parameter
-            echo -e $r'unexpected parameter "'$h$error_input$r'"!'$h
-            help_doc
         case '*'
             echo -e $r'unknown error type!'$h
     end
 
     exit 1
-end
-
-function live_install
-
-    # 临时环境流程
-
-    connect_network
-    enter_user_var
-    disk_partition
-    mount_subvol
-    install_basic_pkg
-    change_root_dir
-end
-
-function install_process
-
-    # arch 安装流程
-
-    set_user_var
-    set_pacman
-    set_localization
-    install_pkg
-    set_uz_repo
-    config_copy
-    config_write
-    set_auto_start
-end
-
-function arch_sync
-    set_user_var
-    install_pkg
-    config_copy
-    config_write
-    installed_set
-    set_auto_start
-end
-
-function main
-    echo_color
-    system_env_check
-    input_parameters $argv
 end
 
 main $argv

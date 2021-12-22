@@ -550,15 +550,7 @@ function config_write
 end
 
 function set_virtualizer
-    echo '/* 允许 kvm 组中的用户管理 libvirt 的守护进程  */
-polkit.addRule(function(action, subject) {
-  if (action.id == "org.libvirt.unix.manage" &&
-    subject.isInGroup("kvm")) {
-      return polkit.Result.YES;
-  }
-});' | tee /etc/polkit-1/rules.d/50-libvirt.rules
-
-    usermod -a -G kvm $user_name
+    usermod -a -G libvirt $user_name
 end
 
 function set_flypy

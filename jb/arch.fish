@@ -550,6 +550,9 @@ function config_write
 end
 
 function set_virtualizer
+    sed -i '/#unix_sock_group = "libvirt"/s/#//' /etc/libvirt/libvirtd.conf
+    sed -i '/#unix_sock_rw_perms = "0770"/s/#//' /etc/libvirt/libvirtd.conf
+
     usermod -a -G libvirt $user_name
 end
 

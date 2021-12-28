@@ -70,6 +70,7 @@
 - BanG Dream! 少女乐团派对
 - DDLC 心跳文学部
 - 泰坦天降2
+- seven days with the ghost
 - 艾迪芬奇的记忆
 - 去月球
 - 寻找天堂

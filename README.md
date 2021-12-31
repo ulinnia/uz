@@ -78,7 +78,7 @@
 
 软件。
 
-- (完美的语言) 逻辑语（Lojban）
+- (语言) Lojban 逻辑语
 - (操作系统) Arch Linux
 - (文件系统) Btrfs
 - (英文字体) Ubuntu font
@@ -116,7 +116,6 @@
 
 - (手机) 华为 Mate 30 Pro 5G
 - (智能手环) 华为 Watch Fit
-- (战术单肩包) Maxpedition Entity 16
 - (折叠爪刀) FX-599-XTS
 
 

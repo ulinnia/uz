@@ -307,7 +307,7 @@ function change_root_dir
     mount --bind /mnt/usr/lib/pacman /mnt/var/lib/pacman
 
     # 手动写入绑定挂载
-    echo '/mnt/usr/lib/pacman /mnt/var/lib/pacman none defaults,bind 0 0' >> /mnt/etc/fstab
+    echo '/usr/lib/pacman /var/lib/pacman none defaults,bind 0 0' >> /mnt/etc/fstab
 
     rsync (status -f) /mnt/arch.fish
     chmod +x /mnt/arch.fish

@@ -322,15 +322,11 @@ end
 function set_pacman
     sed -i '/^#Color$/s/#//' /etc/pacman.conf
 
-    pacman-key --init
-    pacman-key --populate archlinux
-
     # 添加 archlinuxcn 源
     curl -fsLo /etc/pacman.d/archlinuxcn-mirrorlist https://raw.githubusercontent.com/archlinuxcn/mirrorlist-repo/master/archlinuxcn-mirrorlist
     sed -i '/Server =/s/^#//' /etc/pacman.d/archlinuxcn-mirrorlist
     echo -e '[archlinuxcn]\nInclude = /etc/pacman.d/archlinuxcn-mirrorlist' >> /etc/pacman.conf
 
-    pacman-key --populate archlinuxcn
     pacman -Syy --noconfirm archlinuxcn-keyring
 end
 

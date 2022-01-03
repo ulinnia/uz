@@ -244,6 +244,8 @@ function mount_subvol
     btrfs subvolume create /mnt/cache
     btrfs subvolume create /mnt/cache/$user_name
 
+    chattr +C /mnt/var
+
     umount -R /mnt
 
     mount -o autodefrag,compress=zstd,subvol=@ $root_part /mnt

@@ -1,33 +1,60 @@
 #! /bin/fish
 
-set wg目录 "$HOME"/.wireguard/
+function main
+    switch_to_wg_dir
 
-mkdir -p $wg目录
-cd $wg目录 || begin
-    echo 切换目录失败，程序退出
-    exit
+    echo 输入 a 安装 wg0
+    echo 输入 b 增减成员
+    echo 输入 c 查看成员配置
+    read -p 'echo "> "' ans
+    switch $ans
+        case a
+            wg0_setting
+        case b
+            member_changes
+        case c
+            member_config
+    end
 end
 
-function 成员配置文件 -a ip -a port -a i
+function switch_to_wg_dir
+    set --global wg_dir $HOME/.wireguard/
+
+    mkdir -p $wg_dir
+    cd $wg_dir || begin
+        echo 切换目录失败，程序退出
+        exit
+    end
+end
+
+function generate_member_config
+    set ip $argv[1]
+    set port $argv[2]
+    set member_number $argv[3]
+
     echo "\
 [Interface]
-PrivateKey = "(cat pri"$i")"
-Address = 10.10.10."$i"
+PrivateKey = "(cat pri"$member_number")"
+Address = 10.10.10."$member_number"
 
 [Peer]
 PublicKey = "(cat pub1)"
 Endpoint = "$ip":"$port"
 AllowedIPs = 0.0.0.0/0
-" > wg"$i".conf
+" > wg"$member_number".conf
 
 end
 
-function wg0设定
+function wg0_setting
+    set interface (ip -o -4 route show to default | awk '{print $5}')
+    set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+    set port 51820
+
     set i (sudo wg)
     if test -n "$i"
         sudo wg-quick down wg0
     end
-    rm -rf $wg目录/*
+    rm -rf $wg_dir/*
 
     # 打开流量转发
     if not sudo grep -q 'ip_forward' /etc/sysctl.d/99-sysctl.conf
@@ -41,10 +68,6 @@ function wg0设定
     # 设置密钥访问权限
     chmod 600 pri1
     chmod 600 pri2
-
-    set interface (ip -o -4 route show to default | awk '{print $5}')
-    set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-    set port 51820
 
     # 生成服务端配置文件
     echo "\
@@ -61,7 +84,7 @@ AllowedIPs = 10.10.10.2/32
 " | sudo tee /etc/wireguard/wg0.conf
 
     # 生成客户端配置文件
-    成员配置文件 $ip $port 2
+    generate_member_config $ip $port 2
 
 
     sudo wg-quick up wg0 || begin
@@ -73,19 +96,21 @@ AllowedIPs = 10.10.10.2/32
     sudo systemctl enable wg-quick@wg0
 
     echo "安装完成！"
-    成员增减
+
+    member_changes
 end
 
-function 成员增减
+function member_changes
     set interface (ip -o -4 route show to default | awk '{print $5}')
     set ip (ip -4 addr show $interface | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
     set port (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=ListenPort = )\d+')
 
     while true
-        set 成员 (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+        set member_list (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+
         echo
         echo 已存在成员：
-        echo $成员
+        echo $member_list
 
         echo 输入成员数字（存在则删除，不存在则创建）
         read -p 'echo "> "' i
@@ -99,21 +124,23 @@ function 成员增减
                 chmod 600 pri"$i"
                 sudo wg set wg0 peer (cat pub"$i") allowed-ips 10.10.10."$i"/32
                 sudo wg-quick save wg0
-                成员配置文件 $ip $port $i
+                generate_member_config $ip $port $i
             end
         else
             break
         end
     end
-    成员配置
+
+    member_config
 end
 
-function 成员配置
-    set 成员 (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+function member_config
+    set member_list (sudo cat /etc/wireguard/wg0.conf | grep -oP '(?<=\.)\d+(?=\/)')
+
     while true
         echo
         echo 已存在成员：
-        echo $成员
+        echo $member_list
 
         echo 输入成员数字（查看配置）
         read -p 'echo "> "' i
@@ -133,17 +160,5 @@ function 成员配置
     end
 end
 
-echo 输入 a 安装 wg0
-echo 输入 b 增减成员
-echo 输入 c 查看成员配置
-read -p 'echo "> "' i
-switch $i
-case a
-    wg0设定
-case b
-    成员增减
-case c
-    成员配置
-end
-
+main
 

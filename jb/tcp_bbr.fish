@@ -6,3 +6,4 @@ echo 'net.core.default_qdisc=fq' | sudo tee /etc/sysctl.d/bbr.conf
 echo 'net.ipv4.tcp_congestion_control=bbr' | sudo tee -a /etc/sysctl.d/bbr.conf
 
 echo 'please reboot.'
+

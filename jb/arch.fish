@@ -272,9 +272,9 @@ function mount_subvol
     mount -o subvol=snap/home $root_part /mnt/home/.snapshots
     mount -o subvol=cache/$user_name $root_part /mnt/home/$user_name/.cache
 
-    # 避免 /var/lib 资料遗失，将 /usr/var/lib 挂载到 /var/lib
-    mkdir -p        /mnt/usr/var/lib /mnt/var/lib
-    mount --bind    /mnt/usr/var/lib /mnt/var/lib
+    # 避免回滚时 pacman 数据库遗失
+    mkdir -p     /mnt/usr/lib/pacman /mnt/var/lib/pacman
+    mount --bind /mnt/usr/lib/pacman /mnt/var/lib/pacman
 
     if test $bios_type = 'uefi'
         mkdir /mnt/efi
@@ -298,14 +298,14 @@ function change_root_dir
     echo $host_name > /mnt/etc/hostname
     cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
 
-    # 绑定挂载无法被 genfstab 正确识别，所以先卸载 /mnt/var/lib
-    umount /mnt/var/lib
+    # 绑定挂载无法被 genfstab 正确识别，所以先卸载
+    umount /mnt/var/lib/pacman
 
     genfstab -L /mnt >> /mnt/etc/fstab
-    mount --bind /mnt/usr/var/lib /mnt/var/lib
+    mount --bind /mnt/usr/lib/pacman /mnt/var/lib/pacman
 
-    # 手动写入绑定挂载 /mnt/var/lib
-    echo '/usr/var/lib /var/lib none defaults,bind 0 0' >> /mnt/etc/fstab
+    # 手动写入绑定挂载
+    echo '/mnt/usr/lib/pacman /mnt/var/lib/pacman none defaults,bind 0 0' >> /mnt/etc/fstab
 
     rsync (status -f) /mnt/arch.fish
     chmod +x /mnt/arch.fish

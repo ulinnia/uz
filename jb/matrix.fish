@@ -1,4 +1,4 @@
-sudo pacman -S matrix-synapse postgresql python-psycopg2
+sudo pacman -S --noconfirm matrix-synapse postgresql python-psycopg2
 
 # 初始化数据库
 sudo -u postgres initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data

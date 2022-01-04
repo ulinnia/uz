@@ -160,5 +160,5 @@ function member_config
     end
 end
 
-main
+main $argv
 

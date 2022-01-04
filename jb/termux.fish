@@ -1,10 +1,29 @@
 #!/data/data/com.termux/files/usr/bin/fish
 
+function main
+    switch $argv[1]
+        case a
+            install_pkg
+        case p
+            copy_config
+            write_config
+        case u
+            set_uz_repo
+        case '*'
+            install_pkg
+            set_uz_repo
+            copy_config
+            write_config
+            termux-reload-settings
+            echo '完成！请重启 Termux。'
+    end
+end
+
 # 连接内部存储。
 termux-setup-storage
 
 # 更换源
-function 软件包管理器
+function change_source
     sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
 
     sed -i 's@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@' $PREFIX/etc/apt/sources.list.d/game.list
@@ -15,14 +34,14 @@ function 软件包管理器
 end
 
 # 安装软件
-function 软件安装
+function install_pkg
     pkg install -y curl fish git lua54 man neovim openssh rsync starship tree wget zsh
 end
 
 # uz 设定
-function uz目录
+function set_uz_repo
     # 克隆 uz 仓库
-    git clone https://github.com/rraayy246/uz $HOME/storage/shared/a/uz --depth 1
+    git clone --depth 1 https://github.com/rraayy246/uz $HOME/storage/shared/a/uz
     # 链接 uz
     ln -s $HOME/storage/shared/a/uz $HOME
     cd $HOME/uz
@@ -36,21 +55,20 @@ function uz目录
 end
 
 # 复制设定
-function 复制设定
+function copy_config
+    set uz_dir $HOME/storage/shared/a/uz
+
     # 创建文件夹
     mkdir -p $HOME/.config/{fish/conf.d,nvim/.backup}
-    mkdir $HOME/storage/shared/a
-    # 缩写
-    set 配置文件 $HOME/storage/shared/a/uz/pv
     # fish 设置环境变量
-    fish $配置文件/hjbl.fish
+    fish $uz_dir/pv/hjbl.fish
     # 链接配置文件
-    rsync -a $配置文件/.config $HOME
+    rsync -a $uz_dir/pv/.config $HOME
     sed -i '/^call plug#begin/,$s/^[^"]/"&/' $HOME/.config/nvim/init.vim
 end
 
 # 写入设定
-function 写入设定
+function write_config
     # 设 fish 为默认 shell
     chsh -s fish
     # 安装 zlua
@@ -63,23 +81,5 @@ function 写入设定
     curl -fsLo $HOME/.termux/font.ttf --create-dirs https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf
 end
 
-
-# ======= 主程序 =======
-
-switch $argv[1]
-case a
-    软件安装
-case p
-    复制设定
-    写入设定
-case u
-    uz目录
-case '*'
-    软件安装
-    uz目录
-    复制设定
-    写入设定
-    termux-reload-settings
-    echo "完成！请重启 Termux。"
-end
+main $argv
 

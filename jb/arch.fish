@@ -482,7 +482,7 @@ function set_uz_repo
 
     # uz 是存放我所有设定的仓库
 
-    do_as_user git clone https://github.com/rraayy246/uz $uz_dir --depth 1
+    do_as_user git clone --depth 1 https://github.com/rraayy246/uz $uz_dir
     ln -sf $uz_dir /home/$user_name
 
     cd $uz_dir

@@ -1,5 +1,11 @@
 sudo pacman -S --noconfirm matrix-synapse postgresql python-psycopg2
 
+# 不升级数据库
+sudo sed -i '/#IgnorePkg/s/#//' /etc/pacman.conf
+if not grep -q 'postgresql' /etc/pacman.conf
+    sudo sed -i '/IgnorePkg   =/s/IgnorePkg   =/& postgresql postgresql-libs/' /etc/pacman.conf
+end
+
 # 初始化数据库
 sudo -u postgres initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data
 sudo systemctl enable --now postgresql

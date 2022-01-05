@@ -57,9 +57,9 @@ function wg0_setting
     rm -rf $wg_dir/*
 
     # 打开流量转发
-    if not sudo grep -q 'ip_forward' /etc/sysctl.d/99-sysctl.conf
-        echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-sysctl.conf
-        sudo sysctl (bat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
+    if not test -e /etc/sysctl.d/ip_forward.conf
+        echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/ip_forward.conf
+        sudo sysctl (bat /etc/sysctl.d/ip_forward.conf | sed 's/ //g')
     end
 
     # 生成密钥，分别用作服务器和客户端使用

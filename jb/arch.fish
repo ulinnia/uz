@@ -644,8 +644,8 @@ function set_swap
     echo '/swap/swapfile none swap defaults 0 0' >> /etc/fstab
 
     # 最大限度使用物理内存
-    echo 'vm.swappiness = 0' >> /etc/sysctl.d/99-sysctl.conf
-    sysctl (cat /etc/sysctl.d/99-sysctl.conf | sed 's/ //g')
+    echo 'vm.swappiness = 0' > /etc/sysctl.d/swappiness.conf
+    sysctl (cat /etc/sysctl.d/swappiness.conf | sed 's/ //g')
 end
 
 function help_doc

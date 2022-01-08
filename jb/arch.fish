@@ -554,14 +554,11 @@ function set_virtualizer
     usermod -a -G libvirt $user_name
 end
 
-function set_flypy
+function set_xkinput
 
-    # 设定小鹤音形
-    #
-    #   原网址：http://flypy.ys168.com/
-    #   原名称：小鹤音形挂接第三方 小鹤音形Rime平台鼠须管for macOS.zip
+    # 设定星空输入法
 
-    do_as_user 7z x /home/$user_name/a/uz/pv/flypy.7z -o/home/$user_name
+    do_as_user 7z x /home/$user_name/a/uz/pv/xkinput.7z -o/home/$user_name
     do_as_user mkdir -p /home/$user_name/.local/share/fcitx5
     do_as_user rsync -a --delete --inplace --no-whole-file /home/$user_name/rime /home/$user_name/.local/share/fcitx5
     rm -rf /home/$user_name/rime

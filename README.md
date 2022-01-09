@@ -85,7 +85,7 @@
 - (浏览器) Firefox 火狐
 - (影音播放器) VLC
 - (数据压缩) 7-Zip
-- (输入法) 小鹤音形
+- (输入法) 星空键道
 - (安卓文件管理) MiXplorer
 - (安卓音乐播放器) Vinyl Music Player
 - (安卓终端) Termux

@@ -538,7 +538,7 @@ function config_write
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
         set_virtualizer
-        set_flypy
+        set_input_method
     else
         echo -e 'if status is-interactive\n\tstarship init fish | source\nend' > /home/$user_name/.config/fish/config.fish
         sed -i '/^call plug#begin/,$ s/^/"/' /home/$user_name/.config/nvim/init.vim
@@ -554,7 +554,7 @@ function set_virtualizer
     usermod -a -G libvirt $user_name
 end
 
-function set_xkinput
+function set_input_method
 
     # 设定星空输入法
 

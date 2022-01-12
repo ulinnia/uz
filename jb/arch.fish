@@ -271,12 +271,12 @@ function mount_subvol
     mkdir /mnt/srv/.snapshots
     mkdir /mnt/home/.snapshots
     mkdir -p /mnt/home/$user_name/.cache
-    mkdir -p /mnt/home/$user_name/download
+    mkdir -p /mnt/home/$user_name/xz
 
     mount -o subvol=snapshot/srv $root_part /mnt/srv/.snapshots
     mount -o subvol=snapshot/home $root_part /mnt/home/.snapshots
     mount -o subvol=u_cache/$user_name $root_part /mnt/home/$user_name/.cache
-    mount -o subvol=u_download/$user_name $root_part /mnt/home/$user_name/download
+    mount -o subvol=u_download/$user_name $root_part /mnt/home/$user_name/xz
 
     # 避免回滚时 pacman 数据库和软件不同步
     mkdir -p     /mnt/usr/lib/pacman /mnt/var/lib/pacman

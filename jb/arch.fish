@@ -237,10 +237,10 @@ function mount_subvol
     btrfs subvolume create /mnt/swap
     btrfs subvolume create /mnt/tmp
     btrfs subvolume create /mnt/var
-    btrfs subvolume create /mnt/snap
-    btrfs subvolume create /mnt/snap/root
-    btrfs subvolume create /mnt/snap/srv
-    btrfs subvolume create /mnt/snap/home
+    btrfs subvolume create /mnt/snapshot
+    btrfs subvolume create /mnt/snapshot/root
+    btrfs subvolume create /mnt/snapshot/srv
+    btrfs subvolume create /mnt/snapshot/home
     btrfs subvolume create /mnt/cache
     btrfs subvolume create /mnt/cache/$user_name
 
@@ -264,17 +264,17 @@ function mount_subvol
     mount -o subvol=swap $root_part /mnt/swap
     mount -o subvol=tmp $root_part /mnt/tmp
     mount -o subvol=var $root_part /mnt/var
-    mount -o subvol=snap/root $root_part /mnt/.snapshots
+    mount -o subvol=snapshot/root $root_part /mnt/.snapshots
 
     mkdir /mnt/srv/.snapshots
     mkdir /mnt/home/.snapshots
     mkdir -p /mnt/home/$user_name/.cache
 
-    mount -o subvol=snap/srv $root_part /mnt/srv/.snapshots
-    mount -o subvol=snap/home $root_part /mnt/home/.snapshots
+    mount -o subvol=snapshot/srv $root_part /mnt/srv/.snapshots
+    mount -o subvol=snapshot/home $root_part /mnt/home/.snapshots
     mount -o subvol=cache/$user_name $root_part /mnt/home/$user_name/.cache
 
-    # 避免回滚时 pacman 数据库遗失
+    # 避免回滚时 pacman 数据库和软件不同步
     mkdir -p     /mnt/usr/lib/pacman /mnt/var/lib/pacman
     mount --bind /mnt/usr/lib/pacman /mnt/var/lib/pacman
 

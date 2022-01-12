@@ -361,7 +361,7 @@ function set_localization
 
     echo "root:$root_pass" | chpasswd
 
-    useradd -g wheel $user_name
+    useradd -G wheel $user_name
     echo "$user_name:$user_pass" | chpasswd
     sed -i '/# %wheel ALL=(ALL) NOPASSWD: ALL/s/# //' /etc/sudoers
     chown -R $user_name: /home/$user_name

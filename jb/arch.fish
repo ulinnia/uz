@@ -364,7 +364,7 @@ function set_localization
     useradd -g wheel $user_name
     echo "$user_name:$user_pass" | chpasswd
     sed -i '/# %wheel ALL=(ALL) NOPASSWD: ALL/s/# //' /etc/sudoers
-    chown -R $user_name:wheel /home/$user_name
+    chown -R $user_name: /home/$user_name
 
     set_boot_loader
 end

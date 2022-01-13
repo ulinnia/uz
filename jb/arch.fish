@@ -241,10 +241,10 @@ function mount_subvol
     btrfs subvolume create /mnt/snapshot/root
     btrfs subvolume create /mnt/snapshot/srv
     btrfs subvolume create /mnt/snapshot/home
-    btrfs subvolume create /mnt/u_cache
-    btrfs subvolume create /mnt/u_cache/$user_name
-    btrfs subvolume create /mnt/u_download
-    btrfs subvolume create /mnt/u_download/$user_name
+    btrfs subvolume create /mnt/user_cache
+    btrfs subvolume create /mnt/user_cache/$user_name
+    btrfs subvolume create /mnt/user_download
+    btrfs subvolume create /mnt/user_download/$user_name
 
     chattr +C /mnt/var
 
@@ -275,8 +275,8 @@ function mount_subvol
 
     mount -o subvol=snapshot/srv $root_part /mnt/srv/.snapshots
     mount -o subvol=snapshot/home $root_part /mnt/home/.snapshots
-    mount -o subvol=u_cache/$user_name $root_part /mnt/home/$user_name/.cache
-    mount -o subvol=u_download/$user_name $root_part /mnt/home/$user_name/xz
+    mount -o subvol=user_cache/$user_name $root_part /mnt/home/$user_name/.cache
+    mount -o subvol=user_download/$user_name $root_part /mnt/home/$user_name/xz
 
     # 避免回滚时 pacman 数据库和软件不同步
     mkdir -p     /mnt/usr/lib/pacman /mnt/var/lib/pacman
